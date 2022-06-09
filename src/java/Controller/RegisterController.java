@@ -73,10 +73,6 @@ public class RegisterController extends HttpServlet {
                 u.setPhoneNumber(request.getParameter("phoneNumber"));
                 u.setPassword(request.getParameter("password"));
 
-                ud.createUser(u);
-                System.out.println(request.getParameter("email"));
-                System.out.println(request.getParameter("password"));
-
                 try {
                     String gmailFrom = "swp391.e2.g5@gmail.com";
                     String password = "LinhLVT2509";
@@ -89,6 +85,12 @@ public class RegisterController extends HttpServlet {
                 } catch (MessagingException ex) {
                     Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                ud.createUser(u);
+                System.out.println(request.getParameter("email"));
+                System.out.println(request.getParameter("password"));
+
+                
             } catch (ParseException ex) {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
