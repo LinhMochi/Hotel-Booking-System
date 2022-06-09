@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import SMTP.GmailAPI;
+import java.sql.Date;
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,63 +39,43 @@ public class RegisterController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO ud = new UserDAO();
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         GmailAPI gmail = new GmailAPI();
-        if (!request.getParameter("password").equals(request.getParameter("repassword"))) {
-            request.setAttribute("invalid", "Repassword is not equal to password!");
-            //request.setAttribute("email", request.getParameter("email"));
-            //request.setAttribute("username", request.getParameter("username"));
-            //request.setAttribute("password", request.getParameter("password"));
-            //request.setAttribute("repassword", request.getParameter("repassword"));
-            request.getRequestDispatcher("register").forward(request, response);
-        } else if (!request.getParameter("phoneNumber").matches("(09|01[2|6|8|9])+([0-9]{8})")) {
-            request.setAttribute("invalid", "Phone number is invalid!");
+        UserDAO ud = new UserDAO();
+        User u = new User();
+        int check = 0;
+        u.setEmail(request.getParameter("email"));
+        u.setPassword(request.getParameter("password"));
+        u.setFullName(request.getParameter("fullName"));
+        u.setDob(Date.valueOf(request.getParameter("dob")));
+        u.setAddress((request.getParameter("address")+","+request.getParameter("city")).trim());
+        u.setPhoneNumber(request.getParameter("phone"));
+        u.setAvatar(request.getParameter("url-image"));
+        u.setGender(Integer.parseInt(request.getParameter("gender")));
+        u.setRole("Customer");
+        u.setStatus("Active");
+        check = ud.create_User(u);
+        if(check==0){
+            request.setAttribute("message", "Tạo tài khoản thành công");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+//            try {
+//                    String gmailFrom = "swp391.e2.g5@gmail.com";
+//                    String password = "LinhLVT2509";
+//                    String [] name = request.getParameter("fullName").split("\\s+");
+//                    String mailTo = request.getParameter("email");
+//                    String subject = "Welcome";
+//                    String message = "Xin chào " + name[name.length-1] + ", Bạn đã tạo tài khoản thành công tại Hbooker!";
+//                    //send mail
+//                    gmail.send(mailTo, subject, message, gmailFrom, password);
+//                } 
+//            catch (MessagingException ex) {
+//                    Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+        } else{
+            request.setAttribute("message", "Email đã tồn tại! Đăng ký không thành công");
             request.getRequestDispatcher("register.jsp").forward(request, response);
-        } else if (!ud.checkEmail(request.getParameter("email"))) {
-            request.setAttribute("invalid", "This email has already existed!");
-            //request.setAttribute("email", request.getParameter("email"));
-            //request.setAttribute("username", request.getParameter("username"));
-            // request.setAttribute("password", request.getParameter("password"));
-            //request.setAttribute("repassword", request.getParameter("repassword"));
-            request.getRequestDispatcher("register").forward(request, response);
-        } else {
-            try {
-                User u = new User();
-                u.setFullName(request.getParameter("fullName"));
-                u.setGender(Integer.parseInt(request.getParameter("gender")));
-                String dobString = request.getParameter("dob");
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                java.util.Date dob = sdf.parse(dobString);
-                java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
-                u.setDob(sqlDob);
-                u.setEmail(request.getParameter("email"));
-                u.setAddress(request.getParameter("address"));
-                u.setAvatar(request.getParameter("avatar"));
-                u.setPhoneNumber(request.getParameter("phoneNumber"));
-                u.setPassword(request.getParameter("password"));
-
-                ud.createUser(u);
-                System.out.println(request.getParameter("email"));
-                System.out.println(request.getParameter("password"));
-
-                try {
-                    String gmailFrom = "swp391.e2.g5@gmail.com";
-                    String password = "LinhLVT2509";
-                    String mailTo = request.getParameter("email");
-                    String subject = "Welcome";
-                    String message = "Hello " + request.getParameter("email") + ", you have successfully registered!";
-
-                    //send mail
-                    gmail.send(mailTo, subject, message, gmailFrom, password);
-                } catch (MessagingException ex) {
-                    Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (ParseException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
         }
-        request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
