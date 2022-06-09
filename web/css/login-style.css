@@ -1,0 +1,225 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 01-Jun-2022, 23:34:39
+    Author     : Admin
+*/
+
+
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	line-height: 1.5rem;
+}
+body{
+	width: 100vw;
+	height: 100vh;
+	background-image: url("../images/banner2.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-box{
+	padding: 30px 10px;
+	border-radius: 5px;
+	font-family:cursive;
+	background: rgba(0, 0, 0, 0.7);
+}
+
+h2{
+	text-align: center;
+	color: #fff;
+	font-size: 54px;
+	padding: 20px 0;
+	margin-bottom:10px ;
+}
+
+.login-box form{
+	color: #fff;
+	font-size: 16px;
+	padding: 5px 30px;
+}
+.login-box form .box{
+	position: relative;
+	width: 250px;
+	margin: 5px 0;
+	color: #fff;
+}
+
+.login-box form .box input{
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-size: 18px;
+	background: transparent;
+	border-bottom: 1px solid #d2f8aa;
+	padding: 0 10px 5px 10px;
+	margin-top: 30px;
+	transition: linear 0.5s ease-in-out;
+}
+
+
+.login-box form .box input:focus{
+	border-bottom: 1px solid rgb(125, 13, 162)
+}
+
+.login-box form .box label{
+	position: absolute;
+	top: 27px;
+	left: 0;
+	transition: 0.5s ease-in-out;
+}
+
+.login-box form .box input:focus~label,
+.login-box form .box input:valid~label{
+	top: 0;
+	left: 0;
+	color: #d2f8aa;
+}
+
+.box .eye,.box .eye-slash{
+	position: absolute;
+	right: 0;
+	top: 27px;
+}
+
+.eye-slash .slash{
+	position: absolute;
+	right: 5px;
+}
+
+.check-box{
+    margin: 20px 0;
+    display: none;
+}
+.check-box input#remember{
+    width: 16px;
+    height: 16px;
+    margin-right: 20px;
+}
+
+.link-box{
+	margin: 20px 0 0 0;
+}
+
+a{	
+	font-size: 16px;
+	text-decoration: none;
+	color: #ccfbc7;
+}
+
+.login-box form button{
+	cursor: pointer;
+	background: rgba(255, 255, 255, 0.5);
+	width: 100%;
+	margin-top: 10px;
+	border: 1px solid #9ba39a;
+	transition: 0.5s;
+	border-radius: 5px;
+}
+.login-box form button:hover{
+	background: transparent;
+	color: #fff;
+	outline: none;
+}
+a:hover{
+	color: rgba(255, 165, 0, 0.7);
+}
+
+/*			error box 			*/
+
+.error-box{
+	position: absolute;
+	background: white;
+	right: 250px;
+	top: 25px;
+
+}
+
+@keyframes error-display{
+	0%{	
+		width: 100%;
+	}
+	100%{
+		width: 0%;
+	}
+}
+@keyframes auto-hidden{
+	
+	0%{
+		opacity: 1.0
+	}
+	100%{
+		opacity: 1.0;
+	}
+}
+
+
+.error-message{
+	color: #fff;
+	width: 200px;
+	padding: 20px 10px;
+	background: rgba(255, 128, 128, 0.5);
+	display: flex;
+	position: absolute;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	align-content: center;
+	border-radius: 5px;
+	opacity: 0;
+}
+.error-message::before{
+	content: '';
+	background: red;
+	position: absolute;
+	width: 100%;
+	height: 5px;
+	bottom: 0;
+	left: 0;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.error-message.active{
+	animation: auto-hidden 5s;
+}
+
+.error-message.active::before{
+	animation: error-display 5s;
+	animation-delay: 0.4s;
+}
+
+.close-error-message{
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	background: gray;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: linear 0.5s ease;
+}
+.close-error-message:hover{
+	background: #fff;
+	color: #f00;
+}
+.hidden{
+	display: none;
+}
+
+
+
+
+
+
+

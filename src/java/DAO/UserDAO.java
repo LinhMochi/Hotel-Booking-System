@@ -24,7 +24,7 @@ public class UserDAO {
 
     public User checkLogin(String email, String password) {
         try {
-            String sql = "SELECT email, password FROM Users where email =? and password =?";
+            String sql = "SELECT * FROM Users where email =? and password =?";// select * de lay het data 
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, email);
@@ -154,6 +154,42 @@ public class UserDAO {
             System.out.println("This email has already existed!");
         }
     }
+    
+    public int create_User(User user) {
+        if(!checkEmail(user.getEmail())) return 1;
+        else {
+            try {
+                String sql = "INSERT INTO Users (fullName, gender, dob, email, address, avatar, phoneNumber, password, role, status)\n"
+                        + " VALUES ("
+                        + "?,"
+                        + "?,"
+                        + "?,"
+                        + "?,"
+                        + "?,"
+                        + "?,"
+                        + "?,"
+                        + "?,"
+                        + "?,"
+                        + "?);";
+                conn = new DBcontext().getConnection();
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, user.getFullName());
+                ps.setInt(2, user.getGender());
+                ps.setDate(3, user.getDob());
+                ps.setString(4, user.getEmail());
+                ps.setString(5, user.getAddress());
+                ps.setString(6, user.getAvatar());
+                ps.setString(7, user.getPhoneNumber());
+                ps.setString(8, user.getPassword());
+                ps.setString(9, "Customer");
+                ps.setString(10, "Active");
+                ps.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
 
     public void updateUserPassword(String email, String newpass) {
         String query = "Update Users set password = ? where email = ? ";
@@ -162,6 +198,32 @@ public class UserDAO {
             ps = conn.prepareStatement(query);
             ps.setString(1, newpass);
             ps.setString(2, email);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateUserStatus(int id,  String status) {
+        String query = "Update Users set status = ? where id = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, status);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateUserRole(int id, String role) {
+        String query = "Update Users set role = ? where email = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, role);
+            ps.setInt(2, id);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

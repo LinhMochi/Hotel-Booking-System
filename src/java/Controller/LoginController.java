@@ -41,36 +41,34 @@ public class LoginController extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String login = request.getParameter("login");
-
-            if (email == null && password == null) {
-                response.sendRedirect("Login.jsp");
+            if(new UserDAO().checkEmail(email)){
+                request.setAttribute("message", "Email không tồn tại");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
+            User u = new UserDAO().checkLogin(email, password);
+            if (u == null) {
+                request.setAttribute("message", "Email hoặc mật khẩu sai");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
             } else {
-                User u = new UserDAO().checkLogin(email, password);
-                if (u == null) {
-                    request.setAttribute("message", "Email or password is wrong");
+                User sar = new UserDAO().checkStatusAndRole(email);
+                if (sar.getStatus().equals("Banned")) {
+                    request.setAttribute("message", "You have Banned");
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
-
-                } else {
-                    User sar = new UserDAO().checkStatusAndRole(email);
-                    if (sar.getStatus().equals("Banned")) {
-                        request.setAttribute("message", "You have Banned");
-                        request.getRequestDispatcher("Login.jsp").forward(request, response);
-                    } else if (sar.getRole().equals("Admin")) {
-                        session.setAttribute("email", email);
-                        session.setAttribute("password", password);
-                        response.sendRedirect("homeAdmin.jsp");
-                    } else if (sar.getRole().equals("Manager")) {
-                        session.setAttribute("email", email);
-                        session.setAttribute("password", password);
-                        response.sendRedirect("homeManager.jsp");
-                    } else if (sar.getRole().equals("Customer")) {
-                        session.setAttribute("email", email);
-                        session.setAttribute("password", password);
-                        response.sendRedirect("homeCustomer.jsp");
-                    }
-
+                } else if (sar.getRole().equals("Admin")) {
+                    session.setAttribute("email", email);
+                    session.setAttribute("password", password);
+                    response.sendRedirect("homeAdmin.jsp");
+                } else if (sar.getRole().equals("Manager")) {
+                    session.setAttribute("email", email);
+                    session.setAttribute("password", password);
+                    response.sendRedirect("homeManager.jsp");
+                } else if (sar.getRole().equals("Customer")) {
+                    session.setAttribute("email", email);
+                    session.setAttribute("password", password);
+                    response.sendRedirect("homeCustomer.jsp");
                 }
             }
+            
 
         }
     }
