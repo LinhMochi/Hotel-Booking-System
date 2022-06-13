@@ -68,9 +68,9 @@ public class ForgotPasswordController extends HttpServlet {
                         if(mailTo.equals(null)) mailTo = (String)request.getSession().getAttribute("email");
                         if(!ud.checkEmail(mailTo)){// checkEmail return true if email doesn't exist
                             try {
-                                String gmailFrom = "hieuhthe151387@fpt.edu.vn";
+                                String gmailFrom = "swp391.e2.g5@gmail.com";
 //                                        "swp391.e2.g5@gmail.com";
-                                String password = "konoha013";
+                                String password = "LinhLVT2509";
 //                                        "LinhLVT2509";
                                 String subject = "Mã OTP";
                                 String otp = new GenerateRandom().getOtp();
