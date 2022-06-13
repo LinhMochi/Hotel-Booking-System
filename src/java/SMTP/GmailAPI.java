@@ -37,7 +37,7 @@ public class GmailAPI {
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
         message.setSubject(subject);
         String htmlContent = "<h1>" + msg + "</h1>";
-        message.setContent(htmlContent, "text/html");
+        message.setContent(htmlContent, "text/html; charset=utf-8");
         Transport.send(message);
         System.out.println("Ban da gui mail thanh cong!");
     }
