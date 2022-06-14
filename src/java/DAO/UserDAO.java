@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -47,7 +48,7 @@ public class UserDAO {
 
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
         return null;
@@ -68,7 +69,7 @@ public class UserDAO {
 
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
         return user;
@@ -96,7 +97,7 @@ public class UserDAO {
                 u.setStatus(rs.getString("status"));
                 ar.add(u);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return ar;
     }
@@ -149,17 +150,18 @@ public class UserDAO {
                 ps.setString(9, "Customer");
                 ps.setString(10, "Active");
                 ps.executeUpdate();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
             }
         } else {
             System.out.println("This email has already existed!");
         }
     }
-    
+
     public int create_User(User user) {
-        if(!checkEmail(user.getEmail())) return 1;
-        else {
+        if (!checkEmail(user.getEmail())) {
+            return 1;
+        } else {
             try {
                 String sql = "INSERT INTO Users (fullName, gender, dob, email, address, avatar, phoneNumber, password, role, status)\n"
                         + " VALUES ("
@@ -186,13 +188,13 @@ public class UserDAO {
                 ps.setString(9, "Customer");
                 ps.setString(10, "Active");
                 ps.executeUpdate();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
             }
         }
         return 0;
     }
-    
+
     public User getUserInfoById(int id) throws SQLException, IOException {
         String sql = "SELECT * FROM Users where id = ? ";
         try {
@@ -219,7 +221,25 @@ public class UserDAO {
         }
         return null;
     }
-    
+
+    public List<User> getUserFullNameAndId() throws SQLException, IOException {
+        List<User> list = new ArrayList<>();
+        String sql = "select id, fullName from Users";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullName(rs.getString("fullName"));
+                list.add(u);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
     public int countUser() {
         int count = 0;
         String sql = "select count(*) from Users";
@@ -230,7 +250,8 @@ public class UserDAO {
             while (rs.next()) {
                 count = rs.getInt(1);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return count;
     }
@@ -243,12 +264,12 @@ public class UserDAO {
             ps.setString(1, newpass);
             ps.setString(2, email);
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
-    public void updateUserStatus(int id,  String status) {
+
+    public void updateUserStatus(int id, String status) {
         String query = "Update Users set status = ? where id = ? ";
         try {
             conn = new DBcontext().getConnection();
@@ -256,11 +277,11 @@ public class UserDAO {
             ps.setString(1, status);
             ps.setInt(2, id);
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
     public void updateUserRole(int id, String role) {
         String query = "Update Users set role = ? where email = ? ";
         try {
@@ -269,7 +290,7 @@ public class UserDAO {
             ps.setString(1, role);
             ps.setInt(2, id);
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
