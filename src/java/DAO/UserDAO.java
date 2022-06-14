@@ -7,9 +7,11 @@ package DAO;
 
 import DBcontext.DBcontext;
 import Model.User;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -189,6 +191,33 @@ public class UserDAO {
             }
         }
         return 0;
+    }
+    
+    public User getUserInfoById(int id) throws SQLException, IOException {
+        String sql = "SELECT * FROM Users where id = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullName(rs.getString("fullName"));
+                u.setGender(rs.getInt("gender"));
+                u.setDob(rs.getDate("dob"));
+                u.setEmail(rs.getString("email"));
+                u.setAddress(rs.getString("address"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setPhoneNumber(rs.getString("phoneNumber"));
+                u.setRole(rs.getString("role"));
+                u.setStatus(rs.getString("status"));
+                return u;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     public void updateUserPassword(String email, String newpass) {
