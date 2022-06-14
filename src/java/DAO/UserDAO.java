@@ -219,6 +219,21 @@ public class UserDAO {
         }
         return null;
     }
+    
+    public int countUser() {
+        int count = 0;
+        String sql = "select count(*) from Users";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return count;
+    }
 
     public void updateUserPassword(String email, String newpass) {
         String query = "Update Users set password = ? where email = ? ";
