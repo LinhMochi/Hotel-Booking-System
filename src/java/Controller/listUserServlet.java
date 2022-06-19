@@ -52,6 +52,7 @@ public class listUserServlet extends HttpServlet {
             int endPage = count / NUMBER_USERLIST;
             if (count % NUMBER_USERLIST != 0) {
                 endPage++;
+                
             }
 
 
