@@ -75,8 +75,6 @@ public class UserDAO {
         return user;
     }
 
-
-
     public boolean checkEmail(String email) {
         ArrayList<User> array = getUsers();
         int check = 0;
@@ -282,7 +280,7 @@ public class UserDAO {
         }
     }
 
-    public ArrayList<User> getUserFromTo(int index, int numberMovieEachPage){
+    public ArrayList<User> getUserFromTo(int index, int numberMovieEachPage) {
         // range of orders will get
         int stopIndexMovie = index * numberMovieEachPage;
         int startIndexMovie = stopIndexMovie - (numberMovieEachPage - 1);
@@ -315,8 +313,8 @@ public class UserDAO {
         }
         return list;
     }
-    
-        public ArrayList<User> getUsers() {
+
+    public ArrayList<User> getUsers() {
         ArrayList<User> ar = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Users ";
@@ -342,4 +340,34 @@ public class UserDAO {
         }
         return ar;
     }
+
+    public ArrayList<User> getUserByName(String search) throws SQLException, IOException {
+        ArrayList<User> ar = new ArrayList<>();
+        try {
+            String sql = "select * from Users where fullName like ?";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%"+search+"%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullName(rs.getString("fullName"));
+                u.setGender(rs.getInt("gender"));
+                u.setDob(rs.getDate("dob"));
+                u.setEmail(rs.getString("email"));
+                u.setAddress(rs.getString("address"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setPhoneNumber(rs.getString("phoneNumber"));
+                u.setPassword(rs.getString("password"));
+                u.setRole(rs.getString("role"));
+                u.setStatus(rs.getString("status"));
+                ar.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return ar;
+    }
+
 }

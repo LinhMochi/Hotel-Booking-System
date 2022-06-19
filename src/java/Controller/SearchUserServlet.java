@@ -10,10 +10,7 @@ import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Duong
  */
-@WebServlet(name = "listUserServlet", urlPatterns = {"/listUserServlet"})
-public class listUserServlet extends HttpServlet {
+@WebServlet(name = "SearchUserServlet", urlPatterns = {"/SearchUserServlet"})
+
+public class SearchUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,32 +41,15 @@ public class listUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
-            int index;
-            try {
-                index = Integer.parseInt(request.getParameter("index"));
-            } catch (Exception e) {
-                index = 1;
-            }
-
-            UserDAO userDao = new UserDAO();
-            int count = userDao.countUser();
-            int endPage = count / NUMBER_USERLIST;
-            if (count % NUMBER_USERLIST != 0) {
-                endPage++;
-                
-            }
-
-
+            String search = request.getParameter("search");
             UserDAO ud = new UserDAO();
-            List<User> list = ud.getUserFromTo(index, NUMBER_USERLIST);
+            List<User> list = ud.getUserByName(search);
             request.setAttribute("list", list);
-            request.setAttribute("endPage", endPage);
-            request.setAttribute("index", index);
+
             request.getRequestDispatcher("UserList.jsp").forward(request, response);
         } catch (Exception e) {
-            request.getRequestDispatcher("ERR.jsp").forward(request, response);
+            request.getRequestDispatcher("view/ErrorPage.jsp").forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,7 +65,6 @@ public class listUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**
@@ -99,7 +79,6 @@ public class listUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-       
     }
 
     /**

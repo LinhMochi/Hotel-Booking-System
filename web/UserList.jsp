@@ -18,12 +18,12 @@
     <body>
 
         <div class="container">
-            <form action="HomeServlet" method="POST">
+            <form action="SearchUserServlet" method="">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                     </div>
-                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" name="search">
+                    <input type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1" name="search">
                 </div>
             </form>
 
