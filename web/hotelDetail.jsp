@@ -315,28 +315,34 @@
                     <div class="hotel-info" style="border:1px solid; margin-top: 30px; border-radius: 30px; padding: 40px 20px">
                         <!--Our hotel-->
                         <div class="title" style="margin-bottom: 20px">Khách sạn của chúng tôi</div>
-                        <div>Tọa lạc tại thành phố Hà Nội, cách Bảo tàng Dân tộc học 
+                        <div>
+                            <p>Tọa lạc tại thành phố Hà Nội, cách Bảo tàng Dân tộc học 
                             Việt Nam 1,7 km, VNAHOMES APARTHOTEL có dịch vụ nhận phòng/
                             trả phòng cấp tốc, phòng nghỉ không hút thuốc, sảnh khách 
                             chung, WiFi miễn phí trong toàn bộ khuôn viên và khu vườn. 
                             Chỗ nghỉ này nằm trong bán kính khoảng 2,5 km từ Hồ Tây, 2,9
                             km từ Đền Quán Thánh và 3 km từ Chùa Một Cột. Chỗ nghỉ cung 
                             cấp dịch vụ lễ tân 24 giờ và phòng giữ hành lý cho khách.
-                            <br/>Phòng nghỉ tại VNAHOMES APARTHOTEL có máy điều hòa, bàn
+                            </p>
+                            <p>
+                            Phòng nghỉ tại VNAHOMES APARTHOTEL có máy điều hòa, bàn
                             làm việc, ấm đun nước, lò vi sóng, tủ lạnh, két an toàn, TV 
                             màn hình phẳng và phòng tắm riêng với vòi sen. Trong phòng 
-                            được trang bị ga trải giường và khăn tắm.
-                            <br/><br/>Khách lưu trú tại chỗ nghỉ có thể tham gia các 
+                            được trang bị ga trải giường và khăn tắm.</p>
+
+                            <p>Khách lưu trú tại chỗ nghỉ có thể tham gia các 
                             hoạt động trong và xung quanh thành phố Hà Nội, như đi xe 
-                            đạp.
-                            <br/><br/>VNAHOMES APARTHOTEL nằm cách Lăng Chủ tịch Hồ Chí 
+                            đạp.</p>
+                            
+                            <p>VNAHOMES APARTHOTEL nằm cách Lăng Chủ tịch Hồ Chí 
                             Minh 3 km và trung tâm thương mại Vincom Center Nguyễn Chí 
                             Thanh 3,1 km. Sân bay gần nhất là sân bay quốc tế Nội Bài, 
                             nằm trong bán kính 18 km từ khách sạn, và chỗ nghỉ cung cấp 
                             dịch vụ đưa đón sân bay với một khoản phụ phí.
-                            <br/><br/><br/>Khách sạn của chúng tôi
-                            <br/><br/>Phòng view lên núi - Phục vụ 24/7 - Có xe đưa đón trong
-                            khuôn viên khách sạn
+                            </p>
+                            <p>Khách sạn của chúng tôi</p>
+                            <p>Phòng view lên núi - Phục vụ 24/7 - Có xe đưa đón trong khuôn viên khách sạn</p>
+                            
                         </div>
                         <!--Our room-->
                         <div>
@@ -361,27 +367,33 @@
                                     <div style="display:flex;text-align:left; justify-content: space-evenly; margin-bottom: 20px">
                                         <div><span>An ninh</span>
                                             <div>
-                                                      • Thiết bị báo cháy
-                                                 <br/>• CCTV 24/7
-                                                 <br/>• Báo động an ninh
-                                                 <br/>• Bảo vệ 24/7
-                                                 <br/>• Két an toàn
+                                                <ul>
+                                                    <li>Thiết bị báo cháy</li>
+                                                    <li>CCTV 24/7</li>
+                                                    <li>Báo động an ninh</li>
+                                                    <li>Bảo vệ 24/7</li>
+                                                    <li>Két an toàn</li>
+                                                </ul>
                                             </div>                    
                                         </div>
                                         <div>
                                             <div><span>Đồ ăn & Đồ uống</span>
                                                     <div>
-                                                         • Nhà hàng
-                                                    <br/>• Quầy mini bar
+                                                        <ul>
+                                                            <li>Nhà hàng</li>
+                                                            <li>Quầy mini bar</li>
+                                                        </ul>
                                                 </div>                    
                                             </div>
                                         </div>
                                         <div>
                                             <div><span>Vị trí</span>
                                                 <div>
-                                                     • Gần trung tâm
-                                                     <br/>• Gần nhiều di tích, <br/>
-                                                     danh lam, thắng cảnh
+                                                    <ul>
+                                                        <li>Gần trung tâm</li>
+                                                        <li>Gần nhiều di tích,<br/>
+                                                            danh lam, thắng cảnh</li>
+                                                    </ul>
                                                 </div>                    
                                             </div>
                                         </div>
@@ -390,32 +402,36 @@
                                     <div style="display:flex;width: 100%; text-align:left;justify-content: space-evenly">
                                         <div>
                                             <div><span>Phòng</span>
-                                                <div>
-                                                     • TV, Tủ lạnh
-                                                <br/>• Đồ dùng cá nhân 
-                                                <br/>• Ga trải giường
-                                                <br/>• Có ban công
-                                                </div>                    
+                                                <ul>
+                                                    <li>TV, Tủ lạnh</li>
+                                                    <li>Đồ dùng cá nhân</li>
+                                                    <li>Ga trải giường</li>
+                                                    <li>Có ban công</li>
+                                                </ul>                    
                                             </div>
                                         </div>
                                         <div>
                                             <div><span>Dịch vụ</span>
                                                 <div>
-                                                     • Phục vụ 24/7
-                                                <br/>• Gọi đồ 24/7
-                                                <br/>• Wifi free
-                                                <br/>• Phòng hội trường 
-                                                <br/>rộng rãi
+                                                    <ul>
+                                                        <li>Phục vụ 24/7</li>
+                                                        <li>Gọi đồ 24/7</li>
+                                                        <li>Wifi free</li>
+                                                        <li>Phòng hội trường <br/>
+                                                            rộng rãi</li>
+                                                    </ul>
                                                 </div>                    
                                             </div>
                                         </div>
                                         <div>
                                             <div style="visibility: hidden">
-                                                     • Thiết bị báo cháy
-                                                <br/>• CCTV 24/7
-                                                <br/>• Báo động an ninh
-                                                <br/>• Bảo vệ 24/7
-                                                <br/>• Két an toàn
+                                                <ul>
+                                                    <li>Thiết bị báo cháy</li>
+                                                    <li>CCTV 24/7</li>
+                                                    <li>Báo động an ninh</li>
+                                                    <li>Bảo vệ 24/7</li>
+                                                    <li>Két an toàn</li>
+                                                </ul>     
                                             </div>
                                         </div>
                                     </div>
