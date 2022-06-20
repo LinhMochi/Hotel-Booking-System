@@ -61,9 +61,6 @@ public class deleteUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO ud = new UserDAO();
-        List<User> list = ud.getUsers();
-        request.setAttribute("list", list);
         String id = request.getParameter("id");
         UserDAO userDao = new UserDAO();
         userDao.deleteUser(id);

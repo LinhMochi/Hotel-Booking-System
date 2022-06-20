@@ -15,15 +15,15 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
         <title>List User Page</title>
     </head>
-    <body>
+    <body  style="background-image: url('images/anime.jpg');">
 
-        <div class="container">
+        <div class="container" >
             <form action="SearchUserServlet" method="">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                     </div>
-                    <input type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1" name="search">
+                    <input minlength="1" type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1" name="search">
                 </div>
             </form>
 
@@ -50,9 +50,14 @@
 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${user.id}">
+                                    <i class="far fa-trash-alt"></i>
                                     Delete
                                 </button>
-
+                                <a href="banServlet?id=${user.id}&&status=${user.status}">
+                                    <c:if test="${user.status == 'Banned'}"><button type="button" class="btn btn-primary"><i class="fas fa-user-plus"></i>Active</button></c:if>
+                                    <c:if test="${user.status == 'Active'}"><button type="button" class="btn btn-danger"><i class="fas fa-user-slash"></i>Banned</button></c:if>
+                                    </a>
+                                ${user.status}
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -76,6 +81,7 @@
 
 
                             </td>
+
                         </tr>
 
                     </c:forEach>
@@ -98,7 +104,7 @@
 
         </div>
 
-            
+
         <link href="css/userlist-style.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

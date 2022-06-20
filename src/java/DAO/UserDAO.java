@@ -370,4 +370,18 @@ public class UserDAO {
         return ar;
     }
 
+    
+    public void banUser(int id, String status) {
+        try {
+            String sql = "UPDATE Users SET status = ? WHERE id = ?";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
