@@ -16,18 +16,38 @@ public class Service {
     private String name;
     private Date from;
     private Date to;
+    private int quantity;
+    private double price;
     private String createAt;
     private int category;
 
     public Service() {
     }
 
-    public Service(int id, String name, Date from, Date to, String createAt) {
+    public Service(int id, String name, Date from, Date to, int quantity, double price, String createAt, int category) {
         this.id = id;
         this.name = name;
         this.from = from;
         this.to = to;
+        this.quantity = quantity;
+        this.price = price;
         this.createAt = createAt;
+        this.category = category;
+    }
+
+    
+
+    
+
+    Service(Service service) {
+        this.id = service.getId();
+        this.name = service.getName();
+        this.from = service.getFrom();
+        this.to = service.getTo();
+        this.createAt = service.createAt;
+        this.quantity = service.getQuantity();
+        this.price = service.getPrice();
+        this.category = service.category;
     }
 
     public int getId() {
@@ -91,4 +111,22 @@ public class Service {
         java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         createAt = formater.format(current);
     }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+    
+    
 }
