@@ -17,7 +17,8 @@ and open the template in the editor.
 body{
 	width: 100vw;
 	height: 100vh;
-	background-image: url('../images/banner.png');
+	/*background-image: url('../images/banner.png');*/
+	background-image: url('https://lh3.google.com/u/0/d/1ogJoaZcsPp0uimmILisz2w7OP_cKQ_sI=w962-h634-iv1');
 	background-size: cover;
 	background-repeat: no-repeat;
 	position: relative;	
@@ -191,7 +192,7 @@ body .container form .register-box .box .url-box{
 	background: rgba(0, 0, 0, 0.8);
 	box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
 	padding: 10px 20px;
-	z-index: 10px;
+	z-index: 10;
 	top: 40%;
 	left: 50%;
 	transform: translateX(-50%);
