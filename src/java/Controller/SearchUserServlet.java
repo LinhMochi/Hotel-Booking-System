@@ -9,19 +9,21 @@ import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Linh
+ * @author Duong
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "SearchUserServlet", urlPatterns = {"/SearchUserServlet"})
+
+public class SearchUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,11 +34,21 @@ public class LoginController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final int NUMBER_USERLIST = 3;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        request.getRequestDispatcher("Login.jsp").forward(request, response);
+        try {
+            String search = request.getParameter("search");
+            UserDAO ud = new UserDAO();
+            List<User> list = ud.getUserByName(search);
+            request.setAttribute("list", list);
+            request.getRequestDispatcher("UserList.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher("ERR.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,40 +64,6 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-                try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession(true);
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String login = request.getParameter("login");
-            if(new UserDAO().checkEmail(email)){
-                request.setAttribute("message", "Email không tồn tại");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            }
-            User u = new UserDAO().checkLogin(email, password);
-            if (u == null) {
-                request.setAttribute("message", "Email hoặc mật khẩu sai");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            } else {
-                User sar = new UserDAO().checkStatusAndRole(email);
-                if (sar.getStatus().equals("Banned")) {
-                    request.setAttribute("message", "You have Banned");
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
-                } else if (sar.getRole().equals("Admin")) {
-                    session.setAttribute("email", email);
-                    session.setAttribute("password", password);
-                    response.sendRedirect("homeAdmin.jsp");
-                } else if (sar.getRole().equals("Manager")) {
-                    session.setAttribute("email", email);
-                    session.setAttribute("password", password);
-                    response.sendRedirect("homeManager.jsp");
-                } else if (sar.getRole().equals("Customer")) {
-                    session.setAttribute("email", email);
-                    session.setAttribute("password", password);
-                    response.sendRedirect("homeCustomer.jsp");
-                }
-            }
-        }
     }
 
     /**
