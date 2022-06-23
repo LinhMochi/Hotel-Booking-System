@@ -101,6 +101,23 @@ public class UserDAO {
         }
         return ar;
     }
+    
+    public void updateUserInfo(String email, User user) {
+        String sql = "UPDATE Users SET fullName = ? , gender = ? , dob = ? , address = ? , phoneNumber = ? where email = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, user.getFullName());
+            ps.setInt(2, user.getGender());
+            ps.setDate(3, user.getDob());
+            ps.setString(4, user.getAddress());
+            ps.setString(5, user.getPhoneNumber());
+            ps.setString(6, email);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public boolean checkEmail(String email) {
         ArrayList<User> array = getUsers();
