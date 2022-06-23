@@ -9,19 +9,23 @@ import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Linh
+ * @author Duong
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "AddNewUserServlet", urlPatterns = {"/AddNewUserServlet"})
+public class AddNewUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,8 +39,6 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,40 +54,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-                try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession(true);
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String login = request.getParameter("login");
-            if(new UserDAO().checkEmail(email)){
-                request.setAttribute("message", "Email không tồn tại");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            }
-            User u = new UserDAO().checkLogin(email, password);
-            if (u == null) {
-                request.setAttribute("message", "Email hoặc mật khẩu sai");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            } else {
-                User sar = new UserDAO().checkStatusAndRole(email);
-                if (sar.getStatus().equals("Banned")) {
-                    request.setAttribute("message", "You have Banned");
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
-                } else if (sar.getRole().equals("Admin")) {
-                    session.setAttribute("email", email);
-                    session.setAttribute("password", password);
-                    response.sendRedirect("homeAdmin.jsp");
-                } else if (sar.getRole().equals("Manager")) {
-                    session.setAttribute("email", email);
-                    session.setAttribute("password", password);
-                    response.sendRedirect("homeManager.jsp");
-                } else if (sar.getRole().equals("Customer")) {
-                    session.setAttribute("email", email);
-                    session.setAttribute("password", password);
-                    response.sendRedirect("homeCustomer.jsp");
-                }
-            }
-        }
+
     }
 
     /**
@@ -100,6 +69,32 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        UserDAO ud = new UserDAO();
+        User u = new User();
+        //            String dobString = request.getParameter("dob");
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//            java.util.Date dob = sdf.parse(dobString);
+//            java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
+//            u.setDob(sqlDob);
+        String dbo = request.getParameter("dbo");
+        try {
+            Date date = (Date) new SimpleDateFormat("dd/MM/yyyy").parse(dbo);
+            u.setDob(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(AddNewUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        u.setGender(Integer.parseInt(request.getParameter("gender")));
+        u.setFullName(request.getParameter("name"));
+        u.setEmail(request.getParameter("email"));
+        u.setAddress(request.getParameter("address"));
+        u.setAvatar(request.getParameter("avatar"));
+        u.setPhoneNumber(request.getParameter("phoneNumber"));
+        u.setPassword(request.getParameter("pass"));
+        u.setRole(request.getParameter("role"));
+        u.setStatus(request.getParameter("status"));
+        ud.create_User(u);
+//fullName, gender, dob, email, address, avatar, phoneNumber, password, role, status
+        response.sendRedirect("listUserServlet");
     }
 
     /**

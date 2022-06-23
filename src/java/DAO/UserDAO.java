@@ -158,8 +158,8 @@ public class UserDAO {
                 ps.setString(6, user.getAvatar());
                 ps.setString(7, user.getPhoneNumber());
                 ps.setString(8, user.getPassword());
-                ps.setString(9, "Customer");
-                ps.setString(10, "Active");
+                ps.setString(9, user.getRole());
+                ps.setString(10, user.getStatus());
                 ps.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace(System.out);

@@ -56,8 +56,8 @@
                                 <a href="banServlet?id=${user.id}&&status=${user.status}">
                                     <c:if test="${user.status == 'Banned'}"><button type="button" class="btn btn-primary"><i class="fas fa-user-plus"></i>Active</button></c:if>
                                     <c:if test="${user.status == 'Active'}"><button type="button" class="btn btn-danger"><i class="fas fa-user-slash"></i>Banned</button></c:if>
-                                    </a>
-                                ${user.status}
+                                </a>
+      
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
