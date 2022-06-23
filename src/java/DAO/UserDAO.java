@@ -75,6 +75,50 @@ public class UserDAO {
         return user;
     }
 
+    public ArrayList<User> getUsers() {
+        ArrayList<User> ar = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Users ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullName(rs.getString("fullName"));
+                u.setGender(rs.getInt("gender"));
+                u.setDob(rs.getDate("dob"));
+                u.setEmail(rs.getString("email"));
+                u.setAddress(rs.getString("address"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setPhoneNumber(rs.getString("phoneNumber"));
+                u.setPassword(rs.getString("password"));
+                u.setRole(rs.getString("role"));
+                u.setStatus(rs.getString("status"));
+                ar.add(u);
+            }
+        } catch (SQLException e) {
+        }
+        return ar;
+    }
+    
+    public void updateUserInfo(String email, User user) {
+        String sql = "UPDATE Users SET fullName = ? , gender = ? , dob = ? , address = ? , phoneNumber = ? where email = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, user.getFullName());
+            ps.setInt(2, user.getGender());
+            ps.setDate(3, user.getDob());
+            ps.setString(4, user.getAddress());
+            ps.setString(5, user.getPhoneNumber());
+            ps.setString(6, email);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean checkEmail(String email) {
         ArrayList<User> array = getUsers();
         int check = 0;
