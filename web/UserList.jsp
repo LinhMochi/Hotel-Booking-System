@@ -26,6 +26,9 @@
                     <input minlength="1" type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1" name="search">
                 </div>
             </form>
+            <a href="addNewUser.jsp"><button type="button" style="display: block;
+                                             margin-left: auto;
+                                             margin-right: auto;" class="btn btn-primary">Add New user</button></a><br>
 
 
             <table class="table">
@@ -49,17 +52,17 @@
                             <td>
 
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${user.id}">
+                                <button type="button" style="left: 45%" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${user.id}">
                                     <i class="far fa-trash-alt"></i>
                                     Delete
                                 </button>
                                 <a href="banServlet?id=${user.id}&&status=${user.status}">
                                     <c:if test="${user.status == 'Banned'}"><button type="button" class="btn btn-primary"><i class="fas fa-user-plus"></i>Active</button></c:if>
                                     <c:if test="${user.status == 'Active'}"><button type="button" class="btn btn-danger"><i class="fas fa-user-slash"></i>Banned</button></c:if>
-                                </a>
-      
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    </a>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -101,7 +104,6 @@
             <c:if test="${index < endPage}">
                 <a class="btn btn-primary" class="btn btn-move-page" href="listUserServlet?index=${index+1}&code=${code}" role="button">Trang sau</a>
             </c:if>
-
         </div>
 
 

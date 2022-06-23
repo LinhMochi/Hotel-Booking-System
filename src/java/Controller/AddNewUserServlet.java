@@ -77,6 +77,15 @@ public class AddNewUserServlet extends HttpServlet {
 //            java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
 //            u.setDob(sqlDob);
         String dbo = request.getParameter("dbo");
+        String dbo1 = request.getParameter("gender");
+        String dbo2 = request.getParameter("name");
+        String dbo3 = request.getParameter("email");
+        String dbo4 = request.getParameter("address");
+        String dbo5 = request.getParameter("phoneNumber");
+        String dbo6 = request.getParameter("password");
+        String dbo7 = request.getParameter("role");
+        String dbo8 = request.getParameter("status");
+        
         try {
             Date date = (Date) new SimpleDateFormat("dd/MM/yyyy").parse(dbo);
             u.setDob(date);

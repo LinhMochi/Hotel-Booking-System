@@ -36,7 +36,7 @@
                         <label for="username">Address</label>
                     </div>
                     <div class="box">
-                        <input name="phone" pattern="^[0-9]{9,11}$" title="Hãy nhập đúng định dạng số điện thoại" required>
+                        <input name="phoneNumber" pattern="^[0-9]{9,11}$" title="Hãy nhập đúng định dạng số điện thoại" required>
                         <label for="username">Phone Number</label>
                     </div>
                     
