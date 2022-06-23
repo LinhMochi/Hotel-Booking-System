@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -71,20 +72,21 @@ public class AddNewUserServlet extends HttpServlet {
         processRequest(request, response);
         UserDAO ud = new UserDAO();
         User u = new User();
+        List<User> list = ud.getUsers();
         //            String dobString = request.getParameter("dob");
 //            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 //            java.util.Date dob = sdf.parse(dobString);
 //            java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
 //            u.setDob(sqlDob);
         String dbo = request.getParameter("dbo");
-        String dbo1 = request.getParameter("gender");
-        String dbo2 = request.getParameter("name");
-        String dbo3 = request.getParameter("email");
-        String dbo4 = request.getParameter("address");
-        String dbo5 = request.getParameter("phoneNumber");
-        String dbo6 = request.getParameter("password");
-        String dbo7 = request.getParameter("role");
-        String dbo8 = request.getParameter("status");
+//        String dbo1 = request.getParameter("gender");
+//        String dbo2 = request.getParameter("name");
+//        String dbo3 = request.getParameter("email");
+//        String dbo4 = request.getParameter("address");
+//        String dbo5 = request.getParameter("phoneNumber");
+//        String dbo6 = request.getParameter("password");
+//        String dbo7 = request.getParameter("role");
+//        String dbo8 = request.getParameter("status");
         
         try {
             Date date = (Date) new SimpleDateFormat("dd/MM/yyyy").parse(dbo);
@@ -94,6 +96,12 @@ public class AddNewUserServlet extends HttpServlet {
         }
         u.setGender(Integer.parseInt(request.getParameter("gender")));
         u.setFullName(request.getParameter("name"));
+        for(int i=0;i<list.size();i++){
+            if(request.getParameter("email").equalsIgnoreCase(list.get(i).getEmail())){
+                request.setAttribute("msg", "Email already exist!");
+                request.getRequestDispatcher("addNewUser.jsp").forward(request, response);
+            }
+        }
         u.setEmail(request.getParameter("email"));
         u.setAddress(request.getParameter("address"));
         u.setAvatar(request.getParameter("avatar"));
