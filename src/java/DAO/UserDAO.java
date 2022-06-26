@@ -21,6 +21,35 @@ public class UserDAO {
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
+    
+    public User getUserByMail(String email) {
+        try {
+            String sql = "SELECT * FROM Users where email =?";// select * de lay het data 
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                return new User(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getDate(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11));
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
 
     public User checkLogin(String email, String password) {
         try {

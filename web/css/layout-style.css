@@ -1,0 +1,176 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22-Jun-2022, 20:04:23
+    Author     : Admin
+*/
+
+*{
+	padding: 0;
+	margin: 0;
+	line-height: 1.5rem;
+	box-sizing: border-box;
+}
+
+/*
+    some layout property
+*/ 
+
+.flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.flex-around{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.flex-column{
+	flex-direction: column;
+}
+
+
+.flex-row{
+	flex-direction: row;
+}
+
+.flex-end{
+    align-items: flex-end;
+}
+.flex-start{
+    align-items: flex-start
+}
+
+.g-3c{
+    display: grid;
+    grid-grap: 5px;
+    grid-template-columns: 1.5fr 2fr 1fr;
+}
+
+g-4{
+    
+}
+
+.g-3-center{
+    display: grid;
+    grid-grap: 5px;
+    place-items:center;
+}
+
+
+
+a{
+    text-decoration: none;
+}
+
+ul,ol{
+    list-style: none;
+}
+
+ul>li{
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 5px;
+    padding: 2.5px;
+    margin: 5px;
+}
+ul>li:first-child{
+    margin-left: 0;
+}
+
+.card{
+    border-radius: 5px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card-s{
+    width: 400px;
+    min-height: 250px;
+    position: relative;
+    background-color: aliceblue;
+}
+
+.card-m{
+    width: 500px;
+    min-height: 250px;
+    position: relative;
+}
+
+.card-l{
+    width: 600px;
+    min-height: 250px;
+    position: relative;
+}
+
+/* card style */
+		.vertical-card{
+			position: relative;
+			width: 250px;
+			height:350px;
+		}
+		.vertical-card:hover .card-content{
+			box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
+		}
+
+		.vertical-cicle-card{
+			width: 200px;
+			height: 250px;
+		}
+
+		.vertical-cicle-card .item-image{
+			transition: 0.5s;
+			border-radius: 50% !important;
+			margin-bottom: 10px;
+		}
+
+		.vertical-cicle-card:hover .item-image{
+			box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
+			transform: scale(1.05);
+		}
+
+		.item-image{
+			width: 100%;
+			height: 250px;
+			position: relative;
+			overflow: hidden;
+
+		}
+		.item-image img{
+			object-fit: cover;
+			width: 100%;
+			height: 100%;
+		}
+
+		.item-info .item-name{
+			font-size: 18px;
+			font-family: cursive;
+
+		}
+		.item-info p {
+			font-size: 14px;
+			margin-top: 5px;
+			letter-spacing: 2px;
+			padding-left: 5px;
+		}
+                
+.card-content{
+    min-height: 70px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
+}
+
+
+
+

@@ -16,7 +16,7 @@ public class Room {
     private int quantity;
     private double price;
     private int maxAdult;
-    private int maxChild;
+    private int maxChild;   
     private String bed;
     private String area;
     private String description;
