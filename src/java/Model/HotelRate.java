@@ -16,17 +16,19 @@ public class HotelRate {
     private double score;
     private String detail;
     private String rateAt;
+    private int hotelId;
     private int reservationId;
     private int userId;
 
     public HotelRate() {
     }
 
-    public HotelRate(int id, double score, String detail, String rateAt, int reservationId, int userId) {
+    public HotelRate(int id, double score, String detail, String rateAt,int hotelId, int reservationId, int userId) {
         this.id = id;
         this.score = score;
         this.detail = detail;
         this.rateAt = rateAt;
+        this.hotelId = hotelId;
         this.reservationId = reservationId;
         this.userId = userId;
     }
@@ -88,6 +90,12 @@ public class HotelRate {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    
-    
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }     
 }

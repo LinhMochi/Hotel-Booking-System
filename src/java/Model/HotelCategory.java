@@ -9,20 +9,29 @@ package Model;
  *
  * @author Admin
  */
-public class HotelCategories {
+public class HotelCategory {
     private int id;
     private String category;
     private String image;
     private int noHotel;
 
-    public HotelCategories() {
+    public HotelCategory() {
     }
 
-    public HotelCategories(int id, String category, int noHotel) {
+    public HotelCategory(int id, String category, int noHotel) {
         this.id = id;
         this.category = category;
         this.noHotel = noHotel;
     }
+
+    public HotelCategory(int id, String category, String image, int noHotel) {
+        this.id = id;
+        this.category = category;
+        this.image = image;
+        this.noHotel = noHotel;
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -55,4 +64,6 @@ public class HotelCategories {
     public void setNoHotel(int noHotel) {
         this.noHotel = noHotel;
     }
+    
+    
 }

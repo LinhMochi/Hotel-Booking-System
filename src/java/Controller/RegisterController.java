@@ -74,7 +74,7 @@ public class RegisterController extends HttpServlet {
 //            }
         } else{
             request.setAttribute("message", "Email đã tồn tại! Đăng ký không thành công");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            request.getRequestDispatcher("Register.jsp").forward(request, response);
         }
     }
 
@@ -90,7 +90,10 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        request.getRequestDispatcher("Register.jsp").forward(request, response);
     }
 
     /**

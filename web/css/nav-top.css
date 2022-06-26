@@ -1,0 +1,212 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23-Jun-2022, 05:07:50
+    Author     : Admin
+*/
+.flex-row{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+}
+
+.drop-box{
+	position: relative;
+}
+/*            nav top               */
+.header .navbar .logo{
+	width: 150px;
+	height: 60px;
+        margin: 5px;
+	margin-left: 30px;
+}
+.header .navbar .logo img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.header .items-box{
+	width: 250px;
+	margin-right: 50px;
+}
+.header .items-box-m{
+	width: 350px;
+}
+.header .items-box-l{
+	width: 450px;
+}
+.header .items-box .items{
+	width: 40px;
+	height: 40px;
+	background: rgba(0, 0, 0, .2);
+	border-radius: 50%;
+	position: relative;
+}
+.header .items-box .items:hover{
+	background: rgba(0, 0, 0, .3);
+}
+
+.items-box .items .title{
+	background-color: black;
+	color: #fff;
+	position: absolute;
+	width: 90px;
+	top: 60px;
+	padding: 5px;
+	border-radius: 5px;
+	text-align: center;
+	transition: 0.5s;
+	z-index: -10;
+	opacity: 0;
+}
+.items-box .items i:hover~.title{
+	z-index:  auto;
+	opacity: 0.8;
+}
+
+
+
+
+.header .items-box .items.flag:after{
+	content: '\0021';
+	position: absolute;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 800;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: #f00;
+	transform: translate(10px,10px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+/* 		cart mini  */
+.drop-box-items.drop-cart{
+	width: 35vw;
+	height: 100vh;
+}
+
+.empty-cart{
+	width: 100%;
+	height: 100%;
+	font-size: 2rem;
+	position: absolute;
+}
+
+.drop-cart .content {
+	width: 100%;
+	height: 80%;
+}
+
+
+
+
+/*		 cart mini 		*/
+
+.header .items-box .drop-box .user-box{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.header .items-box .user-box img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.drop-box-items{
+	z-index: 100;
+	position: absolute;
+	width: 185px;
+	right: 0;
+	margin-top: 10px;
+	padding: 10px 0;
+	line-height: 2.5rem;
+	border-radius: 5px;
+	box-shadow: 0 0 25px 1px rgba(0, 0, 0, .25);
+	background: #fff;
+}
+.drop-box-items::after{
+	content: '';
+	position: absolute;
+	top: -10px;
+	right: 10px;
+	background: rgba(0, 0, 0, .05);
+	border: 5px solid transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: #fff;
+}
+.drop-box-items .header {
+	cursor: default;
+	padding: 5px 10px;
+	font-size: 18px;
+}
+h2{
+	font-weight: 200;
+}
+
+.drop-box-items .header .fa-times{
+	font-weight: 200;
+	cursor: pointer;
+}
+
+.drop-box-items .header .fa-times:hover{
+	color: #f00;
+}
+
+.drop-box-items .drop-item{
+	line-height: 1.5rem;
+	padding: 5px 15px;
+	cursor: pointer;
+}
+.drop-box-items .drop-item:hover{
+	background: #cc8c18;
+	color: #fff;
+}
+
+.drop-box-items .header{
+	margin: 0 10px;
+}
+
+
+
+.nav-link a{
+	padding: 5px;
+	border-radius: 5px;
+	background-color: greenyellow;
+}
+
+.nav-link a:hover{
+	box-shadow: 0 0 5px 1px rgba(0, 0, 0, .3);
+}
+
+.nav-link a:first-child{
+	margin-right: 5px;
+}
+
+.nav-link a.login{
+	background-color: skyblue;
+}
+
+
+
+.hidden{
+	display: none;
+}
+.main{
+	width: 100%;
+	height: 200vh;
+	background-color: rgba(0, 0, 0, 0.1);
+}

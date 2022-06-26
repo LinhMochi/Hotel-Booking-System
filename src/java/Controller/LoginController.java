@@ -58,34 +58,46 @@ public class LoginController extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String login = request.getParameter("login");
-            if(new UserDAO().checkEmail(email)){
+            User user = new UserDAO().getUserByMail(email);
+            if(user==null){
                 request.setAttribute("message", "Email không tồn tại");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
             User u = new UserDAO().checkLogin(email, password);
-            if (u == null) {
+            if (!user.getPassword().equals(password)) {
                 request.setAttribute("message", "Email hoặc mật khẩu sai");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             } else {
-                User sar = new UserDAO().checkStatusAndRole(email);
-                if (sar.getStatus().equals("Banned")) {
+                if (user.getStatus().equals("Banned")) {
                     request.setAttribute("message", "You have Banned");
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
-                } else if (sar.getRole().equals("Admin")) {
-                    session.setAttribute("email", email);
+                } else if (user.getRole().equals("Admin")) {
+                    session.setAttribute("user", user);
+                    response.sendRedirect("HomeAdmin.jsp");
+                } else if (user.getRole().equals("Manager")||user.getRole().equals("Customer")) {
+                    session.setAttribute("user", user);
                     session.setAttribute("password", password);
-                    response.sendRedirect("homeAdmin.jsp");
-                } else if (sar.getRole().equals("Manager")) {
-                    session.setAttribute("email", email);
-                    session.setAttribute("password", password);
-                    response.sendRedirect("homeManager.jsp");
-                } else if (sar.getRole().equals("Customer")) {
-                    session.setAttribute("email", email);
-                    session.setAttribute("password", password);
-                    response.sendRedirect("homeCustomer.jsp");
+                    response.sendRedirect("Home.jsp");
                 }
             }
         }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+//        processRequest(request, response);
+            response.setContentType("text/html;charset=UTF-8");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
     /**

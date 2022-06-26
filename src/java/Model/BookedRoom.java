@@ -10,7 +10,7 @@ package Model;
  * @author Admin
  */
 public class BookedRoom extends Room{
-    int reservationId;
+    int reservationId;  
     double discount;
 
     public BookedRoom() {
