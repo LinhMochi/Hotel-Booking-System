@@ -51,12 +51,43 @@ public class ReservationDAO {
                 ar.add(new Reservation(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), rs.getString(8), user, hotel));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
             if (conn != null) {
                 conn.close();
             }
         }
         return ar;
+    }
+
+    public void addReservation(Reservation reservation) {
+        try {
+            String sql = "INSERT INTO Reservations r (noOfAdults, noOfChild, noOfRoom, bookDate, arrival, department, status, userId, hotelId) \n"
+                    + " VALUES ("
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?);";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reservation.getAdult());
+            ps.setInt(2, reservation.getChild());
+            ps.setInt(3, reservation.getNoRoom());
+            ps.setString(4, reservation.getBookDate());
+            ps.setDate(5, reservation.getArrival());
+            ps.setDate(6, reservation.getDepartment());
+            ps.setString(7, "Active");
+            ps.setString(8, "...");
+            ps.setString(9, "...");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
     }
     
     public void deleteReservation(int id) {
