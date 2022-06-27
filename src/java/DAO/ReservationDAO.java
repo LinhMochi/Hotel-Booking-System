@@ -32,16 +32,19 @@ public class ReservationDAO {
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<Reservation> ar = new ArrayList<>();
         try {
-            String sql = " where email = ? ";
+            String sql = "Select * From Reservations where email = ? \n"
+                    + "ORDER BY id ASC \n"
+                    + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, start);
-            ps.setInt(2, numOfElement);
+            ps.setString(1, email);
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString(8));
-                Hotel hotel = new Hotel(rs.getString(9));
-                ar.add(new Reservation(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), user, hotel));
+                User user = new User(rs.getString(9));
+                Hotel hotel = new Hotel(rs.getString(10));
+                ar.add(new Reservation(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), rs.getString(8), user, hotel));
             }
         } catch (SQLException e) {
         } finally {
