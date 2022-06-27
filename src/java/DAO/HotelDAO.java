@@ -2,7 +2,8 @@ package DAO;
 
 //
 
-import model.Hotel;
+import DBcontext.DBcontext;
+import Model.Hotel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 public class HotelDAO {
 
-    private Connection conn;
+    private Connection conn= new DBcontext().getConnection() ;
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
@@ -28,7 +29,6 @@ public class HotelDAO {
         ArrayList<Hotel> list = new ArrayList<>();
         query = "SELECT * FROM Hotels";
         try {
-            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -64,7 +64,6 @@ public class HotelDAO {
                 + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY";
 
         try {
-            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, start);
             ps.setInt(2, numOfElement);
@@ -95,7 +94,6 @@ public class HotelDAO {
     public void addHotel(String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
         query = "INSERT INTO Hotels VALUES ( ? , ? ,  ? ,  ? , ? , ? , ? , ? , ? , ?,  ? , ?)";
         try {
-            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, name);
             ps.setInt(2, noOfStar);
@@ -118,7 +116,6 @@ public class HotelDAO {
     public void deleteHotel(int id) {
         query = "DELETE Hotels WHERE id = ? ";
         try {
-            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -133,7 +130,6 @@ public class HotelDAO {
                 + " WHERE Id = ? ";
 
         try {
-            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, name);
             ps.setInt(2, noOfStar);
@@ -157,7 +153,6 @@ public class HotelDAO {
     public Hotel getHotelByID(int hotelID) {
         query = "SELECT * FROM Hotels where id = ? ";
         try {
-            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, hotelID);
             rs = ps.executeQuery();
@@ -188,7 +183,6 @@ public class HotelDAO {
         ArrayList<Hotel> list = new ArrayList<>();
         query = "SELECT * FROM hotels WHERE name LIKE '%" + textSearch + "%' OR address LIKE '%" + textSearch + "%'";
         try {
-            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -219,7 +213,6 @@ public class HotelDAO {
         query = getQueryFilter(filter);
         ArrayList<Hotel> list = new ArrayList<>();
         try {
-            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 

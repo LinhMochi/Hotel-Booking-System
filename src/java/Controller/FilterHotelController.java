@@ -7,7 +7,7 @@ package controller;
  */
 
 import DAO.HotelDAO;
-import model.Hotel;
+import Model.Hotel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
