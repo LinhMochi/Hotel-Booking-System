@@ -26,12 +26,17 @@ public class ReservationDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public ArrayList<Reservation> getReservationList() throws SQLException, IOException {
+    public ArrayList<Reservation> getReservations(String page, String textSearch, String email) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int numOfElement = 5;
+        int start = numOfElement * currentPage - numOfElement;
         ArrayList<Reservation> ar = new ArrayList<>();
         try {
-            String sql = "";
+            String sql = " where email = ? ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
+            ps.setInt(1, start);
+            ps.setInt(2, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString(8));
@@ -47,5 +52,15 @@ public class ReservationDAO {
         return ar;
     }
     
-    
+    public void deleteReservation(int id) {
+        query = "DELETE Reservations WHERE id = ? ";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+
+    }
 }
