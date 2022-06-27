@@ -26,20 +26,24 @@ public class ReservationDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public ArrayList<Reservation> getReservations(String page, String textSearch, String email) throws SQLException, IOException {
+    public ArrayList<Reservation> getReservations(String page, String textSearchHotel, String email) throws SQLException, IOException {
         int currentPage = Integer.parseInt(page);
         int numOfElement = 5;
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<Reservation> ar = new ArrayList<>();
         try {
-            String sql = "Select * From Reservations where email = ? \n"
+            String sql = "Select r.id, r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name From Reservations r \n"
+                    + "inner join Users u on r.userId = u.id \n"
+                    + "inner join Hotels h on r.hotelId = h.id \n"
+                    + "where h.name LIKE '%?%' and u.email = ? \n"
                     + "ORDER BY id ASC \n"
                     + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
-            ps.setInt(2, start);
-            ps.setInt(3, numOfElement);
+            ps.setString(1, textSearchHotel);
+            ps.setString(2, email);
+            ps.setInt(3, start);
+            ps.setInt(4, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString(9));
