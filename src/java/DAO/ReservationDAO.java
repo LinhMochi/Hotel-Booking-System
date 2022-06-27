@@ -51,7 +51,7 @@ public class ReservationDAO {
                 ar.add(new Reservation(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), rs.getString(8), user, hotel));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         } finally {
             if (conn != null) {
                 conn.close();
@@ -91,13 +91,13 @@ public class ReservationDAO {
     }
     
     public void deleteReservation(int id) {
-        query = "DELETE Reservations WHERE id = ? ";
+        String sql = "DELETE Reservations WHERE id = ? ";
         try {
-            ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println("Error");
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
         }
 
     }

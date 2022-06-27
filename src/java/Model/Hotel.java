@@ -28,6 +28,10 @@ public class Hotel {
     public Hotel() {
     }
 
+    public Hotel(String name) {
+        this.name = name;
+    }
+
     public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
         this.id = id;
         this.name = name;
