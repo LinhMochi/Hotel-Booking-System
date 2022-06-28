@@ -35,15 +35,14 @@ public class ReservationDAO {
             String sql = "Select r.id, r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name From Reservations r \n"
                     + "inner join Users u on r.userId = u.id \n"
                     + "inner join Hotels h on r.hotelId = h.id \n"
-                    + "where h.name LIKE '%?%' and u.email = ? \n"
+                    + "where u.email = ? and h.name LIKE '%" + textSearchHotel +"%' \n"
                     + "ORDER BY id ASC \n"
                     + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, textSearchHotel);
-            ps.setString(2, email);
-            ps.setInt(3, start);
-            ps.setInt(4, numOfElement);
+            ps.setString(1, email);
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString(9));
@@ -81,7 +80,7 @@ public class ReservationDAO {
             ps.setString(4, reservation.getBookDate());
             ps.setDate(5, reservation.getArrival());
             ps.setDate(6, reservation.getDepartment());
-            ps.setString(7, "Active");
+            ps.setString(7, "Pending");
             ps.setString(8, "...");
             ps.setString(9, "...");
             ps.executeUpdate();
