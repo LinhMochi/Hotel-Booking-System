@@ -4,6 +4,7 @@
     Author     : pham quoc an
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,7 +34,7 @@
                 color: black;
             }
             .post-header{
-                background-image: url("../img/hotelDetail-background.jpg");
+                background-image: url("images/hotelDetail-background.jpg");
                 background-attachment: fixed;
                 background-repeat: no-repeat;
                 background-size:100%;
@@ -158,6 +159,9 @@
             .item img{
                 margin: auto;
                 border-radius: 30px;
+                width: 100%;
+                height:245px;
+                
             }
         </style>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -188,11 +192,11 @@
                     <!--navigation bar-->
                     <div class="nav" style="text-align: center;width: 99%;margin: auto; border:1px solid; border-radius: 15px; padding: 10px 0px">
                         <div style="display: flex;justify-content: center;width: 30%; margin: auto;">
-                            <a href="">Thông tin</a>
-                            <a href="">Phòng và giá</a>
-                            <a href="">TIện ích</a>
-                            <a href="">Xung quanh</a>
-                            <a href="">Đánh giá</a> 
+                            <a href="#">Thông tin</a>
+                            <a href="#">Phòng và giá</a>
+                            <a href="#">TIện ích</a>
+                            <a href="#">Xung quanh</a>
+                            <a href="#">Đánh giá</a> 
                         </div>
                     </div>
 
@@ -229,7 +233,7 @@
                             </div>
                             <!--image-->
                             <div class="search-map" style="border: 10px solid;border-color: #F79B47; border-radius: 20px; margin-top: 20px">
-                                <iframe style="border: 1px solid; border-radius: 20px" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6700.071830454561!2d105.83680032613097!3d21.022225613545384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9efb3905af%3A0x1ba6ca099f18e709!2zR2EgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1655104127537!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <iframe style="border: 1px solid; border-radius: 20px" src="${hotel.map}" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                         </div>
                         <!--search right-->
@@ -238,13 +242,16 @@
                             <div style="display: flex; justify-content: space-between; padding:30px 30px 0px">
                                 <!--name & stars-->
                                 <div style="">
-                                    <div class="title">Khách sạn Grand Budapest</div>
+                                    <div class="title">${hotel.name}</div>
                                     <div>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star "></span>
-                                        <span class="fa fa-star "></span>
+                                        <c:forEach var = "i" begin = "1" end ="${hotel.noOfStar}">
+                                            <span class="fa fa-star checked"></span>
+                                        </c:forEach>
+                                        <c:forEach  var = "i" begin = "1" end ="${5 - hotel.noOfStar}">
+                                            <span class="fa fa-star "></span>
+                                        </c:forEach>
+                                        
+                                    
                                     </div>
                                 </div>
                                 <!--rating-->
@@ -254,8 +261,8 @@
                                 </div>
                             </div>
                             <div style="margin: 0px 0px 0px 30px">
-                                <div>Gần trung tâm thành phố<br/>
-                                Km29 Đường Cao Tốc 08, Thạch Hoà, Thạch Thất, Hà Nội
+                                <div>${hotel.hotelAdvance}<br/>
+                                ${hotel.address}
                                 </div>
                                 <div>
                                     <i class="fa fa-heart-o" aria-hidden="true"></i>
@@ -273,9 +280,14 @@
                                         <div class="carousel slide multi-item-carousel" id="theCarousel">
                                           <div class="carousel-inner">
                                             <div class="item active">
-                                              <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia" class="img-responsive"></a></div>
+                                              <div class="col-xs-4"><a href="#1"><img src="" class="img-responsive"></a></div>
                                             </div>
-                                            <div class="item">
+                                              <c:forEach  var="user" items="${gallery}" >
+                                                <div class="item">
+                                                    <div class="col-xs-4"><a href="#1"><img src="${user.image}" class="img-responsive"></a></div>
+                                                </div>
+                                              </c:forEach>
+<!--                                            <div class="item">
                                               <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?fremantle,australia" class="img-responsive"></a></div>
                                             </div>
                                             <div class="item">
@@ -289,13 +301,13 @@
                                             </div>
                                             <div class="item">
                                               <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?margaretriver,australia" class="img-responsive"></a></div>
-                                            </div>
+                                            </div>-->
                                             <!-- add  more items here -->
                                             <!-- Example item start:  -->
-
+<!--
                                             <div class="item">
                                               <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia&r=7" class="img-responsive"></a></div>
-                                            </div>
+                                            </div>-->
 
                                             <!--  Example item end -->
                                           </div>

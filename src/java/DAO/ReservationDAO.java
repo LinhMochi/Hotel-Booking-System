@@ -26,19 +26,32 @@ public class ReservationDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public ArrayList<Reservation> getReservationList() throws SQLException, IOException {
+    public ArrayList<Reservation> getReservations(String page, String textSearchHotel, String email) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int numOfElement = 5;
+        int start = numOfElement * currentPage - numOfElement;
         ArrayList<Reservation> ar = new ArrayList<>();
         try {
-            String sql = "";
+            String sql = "Select r.id, r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name From Reservations r \n"
+                    + "inner join Users u on r.userId = u.id \n"
+                    + "inner join Hotels h on r.hotelId = h.id \n"
+                    + "where h.name LIKE '%?%' and u.email = ? \n"
+                    + "ORDER BY id ASC \n"
+                    + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
+            ps.setString(1, textSearchHotel);
+            ps.setString(2, email);
+            ps.setInt(3, start);
+            ps.setInt(4, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString(8));
-//                Hotel hotel = new Hotel(rs.getString(9));
-//                ar.add(new Reservation(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), user, hotel));
+                User user = new User(rs.getString(9));
+                Hotel hotel = new Hotel(rs.getString(10));
+                ar.add(new Reservation(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), rs.getString(8), user, hotel));
             }
         } catch (SQLException e) {
+            e.printStackTrace(System.out);
         } finally {
             if (conn != null) {
                 conn.close();
@@ -46,6 +59,46 @@ public class ReservationDAO {
         }
         return ar;
     }
+
+    public void addReservation(Reservation reservation) {
+        try {
+            String sql = "INSERT INTO Reservations r (noOfAdults, noOfChild, noOfRoom, bookDate, arrival, department, status, userId, hotelId) \n"
+                    + " VALUES ("
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?,"
+                    + "?);";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reservation.getAdult());
+            ps.setInt(2, reservation.getChild());
+            ps.setInt(3, reservation.getNoRoom());
+            ps.setString(4, reservation.getBookDate());
+            ps.setDate(5, reservation.getArrival());
+            ps.setDate(6, reservation.getDepartment());
+            ps.setString(7, "Active");
+            ps.setString(8, "...");
+            ps.setString(9, "...");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
     
-    
+    public void deleteReservation(int id) {
+        String sql = "DELETE Reservations WHERE id = ? ";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
+    }
 }

@@ -19,13 +19,14 @@ public class Reservation {
     private String bookDate;
     private Date arrival;
     private Date department;
+    private String status;
     private User user;
     private Hotel hotel;
 
     public Reservation() {
     }
 
-    public Reservation(int id, int adult, int child, int noRoom, String bookDate, Date arrival, Date department, User user, Hotel hotel) {
+    public Reservation(int id, int adult, int child, int noRoom, String bookDate, Date arrival, Date department, String status, User user, Hotel hotel) {
         this.id = id;
         this.adult = adult;
         this.child = child;
@@ -33,6 +34,7 @@ public class Reservation {
         this.bookDate = bookDate;
         this.arrival = arrival;
         this.department = department;
+        this.status = status;
         this.user = user;
         this.hotel = hotel;
     }
@@ -93,6 +95,14 @@ public class Reservation {
         this.department = department;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public User getUser() {
         return user;
     }
@@ -108,6 +118,8 @@ public class Reservation {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+
+    
     
     
     
