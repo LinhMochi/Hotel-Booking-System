@@ -122,5 +122,12 @@ public class RoomDAO {
 //    public boolean deleteRoom(int id){
 //        
 //    }
-        
+//    public ArrayList<Room> getCheapestRoom(ArrayList<Integer> hotelId){
+//        sql = "";
+//        list = new ArrayList<>();
+//        for(int id: hotelId){
+//            
+//        }
+//        
+//    }
 }

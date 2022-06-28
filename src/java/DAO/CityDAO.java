@@ -51,7 +51,7 @@ public class CityDAO {
                 "FROM Cities c LEFT JOIN (SELECT * FROM Hotels WHERE Hotels.[status]='Active') as h"+
                 "\nON c.id = h.cityId Group by c.id)\n" +
                 "\n" +
-                "SELECT Cities.id, Cities.city,Cities.[image], ISNULL(CityRate.cityrate,999) AS rate,noHotel FROM Cities \n" +
+                "SELECT TOP 5 Cities.id, Cities.city,Cities.[image], ISNULL(CityRate.cityrate,999) AS rate,noHotel FROM Cities \n" +
                 "LEFT JOIN CityRate on Cities.id = CityRate.cityid \n" +
                 "INNER JOIN noHotel ON Cities.id = noHotel.cityId\n" +
                 "ORDER BY rate";
@@ -118,3 +118,12 @@ public class CityDAO {
     // detelte city is lack
         
 }
+
+//class demo {
+//    public static void main(String[] args) {
+//        ArrayList<City> list = new CityDAO().getListCityComplete();
+//        for(City c: list){
+//            System.out.println(c.toString());
+//        }
+//    }
+//}

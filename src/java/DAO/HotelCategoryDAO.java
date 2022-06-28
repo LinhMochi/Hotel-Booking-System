@@ -51,11 +51,10 @@ public class HotelCategoryDAO {
     public ArrayList<HotelCategory> getListCompleteHotelCategory(){
         list = new ArrayList<>();
         sql =   "WITH countHotel AS(\n" +
-                "SELECT hc.id, count(h.id) as noHotel FROM HotelCategories hc LEFT JOIN "
-                + "(SELECT * FROM Hotels WHERE Hotels.[status]='Active') as h"
-                + "ON hc.id = h.categoryId\n" +
+                "SELECT hc.id, count(h.id) as noHotel FROM HotelCategories hc LEFT JOIN \n" +
+                "(SELECT * FROM Hotels WHERE Hotels.[status]='Active') as h ON hc.id = h.categoryId\n" +
                 "GROUP BY hc.id)\n" +
-                "SELECT hc.id,hc.category,hc.[image],c.noHotel FROM HotelCategories hc, CountHotel c WHERE hc.id = c.id\n" +
+                "SELECT TOP 5 hc.id,hc.category,hc.[image],c.noHotel FROM HotelCategories hc, CountHotel c WHERE hc.id = c.id\n" +
                 "Order by noHotel DESC";
         try {
             ps = conn.prepareStatement(sql);
@@ -74,8 +73,13 @@ public class HotelCategoryDAO {
         return list;
     }
     
-    
-    
-    
-    
 }
+
+//    class demo{
+//        public static void main(String[] args) {
+//            ArrayList<HotelCategory> list = new HotelCategoryDAO().getListCompleteHotelCategory();
+//            for(HotelCategory hc : list){
+//                System.out.println(hc.toString());
+//            }
+//        }
+//    }  

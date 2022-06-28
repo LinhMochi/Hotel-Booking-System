@@ -35,8 +35,8 @@ public class ReservationDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString(8));
-                Hotel hotel = new Hotel(rs.getString(9));
-                ar.add(new Reservation(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), user, hotel));
+//                Hotel hotel = new Hotel(rs.getString(9));
+//                ar.add(new Reservation(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), user, hotel));
             }
         } catch (SQLException e) {
         } finally {
