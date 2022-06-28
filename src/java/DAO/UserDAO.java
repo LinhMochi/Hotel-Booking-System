@@ -369,6 +369,35 @@ public class UserDAO {
         }
         return ar;
     }
+    
+    public ArrayList<User> getUserById(int id) throws SQLException, IOException {
+        ArrayList<User> ar = new ArrayList<>();
+        try {
+            String sql = "select * from Users where id = ? ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "id");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullName(rs.getString("fullName"));
+                u.setGender(rs.getInt("gender"));
+                u.setDob(rs.getDate("dob"));
+                u.setEmail(rs.getString("email"));
+                u.setAddress(rs.getString("address"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setPhoneNumber(rs.getString("phoneNumber"));
+                u.setPassword(rs.getString("password"));
+                u.setRole(rs.getString("role"));
+                u.setStatus(rs.getString("status"));
+                ar.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return ar;
+    }
 
     
     public void banUser(int id, String status) {
