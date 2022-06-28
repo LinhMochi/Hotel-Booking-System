@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,7 +23,7 @@
         <link href="css/nav-top.css" rel="stylesheet" type="text/css"/>
         <link href="css/datepicker-style.css" rel="stylesheet" type="text/css"/>
         <link href="css/layout-style.css" rel="stylesheet" type="text/css"/>
-        <link href="css/home-styles.css" rel="stylesheet" type="text/css"/>
+        <link href="css/home-styles.css" rel="stylesheet" type="text/css"/>    
     </head>
     <body>
         <header class="header nav-top">
@@ -120,125 +121,25 @@
 		<h3>Đến với các thành phố nổi tiếng với nhiều điểm đến đang chờ đợi bạn</h3>
 		<div class="contain flex-center">
 			<div class="owl-carousel owl-theme">
-			    <div class="item">
-			    	<div class="vertical-card city-card">
-						<div class="item-image">
-							<img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="city">
-						</div>
-						<div class="card-content flex-center">
-							<div class="item-info flex-center flex-column">
-								<div class="item-name">
-									Hà Nội
-								</div>
-								<div class="item-decription">
-									<p>50 khách sạn</p>
-								</div>
+			    <c:forEach var="city" items="${sessionScope.topCities}">
+                                <div class="item">
+                                    <div class="vertical-card city-card">
+                                            <div class="item-image">
+						<img src="${city.image}" alt="${city.name}">
+                                            </div>
+                                            <div class="card-content flex-center">
+						<div class="item-info flex-center flex-column">
+                                                    <div class="item-name">
+							${city.name}
+                                                    </div>
+							<div class="item-decription">
+							<p>${city.noHotel} khách sạn</p>
 							</div>
 						</div>
-					</div>
-			    </div>
-			    <div class="item">
-			    	<div class="vertical-card city-card">
-						<div class="item-image">
-							<img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="city">
-						</div>
-						<div class="card-content flex-center">
-							<div class="item-info flex-center flex-column">
-								<div class="item-name">
-									Hà Nội
-								</div>
-								<div class="item-decription">
-									<p>50 khách sạn</p>
-								</div>
-							</div>
-						</div>
-					</div>
-			    </div>
-			    <div class="item">
-			    	<div class="vertical-card city-card">
-						<div class="item-image">
-							<img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="city">
-						</div>
-						<div class="card-content flex-center">
-							<div class="item-info flex-center flex-column">
-								<div class="item-name">
-									Hà Nội
-								</div>
-								<div class="item-decription">
-									<p>50 khách sạn</p>
-								</div>
-							</div>
-						</div>
-					</div>
-			    </div>
-			    <div class="item">
-			    	<div class="vertical-card city-card">
-						<div class="item-image">
-							<img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="city">
-						</div>
-						<div class="card-content flex-center">
-							<div class="item-info flex-center flex-column">
-								<div class="item-name">
-									Hà Nội
-								</div>
-								<div class="item-decription">
-									<p>50 khách sạn</p>
-								</div>
-							</div>
-						</div>
-					</div>
-			    </div>
-			    <div class="item">
-			    	<div class="vertical-card city-card">
-						<div class="item-image">
-							<img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="city">
-						</div>
-						<div class="card-content flex-center">
-							<div class="item-info flex-center flex-column">
-								<div class="item-name">
-									Hà Nội
-								</div>
-								<div class="item-decription">
-									<p>50 khách sạn</p>
-								</div>
-							</div>
-						</div>
-					</div>
-			    </div>
-			    <div class="item">
-			    	<div class="vertical-card city-card">
-						<div class="item-image">
-							<img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="city">
-						</div>
-						<div class="card-content flex-center">
-							<div class="item-info flex-center flex-column">
-								<div class="item-name">
-									Hà Nội
-								</div>
-								<div class="item-decription">
-									<p>50 khách sạn</p>
-								</div>
-							</div>
-						</div>
-					</div>
-			    </div>
-			    <div class="item">
-			    	<div class="vertical-card city-card">
-						<div class="item-image">
-							<img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="city">
-						</div>
-						<div class="card-content flex-center">
-							<div class="item-info flex-center flex-column">
-								<div class="item-name">
-									Hà Nội
-								</div>
-								<div class="item-decription">
-									<p>50 khách sạn</p>
-								</div>
-							</div>
-						</div>
-					</div>
-			    </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </c:forEach>                            
 			</div>
 		</div>
 	</div>
@@ -273,64 +174,27 @@
 		<h3>Chúng tôi cung cấp nhiều loại khách sạn đạt chuẩn ...</h3>
                 <div class="container flex-around">
                     <div class="owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="vertical-cicle-card">
-                                <div class="item-image">
-                                    <img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="">
-                                </div>
-                                <div class="card-content flex-center">
-                                    <div class="item-info flex-center flex-column">
-                                        <div class="item-name">Khách sạn nghỉ dưỡng</div>
-                                        <div class="item-decription"><p>10 khách sạn</p></div>
+                        <c:forEach var ="hc" items="${sessionScope.topHCs}">
+                            <div class="item">
+                                <div class="vertical-cicle-card">
+                                    <div class="item-image">
+                                        <img src="${hc.image}" alt="${hc.category}"/>
+                                    </div>
+                                    <div class="card-content flex-center">
+                                        <div class="item-info flex-center flex-column">
+                                            <div class="item-name">${hc.category}</div>
+                                            <div class="item-decription"><p>${hc.noHotel} khách sạn</p></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="item">
-                            <div class="vertical-cicle-card">
-                                <div class="item-image">
-                                    <img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="">
-                                </div>
-                                <div class="card-content flex-center">
-                                    <div class="item-info flex-center flex-column">
-                                        <div class="item-name">Khách sạn Capsule</div>
-                                        <div class="item-decription"><p>50 khách sạn</p></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="vertical-cicle-card">
-                                <div class="item-image">
-                                    <img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="">
-                                </div>
-                                <div class="card-content flex-center">
-                                    <div class="item-info flex-center flex-column">
-                                        <div class="item-name">Homestay</div>
-                                        <div class="item-decription"><p>40 khách sạn</p></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="item">
-                            <div class="vertical-cicle-card">
-                                <div class="item-image">
-                                    <img src="https://du-lich.chudu24.com/f/m/1701/06/khach-san-sapa-capsule-11.jpg" alt="">
-                                </div>
-                                <div class="card-content flex-center">
-                                    <div class="item-info flex-center flex-column">
-                                        <div class="item-name">Khách sạn cao cấp</div>
-                                        <div class="item-decription"><p>50 khách sạn</p></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
 		</div>
 	</div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <!-- js slider CND -->
+         <!--js slider CND--> 
 	<script type="text/javascript">
 		$('.owl-carousel').owlCarousel({
 		    // loop:true,
@@ -351,20 +215,22 @@
 		    }
 		});
 	</script>
+        <%----%>
         <div class="suggest-hotel-wrapper">
 		<h5>Góc đề cử :V</h5>
 		<h3>Một số khách sạn có lượt yêu thích và điểm đánh giá của khách cao</h3>
 		<div class="container">
 			<div class="owl-carousel owl-theme">
-                            <div class="item">
+                            <c:forEach var="hs" items="${sessionScope.suggestHotels}">
+                                <div class="item">
                                             <div class="card-l grid-3">
-                                                    <div class="card-image"><img src="https://hotelsienaborgogrondaie.com/img/apartments/rooms/rooms-slider.jpg" alt="room"></div>
+                                                    <div class="card-image"><img src="${hs.image}" alt="${hs.name}"></div>
                                                     <div class="card-contain">
                                                             <div class="card-header">
-                                                                    <h2 class="hotel-name">Khách sạn Biển Hồ</h2>
+                                                                    <h2 class="hotel-name">${hs.name}</h2>
                                                                     <div class="add-box">
-                                                                            <div class="hotel-start"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></div>
-                                                                            <div class="hotel-address"><i class="fa fa-map-marker" aria-hidden="true"></i>Trần phú, Hà Đông, Hà Nội</div>
+                                                                        <div class="hotel-start"><c:forEach begin="1" end="${hs.noOfStar}"><i class="fa fa-star" aria-hidden="true"></i></c:forEach></div>
+                                                                            <div class="hotel-address"><i class="fa fa-map-marker" aria-hidden="true"></i>${hs.address}</div>
                                                                     </div>
                                                             </div>
                                                             <div class="card-infor">
@@ -387,14 +253,14 @@
                                                     <div class="card-footer flex-center flex-column">
                                                             <div class="flex-center flex-column like-card like">
                                                                     <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                                                    <div class="no-like">500<span class="lable">lượt thích</span></div>
+                                                                    <div class="no-like">${hs.noLike}<span class="lable">lượt thích</span></div>
                                                             </div>
                                                             <div class="card-score flex-center">
                                                                     <div class="left-side">
                                                                             <div class="rate">Tuyệt vời !</div>
-                                                                            <div class="no-rate">1000 đánh giá</div>
+                                                                            <div class="no-rate">${hs.noRate} đánh giá</div>
                                                                     </div>
-                                                                    <div class="score right-side flex-center">8.9</div>
+                                                                    <div class="score right-side flex-center">${hs.avgScore}</div>
                                                             </div>
                                                             <div class="card-price flex-end flex-column">
                                                                     <div class="title">Giá ưu đãi</div>
@@ -405,153 +271,7 @@
                                                     </div>
                                             </div>
                                     </div>
-                            <div class="item">
-                                            <div class="card-l grid-3">
-                                                    <div class="card-image"><img src="https://hotelsienaborgogrondaie.com/img/apartments/rooms/rooms-slider.jpg" alt="room"></div>
-                                                    <div class="card-contain">
-                                                            <div class="card-header">
-                                                                    <h2 class="hotel-name">Khách sạn Biển Hồ</h2>
-                                                                    <div class="add-box">
-                                                                            <div class="hotel-start"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></div>
-                                                                            <div class="hotel-address"><i class="fa fa-map-marker" aria-hidden="true"></i>Trần phú, Hà Đông, Hà Nội</div>
-                                                                    </div>
-                                                            </div>
-                                                            <div class="card-infor">
-                                                                <ul class="hotel-sd">
-                                                                    <li>Gần trung tâm</li>
-                                                                    <li>View phố</li>
-                                                                    <li class="show-more">+5</li>
-                                                                        <div class = "show-dd">
-                                                                            <ol>
-                                                                                <li>Bảo vệ 24/7</li>
-                                                                                <li>Chỗ để xe miễn phí</li>
-                                                                                <li>Gần sân bay</li>
-                                                                            </ol>                                                                  
-                                                                        </div>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="add-infor">Giảm giá mùa du lịch</div>
-                                                            <div class="add-infor">Miễn phí đặt&huỷ phòng</div>					
-                                                    </div>
-                                                    <div class="card-footer flex-center flex-column">
-                                                            <div class="flex-center flex-column like-card like">
-                                                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                                                    <div class="no-like">500<span class="lable">lượt thích</span></div>
-                                                            </div>
-                                                            <div class="card-score flex-center">
-                                                                    <div class="left-side">
-                                                                            <div class="rate">Tuyệt vời !</div>
-                                                                            <div class="no-rate">1000 đánh giá</div>
-                                                                    </div>
-                                                                    <div class="score right-side flex-center">8.9</div>
-                                                            </div>
-                                                            <div class="card-price flex-end flex-column">
-                                                                    <div class="title">Giá ưu đãi</div>
-                                                                    <div class="unit-price">1.555.000</div>
-                                                                    <div class="current-price"><span class="price">566.000</span><span class="unit lable">đ</span></div>
-                                                            </div>
-                                                            <div class="btn pick-room">Chọn phòng</div>
-                                                    </div>
-                                            </div>
-                                    </div>
-                            <div class="item">
-                                            <div class="card-l grid-3">
-                                                    <div class="card-image"><img src="https://hotelsienaborgogrondaie.com/img/apartments/rooms/rooms-slider.jpg" alt="room"></div>
-                                                    <div class="card-contain">
-                                                            <div class="card-header">
-                                                                    <h2 class="hotel-name">Khách sạn Biển Hồ</h2>
-                                                                    <div class="add-box">
-                                                                            <div class="hotel-start"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></div>
-                                                                            <div class="hotel-address"><i class="fa fa-map-marker" aria-hidden="true"></i>Trần phú, Hà Đông, Hà Nội</div>
-                                                                    </div>
-                                                            </div>
-                                                            <div class="card-infor">
-                                                                <ul class="hotel-sd">
-                                                                    <li>Gần trung tâm</li>
-                                                                    <li>View phố</li>
-                                                                    <li class="show-more">+5</li>
-                                                                        <div class = "show-dd">
-                                                                            <ol>
-                                                                                <li>Bảo vệ 24/7</li>
-                                                                                <li>Chỗ để xe miễn phí</li>
-                                                                                <li>Gần sân bay</li>
-                                                                            </ol>                                                                  
-                                                                        </div>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="add-infor">Giảm giá mùa du lịch</div>
-                                                            <div class="add-infor">Miễn phí đặt&huỷ phòng</div>					
-                                                    </div>
-                                                    <div class="card-footer flex-center flex-column">
-                                                            <div class="flex-center flex-column like-card like">
-                                                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                                                    <div class="no-like">500<span class="lable">lượt thích</span></div>
-                                                            </div>
-                                                            <div class="card-score flex-center">
-                                                                    <div class="left-side">
-                                                                            <div class="rate">Tuyệt vời !</div>
-                                                                            <div class="no-rate">1000 đánh giá</div>
-                                                                    </div>
-                                                                    <div class="score right-side flex-center">8.9</div>
-                                                            </div>
-                                                            <div class="card-price flex-end flex-column">
-                                                                    <div class="title">Giá ưu đãi</div>
-                                                                    <div class="unit-price">1.555.000</div>
-                                                                    <div class="current-price"><span class="price">566.000</span><span class="unit lable">đ</span></div>
-                                                            </div>
-                                                            <div class="btn pick-room">Chọn phòng</div>
-                                                    </div>
-                                            </div>
-                                    </div>
-                            <div class="item">
-                                            <div class="card-l grid-3">
-                                                    <div class="card-image"><img src="https://hotelsienaborgogrondaie.com/img/apartments/rooms/rooms-slider.jpg" alt="room"></div>
-                                                    <div class="card-contain">
-                                                            <div class="card-header">
-                                                                    <h2 class="hotel-name">Khách sạn Biển Hồ</h2>
-                                                                    <div class="add-box">
-                                                                            <div class="hotel-start"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></div>
-                                                                            <div class="hotel-address"><i class="fa fa-map-marker" aria-hidden="true"></i>Trần phú, Hà Đông, Hà Nội</div>
-                                                                    </div>
-                                                            </div>
-                                                            <div class="card-infor">
-                                                                <ul class="hotel-sd">
-                                                                    <li>Gần trung tâm</li>
-                                                                    <li>View phố</li>
-                                                                    <li class="show-more">+5</li>
-                                                                        <div class = "show-dd">
-                                                                            <ol>
-                                                                                <li>Bảo vệ 24/7</li>
-                                                                                <li>Chỗ để xe miễn phí</li>
-                                                                                <li>Gần sân bay</li>
-                                                                            </ol>                                                                  
-                                                                        </div>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="add-infor">Giảm giá mùa du lịch</div>
-                                                            <div class="add-infor">Miễn phí đặt&huỷ phòng</div>					
-                                                    </div>
-                                                    <div class="card-footer flex-center flex-column">
-                                                            <div class="flex-center flex-column like-card like">
-                                                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                                                    <div class="no-like">500<span class="lable">lượt thích</span></div>
-                                                            </div>
-                                                            <div class="card-score flex-center">
-                                                                    <div class="left-side">
-                                                                            <div class="rate">Tuyệt vời !</div>
-                                                                            <div class="no-rate">1000 đánh giá</div>
-                                                                    </div>
-                                                                    <div class="score right-side flex-center">8.9</div>
-                                                            </div>
-                                                            <div class="card-price flex-end flex-column">
-                                                                    <div class="title">Giá ưu đãi</div>
-                                                                    <div class="unit-price">1.555.000</div>
-                                                                    <div class="current-price"><span class="price">566.000</span><span class="unit lable">đ</span></div>
-                                                            </div>
-                                                            <div class="btn pick-room">Chọn phòng</div>
-                                                    </div>
-                                            </div>
-                                    </div>
+                            </c:forEach>
 			</div>
 		</div>
 	</div>
@@ -580,7 +300,7 @@
 		});
 	</script>
 	<footer class="footer">
-		this is footer
+            this is footer${sessionScope.message}
 	</footer>
     </body>
 </html>

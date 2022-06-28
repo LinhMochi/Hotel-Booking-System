@@ -106,8 +106,8 @@
                                                 </c:when>
                                                 <c:when test="${empty user}">
                                                     <div class="flex-row nav-link">
-                                                            <a class="login" href="../Hotel_Booking_Site/login">Đăng nhập</a>
-                                                            <a class="register"href="../Hotel_Booking_Site/register">Đăng ký ngay</a>
+                                                            <a class="login" href="../Hotel-Booking-System/login">Đăng nhập</a>
+                                                            <a class="register"href="../Hotel-Booking-System/register">Đăng ký ngay</a>
                                                     </div>    
                                                 </c:when>                                     
                                             </c:choose>

@@ -6,6 +6,7 @@
 package DAO;
 
 import DBcontext.DBcontext;
+import Model.BookedRoom;
 import Model.Room;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,5 +22,5 @@ public class BookedRoomDAO {
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     String sql = null;
-    ArrayList<Room> list;
+    ArrayList<BookedRoom> list;
 }

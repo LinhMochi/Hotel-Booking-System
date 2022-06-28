@@ -64,6 +64,13 @@ public class HotelCategory {
     public void setNoHotel(int noHotel) {
         this.noHotel = noHotel;
     }
+
+    @Override
+    public String toString() {
+        return "HotelCategory{" + "id=" + id + ", category=" + category + ", image=" + image + ", noHotel=" + noHotel + '}';
+    }
+    
+    
     
     
 }
