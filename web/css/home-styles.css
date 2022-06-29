@@ -491,6 +491,9 @@ h3{
                     width: 30px;
                     height: 30px
                 }
+		.hotel-sd{
+			position: relative;
+		}
 		.card-contain .show-more:hover~.show-dd{
                         
 			display: block;
@@ -500,15 +503,10 @@ h3{
 		.card-footer ul>li{
 			background-color: burlywood;
 		}
-		.card-contain ul>.show-more~.show-dd{
-			width: 150px;
-		}
-		.hotel-sd{
-			position: relative;
-		}
 		.show-dd{
 			position: absolute;
-			left: 90%;
+			width: 165px;
+                        left: 90%;
 			top: 0;
 			padding: 5px;
 			line-height: 1.5rem;

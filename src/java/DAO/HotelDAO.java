@@ -309,7 +309,7 @@ public class HotelDAO {
 
 //class demo{
 //    public static void main(String[] args) {
-//        ArrayList<Hotel> list = new HotelDAO().getListHotel("1,2,3,4");
+//        ArrayList<Hotel> list = new HotelDAO().getSuggestHotel();
 //        if(list.isEmpty()) System.out.println("Null ne");
 //        else 
 //        for(Hotel h:list){

@@ -5,12 +5,15 @@
  */
 package Controller;
 
+import DAO.BookedRoomDAO;
 import DAO.CityDAO;
 import DAO.HotelCategoryDAO;
+import DAO.HotelConvenientDAO;
 import DAO.HotelDAO;
 import Model.City;
 import Model.Hotel;
 import Model.HotelCategory;
+import Model.HotelConvenientList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -43,11 +46,17 @@ public class HomePageController extends HttpServlet {
         ArrayList<City> topCities = new CityDAO().getListCityComplete();
         ArrayList<HotelCategory> topHCs = new HotelCategoryDAO().getListCompleteHotelCategory();
         ArrayList<Hotel> suggestHotels = new HotelDAO().getSuggestHotel();
+        StringBuilder hotels = new StringBuilder("");
+        for(Hotel h:suggestHotels){
+            hotels.append(h.getId()+", ");
+        }
+        HotelConvenientList cList = new HotelConvenientDAO().getRatedConvenientByHotels(hotels.toString());
         HttpSession session = request.getSession(true);
         session.setAttribute("topCities", topCities);
         session.setAttribute("topHCs", topHCs);
         session.setAttribute("suggestHotels", suggestHotels);
-        session.setAttribute("message", "get all push into it");
+        session.setAttribute("cList", cList);
+        session.setAttribute("pList", new BookedRoomDAO().getMaxPromotion(hotels.toString()));
         
         request.getRequestDispatcher("Home.jsp").forward(request, response);
         

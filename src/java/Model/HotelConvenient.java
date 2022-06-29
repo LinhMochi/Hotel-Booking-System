@@ -12,18 +12,33 @@ package Model;
 public class HotelConvenient {
     private int id;
     private String convenient;
+    private String category;
+    private int rate;
     private int hotelId;
     private int categoryId;
 
     public HotelConvenient() {
     }
+    
+    
 
-    public HotelConvenient(int id, String convenient, int hotelId, int categoryId) {
+    public HotelConvenient(int id, String convenient, String category, int hotelId, int categoryId) {
         this.id = id;
         this.convenient = convenient;
+        this.category = category;
         this.hotelId = hotelId;
         this.categoryId = categoryId;
     }
+    
+    public HotelConvenient(int id, String convenient, String category,int rate, int hotelId, int categoryId) {
+        this.id = id;
+        this.convenient = convenient;
+        this.category = category;
+        this.rate = rate;
+        this.hotelId = hotelId;
+        this.categoryId = categoryId;
+    }
+    
 
     public int getId() {
         return id;
@@ -41,6 +56,14 @@ public class HotelConvenient {
         this.convenient = convenient;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public int getHotelId() {
         return hotelId;
     }
@@ -56,6 +79,14 @@ public class HotelConvenient {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+    
+    
+
+    @Override
+    public String toString() {
+        return "HotelConvenient{" + "id=" + id + ", convenient=" + convenient + ", category=" + category + ", hotelId=" + hotelId + ", categoryId=" + categoryId + '}';
+    }
+    
     
     
 }
