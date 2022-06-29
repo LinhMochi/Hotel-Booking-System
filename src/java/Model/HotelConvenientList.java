@@ -21,6 +21,7 @@ public class HotelConvenientList {
     public HotelConvenientList(ArrayList<HotelConvenient> list) {
         this.list = list;
     }
+    public boolean isEmpty(){return list.isEmpty();}
     
     public int getSize(int hotelId){
         int count = 0;

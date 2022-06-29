@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -221,7 +222,7 @@
 		<h3>Một số khách sạn có lượt yêu thích và điểm đánh giá của khách cao</h3>
 		<div class="container">
 			<div class="owl-carousel owl-theme">
-                            <c:forEach var="hs" items="${sessionScope.suggestHotels}">
+                            <c:forEach var="hs" varStatus="status" items="${sessionScope.suggestHotels}">
                                 <div class="item">
                                             <div class="card-l grid-3">
                                                     <div class="card-image"><img src="${hs.image}" alt="${hs.name}"></div>
@@ -235,16 +236,25 @@
                                                             </div>
                                                             <div class="card-infor">
                                                                 <ul class="hotel-sd">
-                                                                    <li>Gần trung tâm</li>
-                                                                    <li>View phố</li>
-                                                                    <li class="show-more">+5</li>
+                                                                    <li>${hs.hotelAdvance}</li>
+                                                                    <c:if test="${sessionScope.cList.getSize(hs.id)==2||sessionScope.cList.getSize(hs.id)==1}">                       
+                                                                        <c:forEach var="hc" items="${sessionScope.cList.getHotelConvenient(hs.id)}" varStatus="i">
+                                                                            <li>${hc.convenient}</li>
+                                                                        </c:forEach>                                                                                                                                                                                                            
+                                                                    </c:if>
+                                                                    <c:if test="${sessionScope.cList.getSize(hs.id) > 2}">                                                                    
+                                                                        <c:forEach var="hc" items="${sessionScope.cList.getHotelConvenient(hs.id)}" begin="0" end="0">
+                                                                            <li>${hc.convenient}</li>
+                                                                        </c:forEach>                                                                            
+                                                                        <li class="show-more">+${sessionScope.cList.getSize(hs.id)-1}</li>
                                                                         <div class = "show-dd">
                                                                             <ol>
-                                                                                <li>Bảo vệ 24/7</li>
-                                                                                <li>Chỗ để xe miễn phí</li>
-                                                                                <li>Gần sân bay</li>
+                                                                                <c:forEach var="hc" items="${sessionScope.cList.getHotelConvenient(hs.id)}" begin="1" end="4">
+                                                                                    <li>${hc.convenient}</li>
+                                                                                </c:forEach>                                             
                                                                             </ol>                                                                  
                                                                         </div>
+                                                                    </c:if>
                                                                 </ul>
                                                             </div>
                                                             <div class="add-infor">Giảm giá mùa du lịch</div>
@@ -263,11 +273,21 @@
                                                                     <div class="score right-side flex-center">${hs.avgScore}</div>
                                                             </div>
                                                             <div class="card-price flex-end flex-column">
+                                                                <c:set var="pL" value="${sessionScope.pList.get(status.index)}"/>
+                                                                <c:if test="${pL.discount > 0}">
                                                                     <div class="title">Giá ưu đãi</div>
-                                                                    <div class="unit-price">1.555.000</div>
-                                                                    <div class="current-price"><span class="price">566.000</span><span class="unit lable">đ</span></div>
+                                                                    <div class="unit-price"><fmt:formatNumber type="number" pattern="###,###" value="${pL.price}"/></div>
+                                                                    <div class="current-price"><span class="price"><fmt:formatNumber type="number" pattern="###,###" value="${pL.price*(1-pL.discount)}"/></span>
+                                                                    <span class="unit lable">đ</span></div>
+                                                                </c:if>
+                                                                <c:if test="${pL.discount == 0}">
+                                                                    <div class="title">Giá thấp nhất</div>
+                                                                    <div class="current-price"><span class="price">566.000</span>
+                                                                    <span class="unit lable">đ</span></div>
+                                                                </c:if>
+                                                                    
                                                             </div>
-                                                            <div class="btn pick-room">Chọn phòng</div>
+                                                            <div class="btn pick-room">Xem phòng</div>
                                                     </div>
                                             </div>
                                     </div>
