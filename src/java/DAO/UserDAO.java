@@ -376,7 +376,7 @@ public class UserDAO {
             String sql = "select * from Users where id = ? ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, "id");
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
                 User u = new User();
@@ -394,7 +394,7 @@ public class UserDAO {
                 ar.add(u);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            throw e;
         }
         return ar;
     }
@@ -409,6 +409,25 @@ public class UserDAO {
             ps.setInt(2, id);
             ps.executeUpdate();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public void updateUserByAdmin(int id,String fullName, int gender,String dob,int role,String address, String phoneNumber) {
+        String query = "Update Users set fullName = ?, gender = ? ,role = ?, dob = ?, address = ?, phoneNumber = ? where id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, fullName);
+            ps.setInt(2, gender);
+            ps.setInt(3, role);
+            ps.setString(4, dob);
+            ps.setString(5, address);
+            ps.setString(6, phoneNumber);
+            ps.setInt(7, id);
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

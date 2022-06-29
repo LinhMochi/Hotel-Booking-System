@@ -48,7 +48,7 @@ public class banServlet extends HttpServlet {
             throws ServletException, IOException {
             
         int id = Integer.parseInt(request.getParameter("id"));
-        
+        int index = Integer.parseInt(request.getParameter("index"));
         String status = request.getParameter("status");
         System.out.println(id);      
         UserDAO userDao = new UserDAO();
@@ -61,7 +61,7 @@ public class banServlet extends HttpServlet {
         }
  
         userDao.banUser(id, status);
-        response.sendRedirect("listUserServlet");
+        response.sendRedirect("listUserServlet?index="+index);
     }
 
     /**

@@ -23,8 +23,8 @@
                         <label for="username">Full Name</label>
                     </div>
                     <div class="box">
-                        <input name="dbo" type="text" required>
-                        <label for="username">Date Of Birth</label>
+                        <input name="dbo" type="date" required title="Hãy nhập đúng định dạng yyyy-MM-dd">
+                        <label for="username" >Date Of Birth</label>
                     </div>
                 
                     <div class="box">

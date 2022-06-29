@@ -15,45 +15,47 @@
         <link href="css/login-style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+
         <div class="login-box">
-            <h2>Add User</h3>
-                <form action="AddNewUserServlet" method="post">
-                    <div class="box">
-                        
-                            <input value="${list}" type="text" name="name" required>
+            <h2>Update User</h3>
+                <form action="UpdateUserServlet" method="Post">
+                    <c:forEach items="${list}" var="user">
+                        <input type="hidden" name="id" value="${user.id}">
+                        <div class="box">
+                            <input value="${user.fullName}" type="text" name="fullName" required>
                             <label for="username">Full Name</label>
+                        </div>
+                        <div class="box">
+                            <input value = "${user.dob}" name="dbo" type="date" required>
+                            <label for="username">Date Of Birth</label>
+                        </div>
 
-                    </div>
-                    <div class="box">
-                        <input name="dbo" type="text" required>
-                        <label for="username">Date Of Birth</label>
-                    </div>
+                        <div class="box">
+                            <input value = "${user.address}" type="text" name="address" required>
+                            <label for="username">Address</label>
+                        </div>
+                        <div class="box">
+                            <input value = "${user.phoneNumber}" name="phoneNumber" pattern="^[0-9]{9,11}$" title="Hãy nhập đúng định dạng số điện thoại" required>
+                            <label for="username">Phone Number</label>
+                        </div>
 
-                    <div class="box">
-                        <input type="text" name="address" required>
-                        <label for="username">Address</label>
-                    </div>
-                    <div class="box">
-                        <input name="phoneNumber" pattern="^[0-9]{9,11}$" title="Hãy nhập đúng định dạng số điện thoại" required>
-                        <label for="username">Phone Number</label>
-                    </div>
-
-                    <div class="box">
-                        <select name="role" class="form-select" aria-label="Default select example" >
-                            <option selected>User role</option>
-                            <option value="Customer">Customer</option>
-                            <option value="Manager">Manager</option>
-                        </select>
+                        <div class="box">
+                            <select name="role" class="form-select" aria-label="Default select example" >
+                                <option selected="${user.role}" value="${user.gender}">User role</option>
+                                <option value="Customer">Customer</option>
+                                <option value="Manager">Manager</option> 
+                            </select>
                             And
-                        <select name="gender" class="form-select" aria-label="Default select example" >
-                            <option selected value="3">Gender</option>
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                            <option value="3">Unknown</option>
-                        </select>
-                    </div>
+                            <select name="gender" class="form-select" aria-label="Default select example" >
+                                <option selected="${user.gender}" value="${user.gender}">Gender</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="3">Unknown</option>
+                            </select>
+                        </div>
 
-                    <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </c:forEach>
 
                 </form>
         </div>

@@ -56,7 +56,7 @@
                                     <i class="far fa-trash-alt"></i>
                                     Delete
                                 </button>
-                                <a href="banServlet?id=${user.id}&&status=${user.status}">
+                                <a href="banServlet?id=${user.id}&&status=${user.status}&&index=${index}">
                                     <c:if test="${user.status == 'Banned'}"><button type="button" style="width: 100px" class="btn btn-primary"><i class="fas fa-user-plus"></i>Active</button></c:if>
                                     <c:if test="${user.status == 'Active'}"><button type="button" style="width: 100px" class="btn btn-danger"><i class="fas fa-user-slash"></i>Banned</button></c:if>
                                     <a href="UpdateUserServlet?id=${user.id}">
@@ -102,6 +102,7 @@
                 <a  class="${i==index?"btn-ative":""}" 
                     href="listUserServlet?index=${i}" 
                     role="button">${i}</a>
+                    <input type="hidden" name="index" value="${i}">
             </c:forEach>
 
             <c:if test="${index < endPage}">

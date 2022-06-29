@@ -55,6 +55,7 @@ public class UpdateUserServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(UpdateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //response.sendRedirect("UpdateUser.jsp");
         request.getRequestDispatcher("UpdateUser.jsp").forward(request, response);
     }
 
@@ -69,7 +70,16 @@ public class UpdateUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        int id = Integer.parseInt(request.getParameter("id"));
+        String fullName = request.getParameter("fullName");
+        int gender = Integer.parseInt(request.getParameter("gender"));
+        String dob = request.getParameter("dbo");
+        int role = Integer.parseInt(request.getParameter("role"));
+        String address = request.getParameter("address");
+        String phoneNumber = request.getParameter("phoneNumber");
+        UserDAO userDao = new UserDAO();
+        userDao.updateUserByAdmin(id, fullName, gender, dob, role, address, phoneNumber);
+        response.sendRedirect("listUserServlet");
     }
 
     /**
