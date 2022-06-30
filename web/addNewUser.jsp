@@ -1,7 +1,7 @@
 <%-- 
-    Document   : Login
-    Created on : May 31, 2022, 12:42:06 AM
-    Author     : Linh
+    Document   : MoviePage
+    Created on : Sep 30, 2021, 1:30:27 PM
+    Author     : morjo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -23,12 +23,13 @@
                         <label for="username">Full Name</label>
                     </div>
                     <div class="box">
-                        <input name="dbo" type="text" required>
-                        <label for="username">Date Of Birth</label>
+                        <input name="dbo" type="date" id="username" required>
+                        <label for="username" >Date Of Birth</label>
                     </div>
                 
                     <div class="box">
-                        <input type="email" name="email" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,25}@gmail.com$" title="Hãy nhập đúng định dạng @gmail.com" id="username" required>
+                        <div style="color: red">${msg}</div>
+                        <input type="email" name="email" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,25}@gmail.com$" id="username" required>
                         <label for="username">Email</label>
                     </div>
                     <div class="box">
@@ -51,22 +52,22 @@
                     </div>
                 <div class="box">
                         <select name="role" class="form-select" aria-label="Default select example" >
-                            <option selected>User role</option>
+                            <option selected value="Customer">User role</option>
                             <option value="Customer">Customer</option>
                             <option value="Manager">Manager</option>
                         </select>
                         
                         <select name="gender" class="form-select" aria-label="Default select example" >
-                            <option selected>Gender</option>
+                            <option selected value="3">Gender</option>
                             <option value="1">Male</option>
                             <option value="2">Female</option>
-                            <option value="3">Unknow</option>
+                            <option value="3">Unknown</option>
                         </select>
                         
                         <select name="status" class="form-select" aria-label="Default select example" >
-                            <option selected>Status</option>
-                            <option value="1">Active</option>
-                            <option value="2">Banned</option>
+                            <option selected value="Active">Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Banned">Banned</option>
                       
                         </select>
                     </div>
@@ -81,7 +82,7 @@
                 ${message}
             </div>
         </div>
-
+            
         <script type="text/javascript">
             const error_message = document.querySelector('.error-message');
             const close_error = document.querySelector('.close-error-message');

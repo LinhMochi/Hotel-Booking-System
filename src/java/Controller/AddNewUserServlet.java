@@ -9,9 +9,11 @@ import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -71,36 +73,45 @@ public class AddNewUserServlet extends HttpServlet {
         processRequest(request, response);
         UserDAO ud = new UserDAO();
         User u = new User();
-        //            String dobString = request.getParameter("dob");
-//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//            java.util.Date dob = sdf.parse(dobString);
-//            java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
-//            u.setDob(sqlDob);
-        String dbo = request.getParameter("dbo");
-        String dbo1 = request.getParameter("gender");
-        String dbo2 = request.getParameter("name");
-        String dbo3 = request.getParameter("email");
-        String dbo4 = request.getParameter("address");
-        String dbo5 = request.getParameter("phoneNumber");
-        String dbo6 = request.getParameter("password");
-        String dbo7 = request.getParameter("role");
-        String dbo8 = request.getParameter("status");
-        
+        List<User> list = ud.getUsers();
+        String dobString = request.getParameter("dbo");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date dob = null;
         try {
-            Date date = (Date) new SimpleDateFormat("dd/MM/yyyy").parse(dbo);
-            u.setDob(date);
+            dob = sdf.parse(dobString);
         } catch (ParseException ex) {
             Logger.getLogger(AddNewUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        u.setGender(Integer.parseInt(request.getParameter("gender")));
-        u.setFullName(request.getParameter("name"));
+        java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
+        u.setDob(sqlDob);
+
+//        String dbo1 = request.getParameter("gender");
+//        String dbo2 = request.getParameter("name");
+//        String dbo3 = request.getParameter("email");
+//        String dbo4 = request.getParameter("address");
+//        String dbo5 = request.getParameter("phoneNumber");
+//        String dbo6 = request.getParameter("password");
+//        String dbo7 = request.getParameter("role");
+//        String dbo8 = request.getParameter("status");
+//            String dbo = request.getParameter("dbo");
+//            Date date = (Date) new SimpleDateFormat("dd-MM-yyyy").parse(dbo);
+//            u.setDob((java.sql.Date) date);
+        //u.setDob((Date) new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("dbo")));
         u.setEmail(request.getParameter("email"));
         u.setAddress(request.getParameter("address"));
         u.setAvatar(request.getParameter("avatar"));
         u.setPhoneNumber(request.getParameter("phoneNumber"));
-        u.setPassword(request.getParameter("pass"));
+        u.setPassword(request.getParameter("password"));
         u.setRole(request.getParameter("role"));
         u.setStatus(request.getParameter("status"));
+        u.setGender(Integer.parseInt(request.getParameter("gender")));
+        u.setFullName(request.getParameter("name"));
+        for (int i = 0; i < list.size(); i++) {
+            if (request.getParameter("email").equalsIgnoreCase(list.get(i).getEmail())) {
+                request.setAttribute("msg", "Email already exist!");
+                request.getRequestDispatcher("addNewUser.jsp").forward(request, response);
+            }
+        }
         ud.create_User(u);
 //fullName, gender, dob, email, address, avatar, phoneNumber, password, role, status
         response.sendRedirect("listUserServlet");

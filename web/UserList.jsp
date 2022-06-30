@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
         <title>List User Page</title>
     </head>
-    <body  style="background-image: url('images/anime.jpg');">
+    <body style="background-image: url(images/anime.jpg); font-weight: 100%">
 
         <div class="container" >
             <form action="SearchUserServlet" method="">
@@ -52,17 +52,20 @@
                             <td>
 
                                 <!-- Button trigger modal -->
-                                <button type="button" style="left: 45%" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${user.id}">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${user.id}">
                                     <i class="far fa-trash-alt"></i>
                                     Delete
                                 </button>
-                                <a href="banServlet?id=${user.id}&&status=${user.status}">
-                                    <c:if test="${user.status == 'Banned'}"><button type="button" class="btn btn-primary"><i class="fas fa-user-plus"></i>Active</button></c:if>
-                                    <c:if test="${user.status == 'Active'}"><button type="button" class="btn btn-danger"><i class="fas fa-user-slash"></i>Banned</button></c:if>
+                                <a href="banServlet?id=${user.id}&&status=${user.status}&&index=${index}">
+                                    <c:if test="${user.status == 'Banned'}"><button type="button" style="width: 100px" class="btn btn-primary"><i class="fas fa-user-plus"></i>Active</button></c:if>
+                                    <c:if test="${user.status == 'Active'}"><button type="button" style="width: 100px" class="btn btn-danger"><i class="fas fa-user-slash"></i>Banned</button></c:if>
+                                    <a href="UpdateUserServlet?id=${user.id}&&index=${index}">
+                                        <button type="button" class="btn btn-primary">Update</button>
                                     </a>
+                                </a>
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -99,6 +102,7 @@
                 <a  class="${i==index?"btn-ative":""}" 
                     href="listUserServlet?index=${i}" 
                     role="button">${i}</a>
+                <input type="hidden" name="index" value="${i}">
             </c:forEach>
 
             <c:if test="${index < endPage}">
