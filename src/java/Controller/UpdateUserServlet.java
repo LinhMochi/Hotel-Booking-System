@@ -50,7 +50,9 @@ public class UpdateUserServlet extends HttpServlet {
         UserDAO ud = new UserDAO();
         try {
             int id = Integer.parseInt(request.getParameter("id"));
+            int index = Integer.parseInt(request.getParameter("index"));
             List<User> list = ud.getUserById(id);
+            request.setAttribute("index", index);
             request.setAttribute("list", list);
         } catch (SQLException ex) {
             Logger.getLogger(UpdateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,6 +73,7 @@ public class UpdateUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        int index = Integer.parseInt(request.getParameter("index"));
         String fullName = request.getParameter("fullName");
         int gender = Integer.parseInt(request.getParameter("gender"));
         String dob = request.getParameter("dbo");
@@ -79,7 +82,7 @@ public class UpdateUserServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         UserDAO userDao = new UserDAO();
         userDao.updateUserByAdmin(id, fullName, gender, dob, role, address, phoneNumber);
-        response.sendRedirect("listUserServlet");
+        response.sendRedirect("listUserServlet?index="+index);
     }
 
     /**

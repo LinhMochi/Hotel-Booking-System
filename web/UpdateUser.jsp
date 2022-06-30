@@ -21,6 +21,7 @@
                 <form action="UpdateUserServlet" method="Post">
                     <c:forEach items="${list}" var="user">
                         <input type="hidden" name="id" value="${user.id}">
+                        <input type="hidden" name="index" value="${index}">
                         <div class="box">
                             <input value="${user.fullName}" type="text" name="fullName" required>
                             <label for="username">Full Name</label>

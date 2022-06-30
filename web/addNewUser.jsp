@@ -23,13 +23,13 @@
                         <label for="username">Full Name</label>
                     </div>
                     <div class="box">
-                        <input name="dbo" type="date" required title="Hãy nhập đúng định dạng yyyy-MM-dd">
+                        <input name="dbo" type="date" id="username" required>
                         <label for="username" >Date Of Birth</label>
                     </div>
                 
                     <div class="box">
                         <div style="color: red">${msg}</div>
-                        <input type="email" name="email" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,25}@gmail.com$" title="Hãy nhập đúng định dạng @gmail.com" id="username" required>
+                        <input type="email" name="email" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,25}@gmail.com$" id="username" required>
                         <label for="username">Email</label>
                     </div>
                     <div class="box">
@@ -52,7 +52,7 @@
                     </div>
                 <div class="box">
                         <select name="role" class="form-select" aria-label="Default select example" >
-                            <option selected>User role</option>
+                            <option selected value="Customer">User role</option>
                             <option value="Customer">Customer</option>
                             <option value="Manager">Manager</option>
                         </select>
