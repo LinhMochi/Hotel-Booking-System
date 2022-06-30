@@ -100,4 +100,20 @@ public class ReservationDAO {
         }
 
     }
+    
+    public int countReservation() {
+        int count = 0;
+        String sql = "select count(*) from Reservations";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return count;
+    }
 }
