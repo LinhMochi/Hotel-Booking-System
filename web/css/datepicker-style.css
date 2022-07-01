@@ -1,17 +1,17 @@
 /**{
-	padding: 0;
-	margin: 0;
-	line-height: 1.5rem;
-	box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        line-height: 1.5rem;
+        box-sizing: border-box;
 }
 
 body{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	width: 100vw;
-	height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
 }
 */
 .date-select-box{
@@ -22,203 +22,203 @@ body{
 }
 
 .date-select-box input[type="date"]{
-	display: none;
+    display: none;
 }
 
 .pick-box{
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	margin: 5px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 5px 0;
 }
 
 .pick-box span{
-	margin: 5px;
-	min-width: 125px;
+    margin: 5px;
+    min-width: 125px;
 }
 .pick-box .arrival{
-	text-align: right;
-	padding-right: 10px;
-	border-right: 1px solid #000;
+    text-align: right;
+    padding-right: 10px;
+    border-right: 1px solid #000;
 }
 
 .date-picker-container {
-	display: grid;
-	grid-gap: 10px;
-	grid-template-columns: repeat(2, 1fr);
-	box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
-	position: absolute;
-	top: 60px;
-	left: 0;
-	display: none;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 60px;
+    left: 0;
+    display: none;
 }
 
 .date-picker-container.pick{
-	display: grid;
+    display: grid;
 }
 
 
 
 .date-picker-container:before{
-	position: absolute;
-	content: '';
-	background: transparent;
-	border: 10px solid transparent;
-	border-bottom-color: #fff;
-	top: -20px;
-	transition: 0.5s;
-	transition-delay: 0.2s;
-	transition-duration: 0.5s;
-	transition-timing-function: ease-in-out;
-	transform-style: linear;
-	transform-origin: right;
-	left: 0;
+    position: absolute;
+    content: '';
+    background: transparent;
+    border: 10px solid transparent;
+    border-bottom-color: #fff;
+    top: -20px;
+    transition: 0.5s;
+    transition-delay: 0.2s;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    transform-style: linear;
+    transform-origin: right;
+    left: 0;
 }
 .pick-checkin:before{
-	left: 50px;
+    left: 50px;
 }
 .pick-checkout:before{
-	left: 180px
+    left: 180px
 }
 
 
 .date-picker{
-	background: #fff;
-	width: 300px;
-	min-height: 250px;
-	border-radius: 10px;
-	position: relative;
-	overflow: hidden;
+    background: #fff;
+    width: 300px;
+    min-height: 250px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
 .date-picker .header{
-	display: flex;
-	font-size: 25px;
-	justify-content: space-between;
-	padding: 10px;
+    display: flex;
+    font-size: 25px;
+    justify-content: space-between;
+    padding: 10px;
 }
 
 .month-picker,.year-picker{
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .month-picker{
-	padding: 10px 5px;
-	border-radius: 5px;
+    padding: 10px 5px;
+    border-radius: 5px;
 }
 
 .month-picker:hover{
-	box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
 }
 
 .month-list{
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(4, 1fr);
-	place-items: center;
-	top: 0;
-	left: 0;
-	background-color: #fff;
-	font-size: 24px;
-	transition: 0.5s ease;
-	z-index: -5;
-	transform: translateY(-20px);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    place-items: center;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    font-size: 24px;
+    transition: 0.5s ease;
+    z-index: -5;
+    transform: translateY(-20px);
 }
 
 .month-list.active{
-	z-index: 1010;
-	transform: translateY(0px);
+    z-index: 1010;
+    transform: translateY(0px);
 
 }
 .month-list .month{
-	padding: 5px 10px;
-	border-radius: 15px;
-	cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
 }
 .month-list div:hover{
-	background: #05f;
-	color: #fff;
+    background: #05f;
+    color: #fff;
 }
 
 .year-picker{
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .year-change{
-	height: 40px;
-	width: 40px;
-	border-radius: 50%;
-	margin: 0 10px;
-	display: grid;
-	place-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+    display: grid;
+    place-items: center;
 }
 
 .year-change:hover{
-	box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
 }
 
 
 .date-picker .body{
-	padding: 10px;
+    padding: 10px;
 }
 .date-picker .body .week-day{
-	display: grid;
-	grid-template-columns: repeat(7, 1fr);
-	place-items: center;
-	font-weight: 600;
-	color: gray;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    place-items: center;
+    font-weight: 600;
+    color: gray;
 }
 
 .date-picker .body .days{
-	display: grid;
-	grid-template-columns: repeat(7, 1fr);
-	place-items: center;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    place-items: center;
 }
 
 .days div, .week-day div{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 30px ;
-	height: 30px;
-	border-radius: 50%;
-	cursor: default;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px ;
+    height: 30px;
+    border-radius: 50%;
+    cursor: default;
 }
 .days .disable{
-	width: 30px ;
-	height: 30px;
-	border-radius: 50%;
-	color: gray;
-	cursor: default;
+    width: 30px ;
+    height: 30px;
+    border-radius: 50%;
+    color: gray;
+    cursor: default;
 }
 .days div.day{
-	cursor: pointer;	
+    cursor: pointer;	
 }
 .current-date{
-	border: 1px solid #cf16e1;
+    border: 1px solid #cf16e1;
 }
 .picked-date{
-	background-color: rgba(0, 188, 212, .25);
+    background-color: rgba(0, 188, 212, .25);
 }
 .check-in, .check-out,.prepick{
-	color: #fff;
-	background: #05f;
+    color: #fff;
+    background: #05f;
 }
 .check-in.choosing, .check-out.choosing{
-	background-color: transparent;
-	color: black;
+    background-color: transparent;
+    color: black;
 }
 .picked-date.check-in.choosing, .picked-date.check-out.choosing{
-	background: rgba(0, 188, 212, .25);
+    background: rgba(0, 188, 212, .25);
 }
 .days div.day:hover{
-	color: #fff;
-	background: #05f;
+    color: #fff;
+    background: #05f;
 }
 
 .days.active div:hover{
-	color: #b0d7f9;
+    color: #b0d7f9;
 }
