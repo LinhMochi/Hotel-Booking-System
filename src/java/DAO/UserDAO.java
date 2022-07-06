@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -286,6 +288,57 @@ public class UserDAO {
         return list;
     }
 
+     public User checkUserExist(String Email) {
+        try {
+            String sql = "select * from Users\n"
+                    + "where Email = ?";
+           conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                User a = new User();
+                a.setId(rs.getInt(1));
+                a.setEmail(rs.getString(2));
+                a.setPassword(rs.getString(3));
+                a.setRole(rs.getString(4));
+                return a;
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+     
+         public void manageAccount(int aid, String update, int option) {
+        PreparedStatement ps;
+        String sql = null;
+        try {
+            switch (option) {
+                case 1:
+                    sql = "update Users\n"
+                            + "set Email = ?\n"
+                            + "where ID = ?";
+                    break;
+                case 2:
+                    sql = "update Users\n"
+                            + "set Password = ?\n"
+                            + "where ID = ?";
+                    break;
+            }
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            
+            ps.setString(1, update);
+            ps.setInt(2, aid);
+            ps.executeUpdate();
+        }catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
+     
+    
     public int countUser() {
         int count = 0;
         String sql = "select count(*) from Users";
@@ -442,35 +495,6 @@ public class UserDAO {
         }
         return ar;
     }
-    
-    public ArrayList<User> getUserById(int id) throws SQLException, IOException {
-        ArrayList<User> ar = new ArrayList<>();
-        try {
-            String sql = "select * from Users where id = ? ";
-            conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                User u = new User();
-                u.setId(rs.getInt("id"));
-                u.setFullName(rs.getString("fullName"));
-                u.setGender(rs.getInt("gender"));
-                u.setDob(rs.getDate("dob"));
-                u.setEmail(rs.getString("email"));
-                u.setAddress(rs.getString("address"));
-                u.setAvatar(rs.getString("avatar"));
-                u.setPhoneNumber(rs.getString("phoneNumber"));
-                u.setPassword(rs.getString("password"));
-                u.setRole(rs.getString("role"));
-                u.setStatus(rs.getString("status"));
-                ar.add(u);
-            }
-        } catch (SQLException e) {
-            throw e;
-        }
-        return ar;
-    }
 
     
     public void banUser(int id, String status) {
@@ -482,25 +506,6 @@ public class UserDAO {
             ps.setInt(2, id);
             ps.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    
-    public void updateUserByAdmin(int id,String fullName, int gender,String dob,int role,String address, String phoneNumber) {
-        String query = "Update Users set fullName = ?, gender = ? ,role = ?, dob = ?, address = ?, phoneNumber = ? where id = ?";
-        try {
-            conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, fullName);
-            ps.setInt(2, gender);
-            ps.setInt(3, role);
-            ps.setString(4, dob);
-            ps.setString(5, address);
-            ps.setString(6, phoneNumber);
-            ps.setInt(7, id);
-            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
