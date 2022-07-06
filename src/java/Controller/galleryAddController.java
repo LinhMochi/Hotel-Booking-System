@@ -75,6 +75,7 @@ public class galleryAddController extends HttpServlet {
         h.setTitle(title);
         h.setHotelId(hotelID);
         hgd.addImage(h);
+        response.sendRedirect("galleryManager");
     }
 
     /**
