@@ -13,10 +13,10 @@
     </head>
     <body>
         <form action="galleryAdd" method="POST">
-            Name:<input type="text" name="title"/>
-            Image URL:<input type="text" name="img"/>
-            Hotel:<input type="text" name="hotelID"/>
-            <input type="submit">
+            Name:<input type="text" name="title"/><br/>
+            Image URL:<input type="text" name="img"/><br/>
+            Hotel:<input type="text" name="hotelID"/><br/>
+            <input type="submit" value="Add">
         </form>
     </body>
 </html>
