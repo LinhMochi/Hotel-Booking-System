@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -97,5 +98,23 @@ public class ServiceCategoryDAO {
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
+    }
+    
+    
+    public ArrayList<ServiceCategory> getAllServiceCategories(){
+        ArrayList<ServiceCategory> list = new ArrayList<>();
+        query = "SELECT * FROM ServiceCategories";
+        try{
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                list.add(new ServiceCategory(rs.getInt("id"),
+                            rs.getString("ServiceCategory")
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return list; 
     }
 }
