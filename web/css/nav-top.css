@@ -92,7 +92,7 @@ and open the template in the editor.
 /* 		cart mini  */
 .drop-box-items.drop-cart{
     width: 40vw;
-    height: 100vh;
+    height: calc(100vh - 70px);
 }
 
 .empty-cart{
@@ -101,18 +101,39 @@ and open the template in the editor.
     font-size: 2rem;
     position: absolute;
 }
-
-.drop-cart .content {
+/* h5*/
+.drop-cart .section .content {
     width: 100%;
-    height: 50%;
     padding: 10px 5px;
-    margin-top: 10px;
     border-bottom: 1px solid rgba(0,0,0,0.2);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+.drop-cart .section .content.picked-room{
+    height: 300px
+}
+.drop-cart .section .content.picked-service{
+    height: 70px
+}
+
+.content::-webkit-scrollbar{
+    width: 5px;
+    background: #ff4;
+}
+.drop-cart .content::-webkit-scrollbar-thumb{
+    background: #4ff;
+    border-radius: 8px;
+}
+.drop-cart .content h5{
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    font-size: 12px;
 }
 
 .drop-cart .quantity{
     width: 100px;
-    margin-top: 20px;
 }
 
 .drop-cart .quantity input{
@@ -128,29 +149,91 @@ input[type="number"]::-webkit-inner-spin-button
 
 .drop-cart .item{
     position: relative;
+    padding-bottom: 5px;
+    border-bottom: 1px solid threedhighlight;
+}
+.drop-cart .picked-room .item{
+    margin-bottom: 10px;
+}
+.drop-cart .item:hover{
+    box-shadow: 1px 1px 5px #9ba39a
 }
 
 .drop-cart .close-btn{
     width: 20px;
     height: 20px;
+    background-color: #fff;
     border-radius: 50%;
     position: absolute;
     cursor: pointer;
-    right: -20px;
-    opacity: 0;
-    transform: translateX(20px);
+    top: 10px;
+    right: 15px;
+    opacity: 0.0;
+    transform: translateX(10px);
     transition: 0.5s;
 }
-.drop-cart .item div:hover ~ .close-btn{
+.drop-cart .item:hover .close-btn,.drop-cart .close-btn:hover{
     opacity: 1;
-    transform: translateX(0);
+    transform: translateZ(0);
     color: red;
+    box-shadow: 1px 1px 5px 1px rgba(0,0,0,.2);
 }
 
 
+.drop-cart .lable{
+    position:relative;
+    left: -25px;
+    margin-bottom: 5px
+}
 
+.drop-cart .footer{
+    width:100%;
+    height: 26px;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    bottom: 0;
+    right: 0;
+    transition: height 0.5s;
+}
+.drop-cart .footer.active{
+    height: 110px;
+    
+}
 
+.drop-cart .footer .toggle{
+    margin-left: 30px;
+    width: 25px;
+    height: 25px;
+    color: gray;
+    border: 1px solid #9ba39a;
+    border-bottom-color: transparent; 
+    cursor: pointer;
+}
+.drop-cart .footer .toggle i{
+    transform: rotate(180deg);
+    transition: rotate ease-in-out 0.5s;
+    box-shadow: -1px 1px 1px #9ba39a;
+}
+.drop-cart .footer .toggle.active i{
+    transform: rotate(0deg);
+}
 
+.drop-cart .footer .contain{
+    padding: 5px 50px;
+}
+
+.drop-cart .footer.active .contain{
+    box-shadow: -1px 1px 5px 1px #9ba39a;
+    border-top:1px solid;
+}
+
+.drop-cart .footer .contain .btn{
+    background-color: #cc8c18;
+    color: #fff;
+    border-radius: 18px;
+    padding: 5px 20px;
+}
 /*		 cart mini 		*/
 
 .header .items-box .drop-box .user-box{
