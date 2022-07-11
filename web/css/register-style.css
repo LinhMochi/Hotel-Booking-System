@@ -8,71 +8,71 @@ and open the template in the editor.
     Author     : Admin
 */
 *{
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	line-height: 1.5rem;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    line-height: 1.5rem;
 }
 
 body{
-	width: 100vw;
-	height: 100vh;
-	/*background-image: url('../images/banner.png');*/
-	background-image: url('http://s1.picswalls.com/wallpapers/2014/07/28/maldives-beach-high-definition-wallpaper_120650640_113.jpg');
-	background-size: cover;
-	background-repeat: no-repeat;
-	position: relative;	
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	line-height: 1.5rem;
-	color: #cc8c18;
-	z-index: -2;
+    width: 100vw;
+    height: 100vh;
+    /*background-image: url('../images/banner.png');*/
+    background-image: url('http://s1.picswalls.com/wallpapers/2014/07/28/maldives-beach-high-definition-wallpaper_120650640_113.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;	
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.5rem;
+    color: #cc8c18;
+    z-index: -2;
 }
 body::after{
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.7));
-	z-index: -1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.7));
+    z-index: -1;
 
 }
 
 
 body .container {
-	background: rgba(255, 255, 255, 1.0);
-	border-radius: 8px;
-	box-shadow: 0 0 25px 1px rgba(0, 0, 0, 1.0);
-	padding: 30px 0px;
-	width: 350px;
-	height: 450px;
-	position: relative;
-	overflow: hidden;
+    background: rgba(255, 255, 255, 1.0);
+    border-radius: 8px;
+    box-shadow: 0 0 25px 1px rgba(0, 0, 0, 1.0);
+    padding: 30px 0px;
+    width: 350px;
+    height: 450px;
+    position: relative;
+    overflow: hidden;
 }
 .container h2{
-	text-align: center;
-	font-size: 36px;
-	margin-bottom: 10px;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 10px;
 }
 
 body .container form .register-box{
-	display: flex;
-	flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .container form .progess-bar{
-	position: relative;
-	display: flex;
-	flex-direction: row-reverse;
-	justify-content: space-around;
-	margin: 20px 0 0 0;
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    margin: 20px 0 0 0;
 }
 
 .container form .progess-bar .step{
-	width: 25px;
+    width: 25px;
     height: 25px;
     border: 1px solid #cc8c18;
     text-align: center;
@@ -84,12 +84,12 @@ body .container form .register-box{
     transition-delay: 0.2s;
 }
 .container form .progess-bar .step.form1{
-	background: #cc8c18;
-	color: #fff;
+    background: #cc8c18;
+    color: #fff;
 }
 .container form .progess-bar .progess{
-	height: 3px;
-	/*0 55 150 233*/
+    height: 3px;
+    /*0 55 150 233*/
     width: 0px;
     transform: translate(0, 10px);
     background: #cc8c18;
@@ -99,291 +99,291 @@ body .container form .register-box{
 }
 
 .container form .progess-bar .step.instep{
-	background: #cc8c18;
-	color: #fff;
+    background: #cc8c18;
+    color: #fff;
 }
 .container form .progess-bar .step.instep~.step{
-	background: #cc8c18;
-	color: #fff;
+    background: #cc8c18;
+    color: #fff;
 }
 body .container form .register-box .box{
-	padding: 0 45px;
-	width: 100%;
+    padding: 0 45px;
+    width: 100%;
 }
 body .container form .register-box .box .header{
-	margin: 10px 0;
-	font-size: 20px;
-	text-align: center;
+    margin: 10px 0;
+    font-size: 20px;
+    text-align: center;
 }
 
 body .container form .register-box .box{
-	position: absolute;
-	transition: 0.5s;
-/*	padding: 0px 10px;*/
+    position: absolute;
+    transition: 0.5s;
+    /*	padding: 0px 10px;*/
 }
 
 body .container form .register-box .box.tocenter{
 
 }
 body .container form .register-box .box.toleft{
-	position: absolute;
-	left: -450px;
+    position: absolute;
+    left: -450px;
 }
 body .container form .register-box .box.toright{
-	position: absolute;
-	left: 450px;
+    position: absolute;
+    left: 450px;
 }
 
 body .container form .register-box .box .input-box {
-	margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 body .container form .register-box .box .input-box input,
 body .container form .register-box .box .input-box select{
-	width: 100%;
-	font-size: 1rem;
-	outline: none;
-	border: none;
-	border-bottom: 2px solid gray;
-	transition: 1s ease;
-	background: transparent;
+    width: 100%;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid gray;
+    transition: 1s ease;
+    background: transparent;
 
 }
 
 
 body .container form .register-box .box .image-box{
-	width: 150px;
-	height: 150px;
-	border-radius: 45%;
-	left: 50%;
-	transform: translateX(-50%);
-	position: relative;
-	overflow: hidden;
-	margin-bottom: 50px;
+    width: 150px;
+    height: 150px;
+    border-radius: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 50px;
 }
 body .container form .register-box .box .input-box .note{
-	color: red;
+    color: red;
 }
 body .container form .register-box .box .image-box img{
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
 }
 
 body .container form .register-box .box .image-box .change{
-	position: absolute;
-	width: 100%;
-	height: 40%;
-	bottom: 0;
-	left: 0;
-	background: rgba(0, 0, 0, .4);
-	z-index: 1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	display: none;
-	transition: 0.5s;
-	cursor: pointer;
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .4);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    transition: 0.5s;
+    cursor: pointer;
 }
 body .container form .register-box .box .url-box{
-	position: absolute;
-	background: rgba(0, 0, 0, 0.8);
-	box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
-	padding: 10px 20px;
-	z-index: 10;
-	top: 40%;
-	left: 50%;
-	transform: translateX(-50%);
-	transition: 0.5s;
-	
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    z-index: 10;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s;
+
 }
 body .container form .register-box .box .image-box .change:hover,
 body .container form .register-box .box .image-box img:hover~.change{
-	display: flex;
+    display: flex;
 }
 
 body .container form .register-box .box .url-box .lable{
-	text-align: center;
+    text-align: center;
 }
 
 body .container form .register-box .box .url-box input{
-/*	background: #fff;*/
-	color: #fff;
-	margin: 10px 0;
+    /*	background: #fff;*/
+    color: #fff;
+    margin: 10px 0;
 }
 
 body .container form .register-box .box .url-box .mark{
-	display: flex;
-	justify-content: space-around;
-	align-items: flex-end;
-	font-size: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    font-size: 20px;
 }
 .mark span {
-	width: 30px;
-	height: 25px;
-	background: gray;
-	text-align: center;
-	border-radius: 5px;
-	cursor: pointer;
-	margin-top: 10px;
+    width: 30px;
+    height: 25px;
+    background: gray;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
 }
 .mark .v{
-	color: green;
+    color: green;
 }
 .mark .v:hover{
-	background: green;
-	color: #fff;
+    background: green;
+    color: #fff;
 }
 .mark .x{
-	color: red;
+    color: red;
 }
 .mark .x:hover{
-	color: #fff;
-	background: red;
+    color: #fff;
+    background: red;
 }
 
 body .container form .register-box .box .url-box.hidden{
-	display: none;
+    display: none;
 }
 body .container form .register-box .box .input-box input:focus{
-	border-bottom-color: greenyellow;
+    border-bottom-color: greenyellow;
 }
 body .container form .register-box .nav{
-	display: flex;
-	flex-direction: row;
+    display: flex;
+    flex-direction: row;
 
 }
 body .container form .register-box .nav1{
-	justify-content: flex-end;
+    justify-content: flex-end;
 }
 body .container form .register-box .nav2{
-	justify-content: space-between;
+    justify-content: space-between;
 }
 
 button,.btn{
-	width: 100px;
-	height: 45px;
-	background: #cc8c18;
-	color: #fff;
-	text-align: center;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 0 10px 0;
-	margin-top: 10px;
-	cursor: pointer;
+    width: 100px;
+    height: 45px;
+    background: #cc8c18;
+    color: #fff;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0 10px 0;
+    margin-top: 10px;
+    cursor: pointer;
 }
 
 
 /*			error box 			*/
 
 .error-box{
-	position: absolute;
-	background: transparent;
-	display: flex;
-	flex-direction: column;
-	right: 150px;
-	top: 25px;
+    position: absolute;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    right: 150px;
+    top: 25px;
 
 }
 
 @keyframes error-display{
-	0%{
-		width: 100%;
-	}
-	100%{
-		width: 0%;
-	}
+    0%{
+        width: 100%;
+    }
+    100%{
+        width: 0%;
+    }
 }
 
 @keyframes auto-hidden{
-	
-	0%{
-		opacity: 0;
-		padding: 20px 10px;
-		width: 250px;
-		height: 80px;
 
-	}
-	10%{
-		width: 250px;
-		padding: 20px 10px;
-		opacity: 1.0;
-		height: 80px;
-	}	
+    0%{
+        opacity: 0;
+        padding: 20px 10px;
+        width: 250px;
+        height: 80px;
 
-	89%{
-		opacity: 1;
-		padding: 20px 10px;
-		width: 250px;
-		height: 80px;
-	}
-	100%{
-		opacity: 0;
-		height: 0;
-		padding: 0px;
-		width: 0px;
-	}
+    }
+    10%{
+        width: 250px;
+        padding: 20px 10px;
+        opacity: 1.0;
+        height: 80px;
+    }	
+
+    89%{
+        opacity: 1;
+        padding: 20px 10px;
+        width: 250px;
+        height: 80px;
+    }
+    100%{
+        opacity: 0;
+        height: 0;
+        padding: 0px;
+        width: 0px;
+    }
 }
 
 
 .error-message{
-	color: #fff;
-	width: 0;
-	height: 0;
-	padding: 0;
-	margin-top: 10px;
-	background: rgba(255, 128, 128, 0.5);
-	display: flex;
-	position: relative;
-	flex-direction: row-reverse;
-	justify-content: space-between;
-	align-content: center;
-	border-radius: 5px;
-	overflow: hidden;
-	transition: 0.5s;
+    color: #fff;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin-top: 10px;
+    background: rgba(255, 128, 128, 0.5);
+    display: flex;
+    position: relative;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-content: center;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.5s;
 }
 
 .error-message::before{
-	content: '';
-	background: red;
-	position: absolute;
-	width: 100%;
-	height: 5px;
-	bottom: 0;
-	left: 0;
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
+    content: '';
+    background: red;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .error-message.active{
-	animation: auto-hidden 5s;
+    animation: auto-hidden 5s;
 }
 
 .error-message.active::before{
-	animation: error-display 5s;
-	animation-delay: 0.4s;
+    animation: error-display 5s;
+    animation-delay: 0.4s;
 }
 
 .close-error-message{
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	background: gray;
-	border-radius: 50%;
-	cursor: pointer;
-	margin-left: 5px;
-	transition: linear 0.5s ease;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    background: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: linear 0.5s ease;
 }
 .close-error-message:hover{
-	background: #fff;
-	color: #f00;
+    background: #fff;
+    color: #f00;
 }
 .hidden{
-	padding: 0px !important;
-	height: 0px !important;
+    padding: 0px !important;
+    height: 0px !important;
 }
 .absolutely{
-	position: absolute;
+    position: absolute;
 }
