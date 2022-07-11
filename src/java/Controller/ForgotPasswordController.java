@@ -63,43 +63,56 @@ public class ForgotPasswordController extends HttpServlet {
 //
 //        }
         String req = request.getParameter("req");
-        switch(req){
-            case "get": String mailTo = request.getParameter("email");
-                        if(mailTo.equals(null)) mailTo = (String)request.getSession().getAttribute("email");
-                        if(!ud.checkEmail(mailTo)){// checkEmail return true if email doesn't exist
-                            try {
-                                String gmailFrom = "swp391.e2.g5@gmail.com";
-//                                        "swp391.e2.g5@gmail.com";
-                                String password = "LinhLVT2509";
-//                                        "LinhLVT2509";
-                                String subject = "Mã OTP";
-                                String otp = new GenerateRandom().getOtp();
-                                String message = "Xin chào bạn, đây là mã OTP để đặt lại mật khẩu " + otp + ". Không chia sẻ code này với người khác :V";
-                                
-                                //send mail
-                                gmail.send(mailTo, subject, message, gmailFrom, password);
-                                // set email and otp to session
-                                request.getSession().setAttribute("originotp",otp);
-                                request.getSession().setAttribute("email", mailTo);
-                                
-                            } catch (MessagingException ex) {
-                                Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            response.getWriter().print("sended");
-                        }else response.getWriter().print("error");
-                        break;
-            case "check": String otp = request.getParameter("otp");
-                          String originotp = (String)request.getSession().getAttribute("originotp");
-                          if(otp.equals(originotp)) response.getWriter().print("pass");
-                          else response.getWriter().print("fail");
-                          break;
-            case "reset": String email = (String) request.getSession().getAttribute("email");
-                          String newpass = request.getParameter("password");
-                          request.getSession().removeAttribute("originotp");
-                          request.getSession().removeAttribute("email");
-                          ud.updateUserPassword(email, newpass);
-                          break;
-            default: break;
+        switch (req) {
+            case "get":
+                String mailTo = request.getParameter("email");
+                if (mailTo.equals(null)) {
+                    mailTo = (String) request.getSession().getAttribute("email");
+                }
+                //if(ud.getUserByMail(mailTo)!=null){// checkEmail return true if email doesn't exist
+                if (!ud.checkEmail(mailTo)) {
+                    try {
+                        String gmailFrom = "hieuhthe151387@fpt.edu.vn";
+//                                        
+                        String password = "konoha013";
+//                                      
+//                        String gmailFrom = "swp391.e2.g5@gmail.com";
+//                        String password = "LinhLVT2509";
+                        String subject = "Mã OTP";
+                        String otp = new GenerateRandom().getOtp();
+                        String message = "Xin chào bạn, đây là mã OTP để đặt lại mật khẩu " + otp + ". Không chia sẻ code này với người khác :V";
+
+                        //send mail
+                        gmail.send(mailTo, subject, message, gmailFrom, password);
+                        // set email and otp to session
+                        request.getSession().setAttribute("originotp", otp);
+                        request.getSession().setAttribute("email", mailTo);
+                        response.getWriter().print("sended");
+                    } catch (MessagingException ex) {
+                        response.getWriter().print("error");
+                    }
+                } else {
+                    response.getWriter().print("error");
+                }
+                break;
+            case "check":
+                String otp = request.getParameter("otp");
+                String originotp = (String) request.getSession().getAttribute("originotp");
+                if (otp.equals(originotp)) {
+                    response.getWriter().print("pass");
+                } else {
+                    response.getWriter().print("fail");
+                }
+                break;
+            case "reset":
+                String email = (String) request.getSession().getAttribute("email");
+                String newpass = request.getParameter("password");
+                request.getSession().removeAttribute("originotp");
+                request.getSession().removeAttribute("email");
+                ud.updateUserPassword(email, newpass);
+                break;
+            default:
+                break;
         }
     }
 
@@ -115,9 +128,9 @@ public class ForgotPasswordController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-//            response.setContentType("text/html;charset=UTF-8");
-//            request.getRequestDispatcher("ForgotPassword.jsp").forward(request, response);
+//        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.getRequestDispatcher("ForgotPassword.jsp").forward(request, response);
     }
 
     /**

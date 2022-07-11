@@ -78,4 +78,11 @@ public class Search {
     public void setNoRoom(int noRoom) {
         this.noRoom = noRoom;
     }
+
+    @Override
+    public String toString() {
+        return "Search{" + "search=" + search + ", arrival=" + arrival + ", department=" + department + ", noAdult=" + noAdult + ", noChild=" + noChild + ", noRoom=" + noRoom + '}';
+    }
+    
+    
 }

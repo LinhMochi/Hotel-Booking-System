@@ -31,6 +31,12 @@ and open the template in the editor.
 	justify-content: space-between;
 }
 
+.flex-ja-end{
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .flex-around{
 	display: flex;
 	align-items: center;
@@ -59,8 +65,9 @@ and open the template in the editor.
     grid-template-columns: 1.5fr 2fr 1fr;
 }
 
-g-4{
-    
+.g-c{
+   justify-content: center;
+   align-items: center;
 }
 
 .g-3-center{
@@ -70,13 +77,34 @@ g-4{
     place-items:center;
 }
 
+.grid-3{
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 1.5fr 2fr 1fr;
+}
 
+.layout-1-1-2{
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-columns: 1fr 3fr;
+	height: 100vh;
+	grid-gap: 5px;
+}
+.layout-1-2{
+	grid-row: 1;
+	grid-column: 1/3;
+}
+
+.layout-2-2{
+	grid-row: 2;
+	grid-column: 1/3;
+}
 
 a{
     text-decoration: none;
 }
 
-ul,ol{
+ul,ol,li{
     list-style: none;
 }
 
@@ -112,6 +140,14 @@ ul>li:first-child{
 
 .card-l{
     width: 600px;
+    min-height: 250px;
+    position: relative;
+}
+
+.card-ex{
+    margin-top: 20px;
+    min-width: 600px;
+    max-width: 860px;
     min-height: 250px;
     position: relative;
 }
@@ -166,6 +202,156 @@ ul>li:first-child{
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
 }
 
+.card-price{
+    min-width: 132px;
+}
+
+/*      grid card       */
+
+.card-l,.card-s,.card-m,.card-ex{
+    border-radius: 5px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2);
+    overflow: hidden;
+}
+.card-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-contain{
+    padding: 5px 5px 0 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+.card-header .add-box{
+    font-size: 12px;
+
+}
+.card-contain .hotel-start{
+    font-size: 16px;
+    color: #fde40c;
+}
+.card-contain ul>li{
+    margin-right:5px;
+    font-size: 14px;
+    background-color: gainsboro;
+    display: inline-block;
+}
+.card-contain .show-more{
+    text-align: center;
+    width: 30px;
+    height: 30px
+}
+.hotel-sd{
+    position: relative;
+}
+.card-contain .show-more:hover~.show-dd{
+
+    display: block;
+    background-color: #cc8c18;
+    z-index: 1000;
+}
+.card-footer ul>li{
+    background-color: burlywood;
+}
+.show-dd{
+    position: absolute;
+    width: 165px;
+    left: 90%;
+    top: 0;
+    padding: 5px;
+    line-height: 1.5rem;
+    display: none;
+    background-color: #00ff5d;
+    border-radius: 5px;
+}
+.card-footer li {
+    background-color: burlywood;
+}
+.card-contain .add-infor{
+    color: #51e751;
+    border: 1px solid #51e751;
+    border-radius: 5%;
+    margin: 5% 10% 0 10%;
+
+    text-align: center;
+}
+
+.card-footer .like-card{
+    width: 100%;
+    margin: 5px 0;
+}
+.lable{
+    margin-left: 5px;
+}
+.card-footer .like-card.like i{
+    color: red;
+}
+
+
+.card-footer .card-score .left-side{
+    text-align: right;
+}
+.card-footer .card-score .no-rate{
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+.card-footer .card-score .score{
+    margin: 5px;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    border-bottom-left-radius: 0;
+    color: #fff;
+    background-color: #00f;
+}
+
+.card-footer .card-price{
+    margin: 20px 0 10px 0;
+    font-size: 16px;
+}
+.card-price .title{
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+.card-price .unit-price{
+    display: inline-block;
+    font-size: 18px;
+    position: relative;
+    color: dimgray;
+}
+.unit-price:after{
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 0;
+    background-color: red;
+    width: calc(100%);
+    height: 3px;
+    transform: skewY(-9deg);
+}
+.card-price .price{
+    color: red;
+}
+.btn{
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, .2);
+}
+.btn.pick-room{
+    color: #fff;
+    background-color: #cc8c18;
+    transition: 0.5s;
+}
+
+.pick-room:hover{
+    transform: scale(1.2);
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, .3);
+}
+
+/*      grid card       */
 
 .hidden{
     display: none;

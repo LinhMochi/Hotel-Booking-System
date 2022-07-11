@@ -6,14 +6,11 @@
 package Controller;
 
 import DAO.BookedRoomDAO;
-import DAO.CityDAO;
-import DAO.HotelCategoryDAO;
 import DAO.HotelConvenientDAO;
 import DAO.HotelDAO;
-import Model.City;
 import Model.Hotel;
-import Model.HotelCategory;
 import Model.HotelConvenientList;
+import Model.Search;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -23,14 +20,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "HomePageController", urlPatterns = {"/home"})
-public class HomePageController extends HttpServlet {
+@WebServlet(name = "HotelSearchController", urlPatterns = {"/searchresult"})
+public class HotelSearchController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,24 +40,51 @@ public class HomePageController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ArrayList<City> topCities = new CityDAO().getListCityComplete();
-        ArrayList<HotelCategory> topHCs = new HotelCategoryDAO().getListCompleteHotelCategory();
-        ArrayList<Hotel> suggestHotels = new HotelDAO().getSuggestHotel();
-        StringBuilder hotels = new StringBuilder("");
-        for(Hotel h:suggestHotels){
-            hotels.append(h.getId()+", ");
-        }
-        HotelConvenientList cList = new HotelConvenientDAO().getRatedConvenientByHotels(hotels.toString());
-        HttpSession session = request.getSession(true);
-        session.setAttribute("topCities", topCities);
-        session.setAttribute("topHCs", topHCs);
-        session.setAttribute("suggestHotels", suggestHotels);
-        session.setAttribute("cList", cList);
-        String current = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date(System.currentTimeMillis()));
-        session.setAttribute("pList", new BookedRoomDAO().getMaxPromotion(hotels.toString(),Date.valueOf(current),Date.valueOf(current)));        
-        request.getRequestDispatcher("Home.jsp").forward(request, response);
+        request.setCharacterEncoding("UTF-8");
+        /* TODO output your page here. You may use following sample code. */
+
+        String search = request.getParameter("search");
+        String arri = request.getParameter("arrival");
+        String depart = request.getParameter("department");
+        String a = request.getParameter("adult");
+        String c = request.getParameter("child");
+        String r = request.getParameter("room");
         
-         
+        Search s = new Search(search, Date.valueOf(arri),
+                Date.valueOf(depart), Integer.parseInt(a),
+                Integer.parseInt(c), Integer.parseInt(r));
+
+//        try (PrintWriter out = response.getWriter()) {
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet server</title>");
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.write("U sended " + s.toString());
+//            out.println("</body>");
+//            out.println("</html>");
+//        };
+        String page = request.getParameter("page") == null ? "1" : request.getParameter("page");
+        ArrayList<Hotel> availableHotels = new HotelDAO().getAvailableHotel(s, page);
+        if (availableHotels.isEmpty() && !page.equals(null)) {
+            request.getRequestDispatcher("NotFound.jsp").forward(request, response);
+        } else {
+            request.getSession().setAttribute("search", s);
+            request.setAttribute("availableHotel", availableHotels);
+            request.setAttribute("page", page);// set current page
+            request.setAttribute("endPage", availableHotels.size() < 5 ? "next" : null);// set next able
+
+            StringBuilder hotels = new StringBuilder("");
+            for (Hotel h : availableHotels) {
+                hotels.append(h.getId() + ", ");
+            }
+            String h = hotels.toString();
+            HotelConvenientList cList = new HotelConvenientDAO().getRatedConvenientByHotels(h);
+            request.setAttribute("cList", cList);
+            request.setAttribute("pList", new BookedRoomDAO().getMaxPromotion(h, s.getArrival(), s.getDepartment()));
+            request.getRequestDispatcher("SearchResult.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
