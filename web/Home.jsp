@@ -41,11 +41,19 @@
                 // console.log(previous>window.scrollY);
                 previous = window.scrollY;
             });
+
+            let dropcart = document.querySelector('.drop-cart');
+            let footer = dropcart.querySelector(".footer");
+            let toggle = dropcart.querySelector(".toggle");
+            toggle.addEventListener("click", () => {
+                footer.classList.toggle("active");
+                toggle.classList.toggle("active");
+            });
         </script>
         <div class="search-wrapper">
             <h1>Make memory</h1>
             <div class="h3">Discover the places where you fun and enjoy a lots</div>
-            <form action="">
+            <form action="searchresult" method="POST">
                 <div class="search-box search-box-x">
                     <div class="input-box flex-center">
                         <input type="text" name="search" placeholder="Bạn muốn đi đâu?" >
@@ -108,9 +116,9 @@
                         </div>		
                     </div>
                     <div class="footer flex-center">
-                        <div class="btn btn-large flex-center">
+                        <button class="btn btn-large flex-center">
                             Tìm
-                        </div>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -223,8 +231,8 @@
             <div class="container">
                 <div class="owl-carousel owl-theme">
                     <c:forEach var="hs" varStatus="status" items="${sessionScope.suggestHotels}">
-                        <div class="item">
-                            <div class="card-l grid-3">
+                        <div class="item flex-center">
+                            <div class="card-ex grid-3">
                                 <div class="card-image"><img src="${hs.image}" alt="${hs.name}"></div>
                                 <div class="card-contain">
                                     <div class="card-header">
@@ -236,7 +244,7 @@
                                     </div>
                                     <div class="card-infor">
                                         <ul class="hotel-sd">
-                                            <li>${hs.hotelAdvance}</li>
+                                            <%--<li>${hs.hotelAdvance}</li>--%>
                                                 <c:if test="${sessionScope.cList.getSize(hs.id)==2||sessionScope.cList.getSize(hs.id)==1}">                       
                                                     <c:forEach var="hc" items="${sessionScope.cList.getHotelConvenient(hs.id)}" varStatus="i">
                                                     <li>${hc.convenient}</li>
@@ -272,7 +280,7 @@
                                         </div>
                                         <div class="score right-side flex-center">${hs.avgScore}</div>
                                     </div>
-                                    <div class="card-price flex-end flex-column">
+                                    <div class="card-price flex-end flex-column"><%----%>
                                         <c:set var="pL" value="${sessionScope.pList.get(status.index)}"/>
                                         <c:if test="${pL.discount > 0}">
                                             <div class="title">Giá ưu đãi</div>
@@ -311,10 +319,10 @@
                         items: 1
                     },
                     786: {
-                        items: 2
+                        items: 1
                     },
                     1000: {
-                        items: 2
+                        items: 1
                     }
                 }
             });
