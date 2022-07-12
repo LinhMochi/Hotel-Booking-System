@@ -48,15 +48,15 @@ public class UpdateUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDAO ud = new UserDAO();
-        try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            int index = Integer.parseInt(request.getParameter("index"));
-            List<User> list = ud.getUserById(id);
-            request.setAttribute("index", index);
-            request.setAttribute("list", list);
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            int id = Integer.parseInt(request.getParameter("id"));
+//            int index = Integer.parseInt(request.getParameter("index"));
+//            List<User> list = ud.getUserById(id);
+//            request.setAttribute("index", index);
+//            request.setAttribute("list", list);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UpdateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //response.sendRedirect("UpdateUser.jsp");
         request.getRequestDispatcher("UpdateUser.jsp").forward(request, response);
     }
@@ -81,8 +81,8 @@ public class UpdateUserServlet extends HttpServlet {
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phoneNumber");
         UserDAO userDao = new UserDAO();
-        userDao.updateUserByAdmin(id, fullName, gender, dob, role, address, phoneNumber);
-        response.sendRedirect("listUserServlet?index="+index);
+//        userDao.updateUserByAdmin(id, fullName, gender, dob, role, address, phoneNumber);
+//        response.sendRedirect("listUserServlet?index="+index);
     }
 
     /**

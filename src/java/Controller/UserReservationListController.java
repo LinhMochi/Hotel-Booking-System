@@ -51,12 +51,12 @@ public class UserReservationListController extends HttpServlet {
             page = "1";
         }
         ReservationDAO rd = new ReservationDAO();
-        ArrayList<Reservation> listReservation = rd.getReservationList(page, textSearchHotel, email);
-        int numberOfPage = rd.countReservation() % 5 == 0 ? rd.countReservation() / 5 : rd.countReservation() / 5 + 1;
-        request.setAttribute("listReservation", listReservation);
-        request.setAttribute("numberOfPage", numberOfPage);
-        request.setAttribute("page", Integer.parseInt(page));
-        request.getRequestDispatcher("UserReservationList.jsp").forward(request, response);
+//        ArrayList<Reservation> listReservation = rd.getReservationList(page, textSearchHotel, email);
+//        int numberOfPage = rd.countReservation() % 5 == 0 ? rd.countReservation() / 5 : rd.countReservation() / 5 + 1;
+//        request.setAttribute("listReservation", listReservation);
+//        request.setAttribute("numberOfPage", numberOfPage);
+//        request.setAttribute("page", Integer.parseInt(page));
+//        request.getRequestDispatcher("UserReservationList.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

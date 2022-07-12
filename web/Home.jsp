@@ -290,7 +290,7 @@
                                             </c:if>
                                             <c:if test="${pL.discount == 0}">
                                             <div class="title">Giá thấp nhất</div>
-                                            <div class="current-price"><span class="price">566.000</span>
+                                            <div class="current-price"><span class="price"><fmt:formatNumber type="number" pattern="###,###" value="${pL.price}"/></span>
                                                 <span class="unit lable">đ</span></div>
                                             </c:if>
 
