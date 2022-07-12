@@ -117,6 +117,23 @@ public class ReservationDAO {
         return count;
     }
     
+    public int countReservationWithId(int id) {
+        int count = 0;
+        String sql = "select count(*) from Reservations WHERE id = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return count;
+    }
+    
     public void updateStatus(int id, String status) {
         try {
             String sql = "UPDATE Reservations SET status = ? WHERE id = ?";
