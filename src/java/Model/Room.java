@@ -151,6 +151,11 @@ public class Room {
     public void setPromotionId(int promotionId) {
         this.promotionId = promotionId;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" + "id=" + id + ", name=" + name + ", image=" + image + ", quantity=" + quantity + ", price=" + price + ", maxAdult=" + maxAdult + ", maxChild=" + maxChild + ", bed=" + bed + ", area=" + area + ", description=" + description + ", hotelId=" + hotelId + ", promotionId=" + promotionId + '}';
+    }
     
     
     

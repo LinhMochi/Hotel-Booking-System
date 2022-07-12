@@ -18,37 +18,30 @@ public class Service {
     private Date to;
     private int quantity;
     private double price;
+    private String unit;
     private String createAt;
     private int category;
+    private int hotelId;
 
     public Service() {
     }
 
-    public Service(int id, String name, Date from, Date to, int quantity, double price, String createAt, int category) {
+    public Service(int id, String name, Date from, Date to, int quantity, double price, String unit, String createAt, int category, int hotelId) {
         this.id = id;
         this.name = name;
         this.from = from;
         this.to = to;
         this.quantity = quantity;
         this.price = price;
+        this.unit = unit;
         this.createAt = createAt;
         this.category = category;
+        this.hotelId = hotelId;
     }
 
     
 
-    
-
-    Service(Service service) {
-        this.id = service.getId();
-        this.name = service.getName();
-        this.from = service.getFrom();
-        this.to = service.getTo();
-        this.createAt = service.createAt;
-        this.quantity = service.getQuantity();
-        this.price = service.getPrice();
-        this.category = service.category;
-    }
+   
 
     public int getId() {
         return id;
@@ -127,6 +120,31 @@ public class Service {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
+    }    
+
+    @Override
+    public String toString() {
+        return "Service{" + "id=" + id + ", name=" + name + ", from=" + from + ", to=" + to 
+                + ", quantity=" + quantity + ", price=" + price + ", unit=" + unit + ", createAt=" 
+                + createAt + ", category=" + category + ", hotelId=" + hotelId + '}';
+    }
+    
+    
     
     
 }
