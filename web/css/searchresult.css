@@ -37,7 +37,7 @@ h4 {
 	padding: 20px 10px 10px 20px ;
 }
 .aside-left h5{
-	font-weight: 550;
+	font-weight: 500;
 	font-size: 20px;
 	text-align: left;
 	margin-bottom: 5px;
@@ -120,7 +120,7 @@ input[type="range"]:hover::-webkit-slider-thumb{
 }
 
 .container-right{
-	background-color: rgb(110, 238, 176,0.5);
+	background-color: rgb(110, 238, 176,0.1);
 	display: inline-block;
 	min-width: calc(100% - 310px);
 	min-height: 100vh;
@@ -163,3 +163,18 @@ input[type="range"]:hover::-webkit-slider-thumb{
 	outline: none;
 	line-height: 2rem;
 }*/
+
+.pagin{
+    margin-top: 20px
+}
+
+.pagin .current-page{
+    background: #03a9f4;
+    color: #fff;
+}
+
+footer.footer{
+    width: 100%;
+    background-color: gray;
+    height: 100px;
+}

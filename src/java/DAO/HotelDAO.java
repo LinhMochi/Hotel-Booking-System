@@ -303,6 +303,47 @@ public class HotelDAO {
         }
         return list;
     }
+    
+    public int countAvailableHotel(Search s){
+        int count = 0;
+        String sql = "WITH BookedRooms AS(\n"
+                + "	SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, Reservations r\n"
+                + "	WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival >= ? AND arrival <= ?)\n"
+                + "	OR(department>=? AND department<=?) OR (arrival>= ? AND department<= ?))\n"
+                + "	GROUP BY roomId\n"
+                + "), ListHotel AS(\n"
+                + "	SELECT h.id AS hotelId,CONCAT(h.[name],', ',h.[address]) AS [search] FROM Hotels h, Cities c WHERE h.cityId = c.id\n"
+                + "), AvailableRooms AS(\n"
+                + "SELECT r.id AS roomId, (r.quantity - isnull(br.booked,0)) as available,r.price,lh.[search],r.maxAdults,r.maxChild, r.hotelId \n"
+                + "FROM RoomTypes r left join BookedRooms br ON r.id = br.roomId \n"
+                + "inner join ListHotel lh ON r.hotelId = lh.hotelId \n"
+                + "WHERE search like '%'+?+'%' and (r.quantity - isnull(br.booked,0)) >= 0 \n"
+                + "and (maxAdults+maxChild)>=?\n"
+                + "), \n"
+                + "AvailableHotels AS( SELECT h.* FROM Hotels h inner join \n"
+                + "(SELECT DISTINCT hotelId FROM AvailableRooms) ah \n"
+                + "on h.id = hotelId\n"
+                + ")\n"
+                + "SELECT * FROM AvailableHotels";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setDate(1, s.getArrival());
+            ps.setDate(2, s.getDepartment());
+            ps.setDate(3, s.getArrival());
+            ps.setDate(4, s.getDepartment());
+            ps.setDate(5, s.getArrival());
+            ps.setDate(6, s.getDepartment());
+            ps.setString(7, s.getSearch());
+            ps.setInt(8, (s.getNoAdult() + s.getNoChild()) / s.getNoRoom());
+            rs = ps.executeQuery();
+            while(rs.next()){ count++;}
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return count;
+    }
 
     public ArrayList<Hotel> getAvailableHotel(Search s, String page) {
         ArrayList<Hotel> list = new ArrayList<>();
@@ -364,6 +405,7 @@ public class HotelDAO {
 //            for (Hotel h : list) {
 //                System.out.println(h.toString());
 //            }
+//            System.out.println(new HotelDAO().countAvailableHotel(new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-04"), 1, 0, 1)));
 //        }
 //    }
 //}

@@ -42,17 +42,22 @@ public class HotelSearchController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         /* TODO output your page here. You may use following sample code. */
+        Search s;
 
-        String search = request.getParameter("search");
-        String arri = request.getParameter("arrival");
-        String depart = request.getParameter("department");
-        String a = request.getParameter("adult");
-        String c = request.getParameter("child");
-        String r = request.getParameter("room");
-        
-        Search s = new Search(search, Date.valueOf(arri),
-                Date.valueOf(depart), Integer.parseInt(a),
-                Integer.parseInt(c), Integer.parseInt(r));
+        if (request.getParameter("filter") != null) {
+            s = (Search) request.getSession().getAttribute("search");
+        } else {
+            String search = request.getParameter("search");
+            String arri = request.getParameter("arrival");
+            String depart = request.getParameter("department");
+            String a = request.getParameter("adult");
+            String c = request.getParameter("child");
+            String r = request.getParameter("room");
+
+            s = new Search(search, Date.valueOf(arri),
+                    Date.valueOf(depart), Integer.parseInt(a),
+                    Integer.parseInt(c), Integer.parseInt(r));
+        }
 
 //        try (PrintWriter out = response.getWriter()) {
 //            out.println("<!DOCTYPE html>");
@@ -65,14 +70,18 @@ public class HotelSearchController extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        };
+        int countResult = new HotelDAO().countAvailableHotel(s);
+        int endPage = countResult / 5 + (countResult % 5 == 0 ? 0 : 1);
+        request.setAttribute("countResult", countResult);
+        request.setAttribute("endpage", endPage);
         String page = request.getParameter("page") == null ? "1" : request.getParameter("page");
         ArrayList<Hotel> availableHotels = new HotelDAO().getAvailableHotel(s, page);
-        if (availableHotels.isEmpty() && !page.equals(null)) {
+        if (availableHotels.isEmpty() && !(page == null)) {
             request.getRequestDispatcher("NotFound.jsp").forward(request, response);
         } else {
             request.getSession().setAttribute("search", s);
             request.setAttribute("availableHotel", availableHotels);
-            request.setAttribute("page", page);// set current page
+            request.setAttribute("page", Integer.parseInt(page));// set current page
             request.setAttribute("endPage", availableHotels.size() < 5 ? "next" : null);// set next able
 
             StringBuilder hotels = new StringBuilder("");
