@@ -20,7 +20,10 @@ public class Promotion {
 
     public Promotion() {
     }
-
+    
+    public Promotion(String promotion){
+        this.promotion = promotion;
+    }
     public Promotion(int id, String promotion, String create, Date from, Date to) {
         this.id = id;
         this.promotion = promotion;
