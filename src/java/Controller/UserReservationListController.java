@@ -52,7 +52,7 @@ public class UserReservationListController extends HttpServlet {
         }
         ReservationDAO rd = new ReservationDAO();
 //        ArrayList<Reservation> listReservation = rd.getReservationList(page, textSearchHotel, email);
-//        int numberOfPage = rd.countReservation() % 5 == 0 ? rd.countReservation() / 5 : rd.countReservation() / 5 + 1;
+//        int numberOfPage = rd.countReservationWithEmail(email) % 5 == 0 ? rd.countReservationWithEmail(email) / 5 : rd.countReservationWithEmail(email) / 5 + 1;
 //        request.setAttribute("listReservation", listReservation);
 //        request.setAttribute("numberOfPage", numberOfPage);
 //        request.setAttribute("page", Integer.parseInt(page));
