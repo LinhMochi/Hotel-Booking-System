@@ -116,4 +116,18 @@ public class ReservationDAO {
         }
         return count;
     }
+    
+    public void updateStatus(int id, String status) {
+        try {
+            String sql = "UPDATE Reservations SET status = ? WHERE id = ?";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
 }
