@@ -12,11 +12,15 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <style>
-            
+
             *{
                 box-sizing: border-box;
                 padding: 0;
@@ -45,11 +49,11 @@
                 background-color: white;
             }
             input{
-               width: 90%;
-               padding: 5px;
-               margin-top: 2px;
+                width: 90%;
+                padding: 5px;
+                margin-top: 2px;
             }
-            
+
             /*search box*/
             .info-input{
                 width:80%;
@@ -91,7 +95,8 @@
                 margin: 0px 50px
             }
             .service{
-                width: 20%;
+                width: 80%;
+
             }
             .service-img img{
                 width: 100%;
@@ -119,29 +124,29 @@
                 transition: 500ms ease-in-out left;
             }
             .multi-item-carousel .carousel-inner .active.left {
-              left: -33%;
+                left: -33%;
             }
             .multi-item-carousel .carousel-inner .active.right {
-              left: 33%;
+                left: 33%;
             }
             .multi-item-carousel .carousel-inner .next {
-              left: 33%;
+                left: 33%;
             }
             .multi-item-carousel .carousel-inner .prev {
-              left: -33%;
+                left: -33%;
             }
             @media all and (transform-3d), (-webkit-transform-3d) {
-              .multi-item-carousel .carousel-inner > .item {
-                transition: 500ms ease-in-out left;
-                transition: 500ms ease-in-out all;
-                -webkit-backface-visibility: visible;
-                        backface-visibility: visible;
-                transform: none!important;
-              }
+                .multi-item-carousel .carousel-inner > .item {
+                    transition: 500ms ease-in-out left;
+                    transition: 500ms ease-in-out all;
+                    -webkit-backface-visibility: visible;
+                    backface-visibility: visible;
+                    transform: none!important;
+                }
             }
             .multi-item-carousel .carouse-control.left,
             .multi-item-carousel .carouse-control.right {
-              background-image: none;
+                background-image: none;
             }
             hr{
                 border: 1px solid;
@@ -161,7 +166,11 @@
                 border-radius: 30px;
                 width: 100%;
                 height:245px;
-                
+
+            }
+
+            .item{
+                padding-left: 60px;
             }
         </style>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -250,8 +259,8 @@
                                         <c:forEach  var = "i" begin = "1" end ="${5 - hotel.noOfStar}">
                                             <span class="fa fa-star "></span>
                                         </c:forEach>
-                                        
-                                    
+
+
                                     </div>
                                 </div>
                                 <!--rating-->
@@ -262,59 +271,59 @@
                             </div>
                             <div style="margin: 0px 0px 0px 30px">
                                 <div>${hotel.hotelAdvance}<br/>
-                                ${hotel.address}
+                                    ${hotel.address}
                                 </div>
                                 <div>
                                     <i class="fa fa-heart-o" aria-hidden="true"></i>
                                     <i class="fa fa-share-alt" aria-hidden="true"></i>
                                 </div>
                             </div>
-                            
+
                             <div style="display:flex; width:100%; justify-content: center; margin-bottom:  50px"><img style="border-radius: 20px; border: 1px solid;" src="https://s3.cloud.cmctelecom.vn/tinhte2/2019/08/4754966_cover_.jpg" alt="logo" width="90%" height="380px"></div>
                             <hr>
                             <!--img slideshow-->
                             <div style="">
                                 <div class="container">
                                     <div class="row">
-                                      <div class="col-md-12">
-                                        <div class="carousel slide multi-item-carousel" id="theCarousel">
-                                          <div class="carousel-inner">
-                                            <div class="item active">
-                                              <div class="col-xs-4"><a href="#1"><img src="" class="img-responsive"></a></div>
-                                            </div>
-                                              <c:forEach  var="user" items="${gallery}" >
-                                                <div class="item">
-                                                    <div class="col-xs-4"><a href="#1"><img src="${user.image}" class="img-responsive"></a></div>
-                                                </div>
-                                              </c:forEach>
-<!--                                            <div class="item">
-                                              <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?fremantle,australia" class="img-responsive"></a></div>
-                                            </div>
-                                            <div class="item">
-                                              <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?west-australia" class="img-responsive"></a></div>
-                                            </div>
-                                            <div class="item">
-                                              <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth" class="img-responsive"></a></div>
-                                            </div>
-                                            <div class="item">
-                                              <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?quokka,perth" class="img-responsive" style="margin-left: 50px"></a></div>
-                                            </div>
-                                            <div class="item">
-                                              <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?margaretriver,australia" class="img-responsive"></a></div>
-                                            </div>-->
-                                            <!-- add  more items here -->
-                                            <!-- Example item start:  -->
-<!--
-                                            <div class="item">
-                                              <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia&r=7" class="img-responsive"></a></div>
-                                            </div>-->
+                                        <div class="col-md-12">
+                                            <div class="carousel slide multi-item-carousel" id="theCarousel">
+                                                <div class="carousel-inner">
+                                                    <div class="item active">
+                                                        <div class="col-xs-4"><a href="#1"><img src="" class="img-responsive"></a></div>
+                                                    </div>
+                                                    <c:forEach  var="user" items="${gallery}" >
+                                                        <div class="item">
+                                                            <div class="col-xs-4"><a href="#1"><img src="${user.image}" class="img-responsive"></a></div>
+                                                        </div>
+                                                    </c:forEach>
+                                                    <!--                                            <div class="item">
+                                                                                                  <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?fremantle,australia" class="img-responsive"></a></div>
+                                                                                                </div>
+                                                                                                <div class="item">
+                                                                                                  <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?west-australia" class="img-responsive"></a></div>
+                                                                                                </div>
+                                                                                                <div class="item">
+                                                                                                  <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth" class="img-responsive"></a></div>
+                                                                                                </div>
+                                                                                                <div class="item">
+                                                                                                  <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?quokka,perth" class="img-responsive" style="margin-left: 50px"></a></div>
+                                                                                                </div>
+                                                                                                <div class="item">
+                                                                                                  <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?margaretriver,australia" class="img-responsive"></a></div>
+                                                                                                </div>-->
+                                                    <!-- add  more items here -->
+                                                    <!-- Example item start:  -->
+                                                    <!--
+                                                                                                <div class="item">
+                                                                                                  <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia&r=7" class="img-responsive"></a></div>
+                                                                                                </div>-->
 
-                                            <!--  Example item end -->
-                                          </div>
-                                          <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                                          <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                                    <!--  Example item end -->
+                                                </div>
+                                                <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                                                <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                            </div>
                                         </div>
-                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -329,32 +338,32 @@
                         <div class="title" style="margin-bottom: 20px">Khách sạn của chúng tôi</div>
                         <div>
                             <p>Tọa lạc tại thành phố Hà Nội, cách Bảo tàng Dân tộc học 
-                            Việt Nam 1,7 km, VNAHOMES APARTHOTEL có dịch vụ nhận phòng/
-                            trả phòng cấp tốc, phòng nghỉ không hút thuốc, sảnh khách 
-                            chung, WiFi miễn phí trong toàn bộ khuôn viên và khu vườn. 
-                            Chỗ nghỉ này nằm trong bán kính khoảng 2,5 km từ Hồ Tây, 2,9
-                            km từ Đền Quán Thánh và 3 km từ Chùa Một Cột. Chỗ nghỉ cung 
-                            cấp dịch vụ lễ tân 24 giờ và phòng giữ hành lý cho khách.
+                                Việt Nam 1,7 km, VNAHOMES APARTHOTEL có dịch vụ nhận phòng/
+                                trả phòng cấp tốc, phòng nghỉ không hút thuốc, sảnh khách 
+                                chung, WiFi miễn phí trong toàn bộ khuôn viên và khu vườn. 
+                                Chỗ nghỉ này nằm trong bán kính khoảng 2,5 km từ Hồ Tây, 2,9
+                                km từ Đền Quán Thánh và 3 km từ Chùa Một Cột. Chỗ nghỉ cung 
+                                cấp dịch vụ lễ tân 24 giờ và phòng giữ hành lý cho khách.
                             </p>
                             <p>
-                            Phòng nghỉ tại VNAHOMES APARTHOTEL có máy điều hòa, bàn
-                            làm việc, ấm đun nước, lò vi sóng, tủ lạnh, két an toàn, TV 
-                            màn hình phẳng và phòng tắm riêng với vòi sen. Trong phòng 
-                            được trang bị ga trải giường và khăn tắm.</p>
+                                Phòng nghỉ tại VNAHOMES APARTHOTEL có máy điều hòa, bàn
+                                làm việc, ấm đun nước, lò vi sóng, tủ lạnh, két an toàn, TV 
+                                màn hình phẳng và phòng tắm riêng với vòi sen. Trong phòng 
+                                được trang bị ga trải giường và khăn tắm.</p>
 
                             <p>Khách lưu trú tại chỗ nghỉ có thể tham gia các 
-                            hoạt động trong và xung quanh thành phố Hà Nội, như đi xe 
-                            đạp.</p>
-                            
+                                hoạt động trong và xung quanh thành phố Hà Nội, như đi xe 
+                                đạp.</p>
+
                             <p>VNAHOMES APARTHOTEL nằm cách Lăng Chủ tịch Hồ Chí 
-                            Minh 3 km và trung tâm thương mại Vincom Center Nguyễn Chí 
-                            Thanh 3,1 km. Sân bay gần nhất là sân bay quốc tế Nội Bài, 
-                            nằm trong bán kính 18 km từ khách sạn, và chỗ nghỉ cung cấp 
-                            dịch vụ đưa đón sân bay với một khoản phụ phí.
+                                Minh 3 km và trung tâm thương mại Vincom Center Nguyễn Chí 
+                                Thanh 3,1 km. Sân bay gần nhất là sân bay quốc tế Nội Bài, 
+                                nằm trong bán kính 18 km từ khách sạn, và chỗ nghỉ cung cấp 
+                                dịch vụ đưa đón sân bay với một khoản phụ phí.
                             </p>
                             <p>Khách sạn của chúng tôi</p>
                             <p>Phòng view lên núi - Phục vụ 24/7 - Có xe đưa đón trong khuôn viên khách sạn</p>
-                            
+
                         </div>
                         <!--Our room-->
                         <div>
@@ -363,7 +372,124 @@
                             </div>
                             <hr style="border: 2px solid #F79B47;">
                             <!--slideshow-->
-                            <div style="border: 1px solid; height: 200px"></div>
+                            <div>
+                                <div class="owl-one owl-carousel owl-theme">
+                                    <div class="item" style="display:block">
+                                        <div style="display:flex; justify-content: space-between">
+                                            <div style="width:48%"><img src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="100"></div>
+                                            <div style="border:1px solid; width:48%">
+                                                <p>Phòng đơn tiêu chuẩn</p>
+                                                <i class="fa fa-bed" aria-hidden="true"> 1 giường đơn</i>
+                                                <p>Diện tích phòng:25 m2</p>
+                                                <p>Loại phòng: Phòng khép kín</p>
+                                                <a href="#">Tiện ích khác</a>
+                                                <p>Giá: 350.000 VNĐ</p>
+                                                <form>
+                                                    Đặt <input style="width:50px" type="text" name="NumOfRoom"/> Phòng
+                                                    <input type="submit" value="Đặt phòng">
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; justify-content: space-between">
+                                            <div style="width:48%"><img src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="100"></div>
+                                            <div style="border:1px solid; width:48%">
+                                                <p>Phòng đơn tiêu chuẩn</p>
+                                                <i class="fa fa-bed" aria-hidden="true"> 1 giường đơn</i>
+                                                <p>Diện tích phòng:25 m2</p>
+                                                <p>Loại phòng: Phòng khép kín</p>
+                                                <a href="#">Tiện ích khác</a>
+                                                <p>Giá: 350.000 VNĐ</p>
+                                                <form>
+                                                    Đặt <input style="width:50px" type="text" name="NumOfRoom"/> Phòng
+                                                    <input type="submit" value="Đặt phòng">
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="item" style="display:block">
+                                        <div style="display:flex; justify-content: space-between">
+                                            <div style="width:48%"><img src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="100"></div>
+                                            <div style="border:1px solid; width:48%">
+                                                <p>Phòng đơn tiêu chuẩn</p>
+                                                <i class="fa fa-bed" aria-hidden="true"> 1 giường đơn</i>
+                                                <p>Diện tích phòng:25 m2</p>
+                                                <p>Loại phòng: Phòng khép kín</p>
+                                                <a href="#">Tiện ích khác</a>
+                                                <p>Giá: 350.000 VNĐ</p>
+                                                <form>
+                                                    Đặt <input style="width:50px" type="text" name="NumOfRoom"/> Phòng
+                                                    <input type="submit" value="Đặt phòng">
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; justify-content: space-between">
+                                            <div style="width:48%"><img src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="100"></div>
+                                            <div style="border:1px solid; width:48%">
+                                                <p>Phòng đơn tiêu chuẩn</p>
+                                                <i class="fa fa-bed" aria-hidden="true"> 1 giường đơn</i>
+                                                <p>Diện tích phòng:25 m2</p>
+                                                <p>Loại phòng: Phòng khép kín</p>
+                                                <a href="#">Tiện ích khác</a>
+                                                <p>Giá: 350.000 VNĐ</p>
+                                                <form>
+                                                    Đặt <input style="width:50px" type="text" name="NumOfRoom"/> Phòng
+                                                    <input type="submit" value="Đặt phòng">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="item" style="display:block">
+                                        <div style="display:flex; justify-content: space-between">
+                                            <div style="width:48%"><img src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="100"></div>
+                                            <div style="border:1px solid; width:48%">
+                                                <p>Phòng đơn tiêu chuẩn</p>
+                                                <i class="fa fa-bed" aria-hidden="true"> 1 giường đơn</i>
+                                                <p>Diện tích phòng:25 m2</p>
+                                                <p>Loại phòng: Phòng khép kín</p>
+                                                <a href="#">Tiện ích khác</a>
+                                                <p>Giá: 350.000 VNĐ</p>
+                                                <form>
+                                                    Đặt <input style="width:50px" type="text" name="NumOfRoom"/> Phòng
+                                                    <input type="submit" value="Đặt phòng">
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; justify-content: space-between">
+                                            <div style="width:48%"><img src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&w=1000&q=80" height="100"></div>
+                                            <div style="border:1px solid; width:48%">
+                                                <p>Phòng đơn tiêu chuẩn</p>
+                                                <i class="fa fa-bed" aria-hidden="true"> 1 giường đơn</i>
+                                                <p>Diện tích phòng:25 m2</p>
+                                                <p>Loại phòng: Phòng khép kín</p>
+                                                <a href="#">Tiện ích khác</a>
+                                                <p>Giá: 350.000 VNĐ</p>
+                                                <form>
+                                                    Đặt <input style="width:50px" type="text" name="NumOfRoom"/> Phòng
+                                                    <input type="submit" value="Đặt phòng">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="item">
+                                        <img src="https://cdn.britannica.com/96/115096-050-5AFDAF5D/Bellagio-Hotel-Casino-Las-Vegas.jpg" height="100">
+                                    </div>
+                                    <div class="item">
+                                        <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/159964531.jpg?k=98c31e4eb1d030ea9fadac5eb6c94c5ebe416d8295dd4d2a0ca2a0b3593306b0&o=&hp=1" height="100">
+                                    </div>
+                                    <div class="item">
+                                        <img src="https://go2joy.s3-ap-southeast-1.amazonaws.com/hotel/10983/3973_1646280838_622040862038b.jpg" height="100">
+                                    </div>
+                                    <div class="item">
+                                        <img src="https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/256012439.jpg?k=ccc98f20816dab66ecf132d1db3c77780f066ec00ea9680fe50fb56173315d93&o=" height="100">
+                                    </div>-->
+
+                                </div>
+                            </div>
                             <hr style="border: 2px solid #F79B47;">
                         </div>
                         <!--Our extensions-->
@@ -390,11 +516,11 @@
                                         </div>
                                         <div>
                                             <div><span>Đồ ăn & Đồ uống</span>
-                                                    <div>
-                                                        <ul>
-                                                            <li>Nhà hàng</li>
-                                                            <li>Quầy mini bar</li>
-                                                        </ul>
+                                                <div>
+                                                    <ul>
+                                                        <li>Nhà hàng</li>
+                                                        <li>Quầy mini bar</li>
+                                                    </ul>
                                                 </div>                    
                                             </div>
                                         </div>
@@ -469,62 +595,155 @@
                             <div style="color: #CF6D0C; margin:50px 20px 10px 20px">Các quy đinh đặt phòng</div>
                             <div style="margin-bottom:15px">Danh sách các dịch vụ mà quý khách có thể chọn thêm khi đặt phòng ơr khách sạn của chúng tôi</div>
                             <!--service list-->
-                            <div class="service-list" style="display:flex; justify-content: space-around">
-                                <div class="service">
-                                    <div class="service-img"><img src="../img/hotelDetail-background.jpg" alt="logo" width="100" height="50"></div>
-                                    <div class="service-name">
-                                        <div>Bể bơi 4 mùa<br/></div>
-                                        <button type="button">Add</button>
+                            <!--                            <div class="service-list" style="display:flex; justify-content: space-around">
+                                                            <div class="service">
+                                                                <div class="service-img"><img src="../img/hotelDetail-background.jpg" alt="logo" width="100" height="50"></div>
+                                                                <div class="service-name">
+                                                                    <div>Bể bơi 4 mùa<br/></div>
+                                                                    <button type="button">Add</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="service">
+                                                                <div class="service-img"><img src="../img/7.png" alt="logo" width="100" height="50"></div>
+                                                                <div class="service-name">
+                                                                    <div>Bể bơi 4 mùa<br/></div>
+                                                                    <button type="button">Add</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="service">
+                                                                <div class="service-img"><img src="../img/6.jpeg" alt="logo" width="100" height="50"></div>
+                                                                <div class="service-name">
+                                                                    <div>Bể bơi 4 mùa<br/></div>
+                                                                    <button type="button">Add</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="service">
+                                                                <div class="service-img"><img src="../img/logo.png" alt="logo" width="100" height="50"></div>
+                                                                <div class="service-name">
+                                                                    <div>Bể bơi 4 mùa<br/></div>
+                                                                    <button type="button">Add</button>
+                                                                </div>-->
+                            <div class="owl-two owl-carousel owl-theme">
+                                <div class="item">
+                                    <div class="service">
+                                        <div class="service-img"><img src="../img/hotelDetail-background.jpg" alt="logo" width="100" height="50"></div>
+                                        <div class="service-name">
+                                            <div>Bể bơi 4 mùa<br/></div>
+                                            <button type="button">Add</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="service">
-                                    <div class="service-img"><img src="../img/7.png" alt="logo" width="100" height="50"></div>
-                                    <div class="service-name">
-                                        <div>Bể bơi 4 mùa<br/></div>
-                                        <button type="button">Add</button>
+                                <div class="item">
+                                    <div class="service">
+                                        <div class="service-img"><img src="../img/hotelDetail-background.jpg" alt="logo" width="100" height="50"></div>
+                                        <div class="service-name">
+                                            <div>Bể bơi 4 mùa<br/></div>
+                                            <button type="button">Add</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="service">
-                                    <div class="service-img"><img src="../img/6.jpeg" alt="logo" width="100" height="50"></div>
-                                    <div class="service-name">
-                                        <div>Bể bơi 4 mùa<br/></div>
-                                        <button type="button">Add</button>
+                                <div class="item">
+                                    <div class="service">
+                                        <div class="service-img"><img src="../img/hotelDetail-background.jpg" alt="logo" width="100" height="50"></div>
+                                        <div class="service-name">
+                                            <div>Bể bơi 4 mùa<br/></div>
+                                            <button type="button">Add</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="service">
-                                    <div class="service-img"><img src="../img/logo.png" alt="logo" width="100" height="50"></div>
-                                    <div class="service-name">
-                                        <div>Bể bơi 4 mùa<br/></div>
-                                        <button type="button">Add</button>
+                                <div class="item">
+                                    <div class="service">
+                                        <div class="service-img"><img src="../img/hotelDetail-background.jpg" alt="logo" width="100" height="50"></div>
+                                        <div class="service-name">
+                                            <div>Bể bơi 4 mùa<br/></div>
+                                            <button type="button">Add</button>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="item">
+                                    <div class="service">
+                                        <div class="service-img"><img src="../img/hotelDetail-background.jpg" alt="logo" width="100" height="50"></div>
+                                        <div class="service-name">
+                                            <div>Bể bơi 4 mùa<br/></div>
+                                            <button type="button">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
-        </div>
-        <script>
-            // Instantiate the Bootstrap carousel
-            $('.multi-item-carousel').carousel({
-              interval: false
-            });
+        </div>    
+    </div>
+</div>
+<script>
+    // Instantiate the Bootstrap carousel
+    $('.multi-item-carousel').carousel({
+        interval: false
+    });
 
-            // for every slide in carousel, copy the next slide's item in the slide.
-            // Do the same for the next, next item.
-            $('.multi-item-carousel .item').each(function(){
-              var next = $(this).next();
-              if (!next.length) {
-                next = $(this).siblings(':first');
-              }
-              next.children(':first-child').clone().appendTo($(this));
+    // for every slide in carousel, copy the next slide's item in the slide.
+    // Do the same for the next, next item.
+    $('.multi-item-carousel .item').each(function () {
+        var next = $(this).next();
+        if (!next.length) {
+            next = $(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo($(this));
 
-              if (next.next().length>0) {
-                next.next().children(':first-child').clone().appendTo($(this));
-              } else {
-                    $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
-              }
-            });
-        </script>   
-    </body>
+        if (next.next().length > 0) {
+            next.next().children(':first-child').clone().appendTo($(this));
+        } else {
+            $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+        }
+    });
+</script>   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    $('.owl-one').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        autoplay: true,
+        autoplayTimeout: 2500,
+        stagePadding: 0,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 3
+            }
+        }
+    })
+    $('.owl-two').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        autoplay: false,
+        autoplayTimeout: 1500,
+        stagePadding: 0,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 4
+            }
+        }
+    })
+</script>
+</body>
 </html>
