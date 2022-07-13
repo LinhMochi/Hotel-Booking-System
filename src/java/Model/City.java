@@ -19,6 +19,11 @@ public class City {
     public City() {
     }
 
+    public City(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    
     public City(int id, String name, String image, int noHotel, int rate) {
         this.id = id;
         this.name = name;

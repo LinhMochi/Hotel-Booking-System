@@ -1,26 +1,30 @@
-package controller;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Controller;
 
-import DAO.HotelDAO;
-import Model.Hotel;
+import DAO.CityDAO;
+import DAO.HotelCategoryDAO;
+import Model.City;
+import Model.HotelCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Dell
+ * @author Nhat Anh
  */
-public class FilterHotelController extends HttpServlet {
+@WebServlet(name = "ListCityHotelController", urlPatterns = {"/ListCityHotelController"})
+public class ListCityHotelController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +43,10 @@ public class FilterHotelController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FilterHandle</title>");
+            out.println("<title>Servlet ListCityHotelController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FilterHandle at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListCityHotelController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,12 +64,15 @@ public class FilterHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            HotelDAO dao = new HotelDAO();
-            String filter = request.getParameter("filter");
-            ArrayList<Hotel> listHotel = dao.getHotelByFilter(filter);
-            request.setAttribute("listHotel", listHotel);
-            request.getRequestDispatcher("crud.jsp").forward(request, response);
+                try {
+            CityDAO cdao = new CityDAO();
+            List<City> listc = cdao.getListCity();
+            request.setAttribute("listc", listc);
+            HotelCategoryDAO hdao = new HotelCategoryDAO();
+             ArrayList<HotelCategory>  listHC = hdao.getListHotelCategory();
+            request.setAttribute("listHC", listHC);
+ 
+            request.getRequestDispatcher("AddHotel.jsp").forward(request, response);
         } catch (Exception e) {
         }
     }

@@ -116,14 +116,11 @@ public class CityDAO {
     }
     
     // detelte city is lack
-        
+         public static void main(String[] args) {
+        ArrayList<City> list = new CityDAO().getListCity();
+        for(City c: list){
+            System.out.println(c.toString());
+        }
+    } 
 }
 
-//class demo {
-//    public static void main(String[] args) {
-//        ArrayList<City> list = new CityDAO().getListCityComplete();
-//        for(City c: list){
-//            System.out.println(c.toString());
-//        }
-//    }
-//}

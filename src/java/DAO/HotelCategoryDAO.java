@@ -25,28 +25,26 @@ public class HotelCategoryDAO {
     ArrayList<HotelCategory> list;
     public HotelCategoryDAO() {
     }
+        public ArrayList<HotelCategory> getListHotelCategory() throws Exception {
+        list = new ArrayList<>();
+        sql = "SELECT id, category FROM HotelCategories";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                HotelCategory hc = new HotelCategory();
+                hc.setId(rs.getInt(1));
+                hc.setCategory(rs.getString(2));
+                list.add(hc);
+            }
+        } catch (SQLException ex) {
+
+        }
+        return list;
+    }
     
-    // get list hotel category
-    
-//    public ArrayList<HotelCategory> getListHotelCategory(){
-//        list = new ArrayList<>();
-//        sql = "SELECT id, category FROM HotelCategories";
-//        try {
-//            ps = conn.prepareStatement(sql);
-//            rs = ps.executeQuery();
-//            while(rs.next()){
-//                HotelCategory hc = new HotelCategory();
-//                hc.setId(rs.getInt(1));
-//                hc.setCategory(rs.getString(2));
-//                list.add(hc);
-//            }
-//        } catch (SQLException ex) {
-//            
-//        }
-//        return list;
-//    }
-    
-    // get list completely hotel category 
+
     
     public ArrayList<HotelCategory> getListCompleteHotelCategory(){
         list = new ArrayList<>();
@@ -72,14 +70,12 @@ public class HotelCategoryDAO {
         }
         return list;
     }
-    
-}
-
-//    class demo{
-//        public static void main(String[] args) {
+//            public static void main(String[] args) {
 //            ArrayList<HotelCategory> list = new HotelCategoryDAO().getListCompleteHotelCategory();
 //            for(HotelCategory hc : list){
 //                System.out.println(hc.toString());
 //            }
 //        }
-//    }  
+}
+
+ 

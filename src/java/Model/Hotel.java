@@ -23,6 +23,8 @@ public class Hotel {
     private String status; 
     private String address; 
     private String image;
+     private String city; 
+    private String category;
     private int cityId; 
     private int categoryId;
     private int manageId;
@@ -39,7 +41,7 @@ public class Hotel {
         this.name = name;
     }
 
-    public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
+    public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, String city, String category) {
         this.id = id;
         this.name = name;
         this.noOfStar = noOfStar;
@@ -51,9 +53,11 @@ public class Hotel {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.address = address;
-        this.cityId = cityId;
-        this.categoryId = categoryId;
+        this.city = city;
+        this.category = category;
     }
+
+    
     
     public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId, String image) {
         this.id = id;
@@ -253,7 +257,21 @@ public class Hotel {
     public void setAvgScore(double avgScore) {
         this.avgScore = avgScore;
     }
+        public String getCity() {
+        return city;
+    }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
     @Override
     public String toString() {
         return "Hotel{" + "id=" + id + ", name=" + name + ", noOfStar=" + noOfStar + ", description=" + description + ", hotelAdvance=" + hotelAdvance + ", policies=" + policies + ", map=" + map + ", email=" + email + ", phoneNumber=" + phoneNumber + ", status=" + status + ", address=" + address + ", image=" + image + ", cityId=" + cityId + ", categoryId=" + categoryId + ", manageId=" + manageId + ", manageBy=" + manageBy + ", hotelCategory=" + hotelCategory + ", noLike=" + noLike + ", noRate=" + noRate + ", avgScore=" + avgScore + '}';

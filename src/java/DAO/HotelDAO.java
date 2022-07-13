@@ -1,6 +1,6 @@
 package DAO;
 
-//
+
 
 import DBcontext.DBcontext;
 import Model.Hotel;
@@ -28,10 +28,12 @@ public class HotelDAO {
     private ResultSet rs;
     private String query;
 
-      public  ArrayList<Hotel> getAllHotel() {
+  
+ public ArrayList<Hotel> getAllHotel() {
         ArrayList<Hotel> list = new ArrayList<>();
-        query = "SELECT * FROM Hotels";
+        query = "Select ht.id, ht.name,ht.noOfStar,ht.description,ht.hotelAdvance,ht.policies,ht.map,ht.email,ht.phoneNumber,ht.status,ht.address,ct.city,hc.category from Hotels ht Inner join Cities ct On ht.cityId = ct.id Inner join HotelCategories hc On ht.categoryId = hc.id";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -47,8 +49,8 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("city"),
+                        rs.getString("category")
                 ));
             }
         } catch (Exception e) {
@@ -62,11 +64,12 @@ public class HotelDAO {
         int numOfElement = 5;
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<Hotel> list = new ArrayList<>();
-        query = "SELECT * FROM Hotels\n"
+        query = "Select ht.id, ht.name,ht.noOfStar,ht.description,ht.hotelAdvance,ht.policies,ht.map,ht.email,ht.phoneNumber,ht.status,ht.address,ct.city,hc.category from Hotels ht Inner join Cities ct On ht.cityId = ct.id Inner join HotelCategories hc On ht.categoryId = hc.id\n"
                 + "ORDER BY id ASC \n"
                 + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY";
 
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, start);
             ps.setInt(2, numOfElement);
@@ -84,8 +87,9 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("city"),
+                        rs.getString("category")
+                        
                 ));
             }
         } catch (Exception e) {
@@ -97,6 +101,7 @@ public class HotelDAO {
     public void addHotel(String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
         query = "INSERT INTO Hotels VALUES ( ? , ? ,  ? ,  ? , ? , ? , ? , ? , ? , ?,  ? , ?)";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, name);
             ps.setInt(2, noOfStar);
@@ -119,6 +124,7 @@ public class HotelDAO {
     public void deleteHotel(int id) {
         query = "DELETE Hotels WHERE id = ? ";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -133,6 +139,7 @@ public class HotelDAO {
                 + " WHERE Id = ? ";
 
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, name);
             ps.setInt(2, noOfStar);
@@ -156,6 +163,7 @@ public class HotelDAO {
     public Hotel getHotelByID(int hotelID) {
         query = "SELECT * FROM Hotels where id = ? ";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, hotelID);
             rs = ps.executeQuery();
@@ -172,8 +180,8 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("cityId"),
+                        rs.getString("categoryId")
                 );
             }
         } catch (Exception e) {
@@ -186,6 +194,7 @@ public class HotelDAO {
         ArrayList<Hotel> list = new ArrayList<>();
         query = "SELECT * FROM hotels WHERE name LIKE '%" + textSearch + "%' OR address LIKE '%" + textSearch + "%'";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -201,8 +210,8 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("cityId"),
+                        rs.getString("categoryId")
                 ));
             }
         } catch (Exception e) {
@@ -213,9 +222,11 @@ public class HotelDAO {
     }
 
     public ArrayList<Hotel> getHotelByFilter(String filter) {
+        // nO CHON LOAI FILTER
         query = getQueryFilter(filter);
         ArrayList<Hotel> list = new ArrayList<>();
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -231,8 +242,8 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("cityId"),
+                        rs.getString("categoryId")
                 ));
             }
         } catch (Exception e) {
@@ -268,6 +279,7 @@ public class HotelDAO {
         }
         return sql;
     }
+
     
         public ArrayList<Hotel> getSuggestHotel(){
          ArrayList<Hotel> list = new ArrayList<>();
@@ -307,13 +319,13 @@ public class HotelDAO {
         
 }
 
-//class demo{
-//    public static void main(String[] args) {
-//        ArrayList<Hotel> list = new HotelDAO().getSuggestHotel();
-//        if(list.isEmpty()) System.out.println("Null ne");
-//        else 
-//        for(Hotel h:list){
-//            System.out.println(h.toString());
-//        }
-//    }
-//}
+class demo{
+    public static void main(String[] args) {
+        ArrayList<Hotel> list = new HotelDAO().getAllHotel();
+        if(list.isEmpty()) System.out.println("Null ne");
+        else 
+        for(Hotel h:list){
+            System.out.println(h.toString());
+        }
+    }
+}

@@ -1,22 +1,24 @@
-package controller;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Controller;
 
+import DAO.HotelDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Dell
+ * @author Nhat Anh
  */
+@WebServlet(name = "AddHotelController", urlPatterns = {"/AddHotelController"})
 public class AddHotelController extends HttpServlet {
 
     /**
@@ -36,10 +38,10 @@ public class AddHotelController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addHotel</title>");            
+            out.println("<title>Servlet AddHotelController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addHotel at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddHotelController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +59,27 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+               try {
+            String name = request.getParameter("name");
+            int  star = Integer.parseInt(request.getParameter("star"));
+            String decription = request.getParameter("decription");
+            String hoteladvance = request.getParameter("hoteladvance");
+            String policies = request.getParameter("policies");
+            String map = request.getParameter("map");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            String status = request.getParameter("status");
+            String address = request.getParameter("address");
+            int city = Integer.parseInt(request.getParameter("city"));
+            int category = Integer.parseInt(request.getParameter("category"));
+           
+            
+            HotelDAO dao = new HotelDAO();
+           dao.addHotel(name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category);
+           
+           response.sendRedirect("ListsHotelContrller");
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -71,7 +93,27 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//                      try {
+//            String name = request.getParameter("name");
+//            int  star = Integer.parseInt(request.getParameter("star"));
+//            String decription = request.getParameter("decription");
+//            String hoteladvance = request.getParameter("hoteladvance");
+//            String policies = request.getParameter("policies");
+//            String map = request.getParameter("map");
+//            String email = request.getParameter("email");
+//            String phone = request.getParameter("phone");
+//            String status = request.getParameter("status");
+//            String address = request.getParameter("address");
+//            int city = Integer.parseInt(request.getParameter("city"));
+//            int category = Integer.parseInt(request.getParameter("category"));
+//           
+//            
+//            HotelDAO dao = new HotelDAO();
+//           dao.addHotel(name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category);
+//           
+//           response.sendRedirect("ListsHotelContrller");
+//        } catch (Exception e) {
+//        }
     }
 
     /**
