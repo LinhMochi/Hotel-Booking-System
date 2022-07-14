@@ -6,6 +6,7 @@
 package DAO;
 
 import DBcontext.DBcontext;
+import Model.Convenients;
 import Model.User;
 import java.io.IOException;
 import java.sql.Connection;
@@ -432,4 +433,68 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+    
+    public ArrayList<Convenients> getConvenient(int id) {
+        ArrayList<Convenients> ar = new ArrayList<>();
+        String sql = "select h.id, h.convenient,c1.convenientCategory from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
+"                 on c1.id = h.convenientCategoryId "
+                + "where c1.id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Convenients c = new Convenients();
+                c.setId(rs.getInt("id"));
+                c.setConvenient(rs.getString("convenient"));
+                c.setConvenientCategory(rs.getString("convenientCategory"));
+                ar.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return ar;
+    }
+    
+    public ArrayList<Convenients> getConvenient() {
+        ArrayList<Convenients> ar = new ArrayList<>();
+        String sql = "select h.id, h.convenient,c1.convenientCategory from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
+"                 on c1.id = h.convenientCategoryId";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Convenients c = new Convenients();
+                c.setId(rs.getInt("id"));
+                c.setConvenient(rs.getString("convenient"));
+                c.setConvenientCategory(rs.getString("convenientCategory"));
+                ar.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return ar;
+    }
+    
+    public ArrayList<Convenients> ConvenientCategories() {
+        ArrayList<Convenients> ar = new ArrayList<>();
+        try {
+            String sql = "select *  from ConvenientCategories";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Convenients c = new Convenients();
+                c.setId(rs.getInt("id"));
+                c.setConvenientCategory(rs.getString("convenientCategory"));
+                ar.add(c);
+            }
+        } catch (SQLException e) {
+        }
+        return ar;
+    }
+    
+            
 }

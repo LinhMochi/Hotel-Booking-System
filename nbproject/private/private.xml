@@ -4,10 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/listUserServlet.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/DBcontext/DBcontext.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/UserListController.java</file>
+            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/UserList.jsp</file>
             <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/DAO/UserDAO.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/AddNewUserServlet.java</file>
+            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/deleteUserServlet.java</file>
+            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/listConvenient.jsp</file>
+            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/listConvenientController.java</file>
+            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Model/Convenients.java</file>
         </group>
     </open-files>
 </project-private>

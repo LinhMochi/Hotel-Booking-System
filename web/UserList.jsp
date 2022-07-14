@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
         <title>List User Page</title>
     </head>
-    <body style="background-image: url(images/anime.jpg); font-weight: 100%">
+    <body>
 
         <div class="container" >
             <form action="SearchUserServlet" method="">
@@ -26,6 +26,10 @@
                     <input minlength="1" type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1" name="search">
                 </div>
             </form>
+        </div>
+
+        <div class="container" >
+
             <a href="addNewUser.jsp"><button type="button" style="display: block;
                                              margin-left: auto;
                                              margin-right: auto;" class="btn btn-primary">Add New user</button></a><br>
