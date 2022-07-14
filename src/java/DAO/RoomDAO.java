@@ -54,6 +54,37 @@ public class RoomDAO {
         return null;
     }
     
+      public ArrayList<Room> GetAllRoom(){
+        ArrayList<Room> list = new ArrayList<>();
+        sql = "SELECT * FROM RoomTypes";
+        try {
+            ps = conn.prepareStatement(sql);
+            
+            rs = ps.executeQuery();
+            if(rs.next()){
+                Room r = new Room(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getDouble(5),
+                        rs.getInt(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getInt(12));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    
+    
     public ArrayList<Room> getRoomByHotelId(int hotelId){
         sql = "SELECT * FROM RoomTypes where hotelId = ?";
         list = new ArrayList<>();
@@ -104,6 +135,12 @@ public class RoomDAO {
         
         return false;// false where hotelId not exist.
     }
+    
+    
+    
+    
+    
+    
     
     public boolean updateRoomQuantity(int id,int quantity){
         sql = "UPDATE Roomtypes SET quantity = ? where id = ?";
