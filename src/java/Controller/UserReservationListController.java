@@ -38,25 +38,29 @@ public class UserReservationListController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        String email = (String) session.getAttribute("email");
-        String textSearchHotel = request.getParameter("textSearchHotel");
-        String page;
         try {
-            page = request.getParameter("page");
-            if(page == null) {
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
+            String textSearchHotel = request.getParameter("textSearchHotel");
+            String page;
+            try {
+                page = request.getParameter("page");
+                if(page == null) {
+                    page = "1";
+                }
+            } catch (Exception e) {
                 page = "1";
             }
-        } catch (Exception e) {
-            page = "1";
+            ReservationDAO rd = new ReservationDAO();
+            ArrayList<Reservation> listReservation = rd.getReservations(page, textSearchHotel, email);
+            int numberOfPage = rd.countReservationWithEmail(email) % 5 == 0 ? rd.countReservationWithEmail(email) / 5 : rd.countReservationWithEmail(email) / 5 + 1;
+            request.setAttribute("listReservation", listReservation);
+            request.setAttribute("numberOfPage", numberOfPage);
+            request.setAttribute("page", Integer.parseInt(page));
+            request.getRequestDispatcher("UserReservationList.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserReservationListController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ReservationDAO rd = new ReservationDAO();
-//        ArrayList<Reservation> listReservation = rd.getReservationList(page, textSearchHotel, email);
-//        int numberOfPage = rd.countReservationWithEmail(email) % 5 == 0 ? rd.countReservationWithEmail(email) / 5 : rd.countReservationWithEmail(email) / 5 + 1;
-//        request.setAttribute("listReservation", listReservation);
-//        request.setAttribute("numberOfPage", numberOfPage);
-//        request.setAttribute("page", Integer.parseInt(page));
-//        request.getRequestDispatcher("UserReservationList.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
