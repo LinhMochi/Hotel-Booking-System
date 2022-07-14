@@ -24,7 +24,7 @@
         <style>
             body {
                 color: #566787;
-                background: #f5f5f5;
+                background: #7F8CC0;
                 font-family: 'Varela Round', sans-serif;
                 font-size: 13px;
             }
@@ -46,7 +46,7 @@
             }
             .table-title {        
                 padding-bottom: 15px;
-                background: #435d7d;
+                background: #FF9E36;
                 color: #fff;
                 padding: 16px 30px;
                 min-width: 100%;
@@ -329,7 +329,7 @@
                                 </td>
                                 <td>${room.id}</td>
                                 <td>${room.roomType}</td>
-                                <td><img src="${room.image}" width="50" height="50" alt="hotel-img"></td>
+                                <td><img src="${room.image}" width="130" height="90" alt="hotel-img"></td>
                                 <td>${room.quantity}</td>
                                 <td>${room.price}</td>
                                 <td>${room.maxAdult}</td>
