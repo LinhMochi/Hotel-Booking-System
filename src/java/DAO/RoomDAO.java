@@ -25,6 +25,7 @@ public class RoomDAO {
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     String sql = null;
+    private String query;
     ArrayList<Room> list;
     
     public Room getRoomById(int id){
@@ -44,8 +45,8 @@ public class RoomDAO {
                         rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
-                        rs.getInt(11),
-                        rs.getInt(12));
+                        rs.getInt(11)
+                        );
             }
             
         } catch (SQLException ex) {
@@ -54,32 +55,30 @@ public class RoomDAO {
         return null;
     }
     
-      public ArrayList<Room> GetAllRoom(){
-        ArrayList<Room> list = new ArrayList<>();
+    public ArrayList<Room> GetAllRoom(){
         sql = "SELECT * FROM RoomTypes";
+        list = new ArrayList<>();
         try {
             ps = conn.prepareStatement(sql);
-            
             rs = ps.executeQuery();
-            if(rs.next()){
-                Room r = new Room(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getDouble(5),
-                        rs.getInt(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(10),
-                        rs.getInt(11),
-                        rs.getInt(12));
+            while(rs.next()){
+               Room r = new Room(rs.getInt(1),
+                       rs.getString(2),
+                       rs.getString(3),
+                       rs.getInt(4),
+                       rs.getDouble(5),
+                       rs.getInt(6),
+                       rs.getInt(7),
+                       rs.getString(8),
+                       rs.getString(9),
+                       rs.getString(10),
+                       rs.getInt(11));
+               list.add(r);
             }
-            
         } catch (SQLException ex) {
             Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return list;
     }
     
     
@@ -103,8 +102,7 @@ public class RoomDAO {
                        rs.getString(8),
                        rs.getString(9),
                        rs.getString(10),
-                       rs.getInt(11),
-                       rs.getInt(12));
+                       rs.getInt(11));
                list.add(r);
             }
         } catch (SQLException ex) {
@@ -114,10 +112,10 @@ public class RoomDAO {
     }
     
     public boolean addRoom(Room r){
-        sql ="Insert into RoomTypes Values (?,?,?,?,?,?,?,?,?,?,null)";
+        sql ="Insert into RoomTypes Values (?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1,r.getName());
+            ps.setString(1,r.getroomType());
             ps.setString(2,r.getImage());
             ps.setInt(3, r.getQuantity());
             ps.setDouble(4, r.getPrice());
@@ -160,7 +158,7 @@ public class RoomDAO {
         sql = "UPDATE Roomtypes SET roomType = ?, image = ?, quantity = ?, price = ?, maxAdults = ?, maxChild=?, bed = ?, area = ?, desciption=?,hotelId=?";
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1, r.getName());
+            ps.setString(1, r.getroomType());
             ps.setString(2, r.getImage());
             ps.setInt(3, r.getQuantity());
             ps.setDouble(4, r.getPrice());
