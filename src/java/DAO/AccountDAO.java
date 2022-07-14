@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Model.User;
+import java.sql.Connection;
 
 
 /**
@@ -20,11 +21,16 @@ import Model.User;
  * @author pham quoc an
  */
 public class AccountDAO extends DBcontext{
+    
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    
      public User getAccount(String username, String password) {
         try {
             String sql = "select * from account\n"
                     + "where [User_Name] = ? AND [Password] = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -46,7 +52,7 @@ public class AccountDAO extends DBcontext{
         try {
             String sql = "select * from Account\n"
                     + "where User_Name = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -68,7 +74,7 @@ public class AccountDAO extends DBcontext{
         try {
             String sql = "insert into Account\n"
                     + "values (?, ?, '4')";
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
             ps.executeUpdate();
@@ -93,7 +99,7 @@ public class AccountDAO extends DBcontext{
                             + "where ID = ?";
                     break;
             }
-            ps = connection.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
             ps.setString(1, update);
             ps.setString(2, aid);
             ps.executeUpdate();
@@ -107,7 +113,7 @@ public class AccountDAO extends DBcontext{
             String sql = "select ID, [User_Name], [Type]\n"
                     + "from Account\n"
                     + "where ID = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -128,7 +134,7 @@ public class AccountDAO extends DBcontext{
         try {
             String sql = "select ID, [User_Name], [Type]\n"
                     + "from Account";
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User a = new User();
@@ -151,7 +157,7 @@ public class AccountDAO extends DBcontext{
 //                    + "from Product pr, Origin o, Category c, Packing pa, Account a\n"
 //                    + "where pr.Origin_ID = o.ID and pr.Category_ID = c.ID \n"
 //                    + "and pr.Packing_ID = pa.ID and pr.Sell_ID = a.ID";
-//            PreparedStatement ps = connection.prepareStatement(sql);
+//            PreparedStatement ps = conn.prepareStatement(sql);
 //            ResultSet rs = ps.executeQuery();
 //            while (rs.next()) {
 //                Product s = new Product();
