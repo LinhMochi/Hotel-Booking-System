@@ -6,7 +6,7 @@
 package Controller;
 
 import DAO.RoomDAO;
-import Model.HotelGallery;
+
 import Model.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,8 +41,9 @@ public class AddRoomController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             RoomDAO hgd = new RoomDAO();
             ArrayList<Room> list = hgd.GetAllRoom();
+
             request.setAttribute("list", list);
-            request.getRequestDispatcher("RoomManager.jsp").forward(request, response);
+            request.getRequestDispatcher("AddRoom.jsp").forward(request, response);
             
         }
 
