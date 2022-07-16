@@ -5,13 +5,12 @@
  */
 package Controller;
 
-import DAO.ReservationDAO;
-import Model.Reservation;
+import DAO.RoomDAO;
+
+import Model.Room;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +20,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Linh
+ * @author DELL
  */
-@WebServlet(name = "UserReservationListController", urlPatterns = {"/userreservationlist"})
-public class UserReservationListController extends HttpServlet {
+@WebServlet(name = "AddRoomController", urlPatterns = {"/RoomManager"})
+public class AddRoomController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,30 +37,18 @@ public class UserReservationListController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            HttpSession session = request.getSession();
-            String email = (String) session.getAttribute("email");
-            String textSearchHotel = request.getParameter("textSearchHotel");
-            String page;
-            try {
-                page = request.getParameter("page");
-                if(page == null) {
-                    page = "1";
-                }
-            } catch (Exception e) {
-                page = "1";
-            }
-            ReservationDAO rd = new ReservationDAO();
-            ArrayList<Reservation> listReservation = rd.getReservations(page, textSearchHotel, email);
-            int numberOfPage = rd.countReservationWithEmail(email) % 5 == 0 ? rd.countReservationWithEmail(email) / 5 : rd.countReservationWithEmail(email) / 5 + 1;
-            request.setAttribute("listReservation", listReservation);
-            request.setAttribute("numberOfPage", numberOfPage);
-            request.setAttribute("page", Integer.parseInt(page));
-            request.getRequestDispatcher("UserReservationList.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserReservationListController.class.getName()).log(Level.SEVERE, null, ex);
+                try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            RoomDAO hgd = new RoomDAO();
+            ArrayList<Room> list = hgd.GetAllRoom();
+
+            request.setAttribute("list", list);
+            request.getRequestDispatcher("AddRoom.jsp").forward(request, response);
+            
         }
-    }
+
+    }  
+        
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

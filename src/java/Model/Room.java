@@ -11,7 +11,7 @@ package Model;
  */
 public class Room {
     private int id;
-    private String name;
+    private String roomType;
     private String image;
     private int quantity;
     private double price;
@@ -21,14 +21,14 @@ public class Room {
     private String area;
     private String description;
     private int hotelId;
-    private int promotionId;
+
 
     public Room() {
     }
 
-    public Room(int id, String name, String image, int quantity, double price, int maxAdult, int maxChild, String bed, String area, String description, int hotelId, int promotionId) {
+    public Room(int id, String roomType, String image, int quantity, double price, int maxAdult, int maxChild, String bed, String area, String description, int hotelId) {
         this.id = id;
-        this.name = name;
+        this.roomType = roomType;
         this.image = image;
         this.quantity = quantity;
         this.price = price;
@@ -38,12 +38,12 @@ public class Room {
         this.area = area;
         this.description = description;
         this.hotelId = hotelId;
-        this.promotionId = promotionId;
+
     }
     
     public Room (Room room){
         this.id = room.id;
-        this.name = room.name;
+        this.roomType = room.roomType;
         this.image = room.image;
         this.quantity = room.quantity;
         this.price = room.price;
@@ -53,7 +53,7 @@ public class Room {
         this.area = room.area;
         this.description = room.description;
         this.hotelId = room.hotelId;
-        this.promotionId = room.promotionId;
+      
     }
 
     public int getId() {
@@ -64,12 +64,12 @@ public class Room {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getroomType() {
+        return roomType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setroomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public String getImage() {
@@ -144,18 +144,7 @@ public class Room {
         this.hotelId = hotelId;
     }
 
-    public int getPromotionId() {
-        return promotionId;
-    }
 
-    public void setPromotionId(int promotionId) {
-        this.promotionId = promotionId;
-    }
-
-    @Override
-    public String toString() {
-        return "Room{" + "id=" + id + ", name=" + name + ", image=" + image + ", quantity=" + quantity + ", price=" + price + ", maxAdult=" + maxAdult + ", maxChild=" + maxChild + ", bed=" + bed + ", area=" + area + ", description=" + description + ", hotelId=" + hotelId + ", promotionId=" + promotionId + '}';
-    }
     
     
     

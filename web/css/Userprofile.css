@@ -1,0 +1,190 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 11, 2022, 1:00:37 PM
+    Author     : DELL
+*/
+#LeftTableContent{
+                background-color:white;
+
+            }
+
+            #RightTableContent{
+                background-color: white;
+            }
+
+            #toptable{
+                background-color: white;
+            }
+
+            .LeftTableDetail{
+                width: 100%;
+            }
+
+            .a_left {
+                color: orange;
+                font-size: 20px
+            }
+
+            .a_left_profile{
+                color:  #33ccff;
+                font-size: 20px;
+                text-decoration: none;
+            }
+
+            .a_left_profile:hover{
+                text-decoration: none;
+                color: red;
+                font-weight: bold;
+            }
+
+            .a_left:link{
+                text-decoration: none;
+                color: red;
+            }
+
+            .a_left:visited {
+                text-decoration: none;
+            }
+
+            .a_left:hover {
+                text-decoration: none;
+                color: red;
+                font-weight: bold;
+            }
+
+            .a_left:active {
+                text-decoration: none;
+                color: red;
+            }
+
+
+
+
+            body{
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+
+/*            #background{
+                background-image: url("images/Beach_Background-885.jpg");
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                background-size:100%;
+                background-position: center;
+                padding-bottom: 400px;
+                padding-left: 100px;
+                padding-right: 100px;
+                padding-top: 50px;
+            }*/
+
+
+
+            /* Style The Dropdown Button */
+            .dropbtn {
+                background-color: white;
+                color: white;
+                padding: 11px;
+                font-size: 1px;
+                border: none;
+                cursor: pointer;
+                border-radius: 120px;
+                height: 90%;
+                width: 90px;
+                margin-top: 2px;
+
+
+            }
+
+            /* The container <div> - needed to position the dropdown content */
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            /* Dropdown Content (Hidden by Default) */
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {background-color: #f1f1f1}
+
+            /* Show the dropdown menu on hover */
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            /* Change the background color of the dropdown button when the dropdown content is shown */
+            .dropdown:hover .dropbtn {
+                background-color: #33ccff;
+            }
+
+            .RightTableHeadlineText{
+                margin-top: 2%;
+                margin-bottom: 5%;
+                font-size: 18px;
+                font-family: sans-serif;
+                color: orange;
+                padding-left: 7%;
+            }
+
+            .edit{
+                color: blue;
+                font-size: 16px;
+                padding-left: 14%;
+                text-decoration: none;
+
+            }
+            .edit:hover{
+                color: orange;
+                font-weight: bold;
+            }
+
+            .change{
+                /*    float: left;*/
+                color: white;
+                background-color: orange;
+                padding: 10px 20px;
+                border-radius: 20px;
+                margin-left: 5%;
+                margin-bottom: 20px;
+                margin-top: 8px;
+            }
+
+
+
+            .gender {
+                margin-bottom: 2%;
+                margin-left: 15%
+            }
+            .gender input,.gender select{
+                width: 200px;
+                font-size: 1rem;
+                outline: none;
+                border: none;
+                border-bottom: 2px solid gray;
+                transition: 1s ease;
+                background: transparent;
+
+            }
+            .gender input:focus{
+                border-bottom-color: greenyellow;
+            }
