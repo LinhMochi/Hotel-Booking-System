@@ -41,7 +41,7 @@ public class listUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        request.setCharacterEncoding("UTF-8");
         try {
             int index;
             try {
@@ -55,9 +55,8 @@ public class listUserServlet extends HttpServlet {
             int endPage = count / NUMBER_USERLIST;
             if (count % NUMBER_USERLIST != 0) {
                 endPage++;
-                
-            }
 
+            }
 
             UserDAO ud = new UserDAO();
             List<User> list = ud.getUserFromTo(index, NUMBER_USERLIST);
@@ -98,8 +97,7 @@ public class listUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
-       
+
     }
 
     /**
