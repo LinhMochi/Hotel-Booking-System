@@ -134,7 +134,7 @@ public class ReservationDAO {
         return count;
     }
     
-    public int countReservationWithEmail(string email) {
+    public int countReservationWithEmail(String email) {
         int count = 0;
         String sql = "select count(*) from Reservations WHERE email = ? ";
         try {

@@ -8,7 +8,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="navbar flex-between">
     <div class="logo">
+        <a href="../Hotel-Booking-System/home">
         <img src="images/hbooker.png" alt="logo">
+        </a>
     </div>
     <div class="items-box <c:choose><c:when test="${empty sessionScope.user}">items-box-m</c:when>
              <c:otherwise>
@@ -236,7 +238,7 @@
                         <div class="drop-item">Thông tin cá nhân</div>
                         <div class="drop-item">Đơn đặt phòng của tôi</div>
                         <div class="drop-item">Khách sạn yêu thích</div>
-                        <div class="drop-item">Đăng xuất</div>
+                        <div class="drop-item"><a href="../Hotel-Booking-System/logout">Đăng xuất</a></div>
                     </div> 
                 </div>
 

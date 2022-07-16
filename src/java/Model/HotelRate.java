@@ -11,34 +11,49 @@ import java.sql.Date;
  *
  * @author Admin
  */
-public class HotelRate {
-    private int id;
+public class HotelRate extends Reservation {
+    private int rateid;
     private double score;
     private String detail;
     private String rateAt;
-    private int hotelId;
     private int reservationId;
     private int userId;
+    private String name;
+    private String image;
 
     public HotelRate() {
     }
 
-    public HotelRate(int id, double score, String detail, String rateAt,int hotelId, int reservationId, int userId) {
-        this.id = id;
+    public HotelRate(int id, double score, String detail, String rateAt, int reservationId, int userId) {
+        this.rateid = id;
         this.score = score;
         this.detail = detail;
         this.rateAt = rateAt;
-        this.hotelId = hotelId;
         this.reservationId = reservationId;
         this.userId = userId;
     }
 
-    public int getId() {
-        return id;
+    public HotelRate(int rateid, double score, String detail,  int reservationId, String rateAt, int userId, 
+            String name, String image,int noAdult, int noChild, int noRoom) {
+        super(noAdult,noChild,noRoom);
+        this.rateid = rateid;
+        this.score = score;
+        this.detail = detail;
+        this.rateAt = rateAt;
+        this.reservationId = reservationId;
+        this.userId = userId;
+        this.name = name;
+        this.image = image;
+    }    
+    
+    
+
+    public int getRateId() {
+        return rateid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRateId(int id) {
+        this.rateid = id;
     }
 
     public double getScore() {
@@ -49,6 +64,15 @@ public class HotelRate {
         this.score = score;
     }
 
+    public String getrate(){
+        if(score>9) return "Tuyệt vời";
+        if(score>7.5) return "Rất tốt";
+        if(score>5) return "Tạm được";
+        if(score>0) return "Kém";
+        if(score == 0) return "Mới";
+        return "";
+    }
+    
     public String getDetail() {
         return detail;
     }
@@ -91,11 +115,39 @@ public class HotelRate {
         this.userId = userId;
     }
 
-    public void setHotelId(int hotelId) {
-        this.hotelId = hotelId;
+    public int getRateid() {
+        return rateid;
     }
 
-    public int getHotelId() {
-        return hotelId;
-    }     
+    public void setRateid(int rateid) {
+        this.rateid = rateid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
+    
+    
+
+    @Override
+    public String toString() {
+        return "HotelRate{" + "rateid=" + rateid + ", score=" + score + ", detail=" + detail + ", rateAt=" + rateAt + ", reservationId=" + reservationId + ", userId=" 
+                + userId + ", name=" + name + ", image=" + image + ", adult=" + this.getAdult()  +", nochild=" + this.getChild() +", noRoom=" + this.getNoRoom() +", rate ate=" + parseTime()+'}';
+    }
+    
+    
+ 
 }

@@ -55,7 +55,9 @@ public class Hotel {
         this.categoryId = categoryId;
     }
     
-    public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId, String image) {
+    public Hotel(int id, String name, int noOfStar, String description, 
+            String hotelAdvance, String policies, String map, String email, String phoneNumber, 
+            String status, String address, int cityId, int categoryId, String image) {
         this.id = id;
         this.name = name;
         this.noOfStar = noOfStar;
@@ -252,6 +254,15 @@ public class Hotel {
 
     public void setAvgScore(double avgScore) {
         this.avgScore = avgScore;
+    }
+    
+     public String getrate(){
+        if(avgScore>9) return "Tuyệt vời";
+        if(avgScore>7.5) return "Rất tốt";
+        if(avgScore>5) return "Tạm được";
+        if(avgScore>0) return "Kém";
+        if(avgScore == 0) return "Mới";
+        return "";
     }
 
     @Override

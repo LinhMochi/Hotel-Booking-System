@@ -79,13 +79,15 @@ public class HotelConvenient {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
-    
-    
 
     @Override
     public String toString() {
-        return "HotelConvenient{" + "id=" + id + ", convenient=" + convenient + ", category=" + category + ", hotelId=" + hotelId + ", categoryId=" + categoryId + '}';
+        return "HotelConvenient{" + "id=" + id + ", convenient=" + convenient + ", category=" + category + ", rate=" + rate + ", hotelId=" + hotelId + ", categoryId=" + categoryId + '}';
     }
+    
+    
+
+  
     
     
     

@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
                 } else if (user.getRole().equals("Manager")||user.getRole().equals("Customer")) {
                     session.setAttribute("user", user);
                     session.setAttribute("password", password);
-                    response.sendRedirect("Home.jsp");
+                    response.sendRedirect("home");
                 }
             }
         }

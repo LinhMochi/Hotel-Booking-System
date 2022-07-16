@@ -275,11 +275,11 @@ public class HotelDAO {
         String sql = "WITH AvenrageScore AS(\n"
                 + "	SELECT h.id as hotelId, AVG(ISNULL(hr.score,0)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id\n"
                 + "	left join HotelRating hr on r.id = hr.reservationId GROUP BY h.id\n"
-                + "       ),CountLike AS(\n"
+                + "),CountLike AS(\n"
                 + "	SELECT h.id as hotelId , COUNT(hl.id) as nolike FROM Hotels h LEFT JOIN HotelLikeLog hl ON h.id = hl.hotelId GROUP BY h.id\n"
-                + "       ),managerList AS(\n"
+                + "),managerList AS(\n"
                 + "	SELECT Users.fullName, Manages.hotelId FROM Users inner join Manages on Users.id = Manages.userId\n"
-                + "       ),HotelList AS(\n"
+                + "),HotelList AS(\n"
                 + "	SELECT h.id as hotelId,h.[name],CONCAT(h.[address],', ',c.city) as [address], h.noOfStar , h.[description],\n"
                 + "	h.policies,h.map, h.hotelAdvance,h.email,h.phoneNumber,\n"
                 + "	hc.category,ml.fullName as manageBy,nolike ,noRate, av.avgScore,h.[image]\n"
@@ -289,7 +289,7 @@ public class HotelDAO {
                 + "	inner join AvenrageScore av on av.hotelId = h.id\n"
                 + "	inner join CountLike on CountLike.hotelId = h.id\n"
                 + "	WHERE h.[status] = 'Active'\n"
-                + "       ) SELECT TOP 5 * FROM HotelList ORDER BY avgScore, nolike DESC";
+                + ") SELECT TOP 5 * FROM HotelList ORDER BY nolike DESC,noOfStar DESC, avgScore DESC";
         try {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -303,8 +303,8 @@ public class HotelDAO {
         }
         return list;
     }
-    
-    public int countAvailableHotel(Search s){
+
+    public int countAvailableHotel(Search s) {
         int count = 0;
         String sql = "WITH BookedRooms AS(\n"
                 + "	SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, Reservations r\n"
@@ -336,8 +336,10 @@ public class HotelDAO {
             ps.setString(7, s.getSearch());
             ps.setInt(8, (s.getNoAdult() + s.getNoChild()) / s.getNoRoom());
             rs = ps.executeQuery();
-            while(rs.next()){ count++;}
-            
+            while (rs.next()) {
+                count++;
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -352,12 +354,12 @@ public class HotelDAO {
         int start = numOfElement * currentPage - numOfElement;
 
         String sql = "WITH BookedRooms AS(\n"
-                + "	SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, Reservations r\n"
-                + "	WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival >= ? AND arrival <= ?)\n"
-                + "	OR(department>=? AND department<=?) OR (arrival>= ? AND department<= ?))\n"
-                + "	GROUP BY roomId\n"
+                + "SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, Reservations r\n"
+                + "WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival >= ? AND arrival <= ?)\n"
+                + "OR(department>=? AND department<=?) OR (arrival>= ? AND department<= ?))\n"
+                + "GROUP BY roomId\n"
                 + "), ListHotel AS(\n"
-                + "	SELECT h.id AS hotelId,CONCAT(h.[name],', ',h.[address]) AS [search] FROM Hotels h, Cities c WHERE h.cityId = c.id\n"
+                + "SELECT h.id AS hotelId,CONCAT(h.[name],', ',h.[address]) AS [search] FROM Hotels h, Cities c WHERE h.cityId = c.id\n"
                 + "), AvailableRooms AS(\n"
                 + "SELECT r.id AS roomId, (r.quantity - isnull(br.booked,0)) as available,r.price,lh.[search],r.maxAdults,r.maxChild, r.hotelId \n"
                 + "FROM RoomTypes r left join BookedRooms br ON r.id = br.roomId \n"
@@ -368,8 +370,13 @@ public class HotelDAO {
                 + "AvailableHotels AS( SELECT h.* FROM Hotels h inner join \n"
                 + "(SELECT DISTINCT hotelId FROM AvailableRooms ORDER BY hotelId asc OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY	 ) ah \n"
                 + "on h.id = hotelId\n"
+                + "), \n"
+                + "countLike as (SELECT h.id as hotelId , COUNT(hl.id) as nolike FROM AvailableHotels h LEFT JOIN HotelLikeLog hl ON h.id = hl.hotelId GROUP BY h.id)\n"
+                + ",AvenrageScore AS(\n"
+                + "SELECT h.id as hotelId, AVG(ISNULL(hr.score,0)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join AvailableHotels h on r.hotelId = h.id\n"
+                + "left join HotelRating hr on r.id = hr.reservationId GROUP BY h.id\n"
                 + ")\n"
-                + "SELECT * FROM AvailableHotels";
+                + "SELECT ah.*,cl.nolike,avs.noRate,avs.avgScore FROM AvailableHotels ah inner join countLike cl on ah.id = cl.hotelId inner join AvenrageScore avs ON ah.id = avs.hotelId;";
         try {
             ps = conn.prepareStatement(sql);
             ps.setDate(1, s.getArrival());
@@ -384,7 +391,11 @@ public class HotelDAO {
             ps.setInt(10, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Hotel(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12), rs.getInt(13),rs.getString(14)));
+                Hotel h = new Hotel(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12), rs.getInt(13), rs.getString(14));
+                h.setNoLike(rs.getInt(15));
+                h.setNoRate(rs.getInt(16));
+                h.setAvgScore(rs.getDouble(17));
+                list.add(h);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -392,20 +403,47 @@ public class HotelDAO {
         return list;
     }
 
+    public Hotel getHotelDetail(int hotelId) {
+        String sql = "WITH countLike as (SELECT hotelId , COUNT(hl.id) as nolike FROM  HotelLikeLog hl WHERE hl.hotelId = ? GROUP BY hl.hotelId)\n"
+                + ",AvenrageScore AS(\n"
+                + "	SELECT h.id, AVG(ISNULL(hr.score,0)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id \n"
+                + "	left join HotelRating hr on r.id = hr.reservationId where h.id = ? GROUP BY h.id\n"
+                + ") \n"
+                + "SELECT h.*, cl.nolike, avs.noRate ,avs.avgScore FROM Hotels h inner join countLike cl on h.id = cl.hotelId inner join AvenrageScore avs on h.id = avs.id";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            ps.setInt(2, hotelId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Hotel h = new Hotel(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12), rs.getInt(13), rs.getString(14));
+                h.setNoLike(rs.getInt(15));
+                h.setNoRate(rs.getInt(16));
+                h.setAvgScore(rs.getDouble(17));
+                return h;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new Hotel();
+    }
+
 }
 
 //class demo {
 //
 //    public static void main(String[] args) {
-//        ArrayList<Hotel> list = new HotelDAO().getAvailableHotel(new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-04"), 1, 0, 1), "2");
-//        //new HotelDAO().getSuggestHotel();
+//        ArrayList<Hotel> list
+//                = //new HotelDAO().getAvailableHotel(new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-04"), 1, 0, 1), "2");
+//                new HotelDAO().getSuggestHotel();
 //        if (list.isEmpty()) {
 //            System.out.println("Null ne");
 //        } else {
 //            for (Hotel h : list) {
 //                System.out.println(h.toString());
 //            }
-//            System.out.println(new HotelDAO().countAvailableHotel(new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-04"), 1, 0, 1)));
+////            System.out.println(new HotelDAO().countAvailableHotel(new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-04"), 1, 0, 1)));
 //        }
+//        System.out.println(new HotelDAO().getHotelDetail(2).toString());
 //    }
 //}

@@ -166,7 +166,7 @@ public class RoomDAO {
             ps.setInt(12, (s.getNoAdult() + s.getNoChild()) / s.getNoRoom());
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Room(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getDouble(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getInt(12)));
+                list.add(new Room(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getDouble(5)*1000000, rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getInt(12)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);

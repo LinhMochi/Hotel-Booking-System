@@ -71,6 +71,11 @@ public class HotelSearchController extends HttpServlet {
 //            out.println("</html>");
 //        };
         int countResult = new HotelDAO().countAvailableHotel(s);
+        if(countResult == 0){
+            request.setAttribute("message", "Không thấy khách sạn phù hợp");
+            request.setAttribute("countResult", countResult);
+            request.getRequestDispatcher("NotFoundHotel.jsp").forward(request, response);
+        }
         int endPage = countResult / 5 + (countResult % 5 == 0 ? 0 : 1);
         request.setAttribute("countResult", countResult);
         request.setAttribute("endpage", endPage);

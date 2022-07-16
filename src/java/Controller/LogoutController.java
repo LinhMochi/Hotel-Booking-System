@@ -33,10 +33,9 @@ public class LogoutController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        session.removeAttribute("email");
-        session.removeAttribute("password");
+        session.removeAttribute("user");
         session.invalidate();
-        response.sendRedirect("homeCustomer.jsp");
+        response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
