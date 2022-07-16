@@ -54,12 +54,12 @@ public class HomePageController extends HttpServlet {
         }
         HotelConvenientList cList = new HotelConvenientDAO().getRatedConvenientByHotels(hotels.toString());
         HttpSession session = request.getSession(true);
-        request.setAttribute("topCities", topCities);
-        request.setAttribute("topHCs", topHCs);
-        request.setAttribute("suggestHotels", suggestHotels);
-        request.setAttribute("cList", cList);
+        session.setAttribute("topCities", topCities);
+        session.setAttribute("topHCs", topHCs);
+        session.setAttribute("suggestHotels", suggestHotels);
+        session.setAttribute("cList", cList);
         String current = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date(System.currentTimeMillis()));
-        request.setAttribute("pList", new BookedRoomDAO().getMaxPromotion(hotels.toString(),Date.valueOf(current),Date.valueOf(current)));        
+        session.setAttribute("pList", new BookedRoomDAO().getMaxPromotion(hotels.toString(),Date.valueOf(current),Date.valueOf(current)));        
         request.getRequestDispatcher("Home.jsp").forward(request, response);
         
          

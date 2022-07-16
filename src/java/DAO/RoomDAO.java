@@ -7,6 +7,7 @@ package DAO;
 
 import DBcontext.DBcontext;
 import Model.Room;
+import Model.Search;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -115,7 +116,7 @@ public class RoomDAO {
         sql ="Insert into RoomTypes Values (?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1,r.getroomType());
+            ps.setString(1,r.getName());
             ps.setString(2,r.getImage());
             ps.setInt(3, r.getQuantity());
             ps.setDouble(4, r.getPrice());
@@ -158,7 +159,7 @@ public class RoomDAO {
         sql = "UPDATE Roomtypes SET roomType = ?, image = ?, quantity = ?, price = ?, maxAdults = ?, maxChild=?, bed = ?, area = ?, desciption=?,hotelId=?";
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1, r.getroomType());
+            ps.setString(1, r.getName());
             ps.setString(2, r.getImage());
             ps.setInt(3, r.getQuantity());
             ps.setDouble(4, r.getPrice());

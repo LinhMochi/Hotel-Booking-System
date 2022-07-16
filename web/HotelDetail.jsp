@@ -146,7 +146,6 @@
                 </header>
                 <%-- --%>  <%----%> 
                 <div class="feedback-container">
-                    <%-- --%>                      
                     <c:forEach var="hf" items="${sessionScope.feedbacks}" >
                         <div class="feedback-wrapper">
                             <div class="feedback-item">
@@ -175,7 +174,7 @@
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>     
+                    </c:forEach>
                     <%--Pagin--%> 
                     <div class="pagin">
                         <c:if test="${page>1}"><a href="http://localhost:8080/Hotel-Booking-System/hoteldetail?page=${page-1}&filter=pagin" class="btn">Pre</a></c:if>
@@ -225,6 +224,7 @@
                 });
             </script>
 
+            
         <c:set var="hotel" value="${sessionScope.hotel}"/>
 
         <div id="about" class="about">
@@ -282,8 +282,6 @@
             <h3>Phòng của khách sạn</h3>           
             <div class="room-wrapper-container flex-center flex-column">
                 <c:set var="homepromotion" value="${sessionScope.promotion}"/>
-                ${homepromotion.getPromotion(1)}
-                ${sessionScope.availableRoom.size()}
 
                 <c:forEach var="room" varStatus="status" items="${sessionScope.availableRoom}">
                     <div class="card-ex grid-3">
@@ -315,7 +313,7 @@
                         <div class="card-footer flex-center flex-column">
 
                             <div class="card-price flex-end flex-column">
-                                <%----%><c:if test="${room.promotionId > 0}">
+                                <c:if test="${room.promotionId > 0}">
                                     <c:set var="roomP" value="${homepromotion.getPromotion(room.promotionId)}"/>
                                     <div class="title">Giá ưu đãi</div>
                                     <div class="unit-price"><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></div>
@@ -342,7 +340,7 @@
 
             </div>
         </div>
-
+                
         <div id="service" class="service-wrapper">
             <h3>Dịch vụ kèm theo</h3>
             <div class="service-container">
@@ -411,6 +409,7 @@
                 });
             }
         </script>
+
         <c:set var="ic" value="-1"/>
         <div id="convenient" class="convenient-wrapper">
             <h2>Tiện ích của chúng tôi</h2>
