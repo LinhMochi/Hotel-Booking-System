@@ -1,6 +1,6 @@
 <%-- 
-    Document   : EditConvent
-    Created on : Jul 13, 2022, 9:55:25 PM
+    Document   : addConvenient
+    Created on : Jul 16, 2022, 1:46:11 PM
     Author     : Duong
 --%>
 
@@ -32,10 +32,9 @@
                     <c:forEach items="${listCon5}" var="con">
                     <input name="conId" type="text" value="${con.conId}" style="border: none">
                     <tr>
-                    <form action="EditConventController" method="post">
                         <th scope="col">${con.conId+1}</th>
                         <td>
-                            <select name="conCateId" class="form-select" aria-label="Default select example" >
+                            <select name="convenientCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" >${con.convenientCategory}</option>
                                 <c:forEach items="${listConCate}" var="con2">
                                     <option value="${con2.conCateId}">${con2.convenientCategory}</option>
@@ -43,20 +42,17 @@
                             </select>
                         </td>
                         <td>
-
-                            - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
-                            <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
+                                - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
+                                <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                                <input name="conCateId" type="hidden" value="${con.conCateId}" style="border: none">
                         </td>
-                    </form>
                     </tr>
                 </c:forEach>
                 <c:forEach items="${listCon1}" var="con">
                     <tr>
-                    <form action="EditConventController" method="post">
                         <th scope="col">${con.conId+1}</th>
                         <td>
-                            <select name="conCateId" class="form-select" aria-label="Default select example" >
+                            <select name="convenientCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" >${con.convenientCategory}</option>
                                 <c:forEach items="${listConCate}" var="con2">
                                     <option value="${con2.conCateId}">${con2.convenientCategory}</option>
@@ -64,20 +60,17 @@
                             </select>
                         </td>
                         <td>
-
-                            - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
-                            <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
+                                - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
+                                <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                                <input name="conCateId" type="hidden" value="${con.conCateId}" style="border: none">
                         </td>
-                    </form>
                     </tr>
                 </c:forEach>
                 <c:forEach items="${listCon2}" var="con">
                     <tr>
-                    <form action="EditConventController" method="post">
                         <th scope="col">${con.conId+1}</th>
                         <td>
-                            <select name="conCateId" class="form-select" aria-label="Default select example" >
+                            <select name="convenientCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" >${con.convenientCategory}</option>
                                 <c:forEach items="${listConCate}" var="con2">
                                     <option value="${con2.conCateId}">${con2.convenientCategory}</option>
@@ -85,20 +78,17 @@
                             </select>
                         </td>
                         <td>
-
-                            - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
-                            <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
+                                - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
+                                <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                                <input name="conCateId" type="hidden" value="${con.conCateId}" style="border: none">
                         </td>
-                    </form>
                     </tr>
                 </c:forEach>
                 <c:forEach items="${listCon3}" var="con">
                     <tr>
-                    <form action="EditConventController" method="post">
                         <th scope="col">${con.conId+1}</th>
                         <td>
-                            <select name="conCateId" class="form-select" aria-label="Default select example" >
+                            <select name="convenientCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" >${con.convenientCategory}</option>
                                 <c:forEach items="${listConCate}" var="con2">
                                     <option value="${con2.conCateId}">${con2.convenientCategory}</option>
@@ -106,20 +96,17 @@
                             </select>
                         </td>
                         <td>
-
-                            - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
-                            <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
+                                - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
+                                <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                                <input name="conCateId" type="hidden" value="${con.conCateId}" style="border: none">
                         </td>
-                    </form>
                     </tr>
                 </c:forEach>
                 <c:forEach items="${listCon4}" var="con">
                     <tr>
-                    <form action="EditConventController" method="post">
                         <th scope="col">${con.conId+1}</th>
                         <td>
-                            <select name="conCateId" class="form-select" aria-label="Default select example" >
+                            <select name="convenientCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" >${con.convenientCategory}</option>
                                 <c:forEach items="${listConCate}" var="con2">
                                     <option value="${con2.conCateId}">${con2.convenientCategory}</option>
@@ -127,21 +114,18 @@
                             </select>
                         </td>
                         <td>
-
-                            - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
-                            <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
+                                - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
+                                <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                                <input name="conCateId" type="hidden" value="${con.conCateId}" style="border: none">
                         </td>
-                    </form>
                     </tr>
                 </c:forEach>
 
                 <c:forEach items="${listCon6}" var="con">
                     <tr>
-                    <form action="EditConventController" method="post">
                         <th scope="col">${con.conId+1}</th>
                         <td>
-                            <select name="conCateId" class="form-select" aria-label="Default select example" >
+                            <select name="convenientCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" >${con.convenientCategory}</option>
                                 <c:forEach items="${listConCate}" var="con2">
                                     <option value="${con2.conCateId}">${con2.convenientCategory}</option>
@@ -149,12 +133,10 @@
                             </select>
                         </td>
                         <td>
-
-                            - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
-                            <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
+                                - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
+                                <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                                <input name="conCateId" type="hidden" value="${con.conCateId}" style="border: none">
                         </td>
-                    </form>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -172,4 +154,3 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
-
