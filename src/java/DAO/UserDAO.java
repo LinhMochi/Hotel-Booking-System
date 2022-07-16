@@ -436,7 +436,8 @@ public class UserDAO {
     
     public ArrayList<Convenients> getConvenient(int id) {
         ArrayList<Convenients> ar = new ArrayList<>();
-        String sql = "select h.id, h.convenient,c1.convenientCategory from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
+        String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
+                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
 "                 on c1.id = h.convenientCategoryId "
                 + "where c1.id = ?";
         try {
@@ -446,7 +447,8 @@ public class UserDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Convenients c = new Convenients();
-                c.setId(rs.getInt("id"));
+                c.setConCateId(rs.getInt("conCateId"));
+                c.setConCateId(rs.getInt("conId"));
                 c.setConvenient(rs.getString("convenient"));
                 c.setConvenientCategory(rs.getString("convenientCategory"));
                 ar.add(c);
@@ -459,7 +461,8 @@ public class UserDAO {
     
     public ArrayList<Convenients> getConvenient() {
         ArrayList<Convenients> ar = new ArrayList<>();
-        String sql = "select h.id, h.convenient,c1.convenientCategory from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
+        String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
+                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
 "                 on c1.id = h.convenientCategoryId";
         try {
             conn = new DBcontext().getConnection();
@@ -467,7 +470,8 @@ public class UserDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Convenients c = new Convenients();
-                c.setId(rs.getInt("id"));
+                c.setConCateId(rs.getInt("conCateId"));
+                c.setConCateId(rs.getInt("conId"));
                 c.setConvenient(rs.getString("convenient"));
                 c.setConvenientCategory(rs.getString("convenientCategory"));
                 ar.add(c);
@@ -487,7 +491,7 @@ public class UserDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Convenients c = new Convenients();
-                c.setId(rs.getInt("id"));
+                c.setConCateId(rs.getInt("id"));
                 c.setConvenientCategory(rs.getString("convenientCategory"));
                 ar.add(c);
             }
@@ -496,5 +500,21 @@ public class UserDAO {
         return ar;
     }
     
+    
+    public void updateConvenByAdmin(int conId,int convenientCategoryId, String convenient) {
+        String query = "UPDATE HotelConveniences \n" +
+"				SET convenient = ?, convenientCategoryId = ?\n" +
+"				where id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, conId);
+            ps.setInt(2, convenientCategoryId);
+            ps.setString(3, convenient);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
             
 }

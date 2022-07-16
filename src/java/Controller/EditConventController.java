@@ -77,6 +77,13 @@ public class EditConventController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int conId = Integer.parseInt(request.getParameter("conCateId"));
+        int convenientCateId = 2;
+        String fullName = "aa";
+        
+        UserDAO userDao = new UserDAO();
+        userDao.updateConvenByAdmin(2, convenientCateId, fullName);
+        response.sendRedirect("EditConvent.jsp");
     }
 
     /**

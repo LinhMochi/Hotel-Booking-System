@@ -10,25 +10,35 @@ package Model;
  * @author Duong
  */
 public class Convenients {
-    private int id;
+    private int conCateId;
+    private int conId;
     private String convenient;
     private String convenientCategory;
 
     public Convenients() {
     }
 
-    public Convenients(int id, String convenient, String convenientCategory) {
-        this.id = id;
+    public Convenients(int conCateId, int conId, String convenient, String convenientCategory) {
+        this.conCateId = conCateId;
+        this.conId = conId;
         this.convenient = convenient;
         this.convenientCategory = convenientCategory;
     }
 
-    public int getId() {
-        return id;
+    public int getConCateId() {
+        return conCateId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setConCateId(int conCateId) {
+        this.conCateId = conCateId;
+    }
+
+    public int getConId() {
+        return conId;
+    }
+
+    public void setConId(int conId) {
+        this.conId = conId;
     }
 
     public String getConvenient() {
@@ -46,6 +56,7 @@ public class Convenients {
     public void setConvenientCategory(String convenientCategory) {
         this.convenientCategory = convenientCategory;
     }
+
     
     
 }
