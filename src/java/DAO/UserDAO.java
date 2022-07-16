@@ -448,7 +448,7 @@ public class UserDAO {
             while (rs.next()) {
                 Convenients c = new Convenients();
                 c.setConCateId(rs.getInt("conCateId"));
-                c.setConCateId(rs.getInt("conId"));
+                c.setConId(rs.getInt("conId"));
                 c.setConvenient(rs.getString("convenient"));
                 c.setConvenientCategory(rs.getString("convenientCategory"));
                 ar.add(c);
@@ -508,9 +508,9 @@ public class UserDAO {
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
-            ps.setInt(1, conId);
+            ps.setString(1, convenient);
             ps.setInt(2, convenientCategoryId);
-            ps.setString(3, convenient);
+            ps.setInt(3, conId);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

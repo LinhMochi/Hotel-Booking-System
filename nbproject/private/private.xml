@@ -3,25 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/listUserServlet.java</file>
             <file>file:/C:/Users/Duong/Hotel-Booking-System/web/UpdateUser.jsp</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/UserList.jsp</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/DAO/UserDAO.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/listConvenient.jsp</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/hotelDetail.jsp</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/EditConventController.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/listConvenientController.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Model/Convenients.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/ForgotPasswordController.java</file>
             <file>file:/C:/Users/Duong/Hotel-Booking-System/web/EditConvent.jsp</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/UserListController.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/UserProfile.jsp</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/addNewUser.jsp</file>
             <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/UpdateUserServlet.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/deleteUserServlet.java</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/ForgotPassword.jsp</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/Login.jsp</file>
-            <file>file:/C:/Users/Duong/Hotel-Booking-System/web/index.html</file>
+            <file>file:/C:/Users/Duong/Hotel-Booking-System/src/java/Controller/EditConventController.java</file>
         </group>
     </open-files>
 </project-private>

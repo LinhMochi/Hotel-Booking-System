@@ -46,9 +46,9 @@
                             <td>${user.phoneNumber}</td>
                             <td> <c:if test="${user.gender == '1'}">Male</c:if>
                                 <c:if test="${user.gender == '2'}">FeMale</c:if>
-                                <c:if test="${user.gender == '3'}">Unknow</c:if>
-                                </td>
-                                <td>${user.role}</td>
+                                <c:if test="${user.gender == '3'}">Unknown</c:if>
+                            </td>
+                            <td>${user.role}</td>
                             <td>${user.status}</td>
                             <td>
                                 <a href="listUserServlet"><button type="button"class="btn btn-primary">Edit</button></a><br>
