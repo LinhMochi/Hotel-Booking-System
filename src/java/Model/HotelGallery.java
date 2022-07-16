@@ -55,5 +55,11 @@ public class HotelGallery {
     public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
     }
+
+    @Override
+    public String toString() {
+        return "HotelGallery{" + "id=" + id + ", title=" + title + ", image=" + image + ", hotelId=" + hotelId + '}';
+    }
+    
     
 }

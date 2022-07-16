@@ -44,6 +44,7 @@ public class HomePageController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         ArrayList<City> topCities = new CityDAO().getListCityComplete();
         ArrayList<HotelCategory> topHCs = new HotelCategoryDAO().getListCompleteHotelCategory();
         ArrayList<Hotel> suggestHotels = new HotelDAO().getSuggestHotel();
@@ -53,12 +54,12 @@ public class HomePageController extends HttpServlet {
         }
         HotelConvenientList cList = new HotelConvenientDAO().getRatedConvenientByHotels(hotels.toString());
         HttpSession session = request.getSession(true);
-        session.setAttribute("topCities", topCities);
-        session.setAttribute("topHCs", topHCs);
-        session.setAttribute("suggestHotels", suggestHotels);
-        session.setAttribute("cList", cList);
+        request.setAttribute("topCities", topCities);
+        request.setAttribute("topHCs", topHCs);
+        request.setAttribute("suggestHotels", suggestHotels);
+        request.setAttribute("cList", cList);
         String current = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date(System.currentTimeMillis()));
-        session.setAttribute("pList", new BookedRoomDAO().getMaxPromotion(hotels.toString(),Date.valueOf(current),Date.valueOf(current)));        
+        request.setAttribute("pList", new BookedRoomDAO().getMaxPromotion(hotels.toString(),Date.valueOf(current),Date.valueOf(current)));        
         request.getRequestDispatcher("Home.jsp").forward(request, response);
         
          

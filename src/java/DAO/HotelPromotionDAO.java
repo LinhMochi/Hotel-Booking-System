@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class HotelPromotionDAO {
 
     private final Connection conn = new DBcontext().getConnection();
-    ;
+
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     String sql = null;

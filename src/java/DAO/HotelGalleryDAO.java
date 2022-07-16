@@ -120,3 +120,11 @@ public class HotelGalleryDAO {
     
     
 }
+
+//class demo{
+//    public static void main(String[] args) {
+//         for(HotelGallery hg: new HotelGalleryDAO().getGalleryByID(2)){
+//             System.out.println(hg.toString());
+//         }
+//    }
+//}

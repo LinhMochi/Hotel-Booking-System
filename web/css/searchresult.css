@@ -120,7 +120,7 @@ input[type="range"]:hover::-webkit-slider-thumb{
 }
 
 .container-right{
-	background-color: rgb(110, 238, 176,0.1);
+	background-color: rgba(110, 238, 176,0.1);
 	display: inline-block;
 	min-width: calc(100% - 310px);
 	min-height: 100vh;

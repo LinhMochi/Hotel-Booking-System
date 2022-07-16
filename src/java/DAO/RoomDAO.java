@@ -187,4 +187,44 @@ public class RoomDAO {
 //        }
 //        
 //    }
+    // get available room hotelId, arrival, department
+    public ArrayList<Room> getAvailableRoom(int hotelId, Search s) {
+        list = new ArrayList<>();
+        sql = "WITH BookedRoomOfHotel AS(SELECT * FROM Reservations WHERE hotelId = ?), \n"
+                + "BookedRooms AS(SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, BookedRoomOfHotel r\n"
+                + "WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival > ? AND arrival < ?)\n"
+                + "OR(department>? AND department<?)OR (arrival>= ? AND department<= ?))\n"
+                + "GROUP BY roomId\n"
+                + "),AvailableRooms AS(SELECT id,roomType,[image],(quantity-isnull(booked,0)) as available\n"
+                + ",price,maxAdults,maxChild,bed,area,[description],hotelId \n"
+                + "FROM RoomTypes rt left join BookedRooms br on rt.id = br.roomId WHERE rt.hotelId = ?),\n"
+                + "CurrentPromotion AS (SELECT rp.* FROM HotelPromotions hp \n"
+                + "inner join RoomPromotion rp on hp.id = rp.promotionid WHERE hp.hotelId = ? AND hp.[from]<= ? AND hp.[to]>=?)\n"
+                + "SELECT ar.* , isnull(cp.promotionid, 0) as promotionId FROM AvailableRooms ar left join CurrentPromotion cp \n"
+                + "on ar.id = cp.roomid WHERE available>=0 AND (maxAdults+maxChild)>=? \n"
+                + "ORDER BY price asc,(maxAdults+maxChild) asc";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            ps.setDate(2, s.getArrival());
+            ps.setDate(3, s.getDepartment());
+            ps.setDate(4, s.getArrival());
+            ps.setDate(5, s.getDepartment());
+            ps.setDate(6, s.getArrival());
+            ps.setDate(7, s.getDepartment());
+            ps.setInt(8, hotelId);
+            ps.setInt(9, hotelId);
+            ps.setDate(10, s.getArrival());
+            ps.setDate(11, s.getDepartment());
+            ps.setInt(12, (s.getNoAdult() + s.getNoChild()) / s.getNoRoom());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Room(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),rs.getDouble(5)*1000000, rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getInt(12)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
 }

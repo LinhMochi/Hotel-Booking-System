@@ -360,8 +360,130 @@ ul>li:first-child{
 }
 
 /*      grid card       */
+/*     message box     */
+
+
+.error-box{
+    position: absolute;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    right: 150px;
+    top: 25px;
+
+}
+
+@keyframes error-display{
+    0%{
+        width: 100%;
+    }
+    100%{
+        width: 0%;
+    }
+}
+
+@keyframes auto-hidden{
+
+    0%{
+        opacity: 0;
+        padding: 20px 10px;
+        width: 250px;
+        height: 80px;
+
+    }
+    10%{
+        width: 250px;
+        padding: 20px 10px;
+        opacity: 1.0;
+        height: 80px;
+    }	
+
+    89%{
+        opacity: 1;
+        padding: 20px 10px;
+        width: 250px;
+        height: 80px;
+    }
+    100%{
+        opacity: 0;
+        height: 0;
+        padding: 0px;
+        width: 0px;
+    }
+}
+
+
+.error-message{
+    color: #fff;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin-top: 10px;
+    background: rgba(255, 128, 128, 0.5);
+    display: flex;
+    position: relative;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-content: center;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+.error-message.notify{
+    background-color: rgba(0,127,0,0.3);
+}
+
+.error-message::before{
+    content: '';
+    background: red;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.error-message.notify::before{
+    background: rgba(12,127,12,0.8);
+}
+
+.error-message.active{
+    animation: auto-hidden 5s;
+}
+
+.error-message.active::before{
+    animation: error-display 5s;
+    animation-delay: 0.4s;
+}
+
+.close-error-message{
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    background: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: linear 0.5s ease;
+}
+.close-error-message:hover{
+    background: #fff;
+    color: #f00;
+}
+.pagin{
+    margin-top: 20px
+}
+
+.pagin .current-page{
+    background: #03a9f4;
+    color: #fff;
+}
+.absolutely{
+    position: absolute;
+}
 
 .hidden{
-    display: none;
+    display: none !important;
 }
 

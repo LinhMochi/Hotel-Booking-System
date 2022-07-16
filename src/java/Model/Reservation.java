@@ -26,6 +26,12 @@ public class Reservation {
     public Reservation() {
     }
 
+    public Reservation(int adult, int child, int noRoom) {
+        this.adult = adult;
+        this.child = child;
+        this.noRoom = noRoom;
+    }
+
     public Reservation(int id, int adult, int child, int noRoom, String bookDate, Date arrival, Date department, String status, User user, Hotel hotel) {
         this.id = id;
         this.adult = adult;

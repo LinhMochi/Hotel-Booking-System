@@ -13,13 +13,14 @@ public class HotelSuggestPlace {
     private int id;
     private String place;
     private Double distance;
-    private String hotelId;
+    private int hotelId;
     private int category;
+    private String placeCategory;
     public HotelSuggestPlace() {
         
     }
 
-    public HotelSuggestPlace(int id, String place, Double distance, String hotelId, int category) {
+    public HotelSuggestPlace(int id, String place, Double distance, int hotelId, int category) {
         this.id = id;
         this.place = place;
         this.distance = distance;
@@ -27,6 +28,24 @@ public class HotelSuggestPlace {
         this.category = category;
     }
 
+    public HotelSuggestPlace(int id, String place, Double distance, int hotelId, int category, String placeCategory) {
+        this.id = id;
+        this.place = place;
+        this.distance = distance;
+        this.hotelId = hotelId;
+        this.category = category;
+        this.placeCategory = placeCategory;
+    }
+
+    public String getPlaceCategory() {
+        return placeCategory;
+    }
+
+    public void setPlaceCategory(String placeCategory) {
+        this.placeCategory = placeCategory;
+    }
+    
+    
     public int getId() {
         return id;
     }
@@ -46,16 +65,16 @@ public class HotelSuggestPlace {
     public Double getDistance() {
         return distance;
     }
-
+    
     public void setDistance(Double distance) {
         this.distance = distance;
     }
 
-    public String getHotelId() {
+    public int getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(String hotelId) {
+    public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
     }
 
@@ -65,6 +84,11 @@ public class HotelSuggestPlace {
 
     public void setCategory(int category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "HotelSuggestPlace{" + "id=" + id + ", place=" + place + ", distance=" + distance + ", hotelId=" + hotelId + ", category=" + category + ", placeCategory=" + placeCategory + '}';
     }
     
     

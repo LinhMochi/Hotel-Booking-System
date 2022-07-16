@@ -18,6 +18,7 @@
         <link href="css/datepicker-style.css" rel="stylesheet" type="text/css"/>
         <link href="css/layout-style.css" rel="stylesheet" type="text/css"/>
         <link href="css/searchresult.css" rel="stylesheet" type="text/css"/>
+        <link href="css/search-box-style.css" rel="stylesheet" type="text/css"/>
         <!--<link href="css/home-styles.css" rel="stylesheet" type="text/css"/>-->
     </head>
     <body>
@@ -35,9 +36,11 @@
                 toggle.classList.toggle("active");
             });
         </script>
-        <div class="search-wrapper">
-
+        <div class="search-wrapper flex-center">
+            <jsp:include page="component/search-box.jsp"></jsp:include>
         </div>
+        <script src="js/pick-date.js"></script>
+        <script src="js/search-box.js"></script>
         <div class="main-section layout-1-3">
             <div class="aside-left">
                 <h4>Bộ lọc</h4>
@@ -140,7 +143,7 @@
                                 </div>
                                 <div class="card-score flex-center">
                                     <div class="left-side">
-                                        <div class="rate">Tuyệt vời !</div>
+                                        <div class="rate">${hs.getrate()}</div>
                                         <div class="no-rate">${hs.noRate} đánh giá</div>
                                     </div>
                                     <div class="score right-side flex-center">${hs.avgScore}</div>
@@ -160,7 +163,7 @@
                                         </c:if>
 
                                 </div>
-                                <div class="btn pick-room">Xem phòng</div>
+                                    <div class="btn pick-room"><a href="http://localhost:8080/Hotel-Booking-System/hoteldetail?hotelId=${hs.id}">Xem phòng</a></div>
                             </div>
                         </div>
                     </c:forEach>
@@ -176,7 +179,6 @@
             </div>
             <script type="text/javascript" src="js/double-range.js"></script>
             <footer class="footer">
-                this is footer${sessionScope.message}
         </footer>
     </body>
 </html>
