@@ -11,9 +11,9 @@ package Model;
  * @author Dell
  */
 public class Hotel {
-    private int id; 
-    private String name;
-    private int noOfStar; 
+   private int id ; 
+    private String name; 
+    private int noOfStar ; 
     private String description; 
     private String hotelAdvance; 
     private String policies; 
@@ -22,6 +22,8 @@ public class Hotel {
     private String phoneNumber; 
     private String status; 
     private String address; 
+    private String city ; 
+    private String category ; 
     private String image;
     private int cityId; 
     private int categoryId;
@@ -39,7 +41,7 @@ public class Hotel {
         this.name = name;
     }
 
-    public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
+    public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, String city, String category) {
         this.id = id;
         this.name = name;
         this.noOfStar = noOfStar;
@@ -51,8 +53,8 @@ public class Hotel {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.address = address;
-        this.cityId = cityId;
-        this.categoryId = categoryId;
+        this.city = city;
+        this.category = category;
     }
     
     public Hotel(int id, String name, int noOfStar, String description, 
@@ -254,6 +256,22 @@ public class Hotel {
 
     public void setAvgScore(double avgScore) {
         this.avgScore = avgScore;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
     
      public String getrate(){
