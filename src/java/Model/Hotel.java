@@ -5,15 +5,15 @@ package Model;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Dell
  */
 public class Hotel {
-    private int id; 
-    private String name;
-    private int noOfStar; 
+
+    private int id ; 
+    private String name; 
+    private int noOfStar ; 
     private String description; 
     private String hotelAdvance; 
     private String policies; 
@@ -22,8 +22,10 @@ public class Hotel {
     private String phoneNumber; 
     private String status; 
     private String address; 
+    private String city ; 
+    private String category ; 
     private String image;
-    private int cityId; 
+    private int cityId;
     private int categoryId;
     private int manageId;
     private String manageBy;
@@ -38,8 +40,7 @@ public class Hotel {
     public Hotel(String name) {
         this.name = name;
     }
-
-    public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
+    public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, String city, String category) {
         this.id = id;
         this.name = name;
         this.noOfStar = noOfStar;
@@ -51,12 +52,13 @@ public class Hotel {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.address = address;
-        this.cityId = cityId;
-        this.categoryId = categoryId;
+        this.city = city;
+        this.category = category;
     }
     
-    public Hotel(int id, String name, int noOfStar, String description, 
-            String hotelAdvance, String policies, String map, String email, String phoneNumber, 
+
+    public Hotel(int id, String name, int noOfStar, String description,
+            String hotelAdvance, String policies, String map, String email, String phoneNumber,
             String status, String address, int cityId, int categoryId, String image) {
         this.id = id;
         this.name = name;
@@ -73,10 +75,10 @@ public class Hotel {
         this.categoryId = categoryId;
         this.image = image;
     }
-    
-    public Hotel(int id, String name, String address, int noStar, String description, 
-            String policies, String map, String hotelAdvance, String email, String phoneNumber, 
-            String hotelCategory, String manageBy, String status, int noLike, int noRate, double avgScore,String image) {
+
+    public Hotel(int id, String name, String address, int noStar, String description,
+            String policies, String map, String hotelAdvance, String email, String phoneNumber,
+            String hotelCategory, String manageBy, String status, int noLike, int noRate, double avgScore, String image) {
         this.id = id;
         this.image = image;
         this.name = name;
@@ -255,13 +257,39 @@ public class Hotel {
     public void setAvgScore(double avgScore) {
         this.avgScore = avgScore;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
     
-     public String getrate(){
-        if(avgScore>9) return "Tuyệt vời";
-        if(avgScore>7.5) return "Rất tốt";
-        if(avgScore>5) return "Tạm được";
-        if(avgScore>0) return "Kém";
-        if(avgScore == 0) return "Mới";
+    public String getrate() {
+        if (avgScore > 9) {
+            return "Tuyệt vời";
+        }
+        if (avgScore > 7.5) {
+            return "Rất tốt";
+        }
+        if (avgScore > 5) {
+            return "Tạm được";
+        }
+        if (avgScore > 0) {
+            return "Kém";
+        }
+        if (avgScore == 0) {
+            return "Mới";
+        }
         return "";
     }
 
@@ -270,11 +298,4 @@ public class Hotel {
         return "Hotel{" + "id=" + id + ", name=" + name + ", noOfStar=" + noOfStar + ", description=" + description + ", hotelAdvance=" + hotelAdvance + ", policies=" + policies + ", map=" + map + ", email=" + email + ", phoneNumber=" + phoneNumber + ", status=" + status + ", address=" + address + ", image=" + image + ", cityId=" + cityId + ", categoryId=" + categoryId + ", manageId=" + manageId + ", manageBy=" + manageBy + ", hotelCategory=" + hotelCategory + ", noLike=" + noLike + ", noRate=" + noRate + ", avgScore=" + avgScore + '}';
     }
 
-    
-    
-    
-    
-    
-     
-    
 }
