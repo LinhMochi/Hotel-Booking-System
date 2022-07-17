@@ -75,7 +75,7 @@
                             <td>${o.category}</td>
                             <td>${o.address}</td>
                             <td>${o.city}</td>
-    <!--                            <td style="width: 50px">${o.map}</td>-->
+<!--                            <td style="width: 50px">${o.map}</td>-->
                             <td>${o.status}</td>
                             <td>
                                 <a href="ViewHotel?id=${o.id}" class="view" title="ViewHotel?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-eye" style="color: cadetblue"> </i

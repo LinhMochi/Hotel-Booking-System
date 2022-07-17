@@ -16,7 +16,7 @@
     <body>
         <div class="container mt-3" style="width: 800px; height: auto"> 
             <h1 class="text-center" style="margin-top: 30px">ADD HOTEL</h1>
-            <form method="get" action="addHotels">
+            <form method="get" action="AddHotelController">
                 <table class="table table-bordered table-sm">
                     <thead>
                     </thead>
@@ -49,7 +49,7 @@
                         </tr>
                         <tr>
                             <th>Map</th>
-                            <td><input style="width: 700px; height: 50px" type="text" name="decription"></td>
+                            <td><input style="width: 700px; height: 50px" type="text" name="map"></td>
 
                         </tr>
                         <tr>
@@ -59,7 +59,7 @@
                         </tr>
                         <tr>
                             <th>PhoneNumber</th>
-                            <td><input style="width: 700px; height: 50px" type="tel" id="phone" name="phone" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required></td>
+                            <td><input style="width: 700px; height: 50px" type="tel" id="phone" name="phone" placeholder="12345678"></td>
                         </tr>
                         <tr>
                             <th>Status</th>
@@ -88,7 +88,7 @@
                                     <select name="city" id="" class="w-50 px-2 me-4" style=" height: 50px">
                                         <option value="0"style="width: 700px">Choose City</option>
                                         <c:forEach var="o" items="${listc}">
-                                            <option value="${o.id}" >${o.city}</option>
+                                            <option value="${o.id}" >${o.name}</option>
                                         </c:forEach>
                                     </select>
                                 </form>

@@ -28,23 +28,23 @@ public class HotelCategoryDAO {
     
     // get list hotel category
     
-//    public ArrayList<HotelCategory> getListHotelCategory(){
-//        list = new ArrayList<>();
-//        sql = "SELECT id, category FROM HotelCategories";
-//        try {
-//            ps = conn.prepareStatement(sql);
-//            rs = ps.executeQuery();
-//            while(rs.next()){
-//                HotelCategory hc = new HotelCategory();
-//                hc.setId(rs.getInt(1));
-//                hc.setCategory(rs.getString(2));
-//                list.add(hc);
-//            }
-//        } catch (SQLException ex) {
-//            
-//        }
-//        return list;
-//    }
+    public ArrayList<HotelCategory> getListHotelCategory(){
+        list = new ArrayList<>();
+        sql = "SELECT id, category FROM HotelCategories";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                HotelCategory hc = new HotelCategory();
+                hc.setId(rs.getInt(1));
+                hc.setCategory(rs.getString(2));
+                list.add(hc);
+            }
+        } catch (SQLException ex) {
+            
+        }
+        return list;
+    }
     
     // get list completely hotel category 
     

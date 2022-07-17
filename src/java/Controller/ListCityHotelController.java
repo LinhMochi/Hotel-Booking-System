@@ -5,9 +5,14 @@
  */
 package Controller;
 
-import DAO.HotelDAO;
+import DAO.CityDAO;
+import DAO.HotelCategoryDAO;
+import Model.City;
+import Model.HotelCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nhat Anh
  */
-@WebServlet(name = "AddHotelController", urlPatterns = {"/AddHotelController"})
-public class AddHotelController extends HttpServlet {
+@WebServlet(name = "ListCityHotelController", urlPatterns = {"/ListCityHotelController"})
+public class ListCityHotelController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +43,10 @@ public class AddHotelController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddHotelController</title>");            
+            out.println("<title>Servlet ListCityHotelController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddHotelController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListCityHotelController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,27 +64,16 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-            String name = request.getParameter("name");
-            int  star = Integer.parseInt(request.getParameter("star"));
-            String decription = request.getParameter("decription");
-            String hoteladvance = request.getParameter("hoteladvance");
-            String policies = request.getParameter("policies");
-            String map = request.getParameter("map");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String status = request.getParameter("status");
-            String address = request.getParameter("address");
-            int city = Integer.parseInt(request.getParameter("city"));
-            int category = Integer.parseInt(request.getParameter("category"));
-           
-            
-            HotelDAO dao = new HotelDAO();
-           dao.addHotel(name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category);
-           
-           response.sendRedirect("ListsHotelController");
-        } catch (Exception e) {
-        }
+        
+             CityDAO cdao = new CityDAO();
+            List<City> listc = cdao.getListCity();
+            HotelCategoryDAO hdao = new HotelCategoryDAO();
+            ArrayList<HotelCategory>  listHC = hdao.getListHotelCategory();
+            request.setAttribute("listHC", listHC);
+            request.setAttribute("listc", listc);
+ 
+            request.getRequestDispatcher("AddHotel.jsp").forward(request, response);
+
     }
 
     /**

@@ -99,7 +99,7 @@ public ArrayList<Hotel> getAllHotel() {
     }
 
     public void addHotel(String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
-        query = "INSERT INTO Hotels VALUES ( ? , ? ,  ? ,  ? , ? , ? , ? , ? , ? , ?,  ? , ?)";
+        query = "INSERT INTO Hotels VALUES ( ? , ? ,  ? ,  ? , ? , ? , ? , ? , ? , ?,  ? , ?, ?,'a')";;
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
