@@ -40,20 +40,20 @@
             <jsp:include page="component/search-box.jsp">
                 <jsp:param name="p" value="hoteldetail"/>
             </jsp:include>
-            </div>
-            <script src="js/pick-date.js"></script>
-            <script src="js/search-box.js"></script>
-            <div class="quick-link flex-center">
-                <a href="#gallery"><span>Thông tin</span> </a>
-                <a href="#about"><span>Giới thiệu</span></a>
-                <a href="#room"><span>Phòng</span></a>
-                <a href="#service"><span>Dịch vụ</span></a>
-                <a href="#convenient"><span>Tiện ích</span></a>
-                <a href="#suggest-place"><span>Xung quanh</span></a>
-                <a href="#top"><span>Về đầu trang</span></a>
-                <span class="pop pop-fb">Đánh giá</span>
-            </div>
-            <script type="text/javascript">
+        </div>
+        <script src="js/pick-date.js"></script>
+        <script src="js/search-box.js"></script>
+        <div class="quick-link flex-center">
+            <a href="#gallery"><span>Thông tin</span> </a>
+            <a href="#about"><span>Giới thiệu</span></a>
+            <a href="#room"><span>Phòng</span></a>
+            <a href="#service"><span>Dịch vụ</span></a>
+            <a href="#convenient"><span>Tiện ích</span></a>
+            <a href="#suggest-place"><span>Xung quanh</span></a>
+            <a href="#top"><span>Về đầu trang</span></a>
+            <span class="pop pop-fb">Đánh giá</span>
+        </div>
+        <script type="text/javascript">
             let previous = 0;
             window.addEventListener('scroll', function () {
                 let search = document.querySelector('.search-wrapper');
@@ -63,46 +63,46 @@
                 // console.log(previous>window.scrollY);
                 previous = window.scrollY;
             });
-            </script>
-            <jsp:include page="component/message.jsp"></jsp:include>
+        </script>
+        <jsp:include page="component/message.jsp"></jsp:include>
             <div id="gallery" class="gallery">
             <c:if test="${not empty sessionScope.homegallery}">
-            <c:forEach var="pic" begin="0" end="6">
-                <div class="gallery-item gallery-${pic+1}">
-                    <img src="${sessionScope.homegallery.get(pic).image}" alt="${sessionScope.homegallery.get(pic).title}">
-                    <c:if test = "${sessionScope.homegallery.size()>7&&pic==6}">
-                        <div class="number-gallery flex-center">+${sessionScope.homegallery.size() - 7} ảnh</div>
-                    </c:if>
-                </div>
-            </c:forEach></c:if>
-        </div>
-        
-        <div class="pop-up-g hidden">
-            <div class="pop-up-bg"></div>
-            <div class="gallery-pop-up">
-                <header class="flex-between">
-                    <h2>Bộ sưu tập</h2>
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </header>
-                <div class="empty-cart flex-center <c:if test="${empty sessionScope.homegallery}">hidden</c:if>  ">
-                    <div>
-                        <i class="fa fa-archive" aria-hidden="true"></i>
+                <c:forEach var="pic" begin="0" end="6">
+                    <div class="gallery-item gallery-${pic+1}">
+                        <img src="${sessionScope.homegallery.get(pic).image}" alt="${sessionScope.homegallery.get(pic).title}">
+                        <c:if test = "${sessionScope.homegallery.size()>7&&pic==6}">
+                            <div class="number-gallery flex-center">+${sessionScope.homegallery.size() - 7} ảnh</div>
+                        </c:if>
                     </div>
-                    <div>Bộ sưu tập trống</div>
-                </div>
-        <c:if test="${not empty sessionScope.homegallery}">
-                <div class="gallery-container">
-                    <c:forEach var="pic"  varStatus="s" items="${sessionScope.homegallery}">
-                        <div class="gallery-item">
-                            <img src="${pic.image}" alt="${pic.title}">
-                            <div class="gallery-footer flex-between">
-                                <div class="gallery-title">${pic.title}</div>
-                                <div class="gallery-count">${s.index+1} / ${sessionScope.homegallery.size()}</div>
-                            </div>
+                </c:forEach></c:if>
+            </div>
+
+            <div class="pop-up-g hidden">
+                <div class="pop-up-bg"></div>
+                <div class="gallery-pop-up">
+                    <header class="flex-between">
+                        <h2>Bộ sưu tập</h2>
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </header>
+                    <div class="empty-cart flex-center <c:if test="${empty sessionScope.homegallery}">hidden</c:if>  ">
+                        <div>
+                            <i class="fa fa-archive" aria-hidden="true"></i>
                         </div>
-                    </c:forEach>
-                </div>
-        </c:if>        
+                        <div>Bộ sưu tập trống</div>
+                    </div>
+                <c:if test="${not empty sessionScope.homegallery}">
+                    <div class="gallery-container">
+                        <c:forEach var="pic"  varStatus="s" items="${sessionScope.homegallery}">
+                            <div class="gallery-item">
+                                <img src="${pic.image}" alt="${pic.title}">
+                                <div class="gallery-footer flex-between">
+                                    <div class="gallery-title">${pic.title}</div>
+                                    <div class="gallery-count">${s.index+1} / ${sessionScope.homegallery.size()}</div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </c:if>        
             </div >
         </div>
         <script type="text/javascript">
@@ -224,7 +224,7 @@
                 });
             </script>
 
-            
+
         <c:set var="hotel" value="${sessionScope.hotel}"/>
 
         <div id="about" class="about">
@@ -281,66 +281,113 @@
         <div id="room" class="room-wrapper">
             <h3>Phòng của khách sạn</h3>           
             <div class="room-wrapper-container flex-center flex-column">
-                <c:set var="homepromotion" value="${sessionScope.promotion}"/>
+                <c:if test="${not empty sessionScope.availableRoom}">
+                    <c:set var="homepromotion" value="${sessionScope.promotion}"/>
 
-                <c:forEach var="room" varStatus="status" items="${sessionScope.availableRoom}">
-                    <div class="card-ex grid-3">
-                        <div class="card-image"><img src="${room.image}" alt="${room.name}"></div>
-                        <div class="card-contain">
-                            <div class="card-header">
-                                <h2 class="room-name">${room.name}</h2>
-                                <div class="add-box">
-                                    <div class="hotel-address"></i>${room.bed}</div>                                 
-                                    <div class="hotel-address"></i>${room.maxAdult} người lớn <c:if test="${room.maxChild != 0}">${room.maxChild} trẻ nhỏ</c:if></div>                        
-                                </div>
-                            </div>
-                            <div class="card-infor">
-                                <ul class="room-sd">
-                                    <li>${room.area}</li>                                    
-                                    <li>${room.description}</li>
-                                </ul>
-                            </div>
-                            <c:if test="${not empty homepromotion.getPromotion(room.promotionId)}"> 
-                                <div class="add-infor">${homepromotion.getPromotion(room.promotionId).getPromotion()}</div>
-                            </c:if>  
-                            <c:if test="${room.quantity==1}">
-                                <div class="add-infor">Chỉ còn 1 phòng loại này</div>
-                            </c:if>
-                            <div class="add-infor">Miễn phí đặt&huỷ phòng</div>				
-                        </div>
-
-
-                        <div class="card-footer flex-center flex-column">
-
-                            <div class="card-price flex-end flex-column">
-                                <c:if test="${room.promotionId > 0}">
-                                    <c:set var="roomP" value="${homepromotion.getPromotion(room.promotionId)}"/>
-                                    <div class="title">Giá ưu đãi</div>
-                                    <div class="unit-price"><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></div>
-                                    <div class="current-price"><span class="price">
-                                            <fmt:formatNumber type="number" pattern="###,###" value="${room.price*(1-roomP.discount)}"/></span>
-                                        <span class="unit lable">đ/đêm</span>
+                    <c:forEach var="room" varStatus="status" items="${sessionScope.availableRoom}">
+                        <div class="card-ex grid-3">
+                            <div class="card-image"><img src="${room.image}" alt="${room.name}"></div>
+                            <div class="card-contain">
+                                <div class="card-header">
+                                    <h2 class="room-name">${room.name}</h2>
+                                    <div class="add-box">
+                                        <div class="hotel-address"></i>${room.bed}</div>                                 
+                                        <div class="hotel-address"></i>${room.maxAdult} người lớn <c:if test="${room.maxChild != 0}">${room.maxChild} trẻ nhỏ</c:if></div>                        
+                                        </div>
                                     </div>
+                                    <div class="card-infor">
+                                        <ul class="room-sd">
+                                            <li>${room.area}</li>                                    
+                                        <li>${room.description}</li>
+                                    </ul>
+                                </div>
+                                <c:if test="${not empty homepromotion.getPromotion(room.promotionId)}"> 
+                                    <div class="add-infor">${homepromotion.getPromotion(room.promotionId).getPromotion()}</div>
+                                </c:if>  
+                                <c:if test="${room.quantity==1}">
+                                    <div class="add-infor">Chỉ còn 1 phòng loại này</div>
                                 </c:if>
-                                <c:if test="${room.promotionId == 0}">
-                                    <div class="title">Giá</div>
-                                    <div class="current-price"><span class="price"><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></span>
-                                        <span class="unit lable">đ/đêm</span></div>
+                                <div class="add-infor">Miễn phí đặt&huỷ phòng</div>				
+                            </div>
+
+
+                            <div class="card-footer flex-center flex-column">
+
+                                <div class="card-price flex-end flex-column">
+                                    <c:if test="${room.promotionId > 0}">
+                                        <c:set var="roomP" value="${homepromotion.getPromotion(room.promotionId)}"/>
+                                        <div class="title">Giá ưu đãi</div>
+                                        <div class="unit-price"><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></div>
+                                        <div class="current-price"><span class="price">
+                                                <fmt:formatNumber type="number" pattern="###,###" value="${room.price*(1-roomP.discount)}"/></span>
+                                            <span class="unit lable">đ/đêm</span>
+                                        </div>
                                     </c:if>
-                            </div>
-                            <div>
-                                <div class="btn pick-room">Thêm vào giỏ</div>
-                                <div class="btn pick-room">Đặt ngay</div>  
-                            </div>
+                                    <c:if test="${room.promotionId == 0}">
+                                        <div class="title">Giá</div>
+                                        <div class="current-price"><span class="price"><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></span>
+                                            <span class="unit lable">đ/đêm</span></div>
+                                        </c:if>
+                                </div>
+                                <div>
+                                    <div class="btn pick-room">Thêm vào giỏ</div>
+                                    <div class="btn pick-room">Đặt ngay</div>  
+                                </div>
 
 
+                            </div>
                         </div>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
+                </c:if>
+
+                <c:if test="${not empty viewRoom}">
+                    <c:forEach var="room" varStatus="status" items="${viewRoom}">
+                        <div class="card-ex grid-3">
+                            <div class="card-image"><img src="${room.image}" alt="${room.name}"></div>
+                            <div class="card-contain">
+                                <div class="card-header">
+                                    <h2 class="room-name">${room.name}</h2>
+                                    <div class="add-box">
+                                        <div class="hotel-address"></i>${room.bed}</div>                                 
+                                        <div class="hotel-address"></i>${room.maxAdult} người lớn <c:if test="${room.maxChild != 0}">${room.maxChild} trẻ nhỏ</c:if></div>                        
+                                        </div>
+                                    </div>
+                                    <div class="card-infor">
+                                        <ul class="room-sd">
+                                            <li>${room.area}</li>                                    
+                                        <li>${room.description}</li>
+                                    </ul>
+                                </div>
+                                <div class="add-infor">Miễn phí đặt&huỷ phòng</div>				
+                            </div>
+
+
+                            <div class="card-footer flex-center flex-column">
+
+                                <div class="card-price flex-end flex-column">
+
+
+                                    <div class="title">Giá</div>
+                                    <div class="current-price">
+                                        <span class="price">
+                                            <fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/>
+                                        </span>
+                                        <span class="unit lable">đ/đêm</span></div>
+
+                                </div>
+                                <div>
+                                    <div class="btn pick-room" onclick="createErrorMessage('Hãy nhập thông tin để tìm phòng');"><a href="#top">Đặt ngay</a></div>  
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:if>
 
             </div>
         </div>
-                
+
         <div id="service" class="service-wrapper">
             <h3>Dịch vụ kèm theo</h3>
             <div class="service-container">
@@ -372,7 +419,7 @@
             </div>
         </div>
         <script src="js/message.js">
-                    
+
         </script>
         <script type="text/javascript">
             let service_list = document.querySelector('.service-wrapper .service-container');
@@ -444,7 +491,7 @@
                             <div class="ul">
                             </c:if>
                             <div class="li flex-between"><span>${sgp.place}</span><span>${sgp.distance} km</span>
-                        </div>
+                            </div>
                             <c:if test="${sgp.category != sessionScope.hotelsp.get(i.last?i.index:(i.index+1)).category|| i.last}">
                             </div>
                         </div>

@@ -35,21 +35,35 @@
 	let nextDate = new Date(currDate);
 	nextDate.setDate(nextDate.getDate()+1);
 
-	// console.log(currDate.getDate());
-
+	
+        if(arrival_date.value === ""){
  	arrival_date.value = getDateShow(currDate,1);
- 	department_date.value = getDateShow(nextDate,1);
+        department_date.value = getDateShow(nextDate,1);
 
  	arrival_box.innerHTML = getDateShow(currDate,0);
  	department_box.innerHTML = getDateShow(nextDate,0);
-
+        }
+        else{
+             arrival_box.innerHTML = getDateShow(new Date(arrival_date.value) ,0);
+            department_box.innerHTML = getDateShow(new Date(department_date.value),0);
+        }
+        
+//        arrival_date.value = getDateShow(currDate,1);
+// 	department_date.value = getDateShow(nextDate,1);
+//
+// 	arrival_box.innerHTML = getDateShow(currDate,0);
+// 	department_box.innerHTML = getDateShow(nextDate,0);
+        
  	let checkin = new Date(arrival_date.value);
 	let checkout = new Date(department_date.value);
 
 
  	function setCurrDate(){// set date allow inputed date.
+            
+                console.log(arrival_date.value);
+                console.log(checkin);
  		checkin = new Date(arrival_date.value);
-	    checkout = new Date(department_date.value);
+	        checkout = new Date(department_date.value);
  		currMonth = checkin.getMonth();
  		currYear = checkin.getFullYear();
  		generateDatePicker();
@@ -104,13 +118,16 @@
 				day.classList.toggle('current-date');
 			}
 			//disable day < current day
-			if((day.innerHTML<currDate.getDate()&& year == currDate.getFullYear()&& month == currDate.getMonth())||(( year <= currDate.getFullYear()&& month < currDate.getMonth()))||(year < currDate.getFullYear())){
+			if((day.innerHTML<currDate.getDate()&& year == currDate.getFullYear()&& month == currDate.getMonth())||
+                                (( year <= currDate.getFullYear()&& month < currDate.getMonth()))||(year < currDate.getFullYear())){
 				day.classList.remove('day');
 				day.classList.add('disable');
 				if(pick_box.classList.contains('pick-checkin')) console.log('here'+console.log('currDate'));
 			}
 			// disable day < checkin day when cust pick checkout day
-			if(pick_box.classList.contains('pick-checkout')&& ((i - first_day.getDay()+1)<checkin.getDate()&& year === checkin.getFullYear() && month === checkin.getMonth())||(( year <= checkin.getFullYear()&& month < checkin.getMonth()))||(year < checkin.getFullYear())) {
+			if(pick_box.classList.contains('pick-checkout')&&( 
+                                ((i - first_day.getDay()+1)<checkin.getDate()&& year === checkin.getFullYear() && month === checkin.getMonth())
+                                ||(( year <= checkin.getFullYear()&& month < checkin.getMonth()))||(year < checkin.getFullYear()))) {
 				day.classList.remove('day');
 				day.classList.add('disable');
 			}
@@ -142,7 +159,7 @@
 						department_date.value=setDateShow(year,month,nextday,1);
 						department_box.innerHTML=setDateShow(year,month,nextday,0);
 						}
-						document.querySelector('.check-out').classList.remove('check-out')
+						document.querySelector('.check-out').classList.remove('check-out');
 						// markCheckInOut();
 						// disableday(index);
 					}
@@ -344,7 +361,7 @@
 		document.querySelectorAll('.day').forEach((day,index)=>{
 			if(index<i) {
 				day.classList.remove('day');
-				day.classList.add('disable')
+				day.classList.add('disable');
 			}
 		});
 	}
@@ -353,7 +370,7 @@
 		document.querySelectorAll('.date-picker').forEach((datepicker,index)=>{
 			generateCalendar((currMonth+index),currYear,datepicker);
 		});
-	}
+	};
 		document.querySelectorAll('.date-picker').forEach((datepicker,index)=>{
 			generateCalendar((currMonth+index),currYear,datepicker);
 			let month_list = datepicker.querySelector('.month-list');

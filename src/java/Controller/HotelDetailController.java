@@ -54,21 +54,60 @@ public class HotelDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Hotel h = 
-//                new HotelDAO().getHotelDetail(2);
-                (Hotel) request.getSession().getAttribute("hotel");
-    
-        Search s = 
-//                new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-03"), 3, 1, 2); 
-                (Search) request.getSession().getAttribute("search");
-        if(h == null){
+        Hotel h;
+        if(request.getParameter("model")!=null){
             h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
-        } 
-        if( h != null &&request.getParameter("hotelId") != null){
-            h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
-        }
-        if( h == null && request.getParameter("hotelId") == null ) {
-            request.setAttribute("message", "Truy cập bị chặn");
+            request.getSession().removeAttribute("availableRoom");
+            request.getSession().removeAttribute("availableService");
+            ArrayList<Room> viewroom = new RoomDAO().getRoomByHotelId(h.getId());
+            request.setAttribute("viewRoom", viewroom);
+        } else{
+            h = 
+    //                new HotelDAO().getHotelDetail(2);
+                    (Hotel) request.getSession().getAttribute("hotel");
+
+            Search s = 
+    //                new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-03"), 3, 1, 2); 
+                    (Search) request.getSession().getAttribute("search");
+            if(h == null){
+                h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
+            } 
+            if( h != null && request.getParameter("hotelId") != null){
+                h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
+            }
+            if( h == null && request.getParameter("hotelId") == null ) {
+                request.setAttribute("message", "Truy cập bị chặn");
+            }
+
+            if(request.getParameter("changedate")!=null|| s==null ){
+                if(s==null) s = new Search();
+                String arri = request.getParameter("arrival");
+                String depart = request.getParameter("department");
+                String a = request.getParameter("adult");
+                String c = request.getParameter("child");
+                String r = request.getParameter("room");
+
+                s.setArrival(Date.valueOf(arri));
+                s.setDepartment(Date.valueOf(depart));
+                s.setNoAdult(Integer.parseInt(a));
+                s.setNoChild(Integer.parseInt(c));
+                s.setNoRoom(Integer.parseInt(r));
+            }
+            
+            ArrayList<Room> ar = new RoomDAO().getAvailableRoom(h.getId(), s);
+        
+            if(ar.size()==0){
+                request.setAttribute("message", "Không có phòng phù hợp");
+            }
+            request.getSession().setAttribute("availableRoom",ar);
+
+            ArrayList<Service> as = new ServiceDAO().getAvailableService(h.getId(), s.getArrival(), s.getDepartment());
+            request.getSession().setAttribute("availableService",as);
+
+            HotelPromotionList hp = new HotelPromotionDAO().getHPList(h.getId(), s.getArrival(), s.getDepartment());
+            request.getSession().setAttribute("promotion", hp);
+            
+            request.getSession().setAttribute("search", s);
         }
         
         String page = request.getParameter("page");
@@ -90,15 +129,6 @@ public class HotelDetailController extends HttpServlet {
         
         ArrayList<HotelSuggestPlace> hsp = new HotelSuggestPlaceDAO().getHotelSuggestPlaceList(h.getId());
         request.getSession().setAttribute("hotelsp", hsp);
-        
-        ArrayList<Room> ar = new RoomDAO().getAvailableRoom(h.getId(), s);
-        request.getSession().setAttribute("availableRoom",ar);
-        
-        ArrayList<Service> as = new ServiceDAO().getAvailableService(h.getId(), s.getArrival(), s.getDepartment());
-        request.getSession().setAttribute("availableService",as);
-        
-        HotelPromotionList hp = new HotelPromotionDAO().getHPList(h.getId(), s.getArrival(), s.getDepartment());
-        request.getSession().setAttribute("promotion", hp);
         
         ArrayList<HotelRate> hotelFeedback = new HotelRateDAO().getHotelRate(h.getId(), Integer.parseInt(page));
         request.getSession().setAttribute("feedbacks", hotelFeedback);

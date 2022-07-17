@@ -370,7 +370,7 @@ ul>li:first-child{
     flex-direction: column;
     right: 150px;
     top: 25px;
-
+    z-index: 102;
 }
 
 @keyframes error-display{

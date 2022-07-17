@@ -40,7 +40,7 @@ public class RoomDAO {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4),
-                        rs.getDouble(5),
+                        rs.getDouble(5)*1000000,
                         rs.getInt(6),
                         rs.getInt(7),
                         rs.getString(8),
@@ -67,7 +67,7 @@ public class RoomDAO {
                        rs.getString(2),
                        rs.getString(3),
                        rs.getInt(4),
-                       rs.getDouble(5),
+                       rs.getDouble(5)*1000000,
                        rs.getInt(6),
                        rs.getInt(7),
                        rs.getString(8),
@@ -97,7 +97,7 @@ public class RoomDAO {
                        rs.getString(2),
                        rs.getString(3),
                        rs.getInt(4),
-                       rs.getDouble(5),
+                       rs.getDouble(5)*1000000,
                        rs.getInt(6),
                        rs.getInt(7),
                        rs.getString(8),
@@ -119,7 +119,7 @@ public class RoomDAO {
             ps.setString(1,r.getName());
             ps.setString(2,r.getImage());
             ps.setInt(3, r.getQuantity());
-            ps.setDouble(4, r.getPrice());
+            ps.setDouble(4, r.getPrice()/1000000);
             ps.setInt(5, r.getMaxAdult());
             ps.setInt(6, r.getMaxChild());
             ps.setString(7, r.getBed());
@@ -162,7 +162,7 @@ public class RoomDAO {
             ps.setString(1, r.getName());
             ps.setString(2, r.getImage());
             ps.setInt(3, r.getQuantity());
-            ps.setDouble(4, r.getPrice());
+            ps.setDouble(4, r.getPrice()/1000000);
             ps.setInt(5, r.getMaxAdult());
             ps.setInt(6, r.getMaxChild());
             ps.setString(7, r.getBed());

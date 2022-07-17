@@ -56,14 +56,14 @@
             <form action="searchresult" method="POST">
                 <div class="search-box search-box-x">
                     <div class="input-box flex-center">
-                        <input type="text" name="search" placeholder="Bạn muốn đi đâu?" >
+                        <input type="text" name="search" placeholder="Bạn muốn đi đâu?" required >
                     </div>	
                     <div class="date-select-box flex-center">
                         <div class="input-date-box">
-                            <input type="date" class="arrival-date" name="arrival">
+                            <input type="date" class="arrival-date" name="arrival" value="2022-07-24">
                         </div>
                         <div class="input-date-box">
-                            <input type="date" class="department-date" name="department">
+                            <input type="date" class="department-date" name="department" value ="2022-07-26">
                         </div>
                         <div class="pick-box">
                             <span class="arrival"></span>
@@ -124,6 +124,9 @@
             </form>
         </div>
         <script src="js/pick-date.js"></script>
+         <!--console.log(document.querySelector('.arrival-date').value);-->
+         <script type="text/javascript">
+         </script>
         <script src="js/search-box.js" type="text/javascript"></script>
         <div class="explore-wrapper border-wrapper border1">
             <h5>Khám phá</h5>
@@ -245,8 +248,8 @@
                                     <div class="card-infor">
                                         <ul class="hotel-sd">
                                             <%--<li>${hs.hotelAdvance}</li>--%>
-                                                <c:if test="${sessionScope.cList.getSize(hs.id)==2||sessionScope.cList.getSize(hs.id)==1}">                       
-                                                    <c:forEach var="hc" items="${sessionScope.cList.getHotelConvenient(hs.id)}" varStatus="i">
+                                            <c:if test="${sessionScope.cList.getSize(hs.id)==2||sessionScope.cList.getSize(hs.id)==1}">                       
+                                                <c:forEach var="hc" items="${sessionScope.cList.getHotelConvenient(hs.id)}" varStatus="i">
                                                     <li>${hc.convenient}</li>
                                                     </c:forEach>                                                                                                                                                                                                            
                                                 </c:if>
@@ -275,7 +278,7 @@
                                     </div>
                                     <div class="card-score flex-center">
                                         <div class="left-side">
-                                            <div class="rate">Tuyệt vời !</div>
+                                            <div class="rate">${hs.getrate()}</div>
                                             <div class="no-rate">${hs.noRate} đánh giá</div>
                                         </div>
                                         <div class="score right-side flex-center">${hs.avgScore}</div>
@@ -295,7 +298,7 @@
                                             </c:if>
 
                                     </div>
-                                    <div class="btn pick-room">Xem phòng</div>
+                                    <div class="btn pick-room"><a href="http://localhost:8080/Hotel-Booking-System/hoteldetail?hotelId=${hs.id}&model=view">Xem phòng</a></div>
                                 </div>
                             </div>
                         </div>
