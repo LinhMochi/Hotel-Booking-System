@@ -38,7 +38,7 @@ public class SuggestPlaceCategoryRemoveController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SuggestPlaceCategoryRemoveController</title>");            
+            out.println("<title>Servlet SuggestPlaceCategoryRemoveController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SuggestPlaceCategoryRemoveController at " + request.getContextPath() + "</h1>");
@@ -59,7 +59,7 @@ public class SuggestPlaceCategoryRemoveController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -73,10 +73,11 @@ public class SuggestPlaceCategoryRemoveController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String currentpage = request.getParameter("currentpage");
         int id = Integer.parseInt(request.getParameter("id"));
         SuggestPlaceCategoryDAO spcd = new SuggestPlaceCategoryDAO();
         spcd.removeSuggestPlaceCategory(id);
-        response.sendRedirect("suggestPlaceCategoryManager");
+        response.sendRedirect("suggestPlaceCategoryManager?page=" + currentpage);
     }
 
     /**
