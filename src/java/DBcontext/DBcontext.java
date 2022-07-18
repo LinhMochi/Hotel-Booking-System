@@ -16,13 +16,13 @@ import java.util.logging.Logger;
  */
 public class DBcontext {
 
-    private final String serverName = "DESKTOP-4TCGMJB\\SQLEXPRESS";
+    private final String serverName = "localhost";
 //    DESKTOP-4TCGMJB\\SQLEXPRESS
     private final String dbName = "Hotel_Booking";
     private final String portNumber = "1433";
     private final String instance="";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
     private final String userID = "sa";
-    private final String password = "1";
+    private final String password = "12";
     
     private Connection connection;
     

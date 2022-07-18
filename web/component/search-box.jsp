@@ -7,7 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <form <c:if test="${requestScope.p==\"hoteldetail\"}">action= "../Hotel-Booking-System/hoteldetail"</c:if> 
-      <c:if test="${requestScope.p!=\"hoteldetail\"}">action= "../Hotel-Booking-System/searchresult"</c:if> 
+      <c:if test="${requestScope.p==\"rd\"}">action= "../Hotel-Booking-System/UpdateCart"</c:if>
+      <c:if test="${empty requestScope.p}">action= "../Hotel-Booking-System/searchresult"</c:if> 
       method="POST">
     <c:set var="testP" value="${requestScope.p==\"hoteldetail\"}"/>
   
@@ -17,6 +18,12 @@
                 <input type="text" name="search" value="${sessionScope.hotel.name}" disabled>
             </div>
             <input type="hidden" name ="changedate" value="changedate"/>
+        </c:if>
+        <c:if test="${requestScope.p==\"rd\"}">
+            <div class="input-box flex-center">
+                <input type="text" name="search" value="${sessionScope.hotel.name}" disabled>
+            </div>
+            <input type="hidden" name ="update" value="search"/>
         </c:if>
         <c:if test="${empty requestScope.p}">
           <div class="input-box flex-center">
@@ -88,7 +95,8 @@
         </div>
     </div>
 </form>
-                        <script>
+<%--                        <script>
                             console.log('${sessionScope.search.noAdult!=null?sessionScope.search.noAdult:1}');
                         </script>
+--%>
 

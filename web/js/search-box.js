@@ -11,6 +11,7 @@
 		 	let dropitems = dropbox.querySelector('.drop-items');
 		 	if(droptitle!==null) droptitle.addEventListener('click',()=>{
 		 		dropitems.classList.toggle('drop');
+                                if(!dropitems.classList.contains('drop')) dropitems.classList.toggle('hidden');
 		 	})
 		 })
 // fill to input field and drop - title
