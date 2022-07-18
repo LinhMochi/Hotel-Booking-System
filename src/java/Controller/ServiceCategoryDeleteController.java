@@ -74,6 +74,7 @@ public class ServiceCategoryDeleteController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+//        response.getWriter().print(id);
         ServiceCategoryDAO scd = new ServiceCategoryDAO();
         scd.removeServiceCategory(id);
         response.sendRedirect("serviceCategoryManager");
