@@ -68,6 +68,7 @@ public class galleryAddController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
+        String currentpage = request.getParameter("currentpage");
         String img = request.getParameter("img");
         String title = request.getParameter("title");
         int hotelID = Integer.parseInt(request.getParameter("hotelID"));
@@ -77,7 +78,7 @@ public class galleryAddController extends HttpServlet {
         h.setTitle(title);
         h.setHotelId(hotelID);
         hgd.addImage(h);
-        response.sendRedirect("galleryManager");
+        response.sendRedirect("galleryManager?page=" + currentpage);
     }
 
     /**
