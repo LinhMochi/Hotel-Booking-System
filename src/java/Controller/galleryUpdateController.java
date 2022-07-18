@@ -73,6 +73,7 @@ public class galleryUpdateController extends HttpServlet {
         HotelGalleryDAO hgd = new HotelGalleryDAO();
         HotelGallery h = new HotelGallery();
 
+        String currentpage = request.getParameter("currentpage");
         int id = Integer.parseInt(request.getParameter("id"));
         String title = request.getParameter("title");
         String image = request.getParameter("image");
@@ -82,7 +83,7 @@ public class galleryUpdateController extends HttpServlet {
         h.setImage(image);
         h.setHotelId(hotelID);
         hgd.updateImage(id, h);
-        response.sendRedirect("galleryManager");
+        response.sendRedirect("galleryManager?page=" + currentpage);
     }
 
     /**
