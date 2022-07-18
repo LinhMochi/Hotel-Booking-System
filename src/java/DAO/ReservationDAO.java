@@ -136,11 +136,10 @@ public class ReservationDAO {
     
     public int countReservationWithEmail(String email) {
         int count = 0;
-        String sql = "select count(*) from Reservations WHERE email = ? ";
+        String sql = "select count(*) from Reservations WHERE email LIKE '%" + email +"%' ";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
             rs = ps.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
