@@ -5,9 +5,14 @@
  */
 package Controller;
 
-import DAO.HotelGalleryDAO;
+import DAO.SuggestPlaceCategoryDAO;
+import Model.SuggestPlaceCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pham quoc an
  */
-@WebServlet(name = "galleryRemoveController", urlPatterns = {"/galleryRemove"})
-public class galleryRemoveController extends HttpServlet {
+@WebServlet(name = "SuggestPlaceCategoryManagerController", urlPatterns = {"/suggestPlaceCategoryManager"})
+public class SuggestPlaceCategoryManagerController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,20 +35,36 @@ public class galleryRemoveController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final int NUMBER_IMAGE = 10;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet galleryRemoveController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet galleryRemoveController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String page;
+            try {
+                page = request.getParameter("page");
+                if (page == null) {
+                    page = "1";
+                }
+            } catch (Exception e) {
+                page = "1";
+            }
+            SuggestPlaceCategoryDAO spcd = new SuggestPlaceCategoryDAO();
+            int count = spcd.getAllSuggestPlaceCategories().size();
+            int endPage = count / NUMBER_IMAGE;
+            if (count % NUMBER_IMAGE != 0) {
+                endPage++;
+            }
+            ArrayList<SuggestPlaceCategory> list = spcd.getSuggestPlaceCategories(page, NUMBER_IMAGE);
+            SuggestPlaceCategory spc = new SuggestPlaceCategory();
+            request.setAttribute("spclist", list);
+            request.setAttribute("endPage", endPage);
+            request.setAttribute("page", page);
+            request.setAttribute("count", count);
+            request.setAttribute("numberOfImage", NUMBER_IMAGE);
+            request.getRequestDispatcher("suggestPlaceCategoryManager.jsp").forward(request, response);
         }
     }
 
@@ -59,8 +80,11 @@ public class galleryRemoveController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuggestPlaceCategoryManagerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -74,12 +98,11 @@ public class galleryRemoveController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String currentpage = request.getParameter("currentpage");
-        int id = Integer.parseInt(request.getParameter("id"));
-        response.getWriter().println(id);
-        HotelGalleryDAO hgd = new HotelGalleryDAO();
-        hgd.removeImage(id);
-        response.sendRedirect("galleryManager?page=" + currentpage);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuggestPlaceCategoryManagerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -1,16 +1,10 @@
-<%-- 
-    Document   : serviceCategoryManager
-    Created on : Jun 28, 2022, 5:10:29 PM
-    Author     : pham quoc an
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Service Category Manager</title>
+    <title>Suggest Place Category Manager</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -255,10 +249,10 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Service Category <b>Manager</b></h2>
+                            <h2>Suggest Place Category <b>Manager</b></h2>
                         </div>
                         <div class="col-sm-6">
-                            <a href="#addServiceCategoryModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Service Category</span></a>
+                            <a href="#addSuggestPlaceCategoryModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New SuggestPlaceCategory</span></a>
                         </div>
                     </div>
                 </div>
@@ -266,29 +260,29 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Service Category</th>
+                            <th>Suggest Place Category</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="category" items="${sclist}">
+                        <c:forEach var="category" items="${spclist}">
                             <tr>
                                 <td>${category.id}</td>
                                 <td>${category.category}</td>
                                 <td>
-                                    <a href="#editServiceCategoryModal${category.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="#deleteServiceCategoryModal${category.id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                    <a href="#editSuggestPlaceCategoryModal${category.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                    <a href="#deleteSuggestPlaceCategoryModal${category.id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                             </tr>
 
 
                             <!-- Delete Modal HTML -->
-                        <div id="deleteServiceCategoryModal${category.id}" class="modal fade">
+                        <div id="deleteSuggestPlaceCategoryModal${category.id}" class="modal fade">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form action="serviceCategoryDelete" method="POST">
+                                    <form action="suggestPlaceCategoryRemove" method="POST">
                                         <div class="modal-header">						
-                                            <h4 class="modal-title">Delete ServiceCategory</h4>
+                                            <h4 class="modal-title">Delete Suggest Place Category</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         </div>
                                         <div class="modal-body">					
@@ -308,18 +302,18 @@
 
 
                         <!-- Edit Modal HTML -->
-                        <div id="editServiceCategoryModal${category.id}" class="modal fade">
+                        <div id="editSuggestPlaceCategoryModal${category.id}" class="modal fade">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form action="serviceCategoryUpdate" method="POST">
+                                    <form action="suggestPlaceCategoryUpdateController" method="POST">
                                         <div class="modal-header">						
-                                            <h4 class="modal-title">Add New Service Category</h4>
+                                            <h4 class="modal-title">Update Suggest Place Category</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         </div>
                                         <div class="modal-body">					
                                             <div class="form-group">
-                                                <label>Service Category</label>
-                                                <input type="text" class="form-control" required name="serviceCategory" value="${category.category}">
+                                                <label>Suggest Place Category</label>
+                                                <input type="text" class="form-control" required name="suggestPlaceCategory" value="${category.category}">
                                             </div>                      					
                                         </div>
                                         <div class="modal-footer">
@@ -336,15 +330,15 @@
                     </tbody>
                 </table>
                 <div class="clearfix">
-                    <div class="hint-text">Showing <b>${sclist.size()}</b> out of <b>${count}</b> entries</div>
+                    <div class="hint-text">Showing <b>${spclist.size()}</b> out of <b>${count}</b> entries</div>
                     <ul class="pagination">
                         <c:if test="${page > 1}">
-                            <li class="page-item disabled"><a href="serviceCategoryManager?page=${page-1}">Previous</a></li> 
+                            <li class="page-item disabled"><a href="suggestPlaceCategoryManager?page=${page-1}">Previous</a></li> 
                             </c:if>
 
                         <c:forEach begin="1" end="${endPage}" var="i">
 <!--                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
-                                                      href="serviceCategoryManager?page=${i}" 
+                                                      href="suggestPlaceCategoryManager?page=${i}" 
                                                       role="button">${i}</a></li>-->
                             <c:choose>
                                 <c:when test="${i == page}">
@@ -358,26 +352,26 @@
                         </c:forEach>
 
                         <c:if test="${page < endPage}">
-                            <li class="page-item disabled"><a href="serviceCategoryManager?page=${page+1}">Next</a></li> 
+                            <li class="page-item disabled"><a href="suggestPlaceCategoryManager?page=${page+1}">Next</a></li> 
                             </c:if>
                     </ul>
                 </div>
             </div>
         </div>        
     </div>
-    <!-- Edit Modal HTML -->
-    <div id="addServiceCategoryModal" class="modal fade">
+    <!-- Add Modal HTML -->
+    <div id="addSuggestPlaceCategoryModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="serviceCategoryAdd" method="POST">
+                <form action="suggestPlaceCategoryAdd" method="POST">
                     <div class="modal-header">						
-                        <h4 class="modal-title">Add New Image</h4>
+                        <h4 class="modal-title">Add New Suggest Place Category</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">					
                         <div class="form-group">
-                            <label>Service Category</label>
-                            <input type="text" class="form-control" required name="serviceCategory">
+                            <label>Suggest Place Category</label>
+                            <input type="text" class="form-control" required name="suggestPlaceCategory">
                         </div>                        					
                     </div>
                     <div class="modal-footer">

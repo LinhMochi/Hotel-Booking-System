@@ -5,9 +5,15 @@
  */
 package Controller;
 
-import DAO.ReservationDAO;
-import Model.Reservation;
+import DAO.CityDAO;
+import DAO.HotelDAO;
+import DAO.RoomDAO;
+import Model.City;
+import Model.Hotel;
+
+import Model.Room;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -17,13 +23,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Linh
+ * @author DELL
  */
-@WebServlet(name = "ManagerReservationListController", urlPatterns = {"/managerreservationlist"})
-public class ManagerReservationListController extends HttpServlet {
+@WebServlet(name = "RoomController", urlPatterns = {"/RoomManager"})
+public class RoomController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,32 +41,55 @@ public class ManagerReservationListController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    private static final int NUMBER_IMAGE = 8;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            String email = request.getParameter("email");
-            String textSearchHotel = request.getParameter("textSearchHotel");
+                try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            
+            
             String page;
             try {
                 page = request.getParameter("page");
-                if(page == null) {
+                if (page == null) {
                     page = "1";
                 }
             } catch (Exception e) {
                 page = "1";
             }
-            ReservationDAO rd = new ReservationDAO();
-            ArrayList<Reservation> listReservation = rd.getReservations(page, textSearchHotel, email);
-            int numberOfPage = rd.countReservationWithEmail(email) % 5 == 0 ? rd.countReservationWithEmail(email) / 5 : rd.countReservationWithEmail(email) / 5 + 1;
-            request.setAttribute("listReservation", listReservation);
-            request.setAttribute("numberOfPage", numberOfPage);
-            request.setAttribute("page", Integer.parseInt(page));
-            request.getRequestDispatcher("ManagerReservationList.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(ManagerReservationListController.class.getName()).log(Level.SEVERE, null, ex);
+            RoomDAO r = new RoomDAO();
+//            ArrayList<Room> list = hgd.GetAllRoom();
+            int count = r.GetAllRoom().size();
+            int endPage = count / NUMBER_IMAGE;
+            if (count % NUMBER_IMAGE != 0) {
+                endPage++;
+            }
+            ArrayList<Hotel> hlist = new HotelDAO().getAllHotel();
+            
+            ArrayList<Room> list = r.getRoom(page, NUMBER_IMAGE);
+            Room spc = new Room();
+            request.setAttribute("list", list);
+            request.setAttribute("endPage", endPage);
+            request.setAttribute("page", page);
+            request.setAttribute("count", count);
+            request.setAttribute("numberOfImage", NUMBER_IMAGE);
+            request.setAttribute("hlist", hlist);
+            
+            
+           
+//            RoomDAO hgd = new RoomDAO();
+            
+            
+
+        
+            request.getRequestDispatcher("AddRoom.jsp").forward(request, response);
+            
         }
-    }
+
+    }  
+        
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -73,7 +103,11 @@ public class ManagerReservationListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -87,7 +121,11 @@ public class ManagerReservationListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

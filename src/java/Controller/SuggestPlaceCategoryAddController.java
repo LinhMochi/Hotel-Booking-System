@@ -5,7 +5,8 @@
  */
 package Controller;
 
-import DAO.HotelGalleryDAO;
+import DAO.SuggestPlaceCategoryDAO;
+import Model.SuggestPlaceCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pham quoc an
  */
-@WebServlet(name = "galleryRemoveController", urlPatterns = {"/galleryRemove"})
-public class galleryRemoveController extends HttpServlet {
+@WebServlet(name = "SuggestPlaceCategoryAddController", urlPatterns = {"/suggestPlaceCategoryAdd"})
+public class SuggestPlaceCategoryAddController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +39,10 @@ public class galleryRemoveController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet galleryRemoveController</title>");            
+            out.println("<title>Servlet SuggestPlaceCategoryAddController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet galleryRemoveController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SuggestPlaceCategoryAddController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,8 +60,7 @@ public class galleryRemoveController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        
+//        request.getRequestDispatcher("/suggestPlaceCategory/add.jsp").forward(request, response);
     }
 
     /**
@@ -74,12 +74,15 @@ public class galleryRemoveController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         String currentpage = request.getParameter("currentpage");
-        int id = Integer.parseInt(request.getParameter("id"));
-        response.getWriter().println(id);
-        HotelGalleryDAO hgd = new HotelGalleryDAO();
-        hgd.removeImage(id);
-        response.sendRedirect("galleryManager?page=" + currentpage);
+        String suggestPlaceCategory = request.getParameter("suggestPlaceCategory");
+        SuggestPlaceCategoryDAO spcd = new SuggestPlaceCategoryDAO();
+        SuggestPlaceCategory spc = new SuggestPlaceCategory();
+        spc.setCategory(suggestPlaceCategory);
+        spcd.addSuggestPlaceCategory(spc);
+        response.sendRedirect("suggestPlaceCategoryManager?page=" + currentpage);
     }
 
     /**

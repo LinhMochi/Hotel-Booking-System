@@ -5,7 +5,8 @@
  */
 package Controller;
 
-import DAO.HotelGalleryDAO;
+import DAO.RoomDAO;
+import Model.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pham quoc an
+ * @author DELL
  */
-@WebServlet(name = "galleryRemoveController", urlPatterns = {"/galleryRemove"})
-public class galleryRemoveController extends HttpServlet {
+@WebServlet(name = "RoomAddController", urlPatterns = {"/RoomAdd"})
+public class RoomAddController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,15 +36,7 @@ public class galleryRemoveController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet galleryRemoveController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet galleryRemoveController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+ 
         }
     }
 
@@ -59,8 +52,7 @@ public class galleryRemoveController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        
+        processRequest(request, response);
     }
 
     /**
@@ -74,12 +66,35 @@ public class galleryRemoveController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        String name = request.getParameter("name");
         String currentpage = request.getParameter("currentpage");
-        int id = Integer.parseInt(request.getParameter("id"));
-        response.getWriter().println(id);
-        HotelGalleryDAO hgd = new HotelGalleryDAO();
-        hgd.removeImage(id);
-        response.sendRedirect("galleryManager?page=" + currentpage);
+        String image = request.getParameter("image");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        double price = Double.parseDouble(request.getParameter("price"));
+        int maxadult = Integer.parseInt(request.getParameter("maxadult"));
+        int maxchild = Integer.parseInt(request.getParameter("maxchild"));
+        String bed = request.getParameter("bed");
+        String area = request.getParameter("area");
+        String description = request.getParameter("description");
+        int hotelId = Integer.parseInt(request.getParameter("hotelId"));
+        
+       
+        RoomDAO hgd = new RoomDAO();
+        Room h = new Room();
+        h.setName(name);
+        h.setImage(image);
+        h.setQuantity(quantity);
+        h.setPrice(price);
+        h.setMaxAdult(maxadult);
+        h.setMaxChild(maxchild);
+        h.setBed(bed);
+        h.setArea(area);
+        h.setDescription(description);
+        h.setHotelId(hotelId);
+        hgd.addRoom(h);
+        response.sendRedirect("RoomManager?page=" + currentpage);
     }
 
     /**

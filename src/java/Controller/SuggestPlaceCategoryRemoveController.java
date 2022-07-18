@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import DAO.HotelGalleryDAO;
+import DAO.SuggestPlaceCategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pham quoc an
  */
-@WebServlet(name = "galleryRemoveController", urlPatterns = {"/galleryRemove"})
-public class galleryRemoveController extends HttpServlet {
+@WebServlet(name = "SuggestPlaceCategoryRemoveController", urlPatterns = {"/suggestPlaceCategoryRemove"})
+public class SuggestPlaceCategoryRemoveController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class galleryRemoveController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet galleryRemoveController</title>");            
+            out.println("<title>Servlet SuggestPlaceCategoryRemoveController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet galleryRemoveController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SuggestPlaceCategoryRemoveController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,8 +59,7 @@ public class galleryRemoveController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        
+
     }
 
     /**
@@ -76,10 +75,9 @@ public class galleryRemoveController extends HttpServlet {
             throws ServletException, IOException {
         String currentpage = request.getParameter("currentpage");
         int id = Integer.parseInt(request.getParameter("id"));
-        response.getWriter().println(id);
-        HotelGalleryDAO hgd = new HotelGalleryDAO();
-        hgd.removeImage(id);
-        response.sendRedirect("galleryManager?page=" + currentpage);
+        SuggestPlaceCategoryDAO spcd = new SuggestPlaceCategoryDAO();
+        spcd.removeSuggestPlaceCategory(id);
+        response.sendRedirect("suggestPlaceCategoryManager?page=" + currentpage);
     }
 
     /**

@@ -36,7 +36,7 @@ public class galleryAddController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
         }
     }
 
@@ -52,7 +52,7 @@ public class galleryAddController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/gallery/add.jsp").forward(request, response);
+//        request.getRequestDispatcher("/gallery/add.jsp").forward(request, response);
     }
 
     /**
@@ -66,6 +66,9 @@ public class galleryAddController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        String currentpage = request.getParameter("currentpage");
         String img = request.getParameter("img");
         String title = request.getParameter("title");
         int hotelID = Integer.parseInt(request.getParameter("hotelID"));
@@ -75,7 +78,7 @@ public class galleryAddController extends HttpServlet {
         h.setTitle(title);
         h.setHotelId(hotelID);
         hgd.addImage(h);
-        response.sendRedirect("galleryManager");
+        response.sendRedirect("galleryManager?page=" + currentpage);
     }
 
     /**

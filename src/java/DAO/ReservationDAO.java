@@ -40,17 +40,16 @@ public class ReservationDAO {
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<Reservation> ar = new ArrayList<>();
         try {
-            String sql = "Select r.id, r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name From Reservations r \n"
+            String sql = "Select ROW_NUMBER() OVER (ORDER BY r.id) AS [id], r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name From Reservations r \n"
                     + "inner join Users u on r.userId = u.id \n"
                     + "inner join Hotels h on r.hotelId = h.id \n"
-                    + "where u.email = ? and h.name LIKE '%" + textSearchHotel + "%' \n"
+                    + "where u.email LIKE '" + email +"%' and h.name LIKE '%" + textSearchHotel +"%' \n"
                     + "ORDER BY id ASC \n"
                     + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
-            ps.setInt(2, start);
-            ps.setInt(3, numOfElement);
+            ps.setInt(1, start);
+            ps.setInt(2, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString(9));
@@ -89,8 +88,49 @@ public class ReservationDAO {
             ps.setDate(5, reservation.getArrival());
             ps.setDate(6, reservation.getDepartment());
             ps.setString(7, "Pending");
-            ps.setString(8, "...");
-            ps.setString(9, "...");
+            ps.setInt(8, reservation.getUser().getId());
+            ps.setInt(9, reservation.getHotel().getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+    
+    public void updateReservationInfoById(int id, Reservation reservation) {
+        String sql = "UPDATE r SET r.noOfAdults = ? , r.noOfChild = ? , r.noOfRoom = ? , r.bookDate = ? , r.arrival = ? , r.department = ? , r.status = ? \n"
+                + "From ( Select *, ROW_NUMBER() OVER (ORDER BY id) AS [idu] FROM Reservations ) r \n"
+                + "Where r.idu = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reservation.getAdult());
+            ps.setInt(2, reservation.getChild());
+            ps.setInt(3, reservation.getNoRoom());
+            ps.setString(4, reservation.getBookDate());
+            ps.setDate(5, reservation.getArrival());
+            ps.setDate(6, reservation.getDepartment());
+            ps.setString(7, reservation.getStatus());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+    
+    public void updateReservationInfoByEmail(int id, String email, Reservation reservation) {
+        String sql = "UPDATE r SET r.noOfAdults = ? , r.noOfChild = ? , r.noOfRoom = ? , r.bookDate = ? , r.arrival = ? , r.department = ? , r.status = ? from Reservations AS r \n"
+                + "From ( Select *, ROW_NUMBER() OVER (ORDER BY id) AS [idu] FROM Reservations ) r \n"
+                + "INNER JOIN Users AS u on r.userId = u.id where r.idu = ? and u.email LIKE '" + email +"%' ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reservation.getAdult());
+            ps.setInt(2, reservation.getChild());
+            ps.setInt(3, reservation.getNoRoom());
+            ps.setString(4, reservation.getBookDate());
+            ps.setDate(5, reservation.getArrival());
+            ps.setDate(6, reservation.getDepartment());
+            ps.setString(7, reservation.getStatus());
+            ps.setInt(8, reservation.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -106,7 +146,6 @@ public class ReservationDAO {
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-
     }
 
     public int countReservation() {
@@ -144,11 +183,12 @@ public class ReservationDAO {
 
     public int countReservationWithEmail(String email) {
         int count = 0;
-        String sql = "select count(*) from Reservations WHERE email = ? ";
+        String sql = "select count(*) from Reservations r \n"
+                + "inner join Users u on r.userId = u.id \n"
+                + "WHERE u.email LIKE '" + email +"%' ";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
             rs = ps.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
@@ -159,13 +199,14 @@ public class ReservationDAO {
         return count;
     }
 
-    public void updateStatus(int id, String status) {
+    public void updateStatus(String email, String status) {
+        String sql = "UPDATE r SET r.status = ? from Reservations AS r \n"
+                + "INNER JOIN Users AS u on r.userId = u.id where u.email LIKE '" + email +"%' ";
         try {
-            String sql = "UPDATE Reservations SET status = ? WHERE id = ?";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, status);
-            ps.setInt(2, id);
+            ps.setString(2, email);
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -187,9 +228,7 @@ public class ReservationDAO {
             if (rs.next()) {
                 userId = rs.getInt(1);
             } else {
-//                ps = conn.prepareStatement("IDENT_CURRENT('Reservations') as id;");
-//                userId = ps.executeQuery().getInt(1) + 1;
-
+            
                 sql = "INSERT INTO Users (fullName, gender, dob, email, address, avatar, phoneNumber, password, role, status)\n"
                         + " VALUES (" + "?," + "?," + "?," + "?," + "?," + "?," + "?," + "?," + "?," + "?);";
                 ps = conn.prepareStatement(sql);
@@ -212,7 +251,7 @@ public class ReservationDAO {
 
                 if (rs.next()) {
                     userId = rs.getInt(1);// get Id of the guest;
-                }//                    else return false;
+                }
             }
             sql = "INSERT INTO Reservations (noOfAdults, noOfChild, noOfRoom, bookDate, arrival, department, status, userId, hotelId) VALUES"
                     + "(?,?,?,?,?,?,?,?,?)";
@@ -348,19 +387,3 @@ public class ReservationDAO {
     }
 }
 
-//class demo {
-//    public static void main(String[] args) {
-//        Search search = new Search("", Date.valueOf("2022-08-08"), Date.valueOf("2022-08-10"), 1, 0, 1);
-//        User user = new User();
-//        user.setFullName("Tạ Hiếu");
-//        user.setPhoneNumber("097865123");
-//        user.setEmail("demoadd02@gmail.com");
-//        user.setAvatar("https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg");
-//        BookedRoom br = new BookedRoomDAO().getBookedRoom(3, 1, 2, search.getArrival(), search.getDepartment());
-//        if(br  == null){ 
-//            System.out.println("Hết phòng"); return; }
-//        ReservationDetail cart = new ReservationDetail();
-//        cart.addBookedRoom(br);
-//        System.out.println(new ReservationDAO().insertReservation(95, search, 2, cart," Pending"));
-//    }
-//}
