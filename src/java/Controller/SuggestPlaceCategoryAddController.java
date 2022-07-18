@@ -39,7 +39,7 @@ public class SuggestPlaceCategoryAddController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SuggestPlaceCategoryAddController</title>");            
+            out.println("<title>Servlet SuggestPlaceCategoryAddController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SuggestPlaceCategoryAddController at " + request.getContextPath() + "</h1>");
@@ -76,12 +76,13 @@ public class SuggestPlaceCategoryAddController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
+        String currentpage = request.getParameter("currentpage");
         String suggestPlaceCategory = request.getParameter("suggestPlaceCategory");
         SuggestPlaceCategoryDAO spcd = new SuggestPlaceCategoryDAO();
         SuggestPlaceCategory spc = new SuggestPlaceCategory();
         spc.setCategory(suggestPlaceCategory);
         spcd.addSuggestPlaceCategory(spc);
-        response.sendRedirect("suggestPlaceCategoryManager");
+        response.sendRedirect("suggestPlaceCategoryManager?page=" + currentpage);
     }
 
     /**
