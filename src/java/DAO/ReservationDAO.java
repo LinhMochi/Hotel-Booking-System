@@ -89,7 +89,7 @@ public class ReservationDAO {
     }
     
     public void updateReservationInfo(String email, Reservation reservation) {
-        String sql = "UPDATE r SET r.noOfAdults = ? , r.noOfChild = ? , r.noOfRoom = ? , r.bookDate = ? , r.arrival = ? , r.department = ? from Reservations AS r \n"
+        String sql = "UPDATE r SET r.noOfAdults = ? , r.noOfChild = ? , r.noOfRoom = ? , r.bookDate = ? , r.arrival = ? , r.department = ? , r.status = ? from Reservations AS r \n"
                 + "INNER JOIN Users AS u on r.userId = u.id where u.email LIKE '" + email +"%' ";
         try {
             conn = new DBcontext().getConnection();
@@ -100,6 +100,7 @@ public class ReservationDAO {
             ps.setString(4, reservation.getBookDate());
             ps.setDate(5, reservation.getArrival());
             ps.setDate(6, reservation.getDepartment());
+            ps.setString(7, reservation.getStatus());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -115,7 +116,6 @@ public class ReservationDAO {
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-
     }
     
     public int countReservation() {
@@ -169,13 +169,14 @@ public class ReservationDAO {
         return count;
     }
     
-    public void updateStatus(int id, String status) {
+    public void updateStatus(String email, String status) {
+        String sql = "UPDATE r SET r.status = ? from Reservations AS r \n"
+                + "INNER JOIN Users AS u on r.userId = u.id where u.email LIKE '" + email +"%' ";
         try {
-            String sql = "UPDATE Reservations SET status = ? WHERE id = ?";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, status);
-            ps.setInt(2, id);
+            ps.setString(2, email);
             ps.executeUpdate();
 
         } catch (SQLException e) {
