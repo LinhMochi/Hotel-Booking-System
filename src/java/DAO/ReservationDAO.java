@@ -6,6 +6,7 @@
 package DAO;
 
 import DBcontext.DBcontext;
+import Model.BookedRoom;
 import Model.Reservation;
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,6 +16,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import Model.User;
 import Model.Hotel;
+import Model.ReservationDetail;
+import Model.Search;
+import Model.Service;
+import Model.SubTime;
+import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +30,7 @@ import Model.Hotel;
  */
 public class ReservationDAO {
 
-    Connection conn = null;
+    Connection conn = new DBcontext().getConnection();
     PreparedStatement ps = null;
     ResultSet rs = null;
 
@@ -46,7 +54,7 @@ public class ReservationDAO {
             while (rs.next()) {
                 User user = new User(rs.getString(9));
                 Hotel hotel = new Hotel(rs.getString(10));
-                ar.add(new Reservation(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), rs.getString(8), user, hotel));
+                ar.add(new Reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), rs.getString(8), user, hotel));
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -128,7 +136,7 @@ public class ReservationDAO {
             e.printStackTrace(System.out);
         }
     }
-    
+
     public void deleteReservation(int id) {
         String sql = "DELETE Reservations WHERE id = ? ";
         try {
@@ -139,7 +147,7 @@ public class ReservationDAO {
             e.printStackTrace(System.out);
         }
     }
-    
+
     public int countReservation() {
         int count = 0;
         String sql = "select count(*) from Reservations";
@@ -155,7 +163,7 @@ public class ReservationDAO {
         }
         return count;
     }
-    
+
     public int countReservationWithId(int id) {
         int count = 0;
         String sql = "select count(*) from Reservations WHERE id = ? ";
@@ -172,7 +180,7 @@ public class ReservationDAO {
         }
         return count;
     }
-    
+
     public int countReservationWithEmail(String email) {
         int count = 0;
         String sql = "select count(*) from Reservations r \n"
@@ -190,7 +198,7 @@ public class ReservationDAO {
         }
         return count;
     }
-    
+
     public void updateStatus(String email, String status) {
         String sql = "UPDATE r SET r.status = ? from Reservations AS r \n"
                 + "INNER JOIN Users AS u on r.userId = u.id where u.email LIKE '" + email +"%' ";
@@ -205,4 +213,177 @@ public class ReservationDAO {
             e.printStackTrace(System.out);
         }
     }
+
+    public boolean insertReservation(User user, Search search, int hotelId, ReservationDetail cart, String status) {
+        String current = new SubTime().getCurrent();
+        String sql = "";
+        int userId = 0;
+        int newReserId = getIden("Reservations") + 1;
+        try {
+            conn.setAutoCommit(false);
+            ps = conn.prepareStatement("SELECT * FROM Users where email=?");
+            ps.setString(1, user.getEmail());
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                userId = rs.getInt(1);
+            } else {
+            
+                sql = "INSERT INTO Users (fullName, gender, dob, email, address, avatar, phoneNumber, password, role, status)\n"
+                        + " VALUES (" + "?," + "?," + "?," + "?," + "?," + "?," + "?," + "?," + "?," + "?);";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, user.getFullName());
+                ps.setInt(2, 0);
+                ps.setDate(3, null);
+                ps.setString(4,user.getEmail());
+                ps.setString(5,"Hà Nội");
+                ps.setString(6,user.getAvatar());
+                ps.setString(7, user.getPhoneNumber());
+                ps.setString(8, null);
+                ps.setString(9, "Customer");
+                ps.setString(10, "Guest");
+
+                ps.executeUpdate();// add user
+                
+                ps = conn.prepareStatement("SELECT * FROM Users where email = ?");
+                ps.setString(1, user.getEmail());
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    userId = rs.getInt(1);// get Id of the guest;
+                }
+            }
+            sql = "INSERT INTO Reservations (noOfAdults, noOfChild, noOfRoom, bookDate, arrival, department, status, userId, hotelId) VALUES"
+                    + "(?,?,?,?,?,?,?,?,?)";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, search.getNoAdult());
+            ps.setInt(2, search.getNoChild());
+            ps.setInt(3, cart.getBookedRoomQuantity());// get no room in reservation detail
+            ps.setString(4, current);
+            ps.setDate(5, search.getArrival());
+            ps.setDate(6, search.getDepartment());
+            ps.setString(7, status);
+            ps.setInt(8, userId);
+            ps.setInt(9, hotelId);
+
+            ps.executeUpdate();
+
+            sql = "INSERT INTO ReservationRoom(quantity,unitprice,roomId,reservationId,discount) VALUES"
+                    + "(?,?,?,?,?)";
+            for (BookedRoom br : cart.getBookedRooms()) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, br.getQuantity());
+                ps.setDouble(2, br.getPrice()/1000000);
+                ps.setInt(3, br.getId());
+                ps.setInt(4, newReserId);
+                ps.setDouble(5, br.getDiscount());
+
+                ps.executeUpdate();
+            }
+
+            sql = "INSERT INTO ReservationService() VALUES"
+                    + "(?,?,?,?)";
+
+            for (Service sv : cart.getBookedServices()) {
+                ps = conn.prepareStatement(sql);
+                ps.setDouble(1, sv.getPrice()/1000000);
+                ps.setInt(2, sv.getQuantity());
+                ps.setInt(3, newReserId);
+                ps.setInt(4, sv.getId());
+
+                ps.executeUpdate();
+            }
+            conn.commit();
+            conn.setAutoCommit(true);
+
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+                conn.setAutoCommit(true);
+                return false;
+            } catch (SQLException ex1) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean insertReservation(int userId, Search search, int hotelId, ReservationDetail cart,String status){
+        String current = new SubTime().getCurrent();
+        String sql = "";        
+        int newReserId = getIden("Reservations") + 1;
+        try {
+            conn.setAutoCommit(false);
+            if(cart.isEmptyRoom()) throw new SQLException();// room cart empty => error
+             sql = "INSERT INTO Reservations (noOfAdults, noOfChild, noOfRoom, bookDate, arrival, department, status, userId, hotelId) VALUES"
+                    + "(?,?,?,?,?,?,?,?,?)";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, search.getNoAdult());
+            ps.setInt(2, search.getNoChild());
+            ps.setInt(3, cart.getBookedRoomQuantity());// get no room in reservation detail
+            ps.setString(4, current);
+            ps.setDate(5, search.getArrival());
+            ps.setDate(6, search.getDepartment());
+            ps.setString(7, status);
+            ps.setInt(8, userId);
+            ps.setInt(9, hotelId);
+
+            ps.executeUpdate();
+            
+            sql = "INSERT INTO ReservationRoom(quantity,unitprice,roomId,reservationId,discount) VALUES"
+                    + "(?,?,?,?,?)";
+            for (BookedRoom br : cart.getBookedRooms()) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, br.getQuantity());
+                ps.setDouble(2, br.getPrice()/1000000);
+                ps.setInt(3, br.getId());
+                ps.setInt(4, newReserId);
+                ps.setDouble(5, br.getDiscount());
+
+                ps.executeUpdate();
+            }
+            
+            if(!cart.isEmptyService()){
+                sql = "INSERT INTO ReservationService() VALUES"
+                        + "(?,?,?,?)";
+
+                for (Service sv : cart.getBookedServices()) {
+                    ps = conn.prepareStatement(sql);
+                    ps.setDouble(1, sv.getPrice()/1000000);
+                    ps.setInt(2, sv.getQuantity());
+                    ps.setInt(3, newReserId);
+                    ps.setInt(4, sv.getId());
+
+                    ps.executeUpdate();
+                }
+            }
+            conn.commit();
+            conn.setAutoCommit(true);
+
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+                conn.setAutoCommit(true);
+                return false;
+            } catch (SQLException ex1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int getIden(String tb) {
+        try {
+            ps = conn.prepareStatement("SELECT IDENT_CURRENT(?) as id");
+            ps.setString(1, tb);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 }
+

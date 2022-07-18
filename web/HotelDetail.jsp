@@ -84,7 +84,7 @@
                         <h2>Bộ sưu tập</h2>
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </header>
-                    <div class="empty-cart flex-center <c:if test="${empty sessionScope.homegallery}">hidden</c:if>  ">
+                    <div class="empty-cart flex-center <c:if test="${not empty sessionScope.homegallery}">hidden</c:if>  ">
                         <div>
                             <i class="fa fa-archive" aria-hidden="true"></i>
                         </div>
@@ -285,7 +285,7 @@
                     <c:set var="homepromotion" value="${sessionScope.promotion}"/>
 
                     <c:forEach var="room" varStatus="status" items="${sessionScope.availableRoom}">
-                        <div class="card-ex grid-3">
+                        <div class="card-ex grid-3" id = "${room.id}">
                             <div class="card-image"><img src="${room.image}" alt="${room.name}"></div>
                             <div class="card-contain">
                                 <div class="card-header">
@@ -330,8 +330,8 @@
                                         </c:if>
                                 </div>
                                 <div>
-                                    <div class="btn pick-room">Thêm vào giỏ</div>
-                                    <div class="btn pick-room">Đặt ngay</div>  
+                                    <div class="btn add-cart pick-room">Thêm vào giỏ</div>
+                                    <div class="btn book-now pick-room">Đặt ngay</div>  
                                 </div>
 
 
@@ -388,11 +388,11 @@
             </div>
         </div>
 
-        <div id="service" class="service-wrapper">
+                    <div id="service" class="service-wrapper <c:if test="${empty sessionScope.availableService}">hidden</c:if>">
             <h3>Dịch vụ kèm theo</h3>
             <div class="service-container">
                 <c:forEach items="${sessionScope.availableService}" var="service">
-                    <div class="service-item">
+                    <div class="service-item" id="${service.id}">
                         <div class="service-name">${service.name}</div>
                         <div class="quantity">
                             <div class="label">Số lượng</div>
@@ -422,6 +422,33 @@
 
         </script>
         <script type="text/javascript">
+            let room_list = document.querySelector("#room .room-wrapper-container");
+
+            if (room_list != null)
+                room_list.querySelectorAll('.card-ex').forEach((r) => {
+                    let addbtn = r.querySelector('.add-cart');
+                    let bookbtn = r.querySelector('.book-now');
+                    console.log(r.id);
+                    addbtn.addEventListener('click', () => {
+                        let newForm = document.createElement("form");
+                        newForm.classList.toggle("temp_form");
+                        newForm.method = "POST";
+                        newForm.action = "AddCart?add=room&id=" + r.id + "&quan="+1+"&p=hoteldetail";
+                        room_list.appendChild(newForm);
+                        newForm.submit();
+                    });
+                    
+                    bookbtn.addEventListener('click', () => {
+                        let newForm = document.createElement("form");
+                        newForm.classList.toggle("temp_form");
+                        newForm.method = "POST";
+                        newForm.action = "AddCart?add=room&id=" + r.id + "&quan="+1;
+                        room_list.appendChild(newForm);
+                        newForm.submit();
+                    });
+                });
+
+
             let service_list = document.querySelector('.service-wrapper .service-container');
             if (service_list !== null) {
                 service_list.querySelectorAll('.service-item').forEach((service_item) => {
@@ -447,7 +474,7 @@
                         let newForm = document.createElement("form");
                         newForm.classList.toggle("temp_form");
                         newForm.method = "POST";
-                        newForm.action = "#?id=" + 1 + "&quantity=" + 1;
+                        newForm.action = "AddCart?add=service&id=" + service_item.id + "&quan=" + quan.value;
                         service_item.appendChild(newForm);
 
                         // console.log(document.querySelector('form.temp_form'));
@@ -458,7 +485,7 @@
         </script>
 
         <c:set var="ic" value="-1"/>
-        <div id="convenient" class="convenient-wrapper">
+        <div id="convenient" class="convenient-wrapper <c:if test="${empty sessionScope.convenience}">hidden</c:if>">
             <h2>Tiện ích của chúng tôi</h2>
             <div class="convenient-contain">
                 <c:forEach items="${sessionScope.convenience}" var="con" varStatus="i">
@@ -480,7 +507,7 @@
             </div>
         </div>
         <c:set var="isp" value="-1"/>
-        <div id="suggest-place" class="suggest-places-wrapper">
+        <div id="suggest-place" class="suggest-places-wrapper <c:if test="${empty sessionScope.hotelsp}">hidden</c:if>">
             <h2>Xung quanh khách sạn</h2>
             <div class="suggest-place-contain">
                 <c:forEach items="${sessionScope.hotelsp}" var="sgp" varStatus="i">
