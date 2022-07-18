@@ -32,7 +32,7 @@ public class ReservationDAO {
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<Reservation> ar = new ArrayList<>();
         try {
-            String sql = "Select r.id, r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name From Reservations r \n"
+            String sql = "Select ROW_NUMBER() OVER (ORDER BY r.id) AS [id], r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name From Reservations r \n"
                     + "inner join Users u on r.userId = u.id \n"
                     + "inner join Hotels h on r.hotelId = h.id \n"
                     + "where u.email LIKE '" + email +"%' and h.name LIKE '%" + textSearchHotel +"%' \n"
@@ -88,8 +88,29 @@ public class ReservationDAO {
         }
     }
     
-    public void updateReservationInfo(String email, Reservation reservation) {
+    public void updateReservationInfoById(int id, Reservation reservation) {
+        String sql = "UPDATE r SET r.noOfAdults = ? , r.noOfChild = ? , r.noOfRoom = ? , r.bookDate = ? , r.arrival = ? , r.department = ? , r.status = ? \n"
+                + "From ( Select *, ROW_NUMBER() OVER (ORDER BY id) AS [id] FROM Reservations ) r \n"
+                + "Where id = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reservation.getAdult());
+            ps.setInt(2, reservation.getChild());
+            ps.setInt(3, reservation.getNoRoom());
+            ps.setString(4, reservation.getBookDate());
+            ps.setDate(5, reservation.getArrival());
+            ps.setDate(6, reservation.getDepartment());
+            ps.setString(7, reservation.getStatus());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+    
+    public void updateReservationInfoByEmail(String email, Reservation reservation) {
         String sql = "UPDATE r SET r.noOfAdults = ? , r.noOfChild = ? , r.noOfRoom = ? , r.bookDate = ? , r.arrival = ? , r.department = ? , r.status = ? from Reservations AS r \n"
+                
                 + "INNER JOIN Users AS u on r.userId = u.id where u.email LIKE '" + email +"%' ";
         try {
             conn = new DBcontext().getConnection();
