@@ -303,7 +303,15 @@
                                 <td>${photo.id}</td>
                                 <td>${photo.title}</td>
                                 <td><img src="${photo.image}" width="130" height="90" alt="hotel-img"></td>
-                                <td>${photo.hotelId}</td>
+                                <td>
+                                    <c:forEach var="hotel" items="${hlist}">
+                                        <c:choose>
+                                            <c:when test="${hotel.id == photo.hotelId}">
+                                                ${hotel.name}
+                                            </c:when>
+                                        </c:choose>
+                                    </c:forEach>
+                                </td>
                                 <td>
                                     <a href="#editGalleryModal${photo.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                     <a href="#deleteGalleryModal${photo.id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -357,7 +365,14 @@
                                                 <label>Hotel</label>
                                                 <select  class="form-control" name="hotelID">
                                                     <c:forEach var="hotel" items="${hlist}">
-                                                        <option value="${hotel.id}">${hotel.name}</option>
+                                                        <c:choose>
+                                                            <c:when test="${hotel.id == photo.hotelId}">
+                                                                <option value="${hotel.id}" selected>${hotel.name}</option>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <option value="${hotel.id}">${hotel.name}</option>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </c:forEach>
                                                 </select>
                                             </div>                    					
