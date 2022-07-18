@@ -9,298 +9,298 @@ and open the template in the editor.
 */
 
 *{
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body{
-	width: 100vw;
-	height: 100vh;
-	background-image: url('https://www.wallpapers13.com/wp-content/uploads/2015/11/Summer-sea-wallpaper-hd-2560X1600-840x525.jpg');
-	background-size: cover;
-	background-repeat: no-repeat;
-	position: relative;	
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	line-height: 1.5rem;
-	color: #cc8c18;
-	z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('https://www.wallpapers13.com/wp-content/uploads/2015/11/Summer-sea-wallpaper-hd-2560X1600-840x525.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;	
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.5rem;
+    color: #cc8c18;
+    z-index: -1;
 }
 
 .flex-center{
-	position: relative;	
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    position: relative;	
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .flex-column{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column !important;
 }
 .flex-between{
-	justify-content: space-around;
+    justify-content: space-around;
 }
 body::after{
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.7));
-	z-index: -1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.7));
+    z-index: -1;
 }
 
 .box-retagle,
 .reset-box{
-	width: 400px;
-	height: 300px;
-	padding: 20px 20px 0 20px;
-	margin: 20px 20px 0 20px;
-	background: #fff;
-	box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
-	z-index: 2;
-	border-radius: 5px;
-	transition: tranform 0.5s;
+    width: 400px;
+    height: 300px;
+    padding: 20px 20px 0 20px;
+    margin: 20px 20px 0 20px;
+    background: #fff;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
+    z-index: 2;
+    border-radius: 5px;
+    transition: tranform 0.5s;
 }
 
 h3{
-	font-size: 36px;
-	text-align: center;
-	font-weight: bold;
-	margin: 20px 0px 10px 0;
+    font-size: 36px;
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0px 10px 0;
 }
 
 
 
 .reset-box form,
 .flex-center-row{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }
 
 .reset-box p {
-	text-align: left;
-	padding-left: 20px;
-	margin: 40px 0 0 0;
+    text-align: left;
+    padding-left: 20px;
+    margin: 40px 0 0 0;
 
 }
 
 .box{
-	position: absolute;
+    position: absolute;
 }
 
 .input-box{
-	position: relative;
-	margin-top: 10px;
-	width: 200px;
+    position: relative;
+    margin-top: 10px;
+    width: 200px;
 }
 .reset-box .input-box input{
-	width: 100%;
-	height: 100%;
-	outline: none;
-	border: none;	
-	border-bottom: 1px solid #9ba39a;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;	
+    border-bottom: 1px solid #9ba39a;
 }
 .reset-box .box input:focus,
 .reset-box .input-box input:focus{
- 	border-bottom: 1px solid #cc8c18;
+    border-bottom: 1px solid #cc8c18;
 }
 
 .reset-box .box input:valid,
 .reset-box .input-box input:valid
 {
-	border-bottom: 1px solid greenyellow;
+    border-bottom: 1px solid greenyellow;
 }
 
 .reset-box .box .lable,
 .reset-box .input-box .lable{
-	font-size: 18px;
-	font-weight: 300;
+    font-size: 18px;
+    font-weight: 300;
 }
 .input-box .eye i,.input-box .eye{
-	position: absolute;
-	top: 50%;
-	right: 5px;
-	cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    cursor: pointer;
 }
 .reset-box button{
-	height: 30px;
-	width: 100px;
-	padding:5px 5px 5px 5px;
-	margin: 20px 0 0 10px;
-	border-radius: 10px;
-	background: #cc8c18;
-	cursor: pointer;
-	border: 1px solid gray;
-	color: #fff;
+    height: 30px;
+    width: 100px;
+    padding:5px 5px 5px 5px;
+    margin: 20px 0 0 10px;
+    border-radius: 10px;
+    background: #cc8c18;
+    cursor: pointer;
+    border: 1px solid gray;
+    color: #fff;
 }
 .reset-box button:hover{
-	background: #fff;
-	color: #cc8c18;
+    background: #fff;
+    color: #cc8c18;
 }
 .reset-box button.back{
-	background: #118918;
+    background: #118918;
 }
 
 .reset-box button.back:hover{
-	color: #118918;
-	background: #fff;
+    color: #118918;
+    background: #fff;
 }
 
 form .footer{
-	width: 100%;
+    width: 100%;
 }
 
 /*			error box 			*/
 
 .error-box{
-	position: absolute;
-	background: transparent;
-	display: flex;
-	flex-direction: column;
-	right: 150px;
-	top: 25px;
+    position: absolute;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    right: 150px;
+    top: 25px;
 
 }
 
 @keyframes error-display{
-	0%{
-		width: 100%;
-	}
-	100%{
-		width: 0%;
-	}
+    0%{
+        width: 100%;
+    }
+    100%{
+        width: 0%;
+    }
 }
 
 @keyframes auto-hidden{
-	
-	0%{
-		opacity: 0;
-		padding: 20px 10px;
-		width: 250px;
-		min-height: 80px;
 
-	}
-	10%{
-		width: 250px;
-		padding: 20px 10px;
-		opacity: 1.0;
-		min-height: 80px;
-	}	
+    0%{
+        opacity: 0;
+        padding: 20px 10px;
+        width: 250px;
+        min-height: 80px;
 
-	89%{
-		opacity: 1;
-		padding: 20px 10px;
-		width: 250px;
-		min-height: 80px;
-	}
-	100%{
-		opacity: 0;
-		height: 0;
-		padding: 0px;
-		width: 0px;
-	}
+    }
+    10%{
+        width: 250px;
+        padding: 20px 10px;
+        opacity: 1.0;
+        min-height: 80px;
+    }	
+
+    89%{
+        opacity: 1;
+        padding: 20px 10px;
+        width: 250px;
+        min-height: 80px;
+    }
+    100%{
+        opacity: 0;
+        height: 0;
+        padding: 0px;
+        width: 0px;
+    }
 }
 
 
 .error-message{
-	color: #fff;
-	width: 0;
-	height: 0;
-	padding: 0;
-	margin-top: 10px;
-	background: rgba(255, 128, 128, 0.5);
-	display: flex;
-	position: relative;
-	flex-direction: row-reverse;
-	justify-content: space-between;
-	align-content: center;
-	border-radius: 5px;
-	overflow: hidden;
-	transition: 0.5s;
+    color: #fff;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin-top: 10px;
+    background: rgba(255, 128, 128, 0.5);
+    display: flex;
+    position: relative;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-content: center;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.5s;
 }
 
 .error-message::before{
-	content: '';
-	background: red;
-	position: absolute;
-	width: 100%;
-	height: 5px;
-	bottom: 0;
-	left: 0;
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
+    content: '';
+    background: red;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .error-message.active{
-	animation: auto-hidden 5s;
+    animation: auto-hidden 5s;
 }
 
 .error-message.active::before{
-	animation: error-display 5s;
-	animation-delay: 0.4s;
+    animation: error-display 5s;
+    animation-delay: 0.4s;
 }
 
 .close-error-message{
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	background: gray;
-	border-radius: 50%;
-	cursor: pointer;
-	margin-left: 5px;
-	transition: linear 0.5s ease;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    background: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: linear 0.5s ease;
 }
 .close-error-message:hover{
-	background: #fff;
-	color: #f00;
+    background: #fff;
+    color: #f00;
 }
 .hidden{
-	padding: 0px !important;
-	height: 0px !important;
-	margin: 0px !important;
-	width:  0px !important;
-	overflow: hidden;
-	opacity: 0;	
+    padding: 0px !important;
+    height: 0px !important;
+    margin: 0px !important;
+    width:  0px !important;
+    overflow: hidden;
+    opacity: 0;	
 }
 .absolutely{
-	position: absolute;
+    position: absolute;
 }
 
 .preloading{
-	width: 100vw;
-	height: 100vh;
-	position: absolute !important;
-	z-index: -10;
-	background: rgba(0, 0, 0, 0.25);
+    width: 100vw;
+    height: 100vh;
+    position: absolute !important;
+    z-index: -10;
+    background: rgba(0, 0, 0, 0.25);
 }
 
 .loading{
-	width: 125px;
-	height: 125px;
-	background: none;
-	border-radius: 50%;
-	border: 5px solid rgba(0, 0, 0, .5);
-	border-top-color: rgba(0, 0, 255, 0.8);
+    width: 125px;
+    height: 125px;
+    background: none;
+    border-radius: 50%;
+    border: 5px solid rgba(0, 0, 0, .5);
+    border-top-color: rgba(0, 0, 255, 0.8);
 }
 @keyframes load{
-	0%{
-		transform: rotate(0deg);
-	}
-	100%{
-		transform: rotate(360deg);
-	}
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
 }
 .preloading.active{
-	z-index: 10;
+    z-index: 10;
 }
 .preloading.active .loading{
-	animation: load 1.2s infinite linear;
+    animation: load 1.2s infinite linear;
 }

@@ -26,6 +26,12 @@ public class User {
 
     public User() {
     }
+    
+    public User(String email) {
+        if (email != null) {
+            this.email = email;
+        }
+    }
 
     public User(int id, String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password, String role, String status) {
         this.id = id;
@@ -143,5 +149,8 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    public boolean isManager(){
+        return role.equals("Manager");
     }
 }
