@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- <%@page contentType="text/html" pageEncoding="UTF-8"%> -->
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -350,7 +350,7 @@
                                     <td>${room.name}</td>
                                     <td><img src="${room.image}" width="130" height="90" alt="hotel-img"></td>
                                     <td>${room.quantity}</td>
-                                    <td>${room.price}</td>
+                                    <td><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></td>
                                     <td>${room.maxAdult}</td>
                                     <td>${room.maxChild}</td>
                                     <td>${room.bed}</td>
