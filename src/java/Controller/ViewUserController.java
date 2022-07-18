@@ -9,7 +9,6 @@ import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,9 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Duong
  */
-@WebServlet(name = "SearchUserServlet", urlPatterns = {"/SearchUserServlet"})
-
-public class SearchUserServlet extends HttpServlet {
+@WebServlet(name = "ViewUserController", urlPatterns = {"/ViewUserController"})
+public class ViewUserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,22 +32,8 @@ public class SearchUserServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final int NUMBER_USERLIST = 3;
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        try {
-            String search = request.getParameter("search");
-            UserDAO ud = new UserDAO();
-            List<User> list = ud.getUserByName(search);
-            request.setAttribute("list", list);
-            request.getRequestDispatcher("UserList.jsp").forward(request, response);
-        } catch (Exception e) {
-            request.getRequestDispatcher("ERR.jsp").forward(request, response);
-        }
-    }
+    private static final int NUMBER_USERLIST = 8;
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -63,7 +47,33 @@ public class SearchUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int index;
+            try {
+                index = Integer.parseInt(request.getParameter("index"));
+            } catch (Exception e) {
+                index = 1;
+            }
+
+            UserDAO userDao = new UserDAO();
+            int count = userDao.countUser();
+            int endPage = count / NUMBER_USERLIST;
+            if (count % NUMBER_USERLIST != 0) {
+                endPage++;
+                
+            }
+
+
+            UserDAO ud = new UserDAO();
+            List<User> list = ud.getUserFromTo(index, NUMBER_USERLIST);
+            request.setAttribute("list", list);
+            request.setAttribute("endPage", endPage);
+            request.setAttribute("index", index);
+            request.getRequestDispatcher("ViewUserList.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.getRequestDispatcher("ERR.jsp").forward(request, response);
+        }
+       
     }
 
     /**
@@ -77,7 +87,6 @@ public class SearchUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
