@@ -90,8 +90,8 @@ public class ReservationDAO {
     
     public void updateReservationInfoById(int id, Reservation reservation) {
         String sql = "UPDATE r SET r.noOfAdults = ? , r.noOfChild = ? , r.noOfRoom = ? , r.bookDate = ? , r.arrival = ? , r.department = ? , r.status = ? \n"
-                + "From ( Select *, ROW_NUMBER() OVER (ORDER BY id) AS [id] FROM Reservations ) r \n"
-                + "Where id = ? ";
+                + "From ( Select *, ROW_NUMBER() OVER (ORDER BY id) AS [idu] FROM Reservations ) r \n"
+                + "Where r.idu = ? ";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
@@ -108,10 +108,10 @@ public class ReservationDAO {
         }
     }
     
-    public void updateReservationInfoByEmail(String email, Reservation reservation) {
+    public void updateReservationInfoByEmail(int id, String email, Reservation reservation) {
         String sql = "UPDATE r SET r.noOfAdults = ? , r.noOfChild = ? , r.noOfRoom = ? , r.bookDate = ? , r.arrival = ? , r.department = ? , r.status = ? from Reservations AS r \n"
-                
-                + "INNER JOIN Users AS u on r.userId = u.id where u.email LIKE '" + email +"%' ";
+                + "From ( Select *, ROW_NUMBER() OVER (ORDER BY id) AS [idu] FROM Reservations ) r \n"
+                + "INNER JOIN Users AS u on r.userId = u.id where r.idu = ? and u.email LIKE '" + email +"%' ";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
@@ -122,6 +122,7 @@ public class ReservationDAO {
             ps.setDate(5, reservation.getArrival());
             ps.setDate(6, reservation.getDepartment());
             ps.setString(7, reservation.getStatus());
+            ps.setInt(8, reservation.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
