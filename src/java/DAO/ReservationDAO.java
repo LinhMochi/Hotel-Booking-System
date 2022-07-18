@@ -135,7 +135,9 @@ public class ReservationDAO {
     
     public int countReservationWithEmail(String email) {
         int count = 0;
-        String sql = "select count(*) from Reservations WHERE email LIKE '" + email +"%' ";
+        String sql = "select count(*) from Reservations r \n"
+                + "inner join Users u on r.userId = u.id \n"
+                + "WHERE email LIKE '" + email +"%' ";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
