@@ -74,11 +74,12 @@ public class galleryRemoveController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String currentpage = request.getParameter("currentpage");
         int id = Integer.parseInt(request.getParameter("id"));
         response.getWriter().println(id);
         HotelGalleryDAO hgd = new HotelGalleryDAO();
         hgd.removeImage(id);
-        response.sendRedirect("galleryManager");
+        response.sendRedirect("galleryManager?page=" + currentpage);
     }
 
     /**
