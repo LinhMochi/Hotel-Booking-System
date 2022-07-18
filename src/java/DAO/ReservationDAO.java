@@ -35,14 +35,13 @@ public class ReservationDAO {
             String sql = "Select r.id, r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name From Reservations r \n"
                     + "inner join Users u on r.userId = u.id \n"
                     + "inner join Hotels h on r.hotelId = h.id \n"
-                    + "where u.email = ? and h.name LIKE '%" + textSearchHotel +"%' \n"
+                    + "where u.email LIKE '" + email +"%' and h.name LIKE '%" + textSearchHotel +"%' \n"
                     + "ORDER BY id ASC \n"
                     + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
-            ps.setInt(2, start);
-            ps.setInt(3, numOfElement);
+            ps.setInt(1, start);
+            ps.setInt(2, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getString(9));
@@ -136,7 +135,7 @@ public class ReservationDAO {
     
     public int countReservationWithEmail(String email) {
         int count = 0;
-        String sql = "select count(*) from Reservations WHERE email LIKE '%" + email +"%' ";
+        String sql = "select count(*) from Reservations WHERE email LIKE '" + email +"%' ";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
