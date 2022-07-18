@@ -84,7 +84,8 @@ public class SuggestPlaceCategoryUpdateController extends HttpServlet {
         String serviceCategory = request.getParameter("suggestPlaceCategory");
         spc.setCategory(serviceCategory);
         spcd.updateSuggestPlaceCategory(id, spc);
-        response.sendRedirect("suggestPlaceCategoryManager");
+        String currentpage = request.getParameter("currentpage");
+        response.sendRedirect("suggestPlaceCategoryManager?page=" + currentpage);
     }
 
     /**
