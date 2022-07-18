@@ -60,9 +60,7 @@ public class ServiceCategoryUpdateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        request.setAttribute("id", id);
-        request.getRequestDispatcher("/serviceCategory/update.jsp").forward(request, response);
+     
     }
 
     /**
@@ -80,13 +78,12 @@ public class ServiceCategoryUpdateController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         ServiceCategoryDAO scd = new ServiceCategoryDAO();
         ServiceCategory sc = new ServiceCategory();
-
         int id = Integer.parseInt(request.getParameter("id"));
         String serviceCategory = request.getParameter("serviceCategory");
-
         sc.setCategory(serviceCategory);
         scd.updateServiceCategory(id, sc);
-        response.sendRedirect("serviceCategoryManager");
+        String currentpage = request.getParameter("currentpage");
+        response.sendRedirect("serviceCategoryManager?page=" + currentpage);
     }
 
     /**
