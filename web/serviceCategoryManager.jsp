@@ -37,7 +37,7 @@
         }
         .table-title {        
             padding-bottom: 15px;
-            background: #435d7d;
+            background: #FF9E36;
             color: #fff;
             padding: 16px 30px;
             min-width: 100%;
@@ -244,31 +244,6 @@
             font-weight: normal;
         }	
     </style>
-    <script>
-        $(document).ready(function () {
-            // Activate tooltip
-            $('[data-toggle="tooltip"]').tooltip();
-
-            // Select/Deselect checkboxes
-            var checkbox = $('table tbody input[type="checkbox"]');
-            $("#selectAll").click(function () {
-                if (this.checked) {
-                    checkbox.each(function () {
-                        this.checked = true;
-                    });
-                } else {
-                    checkbox.each(function () {
-                        this.checked = false;
-                    });
-                }
-            });
-            checkbox.click(function () {
-                if (!this.checked) {
-                    $("#selectAll").prop("checked", false);
-                }
-            });
-        });
-    </script>
 </head>
 <body style="background-image: url(images/hotelDetail-background.jpg);background-attachment: fixed;
       background-repeat: no-repeat;
@@ -321,6 +296,7 @@
                                             <p class="text-warning"><small>This action cannot be undone.</small></p>
                                         </div>
                                         <div class="modal-footer">
+                                            <input type="hidden" name="currentpage" value="${page}">
                                             <input type="hidden" name="id" value="${category.id}">
                                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                                             <input type="submit" class="btn btn-danger" value="Delete">
@@ -347,6 +323,7 @@
                                             </div>                      					
                                         </div>
                                         <div class="modal-footer">
+                                            <input type="hidden" name="currentpage" value="${page}">
                                             <input type="hidden" name="id" value="${category.id}">
                                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                                             <input type="submit" class="btn btn-info" value="Save">
@@ -366,9 +343,17 @@
                             </c:if>
 
                         <c:forEach begin="1" end="${endPage}" var="i">
-                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
+<!--                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
                                                       href="serviceCategoryManager?page=${i}" 
-                                                      role="button">${i}</a></li>
+                                                      role="button">${i}</a></li>-->
+                            <c:choose>
+                                <c:when test="${i == page}">
+                                    <li class="page-item active"><a href="serviceCategoryManager?page=${i}" class="page-link">${i}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a href="serviceCategoryManager?page=${i}" class="page-link">${i}</a></li>
+                                </c:otherwise>
+                            </c:choose>
                             <input type="hidden" name="page" value="${i}">
                         </c:forEach>
 
@@ -396,6 +381,7 @@
                         </div>                        					
                     </div>
                     <div class="modal-footer">
+                        <input type="hidden" name="currentpage" value="${page}">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                         <input type="submit" class="btn btn-success" value="Add">
                     </div>
