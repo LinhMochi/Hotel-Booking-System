@@ -80,8 +80,26 @@ public class ReservationDAO {
             ps.setDate(5, reservation.getArrival());
             ps.setDate(6, reservation.getDepartment());
             ps.setString(7, "Pending");
-            ps.setString(8, "...");
-            ps.setString(9, "...");
+            ps.setInt(8, reservation.getUser().getId());
+            ps.setInt(9, reservation.getHotel().getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+    
+    public void updateReservationInfo(String email, Reservation reservation) {
+        String sql = "UPDATE r SET r.noOfAdults = ? , r.noOfChild = ? , r.noOfRoom = ? , r.bookDate = ? , r.arrival = ? , r.department = ? from Reservations AS r \n"
+                + "INNER JOIN Users AS u on r.userId = u.id where u.email LIKE '" + email +"%' ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reservation.getAdult());
+            ps.setInt(2, reservation.getChild());
+            ps.setInt(3, reservation.getNoRoom());
+            ps.setString(4, reservation.getBookDate());
+            ps.setDate(5, reservation.getArrival());
+            ps.setDate(6, reservation.getDepartment());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
