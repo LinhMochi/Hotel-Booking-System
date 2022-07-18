@@ -341,7 +341,7 @@
                                 <div class="modal-content">
                                     <form action="galleryUpdate" method="POST">
                                         <div class="modal-header">						
-                                            <h4 class="modal-title">Add New Image</h4>
+                                            <h4 class="modal-title">Update Image</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         </div>
                                         <div class="modal-body">					
