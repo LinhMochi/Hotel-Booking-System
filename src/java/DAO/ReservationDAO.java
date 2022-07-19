@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import Model.User;
 import Model.Hotel;
+import Model.BookedRoom;
+import Model.Service;
 import Model.ReservationDetail;
 import Model.Search;
 import Model.Service;
@@ -171,6 +173,46 @@ public class ReservationDAO {
             e.printStackTrace(System.out);
         }
         return null;
+    }
+    
+    public ArrayList<BookedRoom> getBookedRoom(int reservationId) throws SQLException, IOException  {
+        ArrayList<BookedRoom> ar = new ArrayList<>();
+        try {
+            String sql = " ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return ar;
+    }
+    
+    public ArrayList<Service> getBookedServiceList(int reservationId) throws SQLException, IOException  {
+        ArrayList<Service> ar = new ArrayList<>();
+        try {
+            String sql = " ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return ar;
     }
 
     public void deleteReservation(int id) {
