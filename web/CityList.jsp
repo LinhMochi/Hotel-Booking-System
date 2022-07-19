@@ -290,10 +290,10 @@
 
 
                             <!-- Delete Modal HTML -->
-                        <div id="deleteGalleryModal${city.id}" class="modal fade">
+                        <div id="deleteCityModal${city.id}" class="modal fade">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form action="cityRemove" method="POST">
+                                    <form action="CityListDelete" method="POST">
                                         <div class="modal-header">						
                                             <h4 class="modal-title">Delete City</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -318,15 +318,20 @@
                         <div id="editCityModal${city.id}" class="modal fade">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form action="CityUpdate" method="POST">
+                                    <form action="CityListUpdate" method="POST">
                                         <div class="modal-header">						
                                             <h4 class="modal-title">Update City</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         </div>
-                                        <div class="modal-body">					
+                                        <div class="modal-body">
+                                             <div class="form-group">
+                                                
+                                            
+                                            
+                                            
                                             <div class="form-group">
                                                 <label>Name</label>
-                                                <input type="text" class="form-control" required name="title" value="${city.name}">
+                                                <input type="text" class="form-control" required name="name" value="${city.name}">
                                             </div>
                                             <div class="form-group">
                                                 <label>Image URL</label>
