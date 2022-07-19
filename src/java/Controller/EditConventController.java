@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.HotelConvenientDAO;
 import DAO.UserDAO;
 import Model.HotelConvenient;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class EditConventController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO ud = new UserDAO();
+        HotelConvenientDAO ud = new HotelConvenientDAO();
         List<HotelConvenient> listCon1 = ud.getConvenient(1);
         List<HotelConvenient> listCon2 = ud.getConvenient(2);
         List<HotelConvenient> listCon3 = ud.getConvenient(3);
@@ -64,9 +65,9 @@ public class EditConventController extends HttpServlet {
         String convenient = request.getParameter("convenient");
         int conId = Integer.parseInt(request.getParameter("conId"));
 
-        UserDAO userDao = new UserDAO();
+        HotelConvenientDAO userDao = new HotelConvenientDAO();
         userDao.updateConvenByAdmin(conId, convenientCateId, convenient);
-        UserDAO ud = new UserDAO();
+        HotelConvenientDAO ud = new HotelConvenientDAO();
         List<HotelConvenient> listCon1 = ud.getConvenient(1);
         List<HotelConvenient> listCon2 = ud.getConvenient(2);
         List<HotelConvenient> listCon3 = ud.getConvenient(3);

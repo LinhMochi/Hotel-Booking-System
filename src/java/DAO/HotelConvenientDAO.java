@@ -25,6 +25,88 @@ public class HotelConvenientDAO {
     String sql = null;
     ArrayList<HotelConvenient> list;
 
+        public ArrayList<HotelConvenient> getConvenient(int id) {
+        ArrayList<HotelConvenient> ar = new ArrayList<>();
+        String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
+                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n"
+                + "                 on c1.id = h.convenientCategoryId "
+                + "where c1.id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                HotelConvenient c = new HotelConvenient();
+                c.setCategoryId(rs.getInt("conCateId"));
+                c.setId(rs.getInt("conId"));
+                c.setConvenient(rs.getString("convenient"));
+                c.setCategory(rs.getString("convenientCategory"));
+                ar.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return ar;
+    }
+
+    public ArrayList<HotelConvenient> getConvenient() {
+        ArrayList<HotelConvenient> ar = new ArrayList<>();
+        String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
+                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n"
+                + "                 on c1.id = h.convenientCategoryId";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                HotelConvenient c = new HotelConvenient();
+                c.setCategoryId(rs.getInt("conCateId"));
+                c.setId(rs.getInt("conId"));
+                c.setConvenient(rs.getString("convenient"));
+                c.setCategory(rs.getString("convenientCategory"));
+                ar.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return ar;
+    }
+
+    public ArrayList<HotelConvenient> ConvenientCategories() {
+        ArrayList<HotelConvenient> ar = new ArrayList<>();
+        try {
+            String sql = "select *  from ConvenientCategories";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                HotelConvenient c = new HotelConvenient();
+                c.setCategoryId(rs.getInt("id"));
+                c.setCategory(rs.getString("convenientCategory"));
+                ar.add(c);
+            }
+        } catch (SQLException e) {
+        }
+        return ar;
+    }
+
+    public void updateConvenByAdmin(int conId, int convenientCategoryId, String convenient) {
+        String query = "UPDATE HotelConveniences \n"
+                + "				SET convenient = ?, convenientCategoryId = ?\n"
+                + "				where id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, convenient);
+            ps.setInt(2, convenientCategoryId);
+            ps.setInt(3, conId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public int create_Convient(HotelConvenient hotel) {
         int idValue =0;
@@ -88,47 +170,8 @@ public class HotelConvenientDAO {
         return 0;
     }
 
-    public User getUserInfoById(int id) throws SQLException, IOException {
-        String sql = "select id from HotelConveniences where hotelId = ? ";
-        try {
-            conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            User u = new User();
-            u.setId(rs.getInt("id"));
-            return u;
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
 
-    public User getHotel(int id) throws SQLException, IOException {
-        String sql = "SELECT * FROM HotelCategories";
-        try {
-            conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                User u = new User();
-                u.setId(rs.getInt("id"));
-                u.setFullName(rs.getString("fullName"));
-                u.setGender(rs.getInt("gender"));
-                u.setDob(rs.getDate("dob"));
-                u.setEmail(rs.getString("email"));
-                u.setAddress(rs.getString("address"));
-                u.setAvatar(rs.getString("avatar"));
-                u.setPhoneNumber(rs.getString("phoneNumber"));
-                u.setRole(rs.getString("role"));
-                u.setStatus(rs.getString("status"));
-                return u;
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
+
     
     public int idConvenient(){
         int conId = 0;
@@ -147,7 +190,7 @@ public class HotelConvenientDAO {
         return conId;
     }
 
-}
+
 
     public ArrayList<HotelConvenient> getRateConveniences(int hotelId) {
         list = new ArrayList<>();

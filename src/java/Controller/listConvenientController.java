@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.HotelConvenientDAO;
 import DAO.UserDAO;
 import Model.HotelConvenient;
 
@@ -48,7 +49,7 @@ public class listConvenientController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO ud = new UserDAO();
+        HotelConvenientDAO ud = new HotelConvenientDAO();
         int i=1;
         List<HotelConvenient> listCon1 = ud.getConvenient(1);
         List<HotelConvenient> listCon2 = ud.getConvenient(2);
@@ -79,7 +80,7 @@ public class listConvenientController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO ud = new UserDAO();
+        HotelConvenientDAO ud = new HotelConvenientDAO();
         List<HotelConvenient> listCon1 = ud.getConvenient(1);
         List<HotelConvenient> listCon2 = ud.getConvenient(2);
         List<HotelConvenient> listCon3 = ud.getConvenient(3);

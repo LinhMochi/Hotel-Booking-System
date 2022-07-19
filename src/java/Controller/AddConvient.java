@@ -54,7 +54,7 @@ public class AddConvient extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO u = new UserDAO();
+        HotelConvenientDAO u = new HotelConvenientDAO();
         List list = u.ConvenientCategories();
         request.setAttribute("list", list);
         processRequest(request, response);
