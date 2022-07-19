@@ -1,7 +1,6 @@
 package DAO;
 
 import DBcontext.DBcontext;
-import Model.Convenients;
 import Model.HotelConvenient;
 import Model.User;
 import java.io.IOException;
@@ -189,7 +188,7 @@ public class HotelConvenientDAO {
     public int idConvenient(){
         int conId = 0;
             try {
-            String sql = "SELECT Max(id) as LastID FROM HotelConveniences";
+            String sql = "SELECT Max(id) as LastID FROM ConvenientCategories";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();

@@ -6,7 +6,7 @@
 package DAO;
 
 import DBcontext.DBcontext;
-import Model.Convenients;
+import Model.HotelConvenient;
 import Model.User;
 import java.io.IOException;
 import java.sql.Connection;
@@ -432,8 +432,8 @@ public class UserDAO {
         }
     }
 
-    public ArrayList<Convenients> getConvenient(int id) {
-        ArrayList<Convenients> ar = new ArrayList<>();
+    public ArrayList<HotelConvenient> getConvenient(int id) {
+        ArrayList<HotelConvenient> ar = new ArrayList<>();
         String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
                 + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n"
                 + "                 on c1.id = h.convenientCategoryId "
@@ -444,11 +444,11 @@ public class UserDAO {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Convenients c = new Convenients();
-                c.setConCateId(rs.getInt("conCateId"));
-                c.setConId(rs.getInt("conId"));
+                HotelConvenient c = new HotelConvenient();
+                c.setCategoryId(rs.getInt("conCateId"));
+                c.setId(rs.getInt("conId"));
                 c.setConvenient(rs.getString("convenient"));
-                c.setConvenientCategory(rs.getString("convenientCategory"));
+                c.setCategory(rs.getString("convenientCategory"));
                 ar.add(c);
             }
         } catch (SQLException e) {
@@ -457,8 +457,8 @@ public class UserDAO {
         return ar;
     }
 
-    public ArrayList<Convenients> getConvenient() {
-        ArrayList<Convenients> ar = new ArrayList<>();
+    public ArrayList<HotelConvenient> getConvenient() {
+        ArrayList<HotelConvenient> ar = new ArrayList<>();
         String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
                 + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n"
                 + "                 on c1.id = h.convenientCategoryId";
@@ -467,11 +467,11 @@ public class UserDAO {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Convenients c = new Convenients();
-                c.setConCateId(rs.getInt("conCateId"));
-                c.setConCateId(rs.getInt("conId"));
+                HotelConvenient c = new HotelConvenient();
+                c.setCategoryId(rs.getInt("conCateId"));
+                c.setId(rs.getInt("conId"));
                 c.setConvenient(rs.getString("convenient"));
-                c.setConvenientCategory(rs.getString("convenientCategory"));
+                c.setCategory(rs.getString("convenientCategory"));
                 ar.add(c);
             }
         } catch (SQLException e) {
@@ -480,17 +480,17 @@ public class UserDAO {
         return ar;
     }
 
-    public ArrayList<Convenients> ConvenientCategories() {
-        ArrayList<Convenients> ar = new ArrayList<>();
+    public ArrayList<HotelConvenient> ConvenientCategories() {
+        ArrayList<HotelConvenient> ar = new ArrayList<>();
         try {
             String sql = "select *  from ConvenientCategories";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Convenients c = new Convenients();
-                c.setConCateId(rs.getInt("id"));
-                c.setConvenientCategory(rs.getString("convenientCategory"));
+                HotelConvenient c = new HotelConvenient();
+                c.setCategoryId(rs.getInt("id"));
+                c.setCategory(rs.getString("convenientCategory"));
                 ar.add(c);
             }
         } catch (SQLException e) {

@@ -26,7 +26,7 @@
                         <select style="width: 100%" name="categoryId" class="form-select" aria-label="Default select example" >
                             <option selected value="2">Category</option>
                             <c:forEach items="${list}" var="con">
-                                <option value=${con.conCateId}>${con.convenientCategory}</option>
+                                <option value=${con.categoryId}>${con.category}</option>
                             </c:forEach>
                         </select>
                     </div>

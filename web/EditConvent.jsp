@@ -35,10 +35,10 @@
                         <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
-                                <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
+                                <option selected="${con.category}" value="${con.categoryId}" >${con.category}</option>
                                 <c:forEach items="${listConCate}" var="con2">
-                                    <c:if test="${con.convenientCategory != con2.convenientCategory}">
-                                        <option value="${con2.conCateId}">${con2.convenientCategory}</option>
+                                    <c:if test="${con.category != con2.category}">
+                                        <option value="${con2.categoryId}">${con2.category}</option>
                                     </c:if>
                                 </c:forEach>
                             </select>
@@ -46,7 +46,7 @@
                         <td>
 
                             - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                            <input name="conId" type="hidden" value="${con.id}" style="border: none">
                             <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
                         </td>
                     </form>
@@ -58,10 +58,10 @@
                         <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
-                                <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
+                                <option selected="${con.category}" value="${con.categoryId}" >${con.category}</option>
                                 <c:forEach items="${listConCate}" var="con2">
-                                    <c:if test="${con.convenientCategory != con2.convenientCategory}">
-                                        <option value="${con2.conCateId}">${con2.convenientCategory}</option>
+                                    <c:if test="${con.category != con2.category}">
+                                        <option value="${con2.categoryId}">${con2.category}</option>
                                     </c:if>
                                 </c:forEach>
                             </select>
@@ -69,7 +69,7 @@
                         <td>
 
                             - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                            <input name="conId" type="hidden" value="${con.id}" style="border: none">
                             <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
                         </td>
                     </form>
@@ -81,10 +81,10 @@
                         <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
-                                <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
+                                <option selected="${con.category}" value="${con.categoryId}" >${con.category}</option>
                                 <c:forEach items="${listConCate}" var="con2">
-                                    <c:if test="${con.convenientCategory != con2.convenientCategory}">
-                                        <option value="${con2.conCateId}">${con2.convenientCategory}</option>
+                                    <c:if test="${con.category != con2.category}">
+                                        <option value="${con2.categoryId}">${con2.category}</option>
                                     </c:if>
                                 </c:forEach>
                             </select>
@@ -92,7 +92,7 @@
                         <td>
 
                             - <input name="convenient" type="text" value="${con.convenient}" style="border: none; width: 60% ">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                            <input name="conId" type="hidden" value="${con.id}" style="border: none">
                             <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
                         </td>
                     </form>
@@ -104,10 +104,10 @@
                         <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
-                                <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
+                                <option selected="${con.category}" value="${con.categoryId}" >${con.category}</option>
                                 <c:forEach items="${listConCate}" var="con2">
-                                    <c:if test="${con.convenientCategory != con2.convenientCategory}">
-                                        <option value="${con2.conCateId}">${con2.convenientCategory}</option>
+                                    <c:if test="${con.category != con2.category}">
+                                        <option value="${con2.categoryId}">${con2.category}</option>
                                     </c:if>
                                 </c:forEach>
                             </select>
@@ -115,7 +115,7 @@
                         <td>
 
                             - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                            <input name="conId" type="hidden" value="${con.id}" style="border: none">
                             <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
                         </td>
                     </form>
@@ -127,10 +127,10 @@
                         <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
-                                <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
+                                <option selected="${con.category}" value="${con.categoryId}" >${con.category}</option>
                                 <c:forEach items="${listConCate}" var="con2">
-                                    <c:if test="${con.convenientCategory != con2.convenientCategory}">
-                                        <option value="${con2.conCateId}">${con2.convenientCategory}</option>
+                                    <c:if test="${con.category != con2.category}">
+                                        <option value="${con2.categoryId}">${con2.category}</option>
                                     </c:if>
                                 </c:forEach>
                             </select>
@@ -138,7 +138,7 @@
                         <td>
 
                             - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                            <input name="conId" type="hidden" value="${con.id}" style="border: none">
                             <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
                         </td>
                     </form>
@@ -151,10 +151,10 @@
                         <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
-                                <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
+                                <option selected="${con.category}" value="${con.categoryId}" >${con.category}</option>
                                 <c:forEach items="${listConCate}" var="con2">
-                                    <c:if test="${con.convenientCategory != con2.convenientCategory}">
-                                        <option value="${con2.conCateId}">${con2.convenientCategory}</option>
+                                    <c:if test="${con.category != con2.category}">
+                                        <option value="${con2.categoryId}">${con2.category}</option>
                                     </c:if>
                                 </c:forEach>
                             </select>
@@ -162,7 +162,7 @@
                         <td>
 
                             - <input name="convenient" type="text" value="${con.convenient}" style="border: none">
-                            <input name="conId" type="hidden" value="${con.conId}" style="border: none">
+                            <input name="conId" type="hidden" value="${con.id}" style="border: none">
                             <button type="submit" class="btn btn-primary" style="float:right;">Update</button>
                         </td>
                     </form>
