@@ -9,6 +9,7 @@ import DAO.HotelDAO;
 import DAO.HotelGalleryDAO;
 import Model.Hotel;
 import Model.HotelGallery;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,30 +47,36 @@ public class galleryManagerController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String page;
-            try {
-                page = request.getParameter("page");
-                if (page == null) {
+            HttpSession session = request.getSession();
+            User a = (User) session.getAttribute("user");
+            if (a.getRole().equals("Manager")) {
+                String page;
+                try {
+                    page = request.getParameter("page");
+                    if (page == null) {
+                        page = "1";
+                    }
+                } catch (Exception e) {
                     page = "1";
                 }
-            } catch (Exception e) {
-                page = "1";
+                HotelGalleryDAO hgd = new HotelGalleryDAO();
+                int count = hgd.getAllGallery().size();
+                int endPage = count / NUMBER_IMAGE;
+                if (count % NUMBER_IMAGE != 0) {
+                    endPage++;
+                }
+                ArrayList<HotelGallery> list = hgd.getGallery(page, NUMBER_IMAGE);
+                ArrayList<Hotel> hlist = new HotelDAO().getAllHotel();
+                request.setAttribute("list", list);
+                request.setAttribute("hlist", hlist);
+                request.setAttribute("endPage", endPage);
+                request.setAttribute("page", page);
+                request.setAttribute("count", count);
+                request.setAttribute("numberOfImage", NUMBER_IMAGE);
+                request.getRequestDispatcher("galleryManager.jsp").forward(request, response);
+            }else{
+                response.sendRedirect("home");
             }
-            HotelGalleryDAO hgd = new HotelGalleryDAO();
-            int count = hgd.getAllGallery().size();
-            int endPage = count / NUMBER_IMAGE;
-            if (count % NUMBER_IMAGE != 0) {
-                endPage++;
-            }
-            ArrayList<HotelGallery> list = hgd.getGallery(page, NUMBER_IMAGE);
-            ArrayList<Hotel> hlist = new HotelDAO().getAllHotel();
-            request.setAttribute("list", list);
-            request.setAttribute("hlist", hlist);
-            request.setAttribute("endPage", endPage);
-            request.setAttribute("page", page);
-            request.setAttribute("count", count);
-            request.setAttribute("numberOfImage", NUMBER_IMAGE);
-            request.getRequestDispatcher("galleryManager.jsp").forward(request, response);
         }
     }
 
