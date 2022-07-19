@@ -30,10 +30,9 @@
 
                 <tbody>
                     <c:forEach items="${listCon5}" var="con">
-                    <input name="conId" type="text" value="${con.conId}" style="border: none">
                     <tr>
                     <form action="EditConventController" method="post">
-                        <th scope="col">${con.conId+1}</th>
+                        <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
@@ -56,7 +55,7 @@
                 <c:forEach items="${listCon1}" var="con">
                     <tr>
                     <form action="EditConventController" method="post">
-                        <th scope="col">${con.conId+1}</th>
+                        <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
@@ -79,7 +78,7 @@
                 <c:forEach items="${listCon2}" var="con">
                     <tr>
                     <form action="EditConventController" method="post">
-                        <th scope="col">${con.conId+1}</th>
+                        <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
@@ -102,7 +101,7 @@
                 <c:forEach items="${listCon3}" var="con">
                     <tr>
                     <form action="EditConventController" method="post">
-                        <th scope="col">${con.conId+1}</th>
+                        <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
@@ -125,7 +124,7 @@
                 <c:forEach items="${listCon4}" var="con">
                     <tr>
                     <form action="EditConventController" method="post">
-                        <th scope="col">${con.conId+1}</th>
+                        <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>
@@ -149,7 +148,7 @@
                 <c:forEach items="${listCon6}" var="con">
                     <tr>
                     <form action="EditConventController" method="post">
-                        <th scope="col">${con.conId+1}</th>
+                        <th scope="col">${i=i+1}</th>
                         <td>
                             <select name="conCateId" class="form-select" aria-label="Default select example" >
                                 <option selected="${con.convenientCategory}" value="${con.conCateId}" >${con.convenientCategory}</option>

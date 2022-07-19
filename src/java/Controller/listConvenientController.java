@@ -48,6 +48,7 @@ public class listConvenientController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDAO ud = new UserDAO();
+        int i=1;
         List<Convenients> listCon1 = ud.getConvenient(1);
         List<Convenients> listCon2 = ud.getConvenient(2);
         List<Convenients> listCon3 = ud.getConvenient(3);
@@ -61,6 +62,7 @@ public class listConvenientController extends HttpServlet {
         request.setAttribute("listCon4", listCon4);
         request.setAttribute("listCon5", listCon5);
         request.setAttribute("listCon6", listCon6);
+        request.setAttribute("i", i);
         request.setAttribute("listConCate", listConCate);
         request.getRequestDispatcher("listConvenient.jsp").forward(request, response);
     }

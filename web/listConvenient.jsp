@@ -67,22 +67,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="col">5</th>
+                        <th scope="col">6</th>
                         <td>Tiện ích phong</td>
                         <td>
-                            <c:forEach items="${listCon5}" var="con">
+                            <c:forEach items="${listCon6}" var="con">
                                 - ${con.convenient}<br>
                             </c:forEach>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="col">6</th>
+                        <th scope="col">5</th>
                         <td>Khác</td>
                         <td>
-                          
-                            
-                            
-                            <c:forEach items="${listCon6}" var="con">
+                            <c:forEach items="${listCon5}" var="con">
                                 - ${con.convenient}<br>
                             </c:forEach>
                         </td>

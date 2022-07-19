@@ -348,7 +348,7 @@ public class UserDAO {
             String sql = "select * from Users where fullName like ?";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, "%"+search+"%");
+            ps.setString(1, "%" + search + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 User u = new User();
@@ -370,7 +370,7 @@ public class UserDAO {
         }
         return ar;
     }
-    
+
     public ArrayList<User> getUserById(int id) throws SQLException, IOException {
         ArrayList<User> ar = new ArrayList<>();
         try {
@@ -400,7 +400,6 @@ public class UserDAO {
         return ar;
     }
 
-    
     public void banUser(int id, String status) {
         try {
             String sql = "UPDATE Users SET status = ? WHERE id = ?";
@@ -414,9 +413,8 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-    
-    
-    public void updateUserByAdmin(int id,String fullName, int gender,String dob,int role,String address, String phoneNumber) {
+
+    public void updateUserByAdmin(int id, String fullName, int gender, String dob, int role, String address, String phoneNumber) {
         String query = "Update Users set fullName = ?, gender = ? ,role = ?, dob = ?, address = ?, phoneNumber = ? where id = ?";
         try {
             conn = new DBcontext().getConnection();
@@ -433,12 +431,12 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-    
+
     public ArrayList<Convenients> getConvenient(int id) {
         ArrayList<Convenients> ar = new ArrayList<>();
         String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
-                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
-"                 on c1.id = h.convenientCategoryId "
+                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n"
+                + "                 on c1.id = h.convenientCategoryId "
                 + "where c1.id = ?";
         try {
             conn = new DBcontext().getConnection();
@@ -458,12 +456,12 @@ public class UserDAO {
         }
         return ar;
     }
-    
+
     public ArrayList<Convenients> getConvenient() {
         ArrayList<Convenients> ar = new ArrayList<>();
         String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
-                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
-"                 on c1.id = h.convenientCategoryId";
+                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n"
+                + "                 on c1.id = h.convenientCategoryId";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
@@ -481,7 +479,7 @@ public class UserDAO {
         }
         return ar;
     }
-    
+
     public ArrayList<Convenients> ConvenientCategories() {
         ArrayList<Convenients> ar = new ArrayList<>();
         try {
@@ -499,12 +497,11 @@ public class UserDAO {
         }
         return ar;
     }
-    
-    
-    public void updateConvenByAdmin(int conId,int convenientCategoryId, String convenient) {
-        String query = "UPDATE HotelConveniences \n" +
-"				SET convenient = ?, convenientCategoryId = ?\n" +
-"				where id = ?";
+
+    public void updateConvenByAdmin(int conId, int convenientCategoryId, String convenient) {
+        String query = "UPDATE HotelConveniences \n"
+                + "				SET convenient = ?, convenientCategoryId = ?\n"
+                + "				where id = ?";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
@@ -516,5 +513,8 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-            
+
+    
+
+
 }
