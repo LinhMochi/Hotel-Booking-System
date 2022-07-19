@@ -63,6 +63,23 @@ public class ServiceDAO {
         }
         return null;
     }
+    
+    public int countServiceByCategoryId(int id) {
+        int count = 0;
+        sql = "SELECT  id, [service], [from],[to], price, unit, [create],serviceCategoryId,hotelId\n"
+                + "FROM HotelServices WHERE serviceCategoryId = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return count;
+    }
 }
 
 //class demo {
