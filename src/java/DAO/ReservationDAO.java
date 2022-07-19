@@ -178,7 +178,7 @@ public class ReservationDAO {
     public ArrayList<BookedRoom> getBookedRoom(int reservationId) throws SQLException, IOException  {
         ArrayList<BookedRoom> ar = new ArrayList<>();
         try {
-            String sql = "SELECT  ";
+            String sql = " ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -198,7 +198,7 @@ public class ReservationDAO {
     public ArrayList<Service> getBookedServiceList(int reservationId) throws SQLException, IOException  {
         ArrayList<Service> ar = new ArrayList<>();
         try {
-            String sql = "SELECT  ";
+            String sql = " ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
