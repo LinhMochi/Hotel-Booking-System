@@ -126,7 +126,7 @@ public class RoomDAO {
             ps.setString(7, r.getBed());
             ps.setString(8, r.getArea());
             ps.setString(9, r.getDescription());
-            ps.setInt(10, r.getHotel().getId());
+            ps.setInt(10, r.getHotelId());
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -180,7 +180,7 @@ public class RoomDAO {
             ps.setString(7, r.getBed());
             ps.setString(8, r.getArea());
             ps.setString(9, r.getDescription());
-            ps.setInt(10, r.getHotel().getId());
+            ps.setInt(10, r.getHotelId());
             ps.setInt(11, r.getId());
             ps.executeUpdate();
             return true;
