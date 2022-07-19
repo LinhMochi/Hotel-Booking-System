@@ -20,7 +20,7 @@ public class Room {
     private String bed;
     private String area;
     private String description;
-    private int hotelId;
+    private Hotel hotel;
     private int promotionId;
 
     public Room() {
@@ -37,7 +37,7 @@ public class Room {
         this.bed = bed;
         this.area = area;
         this.description = description;
-        this.hotelId = hotelId;
+        this.hotel = hotel;
     }
 
     public Room(int id, String name, String image, int quantity, double price, int maxAdult, int maxChild, String bed, String area, String description, int hotelId, int promotionId) {
@@ -51,7 +51,7 @@ public class Room {
         this.bed = bed;
         this.area = area;
         this.description = description;
-        this.hotelId = hotelId;
+        this.hotel = hotel;
         this.promotionId = promotionId;
     }
     
@@ -68,7 +68,7 @@ public class Room {
         this.bed = room.bed;
         this.area = room.area;
         this.description = room.description;
-        this.hotelId = room.hotelId;
+        this.hotel = hotel;
       
     }
 
@@ -162,17 +162,17 @@ public class Room {
         this.description = description;
     }
 
-    public int getHotelId() {
-        return hotelId;
+    public Hotel getHotel() {
+        return hotel;
     }
 
-    public void setHotelId(int hotelId) {
-        this.hotelId = hotelId;
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     @Override
     public String toString() {
-        return "Room{" + "id=" + id + ", name=" + name + ", image=" + image + ", quantity=" + quantity + ", price=" + price + ", maxAdult=" + maxAdult + ", maxChild=" + maxChild + ", bed=" + bed + ", area=" + area + ", description=" + description + ", hotelId=" + hotelId + ", promotionId=" + promotionId + '}';
+        return "Room{" + "id=" + id + ", name=" + name + ", image=" + image + ", quantity=" + quantity + ", price=" + price + ", maxAdult=" + maxAdult + ", maxChild=" + maxChild + ", bed=" + bed + ", area=" + area + ", description=" + description + ", hotelId=" + hotel.getId() + ", promotionId=" + promotionId + '}';
     }
 
 

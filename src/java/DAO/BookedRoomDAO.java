@@ -7,6 +7,7 @@ package DAO;
 
 import DBcontext.DBcontext;
 import Model.BookedRoom;
+import Model.Hotel;
 import Model.Room;
 import Model.Search;
 import java.sql.Connection;
@@ -70,7 +71,9 @@ public class BookedRoomDAO {
             while (rs.next()) {
                 Room r = new Room();
                 r.setId(rs.getInt(1));
-                r.setHotelId(rs.getInt(4));
+                Hotel h = new Hotel();
+                h.setId(rs.getInt(4));
+                r.setHotel(h);
                 r.setPrice((rs.getDouble(2) / (1 - rs.getDouble(3))) * 1000000);
                 list.add(new BookedRoom(r, rs.getDouble(3)));
             }
@@ -115,7 +118,9 @@ public class BookedRoomDAO {
             while (rs.next()) {
                 Room r = new Room();
                 r.setId(rs.getInt(1));
-                r.setHotelId(rs.getInt(4));
+                Hotel h = new Hotel();
+                h.setId(rs.getInt(4));
+                r.setHotel(h);
                 r.setPrice((rs.getDouble(2) / (1 - rs.getDouble(3))) * 1000000);
                 list.add(new BookedRoom(r, rs.getDouble(3)));
             }

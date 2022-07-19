@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.RoomDAO;
+import Model.Hotel;
 import Model.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -83,18 +84,20 @@ public class RoomAddController extends HttpServlet {
         
        
         RoomDAO hgd = new RoomDAO();
-        Room h = new Room();
-        h.setName(name);
-        h.setImage(image);
-        h.setQuantity(quantity);
-        h.setPrice(price);
-        h.setMaxAdult(maxadult);
-        h.setMaxChild(maxchild);
-        h.setBed(bed);
-        h.setArea(area);
-        h.setDescription(description);
-        h.setHotelId(hotelId);
-        hgd.addRoom(h);
+        Room r = new Room();
+        r.setName(name);
+        r.setImage(image);
+        r.setQuantity(quantity);
+        r.setPrice(price);
+        r.setMaxAdult(maxadult);
+        r.setMaxChild(maxchild);
+        r.setBed(bed);
+        r.setArea(area);
+        r.setDescription(description);
+        Hotel h = new Hotel();
+        h.setId(hotelId);
+        r.setHotel(h);
+        hgd.addRoom(r);
         response.sendRedirect("RoomManager?page=" + currentpage);
     }
 
