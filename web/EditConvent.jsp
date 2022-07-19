@@ -30,7 +30,7 @@
 
                 <tbody>
                     <c:forEach items="${listCon5}" var="con">
-                    <tr>
+                        <tr>
                     <form action="EditConventController" method="post">
                         <th scope="col">${i=i+1}</th>
                         <td>
@@ -170,12 +170,14 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <form action="EditConventController" method="get">
-                <a href="listConvenientController">+</a>
-            </form>
+
+            <a href="AddConvient">+</a>
+
             <a href="listConvenientController"><button type="button" style="display: block;
                                                        margin-left: auto;
-                                                       margin-right: auto;" class="btn btn-primary">View List Convenient</button></a><br>
+                                                       margin-right: auto;
+                                                       " class="btn btn-primary">View List Convenient</button></a>
+
         </div>
         <link href="css/userlist-style.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
