@@ -7,6 +7,7 @@ package Controller;
 
 import DAO.ServiceCategoryDAO;
 import Model.ServiceCategory;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -42,32 +44,36 @@ public class ServiceCategoryManagerController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String page;
-            try {
-                page = request.getParameter("page");
-                if (page == null) {
+            HttpSession session = request.getSession();
+            User a = (User) session.getAttribute("user");
+            if (a.getRole().equals("Manager")) {
+                String page;
+                try {
+                    page = request.getParameter("page");
+                    if (page == null) {
+                        page = "1";
+                    }
+                } catch (Exception e) {
                     page = "1";
                 }
-            } catch (Exception e) {
-                page = "1";
+                ServiceCategoryDAO scd = new ServiceCategoryDAO();
+                int count = scd.getAllServiceCategories().size();
+                int endPage = count / NUMBER_IMAGE;
+                if (count % NUMBER_IMAGE != 0) {
+                    endPage++;
+                }
+                ArrayList<ServiceCategory> list = scd.getServiceCategories(page, NUMBER_IMAGE);
+                request.setAttribute("sclist", list);
+                request.setAttribute("endPage", endPage);
+                request.setAttribute("page", page);
+                request.setAttribute("count", count);
+                request.setAttribute("numberOfImage", NUMBER_IMAGE);
+                request.getRequestDispatcher("serviceCategoryManager.jsp").forward(request, response);
+            }else{
+                response.sendRedirect("home");
             }
-            ServiceCategoryDAO scd = new ServiceCategoryDAO();
-            int count = scd.getAllServiceCategories().size();
-            int endPage = count / NUMBER_IMAGE;
-            if (count % NUMBER_IMAGE != 0) {
-                endPage++;
-            }
-            ArrayList<ServiceCategory> list = scd.getServiceCategories(page, NUMBER_IMAGE);
-            request.setAttribute("sclist", list);
-            request.setAttribute("endPage", endPage);
-            request.setAttribute("page", page);
-            request.setAttribute("count", count);
-            request.setAttribute("numberOfImage", NUMBER_IMAGE);
-            request.getRequestDispatcher("serviceCategoryManager.jsp").forward(request, response);
         }
     }
-
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
