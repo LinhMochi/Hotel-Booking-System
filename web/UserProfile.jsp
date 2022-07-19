@@ -5,6 +5,7 @@
 --%> -->
 
 <!-- <%@page contentType="text/html" pageEncoding="UTF-8"%> -->
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,7 +23,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <style>
+        <style type="text/css">
             body {
                 color: #566787;
                 background: #7F8CC0;
@@ -37,7 +38,11 @@
                 overflow-x: auto;
             }
 
-
+            .txt{
+                padding-left: 10%;
+                font-size: 20px;
+                margin: 0% 10%;
+            }
             .table-wrapper {
                 background: #fff;
                 padding: 20px 25px;
@@ -272,11 +277,11 @@
 
 
             #background{
-                background-image: url("images/Beach_Background-885.jpg");
+/*                background-image: url("images/Beach_Background-885.jpg");
                 background-attachment: fixed;
                 background-repeat: no-repeat;
                 background-size:100%;
-                background-position: center;
+                background-position: center;*/
                 padding-bottom: 400px;
                 padding-left: 100px;
                 padding-right: 100px;
@@ -631,7 +636,7 @@
 
 
                         <div class="RightTableHeadlineText" style="text-align: left; margin-top: 4%">Tên đầy đủ</div>
-                        <div class="txt">${User.fullName}</div>
+                        <div class="txt">${sessionScope.user.fullName}</div>
 
 
                         <hr  width="70%" size="2px" align="center" color="black" />
@@ -640,33 +645,33 @@
 
 
 
-                        <div id="gender" class="txt">${User.gender}</div>
+                        <div id="gender" class="txt">${sessionScope.user.getgen()}</div>
 
 
                         <hr  width="70%" size="2px" align="center" color="black" />
 
                         <div class="RightTableHeadlineText" style="text-align: left">Ngày sinh</div>
-                        <div class="txt">${User.dob}</div>
+                        <div class="txt">${sessionScope.user.getdob()}</div>
 
 
                         <hr  width="70%" size="2px" align="center" color="black" />
 
                         <div class="RightTableHeadlineText" style="text-align: left">Email</div>
-                        <div class="txt">${User.email}</div>
+                        <div class="txt">${sessionScope.user.email}</div>
 
 
                         <hr  width="70%" size="2px" align="center" color="black" />
 
 
                         <div class="RightTableHeadlineText" style="text-align: left">Địa chỉ</div>
-                        <div class="txt">${User.address}</div>
+                        <div class="txt">${sessionScope.user.address}</div>
 
 
                         <hr  width="70%" size="2px" align="center" color="black" />
 
 
                         <div class="RightTableHeadlineText" style="text-align: left">Số điện thoại</div>
-                        <div class="txt">${User.phoneNumber}</div>
+                        <div class="txt">${sessionScope.user.phoneNumber}</div>
 
 
                         <hr  width="70%" size="2px" align="center" color="black" />
@@ -674,11 +679,7 @@
 
 
 
-                        <!--                        <div class="RightTableHeadlineText" style="text-align: left">Thành phố</div>
-                                                <div class="txt">${info.Cities}</div>
-                        
-                        
-                                                <hr  width="70%" size="2px" align="center" color="black" style=" margin-bottom:4%;"  />-->
+
 
 
                         <a href="#editEmployeeModal" class="edit" data-toggle="modal"><button class="change" id="changeInfo"  onclick="changeInfo()">Chỉnh sửa</button></a>
