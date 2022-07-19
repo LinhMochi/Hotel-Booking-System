@@ -440,40 +440,13 @@ public class UserDAO {
         return list;
     }
 
-//    public ArrayList<User> getUsers() {
-//        ArrayList<User> ar = new ArrayList<>();
-//        try {
-//            String sql = "SELECT * FROM Users ";
-//            conn = new DBcontext().getConnection();
-//            ps = conn.prepareStatement(sql);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                User u = new User();
-//                u.setId(rs.getInt("id"));
-//                u.setFullName(rs.getString("fullName"));
-//                u.setGender(rs.getInt("gender"));
-//                u.setDob(rs.getDate("dob"));
-//                u.setEmail(rs.getString("email"));
-//                u.setAddress(rs.getString("address"));
-//                u.setAvatar(rs.getString("avatar"));
-//                u.setPhoneNumber(rs.getString("phoneNumber"));
-//                u.setPassword(rs.getString("password"));
-//                u.setRole(rs.getString("role"));
-//                u.setStatus(rs.getString("status"));
-//                ar.add(u);
-//            }
-//        } catch (SQLException e) {
-//        }
-//        return ar;
-//    }
-
     public ArrayList<User> getUserByName(String search) throws SQLException, IOException {
         ArrayList<User> ar = new ArrayList<>();
         try {
             String sql = "select * from Users where fullName like ?";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setString(1, "%"+search+"%");
+            ps.setString(1, "%" + search + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 User u = new User();
@@ -496,7 +469,36 @@ public class UserDAO {
         return ar;
     }
 
-    
+
+    public ArrayList<User> getUserById(int id) throws SQLException, IOException {
+        ArrayList<User> ar = new ArrayList<>();
+        try {
+            String sql = "select * from Users where id = ? ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullName(rs.getString("fullName"));
+                u.setGender(rs.getInt("gender"));
+                u.setDob(rs.getDate("dob"));
+                u.setEmail(rs.getString("email"));
+                u.setAddress(rs.getString("address"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setPhoneNumber(rs.getString("phoneNumber"));
+                u.setPassword(rs.getString("password"));
+                u.setRole(rs.getString("role"));
+                u.setStatus(rs.getString("status"));
+                ar.add(u);
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+        return ar;
+    }
+
     public void banUser(int id, String status) {
         try {
             String sql = "UPDATE Users SET status = ? WHERE id = ?";
@@ -510,4 +512,106 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+
+
+    public void updateUserByAdmin(int id, String fullName, int gender, String dob, int role, String address, String phoneNumber) {
+        String query = "Update Users set fullName = ?, gender = ? ,role = ?, dob = ?, address = ?, phoneNumber = ? where id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, fullName);
+            ps.setInt(2, gender);
+            ps.setInt(3, role);
+            ps.setString(4, dob);
+            ps.setString(5, address);
+            ps.setString(6, phoneNumber);
+            ps.setInt(7, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<HotelConvenient> getConvenient(int id) {
+        ArrayList<HotelConvenient> ar = new ArrayList<>();
+        String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
+                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n"
+                + "                 on c1.id = h.convenientCategoryId "
+                + "where c1.id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                HotelConvenient c = new HotelConvenient();
+                c.setCategoryId(rs.getInt("conCateId"));
+                c.setId(rs.getInt("conId"));
+                c.setConvenient(rs.getString("convenient"));
+                c.setCategory(rs.getString("convenientCategory"));
+                ar.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return ar;
+    }
+
+    public ArrayList<HotelConvenient> getConvenient() {
+        ArrayList<HotelConvenient> ar = new ArrayList<>();
+        String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
+                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n"
+                + "                 on c1.id = h.convenientCategoryId";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                HotelConvenient c = new HotelConvenient();
+                c.setCategoryId(rs.getInt("conCateId"));
+                c.setId(rs.getInt("conId"));
+                c.setConvenient(rs.getString("convenient"));
+                c.setCategory(rs.getString("convenientCategory"));
+                ar.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return ar;
+    }
+
+    public ArrayList<HotelConvenient> ConvenientCategories() {
+        ArrayList<HotelConvenient> ar = new ArrayList<>();
+        try {
+            String sql = "select *  from ConvenientCategories";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                HotelConvenient c = new HotelConvenient();
+                c.setCategoryId(rs.getInt("id"));
+                c.setCategory(rs.getString("convenientCategory"));
+                ar.add(c);
+            }
+        } catch (SQLException e) {
+        }
+        return ar;
+    }
+
+    public void updateConvenByAdmin(int conId, int convenientCategoryId, String convenient) {
+        String query = "UPDATE HotelConveniences \n"
+                + "				SET convenient = ?, convenientCategoryId = ?\n"
+                + "				where id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, convenient);
+            ps.setInt(2, convenientCategoryId);
+            ps.setInt(3, conId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

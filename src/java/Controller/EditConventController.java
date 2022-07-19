@@ -6,7 +6,7 @@
 package Controller;
 
 import DAO.UserDAO;
-import Model.Convenients;
+import Model.HotelConvenient;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -28,14 +28,14 @@ public class EditConventController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDAO ud = new UserDAO();
-        List<Convenients> listCon1 = ud.getConvenient(1);
-        List<Convenients> listCon2 = ud.getConvenient(2);
-        List<Convenients> listCon3 = ud.getConvenient(3);
-        List<Convenients> listCon4 = ud.getConvenient(4);
-        List<Convenients> listCon5 = ud.getConvenient(5);
-        List<Convenients> listCon6 = ud.getConvenient(6);
-        List<Convenients> listCon7 = ud.getConvenient();
-        List<Convenients> listConCate = ud.ConvenientCategories();
+        List<HotelConvenient> listCon1 = ud.getConvenient(1);
+        List<HotelConvenient> listCon2 = ud.getConvenient(2);
+        List<HotelConvenient> listCon3 = ud.getConvenient(3);
+        List<HotelConvenient> listCon4 = ud.getConvenient(4);
+        List<HotelConvenient> listCon5 = ud.getConvenient(5);
+        List<HotelConvenient> listCon6 = ud.getConvenient(6);
+        List<HotelConvenient> listCon7 = ud.getConvenient();
+        List<HotelConvenient> listConCate = ud.ConvenientCategories();
         request.setAttribute("listCon1", listCon1);
         request.setAttribute("listCon2", listCon2);
         request.setAttribute("listCon3", listCon3);
@@ -67,14 +67,14 @@ public class EditConventController extends HttpServlet {
         UserDAO userDao = new UserDAO();
         userDao.updateConvenByAdmin(conId, convenientCateId, convenient);
         UserDAO ud = new UserDAO();
-        List<Convenients> listCon1 = ud.getConvenient(1);
-        List<Convenients> listCon2 = ud.getConvenient(2);
-        List<Convenients> listCon3 = ud.getConvenient(3);
-        List<Convenients> listCon4 = ud.getConvenient(4);
-        List<Convenients> listCon5 = ud.getConvenient(5);
-        List<Convenients> listCon6 = ud.getConvenient(6);
-        List<Convenients> listCon7 = ud.getConvenient();
-        List<Convenients> listConCate = ud.ConvenientCategories();
+        List<HotelConvenient> listCon1 = ud.getConvenient(1);
+        List<HotelConvenient> listCon2 = ud.getConvenient(2);
+        List<HotelConvenient> listCon3 = ud.getConvenient(3);
+        List<HotelConvenient> listCon4 = ud.getConvenient(4);
+        List<HotelConvenient> listCon5 = ud.getConvenient(5);
+        List<HotelConvenient> listCon6 = ud.getConvenient(6);
+        List<HotelConvenient> listCon7 = ud.getConvenient();
+        List<HotelConvenient> listConCate = ud.ConvenientCategories();
         request.setAttribute("listCon1", listCon1);
         request.setAttribute("listCon2", listCon2);
         request.setAttribute("listCon3", listCon3);

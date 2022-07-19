@@ -59,10 +59,10 @@ public class listUserServlet extends HttpServlet {
             }
 
             UserDAO ud = new UserDAO();
-            List<User> list = ud.getUserFromTo(index, NUMBER_USERLIST);
+            List<User> list = ud.getUserFromTo(1, NUMBER_USERLIST);
             request.setAttribute("list", list);
             request.setAttribute("endPage", endPage);
-            request.setAttribute("index", index);
+            request.setAttribute("index", 1);
             request.getRequestDispatcher("UserList.jsp").forward(request, response);
         } catch (Exception e) {
             request.getRequestDispatcher("ERR.jsp").forward(request, response);
