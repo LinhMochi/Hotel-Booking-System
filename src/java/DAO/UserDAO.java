@@ -6,7 +6,6 @@
 package DAO;
 
 import DBcontext.DBcontext;
-import Model.Convenients;
 import Model.User;
 import java.io.IOException;
 import java.sql.Connection;
@@ -511,106 +510,4 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-
-    public void updateUserByAdmin(int id,String fullName, int gender,String dob,int role,String address, String phoneNumber) {
-        String query = "Update Users set fullName = ?, gender = ? ,role = ?, dob = ?, address = ?, phoneNumber = ? where id = ?";
-        try {
-            conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, fullName);
-            ps.setInt(2, gender);
-            ps.setInt(3, role);
-            ps.setString(4, dob);
-            ps.setString(5, address);
-            ps.setString(6, phoneNumber);
-            ps.setInt(7, id);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public ArrayList<Convenients> getConvenient(int id) {
-        ArrayList<Convenients> ar = new ArrayList<>();
-        String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
-                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
-"                 on c1.id = h.convenientCategoryId "
-                + "where c1.id = ?";
-        try {
-            conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Convenients c = new Convenients();
-                c.setConCateId(rs.getInt("conCateId"));
-                c.setConId(rs.getInt("conId"));
-                c.setConvenient(rs.getString("convenient"));
-                c.setConvenientCategory(rs.getString("convenientCategory"));
-                ar.add(c);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return ar;
-    }
-    
-    public ArrayList<Convenients> getConvenient() {
-        ArrayList<Convenients> ar = new ArrayList<>();
-        String sql = "select c1.id as conCateId,h.id as conId, h.convenient,c1.convenientCategory"
-                + " from HotelConveniences as h  Full JOIN ConvenientCategories as c1 \n" +
-"                 on c1.id = h.convenientCategoryId";
-        try {
-            conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Convenients c = new Convenients();
-                c.setConCateId(rs.getInt("conCateId"));
-                c.setConCateId(rs.getInt("conId"));
-                c.setConvenient(rs.getString("convenient"));
-                c.setConvenientCategory(rs.getString("convenientCategory"));
-                ar.add(c);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return ar;
-    }
-    
-    public ArrayList<Convenients> ConvenientCategories() {
-        ArrayList<Convenients> ar = new ArrayList<>();
-        try {
-            String sql = "select *  from ConvenientCategories";
-            conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Convenients c = new Convenients();
-                c.setConCateId(rs.getInt("id"));
-                c.setConvenientCategory(rs.getString("convenientCategory"));
-                ar.add(c);
-            }
-        } catch (SQLException e) {
-        }
-        return ar;
-    }
-    
-    
-    public void updateConvenByAdmin(int conId,int convenientCategoryId, String convenient) {
-        String query = "UPDATE HotelConveniences \n" +
-"				SET convenient = ?, convenientCategoryId = ?\n" +
-"				where id = ?";
-        try {
-            conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, convenient);
-            ps.setInt(2, convenientCategoryId);
-            ps.setInt(3, conId);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-            
 }

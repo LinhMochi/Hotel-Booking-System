@@ -137,7 +137,17 @@ public class RoomDAO {
     }
     
     
-    
+    public void removeRoom(int id) {
+        query = "DELETE FROM RoomTypes WHERE id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
     
     
     
@@ -157,7 +167,8 @@ public class RoomDAO {
     }
     
     public boolean updateRoom(Room r){
-        sql = "UPDATE Roomtypes SET roomType = ?, image = ?, quantity = ?, price = ?, maxAdults = ?, maxChild=?, bed = ?, area = ?, desciption=?,hotelId=?";
+        sql = "UPDATE Roomtypes SET roomType = ?, image = ?, quantity = ?, price = ?, maxAdults = ?, maxChild=?, bed = ?, area = ?, description = ?,hotelId = ?\n"
+         +"WHERE id = ?";       
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, r.getName());
@@ -170,6 +181,7 @@ public class RoomDAO {
             ps.setString(8, r.getArea());
             ps.setString(9, r.getDescription());
             ps.setInt(10, r.getHotelId());
+            ps.setInt(11, r.getId());
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
