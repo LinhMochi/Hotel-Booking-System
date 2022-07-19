@@ -104,9 +104,34 @@ public class CityDAO {
         }
     }
     
+    public void updateCityList(int id, City h) {
+        sql = "UPDATE Cities SET city = ?  , image = ?  \n"
+                + " WHERE id = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, h.getName());
+            ps.setString(2, h.getImage());
+            
+            ps.setInt(3, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
     
-    
-    
+       public void removeCity(int id) {
+        sql = "DELETE FROM Cities WHERE id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
     
     
     
