@@ -1,26 +1,23 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Controller;
 
-import DAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import Model.User;
-import DAO.AccountDAO;
-
 
 /**
  *
- * @author DELL
+ * @author Admin
  */
+@WebServlet(name = "UserProfileController", urlPatterns = {"/userprofile"})
 public class UserProfileController extends HttpServlet {
 
     /**
@@ -36,36 +33,18 @@ public class UserProfileController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            User a = (User) session.getAttribute("account");
-            String option = request.getParameter("option");
-            if (option.equals("1")) {
-                String user = request.getParameter("user");
-                User check = new UserDAO().checkUserExist(user);
-                if (check != null) {
-                    response.sendRedirect("info");
-                } else {
-                    new UserDAO().manageAccount(a.getId(), user, 1);
-                    session.removeAttribute("account");
-                    a.setEmail(user);
-                    session.setAttribute("account", a);
-                    response.sendRedirect("info"); 
-                }
-            } else {
-                String check = request.getParameter("old-pass");
-                String pass = request.getParameter("new-pass");
-                String repass = request.getParameter("re-pass");
-                if (!check.equals(a.getPassword()) || !pass.equals(repass)) {
-                    response.sendRedirect("info");
-                } else {
-                    new UserDAO().manageAccount(a.getId(), pass, 2);
-                    session.removeAttribute("account");
-                    response.sendRedirect("login");
-                }
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UserProfileController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UserProfileController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -79,7 +58,8 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
     }
 
     /**
