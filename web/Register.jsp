@@ -100,7 +100,8 @@
 					Ảnh đại diện
 				</div>
 				<div class="image-box">
-					<img src="images/user.png" class="avatar" alt="user">
+					<img src="https://lh3.googleusercontent.com/fife/AAWUweXamSMRcSgvdd20EJSJ3aguzy8GWA4OIpuvScjOU9XbprpdHB2AvFP2BA86xcl_I9llPxmNAS6GlctuDGZmgr3Z3uTzZ8t26u05dbQ5TVA8HjdGtpO2XQuvf8trEDzKv2GP4XITs9bVLhlPy2HmSUcqn3C62ZUCV4WL0gTOH9QbX8zc7eDqnFiydDO03Zy6_xeXFybfVnqpI20wG1j25PDQhCGZTF55jNtaGYUqdjaKgwmufH1v-o1kquUwxa9SlCGm-zDzYf2BUVqEZIOdKv7z38BDbUErQNn8Np-gW9UIBn2OmXKO8-nU0loYUNT7yRlt1f4fpT4dIBg017fQPnXVJkc2yqhJBjqah2rL7pW2Gsa4i7o9IDWccs3zWGznVjYWnwdzcBhQLpOthp2Rk3Ov4XzGmTwiXPb-UCOlXI2vFxDn6kSOpAuJfLcZreaJyhYsKAxDHLdl-atZNnEccGJlYuzNwMsQE6o-E-imvxROeafY2ZfJQZ4RFpwPFRtZ-8M1tbOsKaaCm08F6cn4C9IcX0qOkPngB4_UwaVPc4YdVMxic6_xQwAFjTm9Zul9kJixzhpefSVgGmHavfJ40oVijrnOkuPlg1wtjAJragGpWtdd3_aGxPcB7t08ZjJdPt9nC9_pKD3lPmb-5XJQrM2GOI-6DnsiCYZJG8s35Zneb3tJEzWOU7hXzxYS3JU10CrB7zBdbUeSFa0BUQaZFLk03xT6OMJkZcl_sl9MUYNRXlbSvuWV9Y32cD1lh9E6_sraDhvwLDLhZ4lYRHPjGelPdJH8R44dXQnHTwTtidy6lonMcX7T5jPgYX5Wq-VOlBME67OXhOo_MImKVh39RueFiOOB-cd1-I47D-12Z8FxSPAFfcrpsHnN0WNKuPxKnelqPcyPg5oFZiibyxoYnVX_1shtYoU-GYS4r2Mm5zGaHkSORwlI0g-A822qpOSHGwc_PrZkeY5Ag6faiB1ucitFE61dDUnyjDsSTsu6_nB98xHUWkIJwnnqyq3zV5WzldM-LRHxmeeEBezVZebe8-RTiSSC50rLB9J3fmsxc6oI4IqKmBOAKKlrnHV238YaEbKxo5DBqvtov8zRl8jDYUZmts1HGh6CnsZvFBplZ8hQmgDmzMfiGGB3IdxMbCXMPyj6EpAydTR-83lkgZPllzj-lSmQQ5FJEGGkTl6RR5Xf2MrEb2zdRdl2ori7JWVJISv6FtP_boPP1wBoc66JWtybasemBMmSOabnCylHFmOgsIioOZi2oNo4y_pEx77KGeA52xsZuLVBT6W0W4uhY_JeoS_cuC9vGycvmQ7PXDPrhp1m9wwG7KcLWb7p-JaUHDarvmx-zuYovsLlBmM=w1366-h634" 
+                                        class="avatar" alt="user">
 					<div class="change"><i class="fas fa-camera"></i></div>
 				</div>
 				<div class="input-box url-box hidden">

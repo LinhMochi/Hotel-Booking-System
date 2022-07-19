@@ -1,0 +1,336 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23-Jun-2022, 05:07:50
+    Author     : Admin
+*/
+.flex-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.drop-box{
+    position: relative;
+}
+/*            nav top               */
+.header .navbar .logo{
+    width: 150px;
+    height: 60px;
+    margin: 5px;
+    margin-left: 30px;
+}
+.header .navbar .logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header .items-box{
+    width: 250px;
+    margin-right: 50px;
+}
+.header .items-box-m{
+    width: 350px;
+}
+.header .items-box-l{
+    width: 450px;
+}
+.header .items-box .items{
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, .2);
+    border-radius: 50%;
+    position: relative;
+}
+.header .items-box .items:hover{
+    background: rgba(0, 0, 0, .3);
+}
+
+.items-box .items .title{
+    background-color: black;
+    color: #fff;
+    position: absolute;
+    width: 90px;
+    top: 60px;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    transition: 0.5s;
+    z-index: -10;
+    opacity: 0;
+}
+.items-box .items i:hover~.title{
+    z-index:  auto;
+    opacity: 0.8;
+}
+
+
+
+
+.header .items-box .items.flag:after{
+    content: '\0021';
+    position: absolute;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #f00;
+    transform: translate(10px,10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* 		cart mini  */
+.drop-box-items.drop-cart{
+    width: 40vw;
+    height: calc(100vh - 70px);
+}
+
+.empty-cart{
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+    position: absolute;
+}
+/* h5*/
+.drop-cart .section .content {
+    width: 100%;
+    padding: 10px 5px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+.drop-cart .section .content.picked-room{
+    max-height: 300px
+}
+.drop-cart .section .content.picked-service{
+    max-height: 70px
+}
+
+.content::-webkit-scrollbar{
+    width: 5px;
+    background: #fff;
+}
+.drop-cart .content::-webkit-scrollbar-thumb{
+    background: #ff4;
+    border-radius: 8px;
+}
+.drop-cart .content h5{
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    font-size: 12px;
+}
+
+.drop-cart .quantity{
+    width: 100px;
+}
+
+.drop-cart .quantity input{
+    width: 50px;
+    -moz-appearance: none;
+    text-align: center
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button
+{
+    -webkit-appearance: none;
+}
+
+.drop-cart .item{
+    position: relative;
+    padding-bottom: 5px;
+    border-bottom: 1px solid threedhighlight;
+}
+.drop-cart .picked-room .item{
+    margin-bottom: 10px;
+}
+.drop-cart .item:hover{
+    box-shadow: 1px 1px 5px #9ba39a
+}
+
+.drop-cart .close-btn{
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+    right: 15px;
+    opacity: 0.0;
+    transform: translateX(10px);
+    transition: 0.5s;
+}
+.drop-cart .item:hover .close-btn,.drop-cart .close-btn:hover{
+    opacity: 1;
+    transform: translateZ(0);
+    color: red;
+    box-shadow: 1px 1px 5px 1px rgba(0,0,0,.2);
+}
+
+
+.drop-cart .lable{
+    position:relative;
+    left: -25px;
+    margin-bottom: 5px
+}
+
+.drop-cart .footer{
+    width:100%;
+    height: 26px;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    bottom: 0;
+    right: 0;
+    transition: height 0.5s;
+}
+.drop-cart .footer.active{
+    height: 110px;
+    
+}
+
+.drop-cart .footer .toggle{
+    margin-left: 30px;
+    width: 30px;
+    height: 30px;
+    color: gray;
+    border: 1px solid #9ba39a;
+    border-bottom-color: transparent; 
+    cursor: pointer;
+}
+.drop-cart .footer .toggle i{
+    transform: rotate(180deg);
+    transition: rotate ease-in-out 0.5s;
+    box-shadow: 1px 1px 3px 1px #9ba39a;
+}
+.drop-cart .footer .toggle.active i{
+    transform: rotate(0deg);
+}
+
+.drop-cart .footer .contain{
+    padding: 5px 50px;
+}
+
+.drop-cart .footer.active .contain{
+    box-shadow: -1px 1px 5px 1px #9ba39a;
+    border-top:1px solid;
+}
+
+.drop-cart .footer .contain .btn{
+    background-color: #cc8c18;
+    color: #fff;
+    border-radius: 18px;
+    padding: 5px 20px;
+}
+/*		 cart mini 		*/
+
+.header .items-box .drop-box .user-box{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.header .items-box .user-box img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.drop-box-items{
+    z-index: 100;
+    position: absolute;
+    width: 185px;
+    right: 0;
+    margin-top: 10px;
+    padding: 10px 0;
+    line-height: 2.5rem;
+    border-radius: 5px;
+    box-shadow: 0 0 25px 1px rgba(0, 0, 0, .25);
+    background: #fff;
+}
+.drop-box-items::after{
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background: rgba(0, 0, 0, .05);
+    border: 5px solid transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: #fff;
+}
+.drop-box-items .header {
+    cursor: default;
+    padding: 5px 10px;
+    font-size: 18px;
+}
+h2{
+    font-weight: 200;
+}
+
+.drop-box-items .header .fa-times{
+    font-weight: 200;
+    cursor: pointer;
+}
+
+.drop-box-items .header .fa-times:hover{
+    color: #f00;
+}
+
+.drop-box-items .drop-item{
+    line-height: 1.5rem;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+.drop-box-items .drop-item:hover{
+    background: #cc8c18;
+    color: #fff;
+}
+
+.drop-box-items .header{
+    margin: 0 10px;
+}
+
+
+
+.nav-link a{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: greenyellow;
+}
+
+.nav-link a:hover{
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .3);
+}
+
+.nav-link a:first-child{
+    margin-right: 5px;
+}
+
+.nav-link a.login{
+    background-color: skyblue;
+}
+
+
+
+.hidden{
+    display: none;
+}
+.main{
+    width: 100%;
+    height: 200vh;
+    background-color: rgba(0, 0, 0, 0.1);
+}

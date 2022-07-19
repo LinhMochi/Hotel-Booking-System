@@ -5,7 +5,10 @@
  */
 package SMTP;
 
+import Model.GenerateRandom;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;

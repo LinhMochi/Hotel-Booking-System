@@ -50,7 +50,7 @@ public class ChangePasswordController extends HttpServlet {
             request.getRequestDispatcher("changepassword").forward(request, response);
         } else {
             try {
-                String gmailFrom = "swp391.e2.g5@gmail.com";
+                String gmailFrom = "swp391.e2.g5@gmail.com";     
                 String password = "LinhLVT2509";
                 String mailTo = request.getParameter("email");
                 String subject = "Welcome";

@@ -1,0 +1,489 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22-Jun-2022, 20:04:23
+    Author     : Admin
+*/
+
+*{
+	padding: 0;
+	margin: 0;
+	line-height: 1.5rem;
+	box-sizing: border-box;
+}
+
+/*
+    some layout property
+*/ 
+
+.flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.flex-ja-end{
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.flex-around{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.flex-column{
+	flex-direction: column;
+}
+
+
+.flex-row{
+	flex-direction: row;
+}
+
+.flex-end{
+    align-items: flex-end;
+}
+.flex-start{
+    align-items: flex-start
+}
+
+.g-3c{
+    display: grid;
+    grid-grap: 5px;
+    grid-template-columns: 1.5fr 2fr 1fr;
+}
+
+.g-c{
+   justify-content: center;
+   align-items: center;
+}
+
+.g-3-center{
+    display: grid;
+    grid-template-columns:1fr 2fr 1fr;
+    grid-gap: 5px;
+    place-items:center;
+}
+
+.grid-3{
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 1.5fr 2fr 1fr;
+}
+
+.layout-1-1-2{
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-columns: 1fr 3fr;
+	height: 100vh;
+	grid-gap: 5px;
+}
+
+.layout-1-3{
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	min-height: 100vh;
+	grid-gap: 10px;
+}
+.layout-1-2{
+	grid-row: 1;
+	grid-column: 1/3;
+}
+
+.layout-2-2{
+	grid-row: 2;
+	grid-column: 1/3;
+}
+
+a{
+    text-decoration: none;
+}
+
+ul,ol,li{
+    list-style: none;
+    margin-top: 2px;
+}
+
+ul>li{
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 5px;
+    padding: 2.5px;
+    margin: 5px;
+}
+ul>li:first-child{
+    margin-left: 0;
+}
+
+.card{
+    border-radius: 5px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card-s{
+    width: 400px;
+    min-height: 250px;
+    position: relative;
+    background-color: aliceblue;
+}
+
+.card-m{
+    width: 500px;
+    min-height: 250px;
+    position: relative;
+}
+
+.card-l{
+    width: 600px;
+    min-height: 250px;
+    position: relative;
+}
+
+.card-ex{
+    margin-top: 20px;
+    min-width: 600px;
+    max-width: 860px;
+    min-height: 280px;
+    position: relative;
+}
+
+/* card style */
+.vertical-card{
+    position: relative;
+    width: 250px;
+    height:350px;
+}
+.vertical-card:hover .card-content{
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
+}
+.vertical-cicle-card{
+    width: 200px;
+    height: 250px;
+}
+.vertical-cicle-card .item-image{
+    transition: 0.5s;
+    border-radius: 50% !important;
+    margin-bottom: 10px;
+}
+.vertical-cicle-card:hover .item-image{
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
+    transform: scale(1.05);
+}
+
+.item-image{
+    width: 100%;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+}
+.item-image img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.item-info .item-name{
+    font-size: 18px;
+    font-family: cursive;
+}
+.item-info p {
+    font-size: 14px;
+    margin-top: 5px;
+    letter-spacing: 2px;
+    padding-left: 5px;
+}
+               
+.card-content{
+    min-height: 70px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
+}
+
+.card-price{
+    min-width: 132px;
+}
+
+/*      grid card       */
+
+.card-l,.card-s,.card-m,.card-ex{
+    border-radius: 5px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2);
+    overflow: hidden;
+}
+.card-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-contain{
+    padding: 5px 5px 0 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+.card-header .add-box{
+    font-size: 12px;
+
+}
+.card-contain .hotel-start{
+    font-size: 16px;
+    color: #fde40c;
+}
+.card-contain ul>li{
+    margin-right:5px;
+    font-size: 14px;
+    background-color: gainsboro;
+    display: inline-block;
+}
+.card-contain .show-more{
+    text-align: center;
+    width: 30px;
+    height: 30px
+}
+.hotel-sd{
+    position: relative;
+}
+.card-contain .show-more:hover~.show-dd{
+
+    display: block;
+    background-color: #cc8c18;
+    z-index: 1000;
+}
+.card-footer ul>li{
+    background-color: burlywood;
+}
+.show-dd{
+    position: absolute;
+    width: 165px;
+    left: 90%;
+    top: 0;
+    padding: 5px;
+    line-height: 1.5rem;
+    display: none;
+    background-color: #00ff5d;
+    border-radius: 5px;
+}
+.card-footer li {
+    background-color: burlywood;
+}
+.card-contain .add-infor{
+    color: #51e751;
+    border: 1px solid #51e751;
+    border-radius: 5%;
+    margin: 5% 10% 0 10%;
+
+    text-align: center;
+}
+
+.card-footer .like-card{
+    width: 100%;
+    margin: 5px 0;
+}
+.lable{
+    margin-left: 5px;
+}
+.card-footer .like-card.like i{
+    color: red;
+}
+
+
+.card-footer .card-score .left-side{
+    text-align: right;
+}
+.card-footer .card-score .no-rate{
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+.card-footer .card-score .score{
+    margin: 5px;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    border-bottom-left-radius: 0;
+    color: #fff;
+    background-color: #00f;
+}
+
+.card-footer .card-price{
+    margin: 20px 0 10px 0;
+    font-size: 16px;
+}
+.card-price .title{
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+.card-price .unit-price{
+    display: inline-block;
+    font-size: 18px;
+    position: relative;
+    color: dimgray;
+}
+.unit-price:after{
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 0;
+    background-color: red;
+    width: calc(100%);
+    height: 3px;
+    transform: skewY(-9deg);
+}
+.card-price .price{
+    color: red;
+}
+.btn{
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, .2);
+}
+.btn.pick-room{
+    color: #fff;
+    background-color: #cc8c18;
+    transition: 0.5s;
+}
+
+.pick-room:hover{
+    transform: scale(1.2);
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, .3);
+}
+
+/*      grid card       */
+/*     message box     */
+
+
+.error-box{
+    position: absolute;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    right: 150px;
+    top: 25px;
+    z-index: 102;
+}
+
+@keyframes error-display{
+    0%{
+        width: 100%;
+    }
+    100%{
+        width: 0%;
+    }
+}
+
+@keyframes auto-hidden{
+
+    0%{
+        opacity: 0;
+        padding: 20px 10px;
+        width: 250px;
+        height: 80px;
+
+    }
+    10%{
+        width: 250px;
+        padding: 20px 10px;
+        opacity: 1.0;
+        height: 80px;
+    }	
+
+    89%{
+        opacity: 1;
+        padding: 20px 10px;
+        width: 250px;
+        height: 80px;
+    }
+    100%{
+        opacity: 0;
+        height: 0;
+        padding: 0px;
+        width: 0px;
+    }
+}
+
+
+.error-message{
+    color: #fff;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin-top: 10px;
+    background: rgba(255, 128, 128, 0.5);
+    display: flex;
+    position: relative;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-content: center;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+.error-message.notify{
+    background-color: rgba(0,127,0,0.3);
+}
+
+.error-message::before{
+    content: '';
+    background: red;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.error-message.notify::before{
+    background: rgba(12,127,12,0.8);
+}
+
+.error-message.active{
+    animation: auto-hidden 5s;
+}
+
+.error-message.active::before{
+    animation: error-display 5s;
+    animation-delay: 0.4s;
+}
+
+.close-error-message{
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    background: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: linear 0.5s ease;
+}
+.close-error-message:hover{
+    background: #fff;
+    color: #f00;
+}
+.pagin{
+    margin-top: 20px
+}
+
+.pagin .current-page{
+    background: #03a9f4;
+    color: #fff;
+}
+.absolutely{
+    position: absolute;
+}
+
+.hidden{
+    display: none !important;
+}
+

@@ -80,6 +80,7 @@ public class HotelConvenient {
         this.categoryId = categoryId;
     }
 
+
     public int getRate() {
         return rate;
     }
@@ -89,6 +90,7 @@ public class HotelConvenient {
     }
 
     
+
     @Override
     public String toString() {
         return "HotelConvenient{" + "id=" + id + ", convenient=" + convenient + ", category=" + category + ", rate=" + rate + ", hotelId=" + hotelId + ", categoryId=" + categoryId + '}';
@@ -99,5 +101,6 @@ public class HotelConvenient {
   
     
     
-    
+
 }
+

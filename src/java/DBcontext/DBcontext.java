@@ -15,9 +15,9 @@ import java.util.logging.Logger;
  * @author Linh
  */
 public class DBcontext {
-    private final String serverName = "DESKTOP-MGA8FCC\\SQLEXPRESS";
-//        private final String serverName = "localhost";
-    
+
+    private final String serverName = "localhost";
+//    DESKTOP-4TCGMJB\\SQLEXPRESS
     private final String dbName = "Hotel_Booking";
     private final String portNumber = "1433";
     private final String instance="";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
@@ -42,8 +42,8 @@ public class DBcontext {
     public Connection getConnection(){
         return connection;
     }
-    public static void main(String[] args) {
-        DBcontext db = new DBcontext();
-        System.out.println(db.connection);
-    }
+//    public static void main(String[] args) {
+//        DBcontext db = new DBcontext();
+//        System.out.println(db.connection);
+//    }
 }

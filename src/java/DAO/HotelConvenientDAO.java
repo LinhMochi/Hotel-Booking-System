@@ -1,9 +1,9 @@
+
 package DAO;
 
 import DBcontext.DBcontext;
 import Model.HotelConvenient;
-import Model.User;
-import java.io.IOException;
+import Model.HotelConvenientList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,62 +25,7 @@ public class HotelConvenientDAO {
     String sql = null;
     ArrayList<HotelConvenient> list;
 
-//    public ArrayList<HotelConvenient> getRateConveniences(int hotelId) {
-//        list = new ArrayList<>();
-//        sql = "SELECT hc.id, hc.convenient,cc.convenientCategory, cr.convenientRate, hc.hotelId, hc.convenientCategoryId "
-//                + "FROM HotelConveniences hc inner join ConvenientRate cr ON hc.id = cr.convenientId\n"
-//                + "inner join ConvenientCategories cc on hc.convenientCategoryId = cc.id\n"
-//                + "WHERE hc.hotelId = ? ORDER BY convenientRate asc";
-//        try {
-//            ps = conn.prepareStatement(sql);
-//            ps.setInt(1, hotelId);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                list.add(new HotelConvenient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        return list;
-//    }
-//    public ArrayList<HotelConvenient> getHotelConveniences(int hotelId) {
-//        list = new ArrayList<>();
-//        sql = "SELECT hc.id, hc.convenient,cc.convenientCategory,isnull(cr.convenientRate,999) as convenientRate, hc.hotelId, hc.convenientCategoryId FROM HotelConveniences hc left join ConvenientRate cr on hc.id = cr.convenientId\n"
-//                + "inner join ConvenientCategories cc on hc.convenientCategoryId = cc.id\n"
-//                + "WHERE hc.hotelId = ? ORDER BY hc.convenientCategoryId asc";
-//        try {
-//            ps = conn.prepareStatement(sql);
-//            ps.setInt(1, hotelId);
-//            rs = ps.executeQuery();
-//            while(rs.next()){
-//                list.add(new HotelConvenient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return list;
-//    }
-//    public HotelConvenientList getRatedConvenientByHotels(String hotels) {
-//        sql = "WITH Hotel as (SELECT value FROM string_split(?,','))\n"
-//                + "SELECT hc.id,hc.convenient,cc.convenientCategory,cr.convenientRate,hc.hotelId,hc.convenientCategoryId \n"
-//                + "FROM HotelConveniences hc INNER JOIN ConvenientCategories cc on hc.convenientCategoryId = cc.id\n"
-//                + "INNER JOIN ConvenientRate cr on hc.id = cr.convenientId,Hotel\n"
-//                + "WHERE hc.hotelId = Hotel.[value]\n"
-//                + "ORDER BY cr.convenientRate asc";
-//        list = new ArrayList<>();
-//        try {
-//            ps = conn.prepareStatement(sql);
-//            ps.setString(1, hotels);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                list.add(new HotelConvenient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(HotelConvenientDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return new HotelConvenientList(list);
-//    }
+
     public int create_Convient(HotelConvenient hotel) {
         int idValue =0;
         try {
@@ -202,4 +147,64 @@ public class HotelConvenientDAO {
         return conId;
     }
 
+}
+
+    public ArrayList<HotelConvenient> getRateConveniences(int hotelId) {
+        list = new ArrayList<>();
+        sql = "SELECT hc.id, hc.convenient,cc.convenientCategory, cr.convenientRate, hc.hotelId, hc.convenientCategoryId "
+                + "FROM HotelConveniences hc inner join ConvenientRate cr ON hc.id = cr.convenientId\n"
+                + "inner join ConvenientCategories cc on hc.convenientCategoryId = cc.id\n"
+                + "WHERE hc.hotelId = ? ORDER BY convenientRate asc";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new HotelConvenient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+
+    public ArrayList<HotelConvenient> getHotelConveniences(int hotelId) {
+        list = new ArrayList<>();
+        sql = "SELECT hc.id, hc.convenient,cc.convenientCategory,isnull(cr.convenientRate,999) as convenientRate, hc.hotelId, hc.convenientCategoryId FROM HotelConveniences hc left join ConvenientRate cr on hc.id = cr.convenientId\n"
+                + "inner join ConvenientCategories cc on hc.convenientCategoryId = cc.id\n"
+                + "WHERE hc.hotelId = ? ORDER BY hc.convenientCategoryId asc";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                list.add(new HotelConvenient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public HotelConvenientList getRatedConvenientByHotels(String hotels) {
+        sql = "WITH Hotel as (SELECT value FROM string_split(?,','))\n"
+                + "SELECT hc.id,hc.convenient,cc.convenientCategory,cr.convenientRate,hc.hotelId,hc.convenientCategoryId \n"
+                + "FROM HotelConveniences hc INNER JOIN ConvenientCategories cc on hc.convenientCategoryId = cc.id\n"
+                + "INNER JOIN ConvenientRate cr on hc.id = cr.convenientId,Hotel\n"
+                + "WHERE hc.hotelId = Hotel.[value]\n"
+                + "ORDER BY cr.convenientRate asc";
+        list = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, hotels);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new HotelConvenient(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelConvenientDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new HotelConvenientList(list);
+    }
 }
