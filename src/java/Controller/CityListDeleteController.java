@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.CityDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,7 +34,7 @@ public class CityListDeleteController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+              
            
         }
     }
@@ -64,7 +65,12 @@ public class CityListDeleteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String currentpage = request.getParameter("currentpage");
+        int id = Integer.parseInt(request.getParameter("id"));
+        response.getWriter().println(id);
+        CityDAO hgd = new CityDAO();
+        hgd.removeCity(id);
+        response.sendRedirect("CityListController?page=" + currentpage);
     }
 
     /**

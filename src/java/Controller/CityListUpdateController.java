@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import DAO.CityDAO;
+import Model.City;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,15 +36,7 @@ public class CityListUpdateController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CityListUpdateController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CityListUpdateController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+          
         }
     }
 
@@ -72,7 +66,23 @@ public class CityListUpdateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+          response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        CityDAO hgd = new CityDAO();
+        City h = new City();
+
+        String currentpage = request.getParameter("currentpage");
+       String name = request.getParameter("name"); 
+        String image = request.getParameter("image");
+        int id = Integer.parseInt(request.getParameter("id"));
+        
+//         response.getWriter().println(image);
+        
+        h.setName(name);
+        h.setImage(image);
+        
+        hgd.updateCityList(id, h);
+        response.sendRedirect("CityListController?page=" + currentpage);
     }
 
     /**
