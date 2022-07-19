@@ -5,10 +5,14 @@
  */
 package Controller;
 
-import DAO.RoomDAO;
-import Model.Room;
+import DAO.CityDAO;
+import Model.City;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-@WebServlet(name = "RoomAddController", urlPatterns = {"/RoomAdd"})
-public class RoomAddController extends HttpServlet {
+@WebServlet(name = "CityListController", urlPatterns = {"/CityListController"})
+public class CityListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,12 +35,44 @@ public class RoomAddController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final int NUMBER_IMAGE = 8;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
- 
+            String page;
+            try {
+                page = request.getParameter("page");
+                if (page == null) {
+                    page = "1";
+                }
+            } catch (Exception e) {
+                page = "1";
+            }
+            CityDAO c = new CityDAO();
+//            ArrayList<Room> list = hgd.GetAllRoom();
+            int count = c.getListCityComplete().size();
+            int endPage = count / NUMBER_IMAGE;
+            if (count % NUMBER_IMAGE != 0) {
+                endPage++;
+            }
+            ArrayList<City> hlist = new CityDAO().getListCity();
+
+            ArrayList<City> list = c.getCity(page, NUMBER_IMAGE);
+//            response.getWriter().print(list);
+            City spc = new City();
+            request.setAttribute("list", list);
+            request.setAttribute("endPage", endPage);
+            request.setAttribute("page", page);
+            request.setAttribute("count", count);
+            request.setAttribute("numberOfImage", NUMBER_IMAGE);
+            request.setAttribute("hlist", hlist);
+
+//            RoomDAO hgd = new RoomDAO();
+            request.getRequestDispatcher("CityList.jsp").forward(request, response);
         }
     }
 
@@ -52,7 +88,11 @@ public class RoomAddController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CityListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -66,36 +106,11 @@ public class RoomAddController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        
-        String name = request.getParameter("name");
-        String currentpage = request.getParameter("currentpage");
-        String image = request.getParameter("image");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        double price = Double.parseDouble(request.getParameter("price"));
-        int maxadult = Integer.parseInt(request.getParameter("maxadult"));
-        int maxchild = Integer.parseInt(request.getParameter("maxchild"));
-        String bed = request.getParameter("bed");
-        String area = request.getParameter("area");
-        String description = request.getParameter("description");
-        int hotelId = Integer.parseInt(request.getParameter("hotelId"));
-        
-       
-        RoomDAO hgd = new RoomDAO();
-        Room h = new Room();
-        h.setName(name);
-        h.setImage(image);
-        h.setQuantity(quantity);
-        h.setPrice(price);
-        h.setMaxAdult(maxadult);
-        h.setMaxChild(maxchild);
-        h.setBed(bed);
-        h.setArea(area);
-        h.setDescription(description);
-        h.setHotelId(hotelId);
-        hgd.addRoom(h);
-        response.sendRedirect("RoomManager?page=" + currentpage);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CityListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

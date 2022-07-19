@@ -5,8 +5,6 @@
  */
 package Controller;
 
-import DAO.RoomDAO;
-import Model.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DELL
  */
-@WebServlet(name = "RoomAddController", urlPatterns = {"/RoomAdd"})
-public class RoomAddController extends HttpServlet {
+@WebServlet(name = "CityListDeleteController", urlPatterns = {"/CityListDelete"})
+public class CityListDeleteController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +34,7 @@ public class RoomAddController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
- 
+           
         }
     }
 
@@ -66,36 +64,7 @@ public class RoomAddController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        
-        String name = request.getParameter("name");
-        String currentpage = request.getParameter("currentpage");
-        String image = request.getParameter("image");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        double price = Double.parseDouble(request.getParameter("price"));
-        int maxadult = Integer.parseInt(request.getParameter("maxadult"));
-        int maxchild = Integer.parseInt(request.getParameter("maxchild"));
-        String bed = request.getParameter("bed");
-        String area = request.getParameter("area");
-        String description = request.getParameter("description");
-        int hotelId = Integer.parseInt(request.getParameter("hotelId"));
-        
-       
-        RoomDAO hgd = new RoomDAO();
-        Room h = new Room();
-        h.setName(name);
-        h.setImage(image);
-        h.setQuantity(quantity);
-        h.setPrice(price);
-        h.setMaxAdult(maxadult);
-        h.setMaxChild(maxchild);
-        h.setBed(bed);
-        h.setArea(area);
-        h.setDescription(description);
-        h.setHotelId(hotelId);
-        hgd.addRoom(h);
-        response.sendRedirect("RoomManager?page=" + currentpage);
+        processRequest(request, response);
     }
 
     /**

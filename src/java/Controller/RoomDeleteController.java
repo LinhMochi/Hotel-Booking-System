@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.RoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -72,7 +73,12 @@ public class RoomDeleteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       String currentpage = request.getParameter("currentpage");
+        int id = Integer.parseInt(request.getParameter("id"));
+        response.getWriter().println(id);
+        RoomDAO hgd = new RoomDAO();
+        hgd.removeRoom(id);
+        response.sendRedirect("RoomManager?page=" + currentpage);
     }
 
     /**

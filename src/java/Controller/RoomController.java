@@ -48,7 +48,8 @@ public class RoomController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
                 try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
             
             String page;
             try {
@@ -84,7 +85,7 @@ public class RoomController extends HttpServlet {
             
 
         
-            request.getRequestDispatcher("AddRoom.jsp").forward(request, response);
+            request.getRequestDispatcher("RoomController.jsp").forward(request, response);
             
         }
 

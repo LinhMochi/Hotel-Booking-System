@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import DAO.RoomDAO;
+import Model.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -50,7 +52,7 @@ public class RoomUpdateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -64,7 +66,37 @@ public class RoomUpdateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        String name = request.getParameter("name");
+        String currentpage = request.getParameter("currentpage");
+        String image = request.getParameter("image");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        double price = Double.parseDouble(request.getParameter("price"));
+        int maxadult = Integer.parseInt(request.getParameter("maxadult"));
+        int maxchild = Integer.parseInt(request.getParameter("maxchild"));
+        String bed = request.getParameter("bed");
+        String area = request.getParameter("area");
+        String description = request.getParameter("description");
+        int hotelId = Integer.parseInt(request.getParameter("hotelId"));
+        int Id = Integer.parseInt(request.getParameter("Id"));
+        
+       
+        RoomDAO hgd = new RoomDAO();
+        Room h = new Room();
+        h.setName(name);
+        h.setImage(image);
+        h.setQuantity(quantity);
+        h.setPrice(price);
+        h.setMaxAdult(maxadult);
+        h.setMaxChild(maxchild);
+        h.setBed(bed);
+        h.setArea(area);
+        h.setDescription(description);
+        h.setHotelId(hotelId);
+        h.setId(Id);
+        hgd.updateRoom(h);
+        response.sendRedirect("RoomManager?page=" + currentpage);
     }
 
     /**
