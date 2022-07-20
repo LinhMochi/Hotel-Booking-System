@@ -56,11 +56,13 @@ public class HotelDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Hotel h;
         if(request.getParameter("model")!=null){
+            
             h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
             request.getSession().removeAttribute("availableRoom");
             request.getSession().removeAttribute("availableService");
             ArrayList<Room> viewroom = new RoomDAO().getRoomByHotelId(h.getId());
             request.setAttribute("viewRoom", viewroom);
+            
         } else{
             h = 
     //                new HotelDAO().getHotelDetail(2);
@@ -69,15 +71,15 @@ public class HotelDetailController extends HttpServlet {
             Search s = 
     //                new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-03"), 3, 1, 2); 
                     (Search) request.getSession().getAttribute("search");
-            if(h == null){
+            if(h == null&& request.getParameter("hotelId") != null){
                 h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
-            } 
-            if( h != null && request.getParameter("hotelId") != null){
+            } else if( h == null && request.getParameter("hotelId") == null ) {
+                request.setAttribute("message", "Truy cập bị chặn");    
+                request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
+            } else if( h != null && request.getParameter("hotelId") != null){
                 h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
             }
-            if( h == null && request.getParameter("hotelId") == null ) {
-                request.setAttribute("message", "Truy cập bị chặn");
-            }
+           
 
             if(request.getParameter("changedate")!=null|| s==null ){
                 if(s==null) s = new Search();

@@ -42,13 +42,8 @@
                 <script src="js/search-box.js"></script>
 
                 <div class="cart-wrapper">
-                    <h2>Bạn đã chọn</h2>
-                    <div class="empty-cart flex-center <c:if test="${not empty cart}">hidden</c:if>">
-                        <div>
-                            <i class="fa fa-archive" aria-hidden="true"></i>
-                        </div>
-                        <div>Giỏ hàng trống</div>
-                    </div>
+                    <c:if test="${empty cart}"><h2>Bạn chưa chọn phòng</h2></c:if>
+                    <c:if test="${not empty cart}"><h2>Bạn đã chọn</h2></c:if>
                     <div class="room-wrapper <c:if test="${empty cart}">hidden</c:if>">
                         <c:forEach var="br" items="${sessionScope.cart.getBookedRooms()}">
                         <div class="picked-room grid-3" id="${br.getId()}">
@@ -91,7 +86,7 @@
                 </div>
                 
                 <div id="service" class="service-wrapper <c:if test="${empty cart}">hidden</c:if>">
-                    <h3>Dịch vụ kèm theo</h3>
+                        <c:if test="${not empty cart.getBookedServices()}"><h3>Dịch vụ kèm theo</h3></c:if>                    
                     <div class="service-container">
                         <c:forEach var="bservice" items="${sessionScope.cart.getBookedServices()}">
                             <div class="service-item" id="${bservice.id}">
