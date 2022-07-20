@@ -26,6 +26,10 @@ public class CityDAO {
     private ResultSet rs = null;
     String sql = null;
     
+    public static void main(String[] args) {
+        System.out.println(new CityDAO().getListCity().size());
+    }
+    
     public ArrayList<City> getListCity(){// get list city to rend into select in form 
         ArrayList<City> list = new ArrayList<City>();
         sql =   "SELECT Cities.id, Cities.city FROM Cities";
