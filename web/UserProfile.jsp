@@ -497,9 +497,12 @@
         </script>
 
     </head>
-    <!--    <body>
-            <h1>Hello World!</h1>
-        </body>-->
+        
+            <body style="background-image: url(images/hotelDetail-background.jpg);background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size:100%;
+      background-position: center;; font-weight: 100%">
+        </body>
 
 
     <!--    background img-->
