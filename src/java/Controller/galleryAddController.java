@@ -72,6 +72,7 @@ public class galleryAddController extends HttpServlet {
         String img = request.getParameter("img");
         String title = request.getParameter("title");
         int hotelID = Integer.parseInt(request.getParameter("hotelID"));
+//        response.getWriter().print(hotelID);
         HotelGalleryDAO hgd = new HotelGalleryDAO();
         HotelGallery h = new HotelGallery();
         h.setImage(img);
