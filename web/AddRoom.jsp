@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- <%@page contentType="text/html" pageEncoding="UTF-8"%> -->
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -22,11 +22,30 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <style>
+
+            .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+                width: 100%;
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-right: auto;
+                margin-left: auto;
+                margin-top: 10%;
+            }
+
             body {
                 color: #566787;
-                background: #7F8CC0;
+
                 font-family: 'Varela Round', sans-serif;
                 font-size: 13px;
+                background-image: url("images/Beach_Background-885.jpg");
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                background-size:100%;
+                background-position: center;
+                padding-bottom: 100px;
+                padding-left: 100px;
+                padding-right: 100px;
+                padding-top: 50px;
             }
             .table-responsive {
                 margin: 30px 30px;
@@ -290,24 +309,24 @@
                             </div>
                             <div class="col-sm-6">
                                 <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Room</span></a>
-                                <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete Room</span></a>						
+                                <!--                                <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete Room</span></a>						-->
                             </div>
                         </div>
                     </div>
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>
-                                    <span class="custom-checkbox">
-                                        <input type="checkbox" id="selectAll">
-                                        <label for="selectAll"></label>
-                                    </span>
-                                </th>
+                                <!--                                <th>
+                                                                    <span class="custom-checkbox">
+                                                                        <input type="checkbox" id="selectAll">
+                                                                        <label for="selectAll"></label>
+                                                                    </span>
+                                                                </th>-->
                                 <th>Room Id</th>
                                 <th>Room Type</th>
                                 <th>Image</th>
                                 <th>Quantity</th>
-                                <th>Price</th>
+                                <th>Price (VNĐ)</th>
                                 <th>Max Adults</th>
                                 <th>Max Child</th>
                                 <th>Bed</th>
@@ -319,59 +338,59 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="room" items="${list}">
-                            <tr>
-                                <td>
-                                    <span class="custom-checkbox">
-                                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                        <label for="checkbox1"></label>
-                                    </span>
-                                </td>
-                                <td>${room.id}</td>
-                                <td>${room.roomType}</td>
-                                <td><img src="${room.image}" width="130" height="90" alt="hotel-img"></td>
-                                <td>${room.quantity}</td>
-                                <td>${room.price}</td>
-                                <td>${room.maxAdult}</td>
-                                <td>${room.maxChild}</td>
-                                <td>${room.bed}</td>
-                                <td>${room.area}</td>
-                                <td>${room.description}</td>
-                                <td>${room.hotelId}</td>
-                                <td>
-                                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                </td>
-                            </tr>
+                            <c:forEach var="room" items="${list}">
+                                <tr>
+                                    <!--                                <td>
+                                                                        <span class="custom-checkbox">
+                                                                            <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                                                            <label for="checkbox1"></label>
+                                                                        </span>
+                                                                    </td>-->
+                                    <td>${room.id}</td>
+                                    <td>${room.name}</td>
+                                    <td><img src="${room.image}" width="130" height="90" alt="hotel-img"></td>
+                                    <td>${room.quantity}</td>
+                                    <td><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></td>
+                                    <td>${room.maxAdult}</td>
+                                    <td>${room.maxChild}</td>
+                                    <td>${room.bed}</td>
+                                    <td>${room.area}</td>
+                                    <td>${room.description}</td>
+                                    <td>${room.hotelId}</td>
+                                    <td>
+                                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                    </td>
+                                </tr>
 
 
-                        </c:forEach>
+                            </c:forEach>
 
 
 
-                        <!--                            <tr>
-                                                        <td>
-                                                            <span class="custom-checkbox">
-                                                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                                                <label for="checkbox1"></label>
-                                                            </span>
-                                                        </td>
-                                                        <td>Thomas Hardy</td>
-                                                        <td>thomashardy@mail.com</td>
-                                                        <td>89 Chiaroscuro Rd, Portland, USA</td>
-                                                        <td>(171) 555-2222</td>
-                                                        <td>(171) 555-2222</td>
-                                                        <td>(171) 555-2222</td>
-                                                        <td>(171) 555-2222</td>
-                                                        <td>(171) 555-2222</td>
-                                                        <td>(171) 555-2222</td>
-                                                        <td>(171) 555-2222</td>
-                                                        <td>(171) 555-2222</td>
-                                                        <td>
-                                                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                                        </td>
-                                                    </tr>-->
+                            <!--                            <tr>
+                                                            <td>
+                                                                <span class="custom-checkbox">
+                                                                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                                                    <label for="checkbox1"></label>
+                                                                </span>
+                                                            </td>
+                                                            <td>Thomas Hardy</td>
+                                                            <td>thomashardy@mail.com</td>
+                                                            <td>89 Chiaroscuro Rd, Portland, USA</td>
+                                                            <td>(171) 555-2222</td>
+                                                            <td>(171) 555-2222</td>
+                                                            <td>(171) 555-2222</td>
+                                                            <td>(171) 555-2222</td>
+                                                            <td>(171) 555-2222</td>
+                                                            <td>(171) 555-2222</td>
+                                                            <td>(171) 555-2222</td>
+                                                            <td>(171) 555-2222</td>
+                                                            <td>
+                                                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                            </td>
+                                                        </tr>-->
 
 
 
@@ -381,15 +400,31 @@
                         </tbody>
                     </table>
                     <div class="clearfix">
-                        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                        <div class="hint-text">Showing <b>${list.size()}</b> out of <b>${count}</b> entries</div>
                         <ul class="pagination">
-                            <li class="page-item disabled"><a href="#">Previous</a></li>
-                            <li class="page-item"><a href="#" class="page-link">1</a></li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item"><a href="#" class="page-link">4</a></li>
-                            <li class="page-item"><a href="#" class="page-link">5</a></li>
-                            <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                            <c:if test="${page > 1}">
+                                <li class="page-item disabled"><a href="RoomManager?page=${page-1}">Previous</a></li> 
+                                </c:if>
+
+                            <c:forEach begin="1" end="${endPage}" var="i">
+    <!--                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
+                                                          href="serviceCategoryManager?page=${i}" 
+                                                          role="button">${i}</a></li>-->
+                                <c:choose>
+                                    <c:when test="${i == page}">
+                                        <li class="page-item active"><a href="RoomManager?page=${i}" class="page-link">${i}</a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <li class="page-item"><a href="RoomManager?page=${i}" class="page-link">${i}</a></li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                <input type="hidden" name="page" value="${i}">
+                            </c:forEach>
+
+                            <c:if test="${page < endPage}">
+                                <li class="page-item disabled"><a href="RoomManager?page=${page+1}">Next</a></li> 
+                                
+                                </c:if>
                         </ul>
                     </div>
                 </div>
@@ -399,61 +434,66 @@
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form>
+                    <form action="RoomAdd" method="POST">
                         <div class="modal-header">						
                             <h4 class="modal-title">Add Room</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Room Id</label>
-                                <input type="number" class="form-control" required>
-                            </div>
+                            <!--                            <div class="form-group">
+                                                            <label>Room Id</label>
+                                                            <input type="number" class="form-control" required name="id">
+                                                        </div>-->
                             <div class="form-group">
                                 <label>Room Type</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required name="name">
                             </div>
                             <div class="form-group">
-                                <label>Image</label>
-                                <input type="image" class="form-control" required>
+                                <label>Image URL</label>
+                                <textarea type="text" class="form-control" required name="image" ></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Quantity</label>
-                                <input type="number" class="form-control" required>
+                                <input type="number" class="form-control" required name="quantity">
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
-                                <input type="number" class="form-control" required>
+                                <input type="number" class="form-control" required name="price">
                             </div>
                             <div class="form-group">
                                 <label>Max Adults</label>
-                                <input type="number" class="form-control" required>
+                                <input type="number" class="form-control" required name="maxadult">
                             </div>
                             <div class="form-group">
                                 <label>Max Child</label>
-                                <input type="number" class="form-control" required>
+                                <input type="number" class="form-control" required name="maxchild">
                             </div>
                             <div class="form-group">
                                 <label>Bed</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required name="bed">
                             </div>
                             <div class="form-group">
                                 <label>Area</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required name="area">
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required name="description">
                             </div>
                             <div class="form-group">
                                 <label>Hotel Id</label>
-                                <input type="number" class="form-control" required>
+                            <select  class="form-control" name="hotelId">
+                                <c:forEach var="hotel" items="${hlist}">
+                                    <option value="${hotel.id}">${hotel.name} ( ID: ${hotel.id} )</option>
+                                </c:forEach>
+                            </select>
                             </div>
 
 
 
                         </div>
                         <div class="modal-footer">
+                            <input type="hidden" name="currentpage" value="${page}">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                             <input type="submit" class="btn btn-success" value="Add">
                         </div>
@@ -463,62 +503,70 @@
         </div>
         <!-- Edit Modal HTML -->
         <div id="editEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
+             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form>
+                    <form action="RoomAdd" method="POST">
                         <div class="modal-header">						
-                            <h4 class="modal-title">Edit Room</h4>
+                            <h4 class="modal-title">Add Room</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Room Id</label>
-                                <input type="number" class="form-control" required>
-                            </div>
+                            <!--                            <div class="form-group">
+                                                            <label>Room Id</label>
+                                                            <input type="number" class="form-control" required name="id">
+                                                        </div>-->
                             <div class="form-group">
                                 <label>Room Type</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required name="name">
                             </div>
                             <div class="form-group">
-                                <label>Image</label>
-                                <input type="image" class="form-control" required>
+                                <label>Image URL</label>
+                                <textarea type="text" class="form-control" required name="image" ></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Quantity</label>
-                                <input type="number" class="form-control" required>
+                                <input type="number" class="form-control" required name="quantity">
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
-                                <input type="number" class="form-control" required>
+                                <input type="number" class="form-control" required name="price">
                             </div>
                             <div class="form-group">
                                 <label>Max Adults</label>
-                                <input type="number" class="form-control" required>
+                                <input type="number" class="form-control" required name="maxadult">
                             </div>
                             <div class="form-group">
                                 <label>Max Child</label>
-                                <input type="number" class="form-control" required>
+                                <input type="number" class="form-control" required name="maxchild">
                             </div>
                             <div class="form-group">
                                 <label>Bed</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required name="bed">
                             </div>
                             <div class="form-group">
                                 <label>Area</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required name="area">
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" class="form-control" required name="description">
                             </div>
                             <div class="form-group">
                                 <label>Hotel Id</label>
-                                <input type="number" class="form-control" required>
-                            </div>					
+                            <select  class="form-control" name="hotelId">
+                                <c:forEach var="hotel" items="${hlist}">
+                                    <option value="${hotel.id}">${hotel.name} ( ID: ${hotel.id} )</option>
+                                </c:forEach>
+                            </select>
+                            </div>
+
+
+
                         </div>
                         <div class="modal-footer">
+                            <input type="hidden" name="currentpage" value="${page}">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-info" value="Save">
+                            <input type="submit" class="btn btn-success" value="Add">
                         </div>
                     </form>
                 </div>

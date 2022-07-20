@@ -4,8 +4,7 @@
     Author     : morjo
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
         <title>List User Page</title>
     </head>
-    <body style="background-image: url(images/anime.jpg); font-weight: 100%">
+    <body>
 
         <div class="container" >
             <form action="SearchUserServlet" method="">
@@ -26,9 +25,14 @@
                     <input minlength="1" type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1" name="search">
                 </div>
             </form>
+        </div>
+
+        <div class="container" >
+
             <a href="addNewUser.jsp"><button type="button" style="display: block;
                                              margin-left: auto;
                                              margin-right: auto;" class="btn btn-primary">Add New user</button></a><br>
+
 
 
             <table class="table">
@@ -50,7 +54,6 @@
                             <td>${user.email}</td>
                             <td>${user.phoneNumber}</td>
                             <td>
-
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal${user.id}">
                                     <i class="far fa-trash-alt"></i>
@@ -59,31 +62,32 @@
                                 <a href="banServlet?id=${user.id}&&status=${user.status}&&index=${index}">
                                     <c:if test="${user.status == 'Banned'}"><button type="button" style="width: 100px" class="btn btn-primary"><i class="fas fa-user-plus"></i>Active</button></c:if>
                                     <c:if test="${user.status == 'Active'}"><button type="button" style="width: 100px" class="btn btn-danger"><i class="fas fa-user-slash"></i>Banned</button></c:if>
-                                    <a href="UpdateUserServlet?id=${user.id}&&index=${index}">
-                                        <button type="button" class="btn btn-primary">Update</button>
-                                    </a>
-                                </a>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Are you sure delete ${user.fullName}?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <a href="deleteUserServlet?id=${user.id}"><button type="button" class="btn btn-primary">Delete</button></a>
+                                </a>
+                                <a href="UpdateUserServlet?id=${user.id}&&index=${index}">
+                                    <button type="button" class="btn btn-primary">Update</button>
+                                </a>
+                                <a href="ViewUserController"><button type="button" class="btn btn-primary">View</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure delete ${user.fullName}?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <a href="deleteUserServlet?id=${user.id}"><button type="button" class="btn btn-primary">Delete</button></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>    
+                                    </div>    
 
 
                             </td>

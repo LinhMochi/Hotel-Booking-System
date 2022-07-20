@@ -138,8 +138,8 @@ search-box-x .footer{
     color: #000;
     cursor: default;
     border-radius: 10px;
-    transition: linear 1s ease-in;
-    transform: translateY(-100px);
+    transition: transform 1s ease-in;
+    transform: translateY(-150px);
     opacity: 0;
     z-index: -1;
 }

@@ -8,6 +8,7 @@ package DAO;
 import DBcontext.DBcontext;
 import Model.Service;
 import Model.ServiceCategory;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,24 +101,51 @@ public class ServiceCategoryDAO {
             e.printStackTrace(System.out);
         }
     }
-    
-    
-    public ArrayList<ServiceCategory> getAllServiceCategories(){
+
+    public ArrayList<ServiceCategory> getAllServiceCategories() {
         ArrayList<ServiceCategory> list = new ArrayList<>();
         query = "SELECT * FROM ServiceCategories";
-        try{
+        try {
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 list.add(new ServiceCategory(rs.getInt("id"),
-                            rs.getString("ServiceCategory")
+                        rs.getString("ServiceCategory")
                 ));
             }
         } catch (Exception e) {
             System.out.println("Error");
         }
-        return list; 
+        return list;
     }
+
+    public ArrayList<ServiceCategory> getServiceCategories(String page, int numOfElement) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int start = numOfElement * currentPage - numOfElement;
+        ArrayList<ServiceCategory> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM ServiceCategories ORDER BY id ASC \n"
+                    + "             OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY  ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, start);
+            ps.setInt(2, numOfElement);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new ServiceCategory(rs.getInt("id"),
+                        rs.getString("ServiceCategory")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
     
     
         public Service getServiceByID(String id) throws Exception {
@@ -166,8 +194,5 @@ public class ServiceCategoryDAO {
                 ex.printStackTrace();
         }
     }
-    
-    
-    
     
 }

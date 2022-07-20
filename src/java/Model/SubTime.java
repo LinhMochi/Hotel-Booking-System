@@ -5,6 +5,10 @@
  */
 package Model;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Admin
@@ -15,6 +19,12 @@ public class SubTime {
     public SubTime() {
         current = formater.format(new java.util.Date(System.currentTimeMillis()));
     }
+
+    public String getCurrent() {
+        return current;
+    }
+    
+    
     // tach date into array
     public int[] splitDate(String date){
         String  list[] = date.split("[\\s\\-\\:]");
@@ -48,3 +58,18 @@ public class SubTime {
         return "lỗi getUnit of SubTime";
     }    
 }
+//class demo{
+//    public static void main(String[] args) {
+//        try {
+//            java.util.Date d1 = new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2022-07-01");
+//            java.util.Date d2 = new java.text.SimpleDateFormat("yyyy-MM-dd").parse("2022-08-03");
+//            
+//            long diff = d2.getTime() - d1.getTime();
+//            
+//            System.out.println("Difference between  " + d1 + " and "+ d2+" is "
+//                    + (diff / (1000 * 60 * 60 * 24)) + " days.");
+//        } catch (ParseException ex) {
+//            Logger.getLogger(demo.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+//}

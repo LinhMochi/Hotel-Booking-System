@@ -5,16 +5,23 @@
  */
 package Controller;
 
+import DAO.HotelDAO;
 import DAO.HotelGalleryDAO;
+import Model.Hotel;
 import Model.HotelGallery;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,19 +39,54 @@ public class galleryManagerController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final int NUMBER_IMAGE = 3;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HotelGalleryDAO hgd = new HotelGalleryDAO();
-            ArrayList<HotelGallery> list = hgd.getAllGallery();
-            request.setAttribute("list", list);
-            request.getRequestDispatcher("galleryManager.jsp").forward(request, response);
+            HttpSession session = request.getSession();
+            User a = (User) session.getAttribute("user");
+            if(a != null){
+                if (a.getRole().equals("Manager")) {
+                    String page;
+                    try {
+                        page = request.getParameter("page");
+                        if (page == null) {
+                            page = "1";
+                        }
+                    } catch (Exception e) {
+                        page = "1";
+                    }
+                    HotelGalleryDAO hgd = new HotelGalleryDAO();
+                    int count = hgd.getGalleryByID(new HotelGalleryDAO().getHotelIDByManager(a.getId())).size();
+                    int endPage = count / NUMBER_IMAGE;
+                    if (count % NUMBER_IMAGE != 0) {
+                        endPage++;
+                    }
+                    int hotelId = hgd.getHotelIDByManager(a.getId());
+                    ArrayList<HotelGallery> list = new HotelGalleryDAO().getGallery(new HotelGalleryDAO().getHotelIDByManager(a.getId()), page, NUMBER_IMAGE);
+                    Hotel hotel = new HotelDAO().getHotelByID(new HotelGalleryDAO().getHotelIDByManager(a.getId()));
+    //                response.getWriter().print(list);
+                    request.setAttribute("list", list);
+                    request.setAttribute("hotel", hotel);
+                    request.setAttribute("endPage", endPage);
+                    request.setAttribute("page", page);
+                    request.setAttribute("count", count);
+                    request.setAttribute("numberOfImage", NUMBER_IMAGE);
+                    request.getRequestDispatcher("galleryManager.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect("home");
+                }
+            }else{
+                response.sendRedirect("home");
+            }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -56,7 +98,13 @@ public class galleryManagerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(galleryManagerController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +118,13 @@ public class galleryManagerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(galleryManagerController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

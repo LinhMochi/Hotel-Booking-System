@@ -8,6 +8,7 @@ package DAO;
 import DBcontext.DBcontext;
 import Model.Room;
 import Model.Search;
+import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -136,7 +137,17 @@ public class RoomDAO {
     }
     
     
-    
+    public void removeRoom(int id) {
+        query = "DELETE FROM RoomTypes WHERE id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
     
     
     
@@ -156,7 +167,8 @@ public class RoomDAO {
     }
     
     public boolean updateRoom(Room r){
-        sql = "UPDATE Roomtypes SET roomType = ?, image = ?, quantity = ?, price = ?, maxAdults = ?, maxChild=?, bed = ?, area = ?, desciption=?,hotelId=?";
+        sql = "UPDATE Roomtypes SET roomType = ?, image = ?, quantity = ?, price = ?, maxAdults = ?, maxChild=?, bed = ?, area = ?, description = ?,hotelId = ?\n"
+         +"WHERE id = ?";       
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, r.getName());
@@ -169,6 +181,7 @@ public class RoomDAO {
             ps.setString(8, r.getArea());
             ps.setString(9, r.getDescription());
             ps.setInt(10, r.getHotelId());
+            ps.setInt(11, r.getId());
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -226,6 +239,44 @@ public class RoomDAO {
             Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        return list;
+    }
+
+
+
+public ArrayList<Room> getRoom(String page, int numOfElement) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int start = numOfElement * currentPage - numOfElement;
+        ArrayList<Room> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM RoomTypes ORDER BY id ASC \n" +
+"                                     OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY    ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, start);
+            ps.setInt(2, numOfElement);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Room(rs.getInt(1),
+                       rs.getString(2),
+                       rs.getString(3),
+                       rs.getInt(4),
+                       rs.getDouble(5)*1000000,
+                       rs.getInt(6),
+                       rs.getInt(7),
+                       rs.getString(8),
+                       rs.getString(9),
+                       rs.getString(10),
+                       rs.getInt(11)));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
         return list;
     }
 }

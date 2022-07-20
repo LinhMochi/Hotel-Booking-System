@@ -81,7 +81,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
             response.setContentType("text/html;charset=UTF-8");
-            request.setAttribute("message", "na");
+//            request.setAttribute("message", "na");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
