@@ -9,6 +9,8 @@ package Model;
  *
  * @author Admin
  */
+//tôi tưởng ông lấy trong file tôi gửi
+// lần trước có 1 lần tôi fix cái này cho rồi mà tìm lại cái đó, lỡ tay xóa nó rồi
 public class City {
     private int id;
     private String name;

@@ -26,6 +26,10 @@ public class CityDAO {
     private ResultSet rs = null;
     String sql = null;
     
+    public static void main(String[] args) {
+        System.out.println(new CityDAO().getListCity().size());
+    }
+    
     public ArrayList<City> getListCity(){// get list city to rend into select in form 
         ArrayList<City> list = new ArrayList<City>();
         sql =   "SELECT Cities.id, Cities.city FROM Cities";
@@ -45,6 +49,40 @@ public class CityDAO {
     }
         
     public ArrayList<City> getListCityComplete(){// get list city to rend into home page and list city of admin feature
+        ArrayList<City> list = new ArrayList<City>();
+        sql =   "WITH noHotel\n" +
+                "AS(\n" +
+                "SELECT c.id as cityId, COUNT(h.id) as noHotel \n" +
+                "FROM Cities c LEFT JOIN (SELECT * FROM Hotels WHERE Hotels.[status]='Active') as h"+
+                "\nON c.id = h.cityId Group by c.id)\n" +
+                "\n" +
+                "SELECT TOP 5 Cities.id, Cities.city,Cities.[image], ISNULL(CityRate.cityrate,999) AS rate,noHotel FROM Cities \n" +
+                "LEFT JOIN CityRate on Cities.id = CityRate.cityid \n" +
+                "INNER JOIN noHotel ON Cities.id = noHotel.cityId\n" +
+                "ORDER BY rate";
+                // just count active hotel.
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                City city = new City();
+                city.setId(rs.getInt("id"));
+                city.setName(rs.getString("city"));
+                city.setImage(rs.getString(3));
+                city.setRate(rs.getInt(4));
+                city.setNoHotel(rs.getInt(5));
+                
+                
+                list.add(city);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        return list;
+    }
+    
+        public ArrayList<City> getAllListCity(){// get list city to rend into home page and list city of admin feature
         ArrayList<City> list = new ArrayList<City>();
         sql =   "WITH noHotel\n" +
                 "AS(\n" +
@@ -77,6 +115,11 @@ public class CityDAO {
             
         return list;
     }
+    
+    
+    
+    
+    
     
     public boolean checkCityByName(String name){// check city exist by id
         sql = "SELECT * FROM Cities WHERE city = ?";

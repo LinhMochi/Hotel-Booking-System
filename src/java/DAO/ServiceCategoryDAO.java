@@ -6,6 +6,7 @@
 package DAO;
 
 import DBcontext.DBcontext;
+import Model.Service;
 import Model.ServiceCategory;
 import java.io.IOException;
 import java.sql.Connection;
@@ -145,4 +146,53 @@ public class ServiceCategoryDAO {
         return list;
     }
 
+    
+    
+        public Service getServiceByID(String id) throws Exception {
+        String sql = "select * from HotelServices where  id = ?  ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Service(
+                        rs.getInt("id"),
+                        rs.getString("service"),
+                        rs.getDate("from"),
+                        rs.getDate("to"),
+                        rs.getDouble("price"),
+                        rs.getString("unit"),
+                        rs.getString("create"),
+                        rs.getInt("hotelId"),
+                        rs.getInt("serviceCategoryId"));
+            }
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
+
+    public void updateServices(Service s) throws Exception {
+        String sql = "update HotelServices set service = ? , price = ?   , unit = ?   , \n"
+                + "[create] = ? , [from] = ? , [to] = ? , hotelId = ? , serviceCategoryId = ? \n"
+                + "where id  = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, s.getName());
+            ps.setDouble(2, s.getPrice());
+            ps.setString(3, s.getUnit());
+            ps.setString(4, s.getCreateAt());
+            ps.setDate(5, s.getFrom());
+            ps.setDate(6, s.getTo());
+            ps.setInt(7, s.getHotelId());
+            ps.setInt(8, s.getCategory());
+            ps.setInt(9, s.getId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+//            System.out.println();
+                ex.printStackTrace();
+        }
+    }
+    
 }

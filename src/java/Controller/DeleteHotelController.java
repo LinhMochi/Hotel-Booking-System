@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nhat Anh
  */
-@WebServlet(name = "AddHotelController", urlPatterns = {"/AddHotelController"})
-public class AddHotelController extends HttpServlet {
+@WebServlet(name = "DeleteHotelController", urlPatterns = {"/DeleteHotelController"})
+public class DeleteHotelController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,19 +32,11 @@ public class AddHotelController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddHotelController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddHotelController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+       response.setContentType("text/html;charset=UTF-8");
+            int id = Integer.parseInt(request.getParameter("id"));
+            HotelDAO htDao = new HotelDAO();
+            htDao.deleteHotel(id);
+            response.sendRedirect("ListsHotelController");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,28 +51,7 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-            String name = request.getParameter("name");
-            int  star = Integer.parseInt(request.getParameter("star"));
-            String decription = request.getParameter("decription");
-            String hoteladvance = request.getParameter("hoteladvance");
-            String policies = request.getParameter("policies");
-            String map = request.getParameter("map");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String status = request.getParameter("status");
-            String address = request.getParameter("address");
-            int city = Integer.parseInt(request.getParameter("city"));
-            int category = Integer.parseInt(request.getParameter("category"));
-            String image = request.getParameter("image");
-          
-            // HIEN THI TRANG MANAGER HOTEL XEM NAO
-            HotelDAO dao = new HotelDAO();
-           dao.addHotel(name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category, image );
-           
-           response.sendRedirect("ListsHotelController");
-        } catch (Exception e) {
-        }
+        processRequest(request, response);
     }
 
     /**
