@@ -5,8 +5,6 @@
  */
 package Controller;
 
-import DAO.HotelGalleryDAO;
-import Model.HotelGallery;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pham quoc an
+ * @author DELL
  */
-@WebServlet(name = "galleryAddController", urlPatterns = {"/galleryAdd"})
-public class galleryAddController extends HttpServlet {
+@WebServlet(name = "SuggestPlaceDelete", urlPatterns = {"/SuggestPlaceDelete"})
+public class SuggestPlaceDelete extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +34,15 @@ public class galleryAddController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SuggestPlaceDelete</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SuggestPlaceDelete at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -52,7 +58,7 @@ public class galleryAddController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        request.getRequestDispatcher("/gallery/add.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -66,20 +72,7 @@ public class galleryAddController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        String currentpage = request.getParameter("currentpage");
-        String img = request.getParameter("img");
-        String title = request.getParameter("title");
-        int hotelID = Integer.parseInt(request.getParameter("hotelID"));
-//        response.getWriter().print(hotelID);
-        HotelGalleryDAO hgd = new HotelGalleryDAO();
-        HotelGallery h = new HotelGallery();
-        h.setImage(img);
-        h.setTitle(title);
-        h.setHotelId(hotelID);
-        hgd.addImage(h);
-        response.sendRedirect("galleryManager?page=" + currentpage);
+        processRequest(request, response);
     }
 
     /**

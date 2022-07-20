@@ -26,7 +26,7 @@ public class Service {
     public Service() {
     }
 
-    public Service(int id, String name, Date from, Date to, int quantity, double price, String unit, String createAt, int category, int hotelId) {
+        public Service(int id, String name, Date from, Date to, int quantity, double price, String unit, String createAt, int category, int hotelId) {
         this.id = id;
         this.name = name;
         this.from = from;
@@ -39,6 +39,17 @@ public class Service {
         this.hotelId = hotelId;
     }
 
+    public Service(int id, String name, Date from, Date to , double price, String unit, String createAt, int category, int hotelId) {
+        this.id = id;
+        this.name = name;
+        this.from = from;
+        this.to = to;
+        this.price = price;
+        this.unit = unit;
+        this.createAt = createAt;
+        this.category = category;
+        this.hotelId = hotelId;
+    }
     
 
    

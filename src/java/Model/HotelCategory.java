@@ -23,6 +23,13 @@ public class HotelCategory {
         this.category = category;
         this.noHotel = noHotel;
     }
+    
+    public HotelCategory(int id, String category, String image) {
+        this.id = id;
+        this.category = category;
+        this.image = image;
+
+    }
 
     public HotelCategory(int id, String category, String image, int noHotel) {
         this.id = id;
