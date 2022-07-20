@@ -44,13 +44,50 @@ public class ServiceDAO {
         }
         return list;
     }
+    
+    public Service getService(int id,Date arrival,Date department){
+        
+        sql = "SELECT  id, [service], [from],[to], price, unit, [create],serviceCategoryId,hotelId "
+                + "FROM HotelServices WHERE [from] <= ? AND [to] >= ? AND id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setDate(1, arrival);
+            ps.setDate(2, department);
+            ps.setInt(3, id);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return new Service(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), 0, rs.getDouble(5)*100000, rs.getString(6), rs.getString(7), rs.getInt(8),rs.getInt(9));
+            }
+        } catch (Exception ex) {
+            return null;
+        }
+        return null;
+    }
+    
+    public int countServiceByCategoryId(int id) {
+        int count = 0;
+        sql = "SELECT  id, [service], [from],[to], price, unit, [create],serviceCategoryId,hotelId\n"
+                + "FROM HotelServices WHERE serviceCategoryId = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return count;
+    }
 }
 
 //class demo {
 //    public static void main(String[] args) {
-//        ArrayList<Service> list = new ServiceDAO().getAvailableService(2, Date.valueOf("2022-07-28"), Date.valueOf("2022-08-04"));
-//        for(Service s : list){
-//            System.out.println(s.toString());
-//        }
+////        ArrayList<Service> list = new ServiceDAO().getAvailableService(2, Date.valueOf("2022-07-28"), Date.valueOf("2022-08-04"));
+////        for(Service s : list){
+////            System.out.println(s.toString());
+////        }
+////            System.out.println(new ServiceDAO().getService(6, Date.valueOf("2022-07-28"), Date.valueOf("2022-08-04")).toString());
 //    }
 //}

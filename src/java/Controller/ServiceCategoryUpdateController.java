@@ -39,7 +39,7 @@ public class ServiceCategoryUpdateController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServiceCategoryUpdateController</title>");            
+            out.println("<title>Servlet ServiceCategoryUpdateController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ServiceCategoryUpdateController at " + request.getContextPath() + "</h1>");
@@ -60,9 +60,7 @@ public class ServiceCategoryUpdateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        request.setAttribute("id", id);
-        request.getRequestDispatcher("/serviceCategory/update.jsp").forward(request, response);
+     
     }
 
     /**
@@ -76,15 +74,16 @@ public class ServiceCategoryUpdateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            ServiceCategoryDAO scd = new ServiceCategoryDAO();
-            ServiceCategory sc = new ServiceCategory();
-            
-            int id = Integer.parseInt(request.getParameter("id"));
-            String serviceCategory = request.getParameter("serviceCategory");
-         
-            sc.setCategory(serviceCategory);
-            scd.updateServiceCategory(id, sc);
-            response.sendRedirect("serviceCategoryManager");
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        ServiceCategoryDAO scd = new ServiceCategoryDAO();
+        ServiceCategory sc = new ServiceCategory();
+        int id = Integer.parseInt(request.getParameter("id"));
+        String serviceCategory = request.getParameter("serviceCategory");
+        sc.setCategory(serviceCategory);
+        scd.updateServiceCategory(id, sc);
+        String currentpage = request.getParameter("currentpage");
+        response.sendRedirect("serviceCategoryManager?page=" + currentpage);
     }
 
     /**

@@ -36,7 +36,7 @@ public class galleryUpdateController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
         }
     }
 
@@ -52,9 +52,9 @@ public class galleryUpdateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        request.setAttribute("id", id);
-        request.getRequestDispatcher("/gallery/update.jsp").forward(request, response);
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        request.setAttribute("id", id);
+//        request.getRequestDispatcher("/gallery/update.jsp").forward(request, response);
     }
 
     /**
@@ -68,19 +68,22 @@ public class galleryUpdateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HotelGalleryDAO hgd = new HotelGalleryDAO();
-            HotelGallery h = new HotelGallery();
-            
-            int id = Integer.parseInt(request.getParameter("id"));
-            String title = request.getParameter("title");
-            String image = request.getParameter("image");
-            int hotelID = Integer.parseInt(request.getParameter("hotelID"));
-            
-            h.setTitle(title);
-            h.setImage(image);
-            h.setHotelId(hotelID);
-            hgd.updateImage(id, h);
-            response.sendRedirect("galleryManager");
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        HotelGalleryDAO hgd = new HotelGalleryDAO();
+        HotelGallery h = new HotelGallery();
+
+        String currentpage = request.getParameter("currentpage");
+        int id = Integer.parseInt(request.getParameter("id"));
+        String title = request.getParameter("title");
+        String image = request.getParameter("image");
+        int hotelID = Integer.parseInt(request.getParameter("hotelID"));
+
+        h.setTitle(title);
+        h.setImage(image);
+        h.setHotelId(hotelID);
+        hgd.updateImage(id, h);
+        response.sendRedirect("galleryManager?page=" + currentpage);
     }
 
     /**

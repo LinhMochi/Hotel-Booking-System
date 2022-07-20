@@ -32,6 +32,8 @@
         </header>
         <header class="buffer">
         </header>
+        <jsp:include page="component/message.jsp"/>
+        <script src="js/message.js" type="text/javascript"></script>
         <script src="js/nav-top.js" type="text/javascript"></script>
         <script type="text/javascript">
             let previous = 0;
@@ -124,9 +126,9 @@
             </form>
         </div>
         <script src="js/pick-date.js"></script>
-         <!--console.log(document.querySelector('.arrival-date').value);-->
-         <script type="text/javascript">
-         </script>
+        <!--console.log(document.querySelector('.arrival-date').value);-->
+        <script type="text/javascript">
+        </script>
         <script src="js/search-box.js" type="text/javascript"></script>
         <div class="explore-wrapper border-wrapper border1">
             <h5>Khám phá</h5>

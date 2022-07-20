@@ -5,25 +5,26 @@
  */
 package Controller;
 
-import DAO.RoomDAO;
-
-import Model.Room;
+import DAO.CityDAO;
+import Model.City;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "AddRoomController", urlPatterns = {"/RoomManager"})
-public class AddRoomController extends HttpServlet {
+@WebServlet(name = "CityListController", urlPatterns = {"/CityListController"})
+public class CityListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,21 +35,46 @@ public class AddRoomController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final int NUMBER_IMAGE = 8;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-                try (PrintWriter out = response.getWriter()) {
+
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            RoomDAO hgd = new RoomDAO();
-            ArrayList<Room> list = hgd.GetAllRoom();
+            String page;
+            try {
+                page = request.getParameter("page");
+                if (page == null) {
+                    page = "1";
+                }
+            } catch (Exception e) {
+                page = "1";
+            }
+            CityDAO c = new CityDAO();
+//            ArrayList<Room> list = hgd.GetAllRoom();
+            int count = c.getListCityComplete().size();
+            int endPage = count / NUMBER_IMAGE;
+            if (count % NUMBER_IMAGE != 0) {
+                endPage++;
+            }
+            ArrayList<City> hlist = new CityDAO().getListCity();
 
+            ArrayList<City> list = c.getCity(page, NUMBER_IMAGE);
+//            response.getWriter().print(list);
+            City spc = new City();
             request.setAttribute("list", list);
-            request.getRequestDispatcher("AddRoom.jsp").forward(request, response);
-            
-        }
+            request.setAttribute("endPage", endPage);
+            request.setAttribute("page", page);
+            request.setAttribute("count", count);
+            request.setAttribute("numberOfImage", NUMBER_IMAGE);
+            request.setAttribute("hlist", hlist);
 
-    }  
-        
+//            RoomDAO hgd = new RoomDAO();
+            request.getRequestDispatcher("CityList.jsp").forward(request, response);
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -62,7 +88,11 @@ public class AddRoomController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CityListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -76,7 +106,11 @@ public class AddRoomController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CityListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

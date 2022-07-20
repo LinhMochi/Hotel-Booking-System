@@ -86,9 +86,25 @@ public class User {
     public void setGender(int gender) {
         this.gender = gender;
     }
+    
+    public String getgen(){
+        switch(gender){
+            case 0: return "Bí mật";
+            case 1: return "Nam";
+            case 2: return "Nữ";
+            case 3: return "Khác";
+            default: return "Lỗi";
+        }
+    }
 
     public Date getDob() {
         return dob;
+    }
+    
+    public String getdob(){
+        String[] s = new java.text.SimpleDateFormat("yyyy-M-dd").format(new java.util.Date(dob.getTime())).split("-");
+        
+        return "Ngày "+s[2]+",tháng "+s[1]+" năm "+s[0];
     }
 
     public void setDob(Date dob) {

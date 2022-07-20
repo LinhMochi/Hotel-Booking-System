@@ -18,59 +18,59 @@
         <div class="login-box">
             <h2>Add User</h3>
             <form action="AddNewUserServlet" method="post">
-                    <div class="box">
-                        <input type="text" name="name" id="username" required>
-                        <label for="username">Full Name</label>
-                    </div>
-                    <div class="box">
-                        <input name="dbo" type="date" id="username" required>
-                        <label for="username" >Date Of Birth</label>
-                    </div>
-                
-                    <div class="box">
-                        <div style="color: red">${msg}</div>
-                        <input type="email" name="email" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,25}@gmail.com$" id="username" required>
-                        <label for="username">Email</label>
-                    </div>
-                    <div class="box">
-                        <input type="text" name="address" required>
-                        <label for="username">Address</label>
-                    </div>
-                    <div class="box">
-                        <input name="phoneNumber" pattern="^[0-9]{9,11}$" title="Hãy nhập đúng định dạng số điện thoại" required>
-                        <label for="username">Phone Number</label>
-                    </div>
-                    
-                    
-                    <div class="box">
-                        <input 
-                            pattern="^[a-zA-Z][a-zA-Z0-9\.]{3,31}$" title="Mật khẩu dài 3-31 ký tự bắt đầu bởi chữ, gồm số và chữ" 
-                            type="password" name="password" required  id="password">
-                        <label for="password">password</label>
-                        <span class="eye-slash hidden">&#128065;<span class="slash">/</span></span>
-                        <span class="eye ">&#128065;</span>
-                    </div>
                 <div class="box">
-                        <select name="role" class="form-select" aria-label="Default select example" >
-                            <option selected value="Customer">User role</option>
-                            <option value="Customer">Customer</option>
-                            <option value="Manager">Manager</option>
-                        </select>
-                        
-                        <select name="gender" class="form-select" aria-label="Default select example" >
-                            <option selected value="3">Gender</option>
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                            <option value="3">Unknown</option>
-                        </select>
-                        
-                        <select name="status" class="form-select" aria-label="Default select example" >
-                            <option selected value="Active">Status</option>
-                            <option value="Active">Active</option>
-                            <option value="Banned">Banned</option>
-                      
-                        </select>
-                    </div>
+                    <input type="text" name="name" id="username" required>
+                    <label for="username">Full Name</label>
+                </div>
+                <div class="box">
+                    <input name="dbo" type="date" id="username">
+                    <label for="username" >Date Of Birth</label>
+                </div>
+
+                <div class="box">
+                    <div style="color: red">${msg}</div>
+                    <input type="email" name="email" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,25}@gmail.com$" id="username" required>
+                    <label for="username">Email</label>
+                </div>
+                <div class="box">
+                    <input type="text" name="address" required>
+                    <label for="username">Address</label>
+                </div>
+                <div class="box">
+                    <input name="phoneNumber" pattern="^[0-9]{9,11}$" title="Hãy nhập đúng định dạng số điện thoại" required>
+                    <label for="username">Phone Number</label>
+                </div>
+
+
+                <div class="box">
+                    <input 
+                        pattern="^[a-zA-Z][a-zA-Z0-9\.]{3,31}$" title="Mật khẩu dài 3-31 ký tự bắt đầu bởi chữ, gồm số và chữ" 
+                        type="password" name="password" required  id="password">
+                    <label for="password">password</label>
+                    <span class="eye-slash hidden">&#128065;<span class="slash">/</span></span>
+                    <span class="eye ">&#128065;</span>
+                </div>
+                <div class="box">
+                    <select name="role" class="form-select" aria-label="Default select example" >
+                        <option selected value="Customer">User role</option>
+                        <option value="Customer">Customer</option>
+                        <option value="Manager">Manager</option>
+                    </select>
+
+                    <select name="gender" class="form-select" aria-label="Default select example" >
+                        <option selected value="3">Gender</option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                        <option value="3">Unknown</option>
+                    </select>
+
+                    <select name="status" class="form-select" aria-label="Default select example" >
+                        <option selected value="Active">Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Banned">Banned</option>
+
+                    </select>
+                </div>
 
                 <button type="submit" class="btn btn-primary">Save</button>
 

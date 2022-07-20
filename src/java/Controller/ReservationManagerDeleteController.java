@@ -1,27 +1,24 @@
-package controller;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Controller;
 
-import DAO.HotelDAO;
-import Model.Hotel;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Dell
+ * @author Alexa
  */
-public class ManagerHotelController extends HttpServlet {
+@WebServlet(name = "ReservationManagerDeleteController", urlPatterns = {"/reservationmanagerdelete"})
+public class ReservationManagerDeleteController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +37,10 @@ public class ManagerHotelController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManagerHotel</title>");
+            out.println("<title>Servlet ReservationManagerDeleteController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManagerHotel at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ReservationManagerDeleteController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,24 +58,7 @@ public class ManagerHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = "";
-        try {
-            page = request.getParameter("page");
-            if(page == null) {
-                page = "1";
-            }
-        } catch (Exception e) {
-            page = "1";
-        }
-        HotelDAO dao = new HotelDAO();
-        ArrayList<Hotel> listHotel = dao.getHotelByPage(page);
-
-        int numberOfPage = dao.getAllHotel().size() % 5 == 0 ? dao.getAllHotel().size() / 5 : dao.getAllHotel().size() / 5 + 1;
-        request.setAttribute("listHotel", listHotel);
-        request.setAttribute("numberOfPage", numberOfPage);
-        request.setAttribute("page", Integer.parseInt(page));
-        request.getRequestDispatcher("crud.jsp").forward(request, response);
-        
+        processRequest(request, response);
     }
 
     /**

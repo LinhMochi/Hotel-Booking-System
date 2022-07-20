@@ -31,8 +31,9 @@ public class HotelDAO {
 
     public ArrayList<Hotel> getAllHotel() {
         ArrayList<Hotel> list = new ArrayList<>();
-        query = "SELECT * FROM Hotels";
+        query = "Select ht.id, ht.name,ht.noOfStar,ht.description,ht.hotelAdvance,ht.policies,ht.map,ht.email,ht.phoneNumber,ht.status,ht.address,ct.city,hc.category from Hotels ht Inner join Cities ct On ht.cityId = ct.id Inner join HotelCategories hc On ht.categoryId = hc.id";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -48,8 +49,8 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("city"),
+                        rs.getString("category")
                 ));
             }
         } catch (Exception e) {
@@ -63,11 +64,12 @@ public class HotelDAO {
         int numOfElement = 5;
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<Hotel> list = new ArrayList<>();
-        query = "SELECT * FROM Hotels\n"
+        query = "Select ht.id, ht.name,ht.noOfStar,ht.description,ht.hotelAdvance,ht.policies,ht.map,ht.email,ht.phoneNumber,ht.status,ht.address,ct.city,hc.category from Hotels ht Inner join Cities ct On ht.cityId = ct.id Inner join HotelCategories hc On ht.categoryId = hc.id\n"
                 + "ORDER BY id ASC \n"
                 + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY";
 
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, start);
             ps.setInt(2, numOfElement);
@@ -85,8 +87,8 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("city"),
+                        rs.getString("category")
                 ));
             }
         } catch (Exception e) {
@@ -98,6 +100,7 @@ public class HotelDAO {
     public void addHotel(String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
         query = "INSERT INTO Hotels VALUES ( ? , ? ,  ? ,  ? , ? , ? , ? , ? , ? , ?,  ? , ?)";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, name);
             ps.setInt(2, noOfStar);
@@ -120,6 +123,7 @@ public class HotelDAO {
     public void deleteHotel(int id) {
         query = "DELETE Hotels WHERE id = ? ";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -134,6 +138,7 @@ public class HotelDAO {
                 + " WHERE Id = ? ";
 
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, name);
             ps.setInt(2, noOfStar);
@@ -157,6 +162,7 @@ public class HotelDAO {
     public Hotel getHotelByID(int hotelID) {
         query = "SELECT * FROM Hotels where id = ? ";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, hotelID);
             rs = ps.executeQuery();
@@ -173,8 +179,8 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("cityId"),
+                        rs.getString("categoryId")
                 );
             }
         } catch (Exception e) {
@@ -187,6 +193,7 @@ public class HotelDAO {
         ArrayList<Hotel> list = new ArrayList<>();
         query = "SELECT * FROM hotels WHERE name LIKE '%" + textSearch + "%' OR address LIKE '%" + textSearch + "%'";
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -202,8 +209,8 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("cityId"),
+                        rs.getString("categoryId")
                 ));
             }
         } catch (Exception e) {
@@ -214,9 +221,11 @@ public class HotelDAO {
     }
 
     public ArrayList<Hotel> getHotelByFilter(String filter) {
+        // nO CHON LOAI FILTER
         query = getQueryFilter(filter);
         ArrayList<Hotel> list = new ArrayList<>();
         try {
+            conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -232,8 +241,8 @@ public class HotelDAO {
                         rs.getString("phoneNumber"),
                         rs.getString("status"),
                         rs.getString("address"),
-                        rs.getInt("cityId"),
-                        rs.getInt("categoryId")
+                        rs.getString("cityId"),
+                        rs.getString("categoryId")
                 ));
             }
         } catch (Exception e) {
@@ -273,8 +282,8 @@ public class HotelDAO {
     public ArrayList<Hotel> getSuggestHotel() {
         ArrayList<Hotel> list = new ArrayList<>();
         String sql = "WITH AvenrageScore AS(\n"
-                + "	SELECT h.id as hotelId, AVG(ISNULL(hr.score,0)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id\n"
-                + "	left join HotelRating hr on r.id = hr.reservationId GROUP BY h.id\n"
+                + "SELECT h.id as hotelId, (SUM(ISNULL(hr.score,0))/ (CASE COUNT(hr.score) WHEN 0 THEN 1 ELSE COUNT(hr.score) END) ) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id\n"
+                + "left join HotelRating hr on r.id = hr.reservationId GROUP BY h.id\n"
                 + "),CountLike AS(\n"
                 + "	SELECT h.id as hotelId , COUNT(hl.id) as nolike FROM Hotels h LEFT JOIN HotelLikeLog hl ON h.id = hl.hotelId GROUP BY h.id\n"
                 + "),managerList AS(\n"
@@ -309,7 +318,7 @@ public class HotelDAO {
         String sql = "WITH BookedRooms AS(\n"
                 + "	SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, Reservations r\n"
                 + "	WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival >= ? AND arrival <= ?)\n"
-                + "	OR(department>=? AND department<=?) OR (arrival>= ? AND department<= ?))\n"
+                + "	OR(department>=? AND department<=?) OR (arrival<= ? AND department>= ?))\n"
                 + "	GROUP BY roomId\n"
                 + "), ListHotel AS(\n"
                 + "	SELECT h.id AS hotelId,CONCAT(h.[name],', ',h.[address]) AS [search] FROM Hotels h, Cities c WHERE h.cityId = c.id\n"
@@ -356,7 +365,7 @@ public class HotelDAO {
         String sql = "WITH BookedRooms AS(\n"
                 + "SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, Reservations r\n"
                 + "WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival >= ? AND arrival <= ?)\n"
-                + "OR(department>=? AND department<=?) OR (arrival>= ? AND department<= ?))\n"
+                + "OR(department>=? AND department<=?) OR (arrival<= ? AND department>= ?))\n"
                 + "GROUP BY roomId\n"
                 + "), ListHotel AS(\n"
                 + "SELECT h.id AS hotelId,CONCAT(h.[name],', ',h.[address]) AS [search] FROM Hotels h, Cities c WHERE h.cityId = c.id\n"
@@ -373,7 +382,7 @@ public class HotelDAO {
                 + "), \n"
                 + "countLike as (SELECT h.id as hotelId , COUNT(hl.id) as nolike FROM AvailableHotels h LEFT JOIN HotelLikeLog hl ON h.id = hl.hotelId GROUP BY h.id)\n"
                 + ",AvenrageScore AS(\n"
-                + "SELECT h.id as hotelId, AVG(ISNULL(hr.score,0)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join AvailableHotels h on r.hotelId = h.id\n"
+                + "SELECT h.id as hotelId, (SUM(ISNULL(hr.score,0))/ (CASE COUNT(hr.score) WHEN 0 THEN 1 ELSE COUNT(hr.score) END) ) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id\n"
                 + "left join HotelRating hr on r.id = hr.reservationId GROUP BY h.id\n"
                 + ")\n"
                 + "SELECT ah.*,cl.nolike,avs.noRate,avs.avgScore FROM AvailableHotels ah inner join countLike cl on ah.id = cl.hotelId inner join AvenrageScore avs ON ah.id = avs.hotelId;";
@@ -406,7 +415,7 @@ public class HotelDAO {
     public Hotel getHotelDetail(int hotelId) {
         String sql = "WITH countLike as (SELECT hotelId , COUNT(hl.id) as nolike FROM  HotelLikeLog hl WHERE hl.hotelId = ? GROUP BY hl.hotelId)\n"
                 + ",AvenrageScore AS(\n"
-                + "	SELECT h.id, AVG(ISNULL(hr.score,0)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id \n"
+                + "	SELECT h.id, (SUM(ISNULL(hr.score,0))/ (CASE COUNT(hr.score) WHEN 0 THEN 1 ELSE COUNT(hr.score) END)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id \n"
                 + "	left join HotelRating hr on r.id = hr.reservationId where h.id = ? GROUP BY h.id\n"
                 + ") \n"
                 + "SELECT h.*, cl.nolike, avs.noRate ,avs.avgScore FROM Hotels h inner join countLike cl on h.id = cl.hotelId inner join AvenrageScore avs on h.id = avs.id";

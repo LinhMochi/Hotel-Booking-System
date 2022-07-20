@@ -1,0 +1,92 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18-Jul-2022, 17:34:50
+    Author     : Admin
+*/
+
+.nav-top {
+	width: 100%;
+	height: 70px;
+	margin-bottom: 5px;
+}
+
+
+.main .quan{
+	grid-column: 2;
+}
+
+.service-wrapper .service-item{
+	grid-template-columns: 2fr 1fr 1fr;
+}
+
+.main .base-infor{
+	height: 300px;
+	position: sticky;
+	/*top: 10px;*/
+	top: 236px;
+	margin: 10px 10% 10px 0;
+	padding: 30px 10%;
+	border: 1px solid rgba(0, 0, 0, .8);
+	border-radius: 10px;
+}
+.main .footer{
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.main .base-infor .input-box input{
+	width: 100%;
+	height: 30px;
+	font-size: 20px;
+	outline-offset: 2px;
+	outline-color: rgba(0, 0, 255, .7);
+	border-radius: 5px;
+	border-color: rgba(0, 0, 0, .1);
+
+}
+.main .base-infor .input-box{
+	margin-top: 10px;
+}
+.main .base-infor .input-box .label span{
+	margin-left: 5px;
+	color: red;
+	display: none;
+}
+.main .base-infor .input-box.active .label span{
+	display: inline-block;
+}
+
+
+
+.main .base-infor .input-box:last-child{
+	margin-bottom: 10px;
+}
+.main .base-infor .check-box{
+	margin: 15px 0;
+}
+
+.main .base-infor .check-box label{
+	margin-left: 10px;
+	cursor: pointer;
+}
+.main .aside .base-infor button:first-child{
+	background-color: rgba(255, 0, 0, .8);
+}
+.main .aside .base-infor button{
+	display: inline-block;
+	margin-left: 10%;
+	width: 100px;
+	font-size: 18px;
+	border: none;
+}
+
+.main .aside .footer .btn{
+	background-color: rgba(0, 100, 255, .8);
+	color: #fff;
+	width: 150px;
+	margin-left: 30%;
+}

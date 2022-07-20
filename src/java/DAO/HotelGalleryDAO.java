@@ -7,6 +7,7 @@ package DAO;
 
 import DBcontext.DBcontext;
 import Model.HotelGallery;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,43 +21,23 @@ import java.util.logging.Logger;
  * @author pham quoc an
  */
 public class HotelGalleryDAO {
+
     private Connection conn = new DBcontext().getConnection();
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
-    
-    public ArrayList<HotelGallery> getAllGallery(){
+
+    public ArrayList<HotelGallery> getAllGallery() {
         ArrayList<HotelGallery> list = new ArrayList<>();
         query = "SELECT * FROM HotelGallery";
-        try{
+        try {
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 list.add(new HotelGallery(rs.getInt("id"),
-                            rs.getString("title"),
-                            rs.getString("image"),
-                            rs.getInt("hotelID")
-                ));
-            }
-        } catch (Exception e) {
-            System.out.println("Error");
-        }
-        return list; 
-    }
-    
-    
-    public ArrayList<HotelGallery> getGalleryByID(int hotelID){
-        ArrayList<HotelGallery> list = new ArrayList<>();
-        query = "SELECT id, title, image, hotelId FROM HotelGallery WHERE hotelId = ?";
-        try{
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, hotelID);
-            rs = ps.executeQuery();
-            while(rs.next()){
-                list.add(new HotelGallery(rs.getInt("id"),
-                            rs.getString("title"),
-                            rs.getString("image"),
-                            rs.getInt("hotelID")
+                        rs.getString("title"),
+                        rs.getString("image"),
+                        rs.getInt("hotelID")
                 ));
             }
         } catch (Exception e) {
@@ -64,67 +45,125 @@ public class HotelGalleryDAO {
         }
         return list;
     }
-    
-    public void addImage(HotelGallery h){
-        query = "INSERT INTO [HotelGallery]\n" +
-                    "           ([title]\n" +
-                    "           ,[image]\n" +
-                    "           ,[hotelId])\n" +
-                    "     VALUES\n" +
-                    "           (?\n" +
-                    "           ,?\n" +
-                    "           ,?)";
-         try{
-           
+
+    public ArrayList<HotelGallery> getGalleryByID(int hotelID) {
+        ArrayList<HotelGallery> list = new ArrayList<>();
+        query = "SELECT id, title, image, hotelId FROM HotelGallery WHERE hotelId = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, hotelID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new HotelGallery(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("image"),
+                        rs.getInt("hotelID")
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return list;
+    }
+
+    public void addImage(HotelGallery h) {
+        query = "INSERT INTO [HotelGallery]\n"
+                + "           ([title]\n"
+                + "           ,[image]\n"
+                + "           ,[hotelId])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?)";
+        try {
+
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, h.getTitle());
             ps.setString(2, h.getImage());
             ps.setInt(3, h.getHotelId());
             ps.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace(System.out);
-            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
     }
-    
-    public void updateImage(int id,HotelGallery h){
+
+    public void updateImage(int id, HotelGallery h) {
         query = "UPDATE HotelGallery SET title = ?  , image = ?  , hotelId = ?\n"
                 + " WHERE Id = ? ";
-         try{
+        try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
-        
+
             ps.setString(1, h.getTitle());
             ps.setString(2, h.getImage());
             ps.setInt(3, h.getHotelId());
             ps.setInt(4, id);
             ps.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace(System.out);
-            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
     }
-    
-    public void removeImage(int id){
+
+    public void removeImage(int id) {
         query = "DELETE FROM HotelGallery WHERE id = ?";
-         try{
+        try {
             conn = new DBcontext().getConnection();
-            ps = conn.prepareStatement(query);         
+            ps = conn.prepareStatement(query);
             ps.setInt(1, id);
             ps.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace(System.out);
-            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
     }
-    
-    
-    
-    
-}
 
-//class demo{
-//    public static void main(String[] args) {
-//         for(HotelGallery hg: new HotelGalleryDAO().getGalleryByID(2)){
-//             System.out.println(hg.toString());
-//         }
-//    }
-//}
+    public ArrayList<HotelGallery> getGallery(int hotelId, String page, int numOfElement) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int start = numOfElement * currentPage - numOfElement;
+        ArrayList<HotelGallery> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM HotelGallery WHERE hotelId = ? ORDER BY id ASC \n"
+                    + "                       OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new HotelGallery(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("image"),
+                        rs.getInt("hotelID")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public int getHotelIDByManager(int userId) {
+        int hotelId = 0;
+        
+        try {
+            query = "SELECT hotelId FROM Manages m INNER JOIN Users u ON u.id = m.userId WHERE userId = ?";
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, userId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                hotelId = rs.getInt("hotelId");
+                return hotelId;
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return 0;
+        
+    }
+
+}
