@@ -1,0 +1,125 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21-Jul-2022, 06:28:45
+    Author     : Admin
+*/
+
+
+ body{
+ 	display: grid;
+ 	grid-template-columns: 2fr 10fr;
+ 	width: 100%;
+ 	height: 100vh;
+ }
+ 
+ .aside-navigation a{
+     color:#fff;
+ }
+ 
+ .aside-navigation{
+ 	background-color: #4da0fb;
+ 	border-radius: 0 10px 10px 0;
+ 	box-shadow: 1px 2px 4px rgba(0, 0, 0, .4);
+ 	padding: 10px;
+ 	color: rgba(255, 255, 255, .9);
+ 	height: 100vh;
+ 	overflow: overlay;
+ }
+ 
+ 
+ .aside-navigation::-webkit-scrollbar{
+ 	width: 5px;
+ 	background-color: transparent;
+ }
+ .aside-navigation::-webkit-scrollbar-thumb{
+ 	background-color: #fff;
+ 	width: 5px;
+ 	border-radius: 5px;
+ }
+ 
+ 
+ .aside-navigation .avatar-box .image-box{
+ 	width: 80px;
+ 	height: 80px;
+ 	border-radius: 50%;
+ 	overflow: hidden;
+ 	cursor: pointer;
+ }
+ .aside-navigation .avatar-box .image-box img{
+ 	width: 100%;
+ 	height: 100%;
+ 	object-fit: cover;
+ }
+ 
+ .aside-navigation .avatar-box .link{
+ 	margin-top: 5px;
+ 	display: none;
+ 	margin-left: 10px;
+ 	cursor: pointer;
+ 	border-left: 3px solid transparent;
+ 	padding-left: 5px;
+ }
+ .aside-navigation .avatar-box .link:hover{
+ 	border-left: 3px solid #fff;
+ }
+ 
+ .aside-navigation .avatar-box.active>.link{
+ 	display: block;
+ }
+ 
+ .aside-navigation .slide-nav{
+ 	cursor: pointer;
+ 	/*margin-top: 10px;*/
+ 	padding: 10px 0;
+ 	box-shadow: 0px 3px 2px rgba(0, 0, 0, .1);
+ 
+ }
+ 
+ 
+ .aside-navigation>div:first-child{
+ 	cursor: default;
+ 	margin: 30px calc(50% - 50px)
+ }
+ .aside-navigation>div:nth-child(2){
+ 	box-shadow: 0px 3px 2px rgba(0, 0, 0, .1);
+  	cursor: pointer;
+  	padding-bottom: 15px;
+  	
+ }
+ 
+ .aside-navigation>div:nth-child(2):hover{
+ 	border-right: 3px solid #fff;
+ }
+ 
+ .aside-navigation .slide-nav{
+ 	cursor: pointer;
+ }
+ 
+ .aside-navigation .slide-nav>div{
+ 	cursor: default;
+ }
+ 
+ 
+ .aside-navigation .slide-nav.active .sub-nav{
+ 	max-height: 25vh;
+ }
+ 
+ .aside-navigation .slide-nav .sub-nav{
+ 	overflow: hidden;
+ 	max-height: 0;
+ 	transition: max-height 1s;
+ 	transition-delay: 0.1s;
+ 	margin-left: 10px;
+ 	margin-top: 10px;
+ }
+ .aside-navigation .slide-nav .sub-nav div{
+ 	margin: 5px 0;
+ }
+ .aside-navigation .slide-nav .sub-nav div:hover{
+ 	cursor: pointer;
+ 	border-right: 3px solid #fff;
+ }

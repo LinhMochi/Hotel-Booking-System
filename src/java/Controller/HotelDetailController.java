@@ -56,28 +56,31 @@ public class HotelDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Hotel h;
         if(request.getParameter("model")!=null){
+            
             h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
             request.getSession().removeAttribute("availableRoom");
             request.getSession().removeAttribute("availableService");
             ArrayList<Room> viewroom = new RoomDAO().getRoomByHotelId(h.getId());
             request.setAttribute("viewRoom", viewroom);
+            
         } else{
             h = 
     //                new HotelDAO().getHotelDetail(2);
                     (Hotel) request.getSession().getAttribute("hotel");
 
-            Search s = 
-    //                new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-03"), 3, 1, 2); 
-                    (Search) request.getSession().getAttribute("search");
-            if(h == null){
-                h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
-            } 
-            if( h != null && request.getParameter("hotelId") != null){
-                h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
-            }
-            if( h == null && request.getParameter("hotelId") == null ) {
-                request.setAttribute("message", "Truy cập bị chặn");
-            }
+           Search s = 
+     //                new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-03"), 3, 1, 2); 
+                     (Search) request.getSession().getAttribute("search");
+ 
+             if(h == null&& request.getParameter("hotelId") != null){
+                 h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
+ 
+             } else if( h == null && request.getParameter("hotelId") == null ) {
+                 request.setAttribute("message", "Truy cập bị chặn");    
+                 request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
+             } else if( h != null && request.getParameter("hotelId") != null){
+                 h = new HotelDAO().getHotelDetail(Integer.parseInt(request.getParameter("hotelId")));
+             }
 
             if(request.getParameter("changedate")!=null|| s==null ){
                 if(s==null) s = new Search();
@@ -138,7 +141,7 @@ public class HotelDetailController extends HttpServlet {
         request.getRequestDispatcher("HotelDetail.jsp").forward(request, response);
         
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
