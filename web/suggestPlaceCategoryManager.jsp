@@ -342,10 +342,10 @@
                                                       role="button">${i}</a></li>-->
                             <c:choose>
                                 <c:when test="${i == page}">
-                                    <li class="page-item active"><a href="serviceCategoryManager?page=${i}" class="page-link">${i}</a></li>
+                                    <li class="page-item active"><a href="suggestPlaceCategoryManager?page=${i}" class="page-link">${i}</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="page-item"><a href="serviceCategoryManager?page=${i}" class="page-link">${i}</a></li>
+                                    <li class="page-item"><a href="suggestPlaceCategoryManager?page=${i}" class="page-link">${i}</a></li>
                                 </c:otherwise>
                             </c:choose>
                             <input type="hidden" name="page" value="${i}">

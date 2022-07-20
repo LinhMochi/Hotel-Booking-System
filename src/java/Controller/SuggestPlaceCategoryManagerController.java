@@ -46,7 +46,7 @@ public class SuggestPlaceCategoryManagerController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             User a = (User) session.getAttribute("user");
-            if (a.getRole().equals("Manager")) {
+            if (a.getRole().equals("Admin")) {
                 String page;
                 try {
                     page = request.getParameter("page");

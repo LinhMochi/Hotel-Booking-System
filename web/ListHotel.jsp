@@ -75,15 +75,17 @@
                             <td>${o.category}</td>
                             <td>${o.address}</td>
                             <td>${o.city}</td>
-    <!--                            <td style="width: 50px">${o.map}</td>-->
+
+<!--                            <td style="width: 50px">${o.map}</td>-->
+
                             <td>${o.status}</td>
                             <td>
                                 <a href="ViewHotel?id=${o.id}" class="view" title="ViewHotel?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-eye" style="color: cadetblue"> </i
                                     ></a>
                                 <a href="UpdateHotels?id=${o.id}" class="edit mx-2" data-toggle="tooltip"><i class="fa-solid fa-pen-to-square" style="color: blue"></i
                                     ></a>
-                                <a href="DeleteHotelCOntroller?id=${o.id}" class="delete" title="DeleteHotelCOntroller?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-circle-minus" style="color: red"></i
-                                    ></a>
+// cut here
+                                <a href="DeleteHotelController?id=${o.id}" class="delete" title="DeleteHotelController?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-circle-minus" style="color: red"></i></a>
                             </td>
                             
                         </tr>

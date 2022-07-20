@@ -12,80 +12,181 @@ import java.sql.Date;
  * @author Linh
  */
 public class User {
-    private int id;
-    private String fullName;
-    private int gender;
-    private Date dob;
-    private String email;
-    private String address;
-    private String avatar;
-    private String phoneNumber;
-    private String password;
-    private String role;
-    private String status;
 
-    public User() {
-    }
-    
-    public User(String email) {
-        if (email != null) {
+        private int id;
+        private String fullName;
+        private int gender;
+        private Date dob;
+        private String email;
+        private String address;
+        private String avatar;
+        private String phoneNumber;
+        private String password;
+        private String role;
+        private String status;
+        
+        
+        private int times;
+        public User() {
+        }
+
+        public User(String email) {
+            if (email != null) {
+                this.email = email;
+            }
+        }
+
+        public User(int id, String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password, String role, String status, int times) {
+            this.id = id;
+            this.fullName = fullName;
+            this.gender = gender;
+            this.dob = dob;
+            this.email = email;
+            this.address = address;
+            this.avatar = avatar;
+            this.phoneNumber = phoneNumber;
+            this.password = password;
+            this.role = role;
+            this.status = status;
+            this.times = times;
+
+        }
+
+
+
+        public User(int id, String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password, String role, String status) {
+            this.id = id;
+            this.fullName = fullName;
+            this.gender = gender;
+            this.dob = dob;
+            this.email = email;
+            this.address = address;
+            this.avatar = avatar;
+            this.phoneNumber = phoneNumber;
+            this.password = password;
+            this.role = role;
+            this.status = status;
+        }
+
+        public User(String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password) {
+            this.fullName = fullName;
+            this.gender = gender;
+            this.dob = dob;
+            this.email = email;
+            this.address = address;
+            this.avatar = avatar;
+            this.phoneNumber = phoneNumber;
+            this.password = password;
+        }
+
+        public User(String role, String status) {
+            this.role = role;
+            this.status = status;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getFullName() {
+            return fullName;
+        }
+
+        public void setFullName(String fullName) {
+            this.fullName = fullName;
+        }
+
+        public int getGender() {
+            return gender;
+        }
+
+        public void setGender(int gender) {
+            this.gender = gender;
+        }
+
+        public Date getDob() {
+            return dob;
+        }
+
+        public void setDob(Date dob) {
+            this.dob = dob;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
             this.email = email;
         }
+
+
+    public int getTimes() {
+        return times;
     }
 
-    public User(int id, String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password, String role, String status) {
-        this.id = id;
-        this.fullName = fullName;
-        this.gender = gender;
-        this.dob = dob;
-        this.email = email;
-        this.address = address;
-        this.avatar = avatar;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.role = role;
-        this.status = status;
+    public void setTimes(int times) {
+        this.times = times;
     }
 
-    public User(String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password) {
-        this.fullName = fullName;
-        this.gender = gender;
-        this.dob = dob;
-        this.email = email;
-        this.address = address;
-        this.avatar = avatar;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-    }
 
-    public User(String role, String status) {
-        this.role = role;
-        this.status = status;
-    }
+//    public User(int id, String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password, String role, String status) {
+//        this.id = id;
+//        this.fullName = fullName;
+//        this.gender = gender;
+//        this.dob = dob;
+//        this.email = email;
+//        this.address = address;
+//        this.avatar = avatar;
+//        this.phoneNumber = phoneNumber;
+//        this.password = password;
+//        this.role = role;
+//        this.status = status;
+//    }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
+//    public User(String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password) {
+//        this.fullName = fullName;
+//        this.gender = gender;
+//        this.dob = dob;
+//        this.email = email;
+//        this.address = address;
+//        this.avatar = avatar;
+//        this.phoneNumber = phoneNumber;
+//        this.password = password;
+//    }
+//
+//    public User(String role, String status) {
+//        this.role = role;
+//        this.status = status;
+//    }
+//
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+//
+//    public String getFullName() {
+//        return fullName;
+//    }
+//
+//    public void setFullName(String fullName) {
+//        this.fullName = fullName;
+//    }
+//
+//    public int getGender() {
+//        return gender;
+//    }
+//
+//    public void setGender(int gender) {
+//        this.gender = gender;
+//    }
     
     public String getgen(){
         switch(gender){
@@ -97,27 +198,27 @@ public class User {
         }
     }
 
-    public Date getDob() {
-        return dob;
-    }
-    
+//    public Date getDob() {
+//        return dob;
+//    }
+//    
     public String getdob(){
         String[] s = new java.text.SimpleDateFormat("yyyy-M-dd").format(new java.util.Date(dob.getTime())).split("-");
         
         return "Ngày "+s[2]+",tháng "+s[1]+" năm "+s[0];
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public void setDob(Date dob) {
+//        this.dob = dob;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getAddress() {
         return address;
@@ -169,4 +270,12 @@ public class User {
     public boolean isManager(){
         return role.equals("Manager");
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", fullName=" + fullName + ", gender=" + gender + ", dob=" + dob + ", email=" + email + ", address=" + address + ", avatar=" + avatar + ", phoneNumber=" + phoneNumber + ", password=" + password + ", role=" + role + ", status=" + status + ", times=" + times + '}';
+    }
+
+    
+    
 }

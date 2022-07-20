@@ -255,7 +255,7 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Gallery <b>Manager</b></h2>
+                            <h2>${hotel.name} <b>Gallery Manager</b></h2>
                         </div>
                         <div class="col-sm-6">
                             <a href="#addGalleryModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Image</span></a>
@@ -268,25 +268,15 @@
                             <th>ID</th>
                             <th>Title</th>
                             <th>Image</th>
-                            <th>Hotel Name</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="photo" items="${list}">
                             <tr>
-                                <td>${photo.id}</td>
+                                <td>${(list.indexOf(photo) + 1) + (page-1) * numberOfImage}</td>
                                 <td>${photo.title}</td>
                                 <td><img src="${photo.image}" width="130" height="90" alt="hotel-img"></td>
-                                <td>
-                                    <c:forEach var="hotel" items="${hlist}">
-                                        <c:choose>
-                                            <c:when test="${hotel.id == photo.hotelId}">
-                                                ${hotel.name}
-                                            </c:when>
-                                        </c:choose>
-                                    </c:forEach>
-                                </td>
                                 <td>
                                     <a href="#editGalleryModal${photo.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                     <a href="#deleteGalleryModal${photo.id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -337,23 +327,9 @@
                                                 <label>Image URL</label>
                                                 <textarea class="form-control" required name="image" >${photo.image}</textarea>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Hotel</label>
-                                                <select  class="form-control" name="hotelID">
-                                                    <c:forEach var="hotel" items="${hlist}">
-                                                        <c:choose>
-                                                            <c:when test="${hotel.id == photo.hotelId}">
-                                                                <option value="${hotel.id}" selected>${hotel.name}</option>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <option value="${hotel.id}">${hotel.name}</option>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>                    					
                                         </div>
                                         <div class="modal-footer">
+                                            <input type="hidden" name="hotelID" value="${hotel.id}">
                                             <input type="hidden" name="currentpage" value="${page}">
                                             <input type="hidden" name="id" value="${photo.id}">
                                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -381,11 +357,11 @@
                             <c:choose>
                                 <c:when test="${i == page}">
                                     <li class="page-item active"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>
-                                </c:when>
-                                <c:otherwise>
+                                    </c:when>
+                                    <c:otherwise>
                                     <li class="page-item"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>
-                                </c:otherwise>
-                            </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
                             <input type="hidden" name="page" value="${i}">
                         </c:forEach>
 
@@ -415,16 +391,9 @@
                             <label>Image URL</label>
                             <textarea class="form-control" required name="img"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label>Hotel</label>
-                            <select  class="form-control" name="hotelID">
-                                <c:forEach var="hotel" items="${hlist}">
-                                    <option value="${hotel.id}">${hotel.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>                      					
                     </div>
                     <div class="modal-footer">
+                        <input type="hidden" name="hotelID" value="${hotel.id}">
                         <input type="hidden" name="currentpage" value="${page}">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                         <input type="submit" class="btn btn-success" value="Add">

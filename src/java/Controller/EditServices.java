@@ -1,13 +1,16 @@
+package Controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
 
-import DAO.HotelDAO;
+import DAO.ServiceCategoryDAO;
+import Model.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,10 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Nhat Anh
+ * @author Dell
  */
-@WebServlet(name = "AddHotelController", urlPatterns = {"/AddHotelController"})
-public class AddHotelController extends HttpServlet {
+@WebServlet(urlPatterns = {"/EditServices"})
+public class EditServices extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +41,10 @@ public class AddHotelController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddHotelController</title>");            
+            out.println("<title>Servlet EditServices</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddHotelController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditServices at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,26 +62,19 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-            String name = request.getParameter("name");
-            int  star = Integer.parseInt(request.getParameter("star"));
-            String decription = request.getParameter("decription");
-            String hoteladvance = request.getParameter("hoteladvance");
-            String policies = request.getParameter("policies");
-            String map = request.getParameter("map");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String status = request.getParameter("status");
-            String address = request.getParameter("address");
-            int city = Integer.parseInt(request.getParameter("city"));
-            int category = Integer.parseInt(request.getParameter("category"));
-            String image = request.getParameter("image");
-          
-            // HIEN THI TRANG MANAGER HOTEL XEM NAO
-            HotelDAO dao = new HotelDAO();
-           dao.addHotel(name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category, image );
-           
-           response.sendRedirect("ListsHotelController");
+
+        try {
+            //Bên page crud cua roomTypes để parameter gì thì điền lại 
+            // điền xong thì dòng 66 xóa cái số 7 điền id vào  ;
+//            int id = request.getParameter("hotelID");
+//             Room room = dao.get.getRoomByHotelId(id);
+
+//          Lấy dữ liệu từ room types up lên editroomtypes.jsp
+//            Service service = new Bean().getServiceByID("3");
+            Service service = new ServiceCategoryDAO().getServiceByID("3");
+            request.setAttribute("service", service);
+            request.getRequestDispatcher("EditServices.jsp").forward(request, response);
+
         } catch (Exception e) {
         }
     }
@@ -94,7 +90,28 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+
+//            int id = 1;
+            int category = Integer.parseInt(request.getParameter("category"));
+            int hotelId = Integer.parseInt(request.getParameter("hotelId"));
+            Date from = Date.valueOf(request.getParameter("from"));
+            Date to = Date.valueOf(request.getParameter("to"));
+            double price = Double.parseDouble(request.getParameter("price"));
+            String unit = request.getParameter("unit");
+            String createAt = request.getParameter("createAt");
+
+            Service service = new Service(id, name, from, to, price, unit, createAt, category, hotelId);
+
+            new ServiceCategoryDAO().updateServices(service);
+
+            response.sendRedirect("URL");
+
+        } catch (Exception e) {
+        }
     }
 
     /**
