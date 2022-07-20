@@ -4,6 +4,7 @@
     Created on : Jun 28, 2022, 9:00:39 AM
     Author     : Nhat Anh
 --%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -60,6 +61,11 @@
                         <tr>
                             <th>PhoneNumber</th>
                             <td><input style="width: 700px; height: 50px" type="tel" id="phone" name="phone" placeholder="12345678"></td>
+                        </tr>
+                        <tr>
+                            <th>Image</th>
+                            <td><input  style="width: 700px; height: 50px" type="text" name="image"></td>
+
                         </tr>
                         <tr>
                             <th>Status</th>

@@ -82,7 +82,7 @@
                                     ></a>
                                 <a href="UpdateHotels?id=${o.id}" class="edit mx-2" data-toggle="tooltip"><i class="fa-solid fa-pen-to-square" style="color: blue"></i
                                     ></a>
-                                <a href="DeleteHotelCOntroller?id=${o.id}" class="delete" title="DeleteHotelCOntroller?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-circle-minus" style="color: red"></i
+                                <a href="DeleteHotelController?id=${o.id}" class="delete" title="DeleteHotelController?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-circle-minus" style="color: red"></i
                                     ></a>
                             </td>
                             

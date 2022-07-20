@@ -1,11 +1,13 @@
+package Controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
 
-import DAO.HotelDAO;
+
+import DAO.HotelCategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Nhat Anh
+ * @author Dell
  */
-@WebServlet(name = "AddHotelController", urlPatterns = {"/AddHotelController"})
-public class AddHotelController extends HttpServlet {
+@WebServlet(urlPatterns = {"/AddHotelCategory"})
+public class AddHotelCategory extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +40,10 @@ public class AddHotelController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddHotelController</title>");            
+            out.println("<title>Servlet AddHotelCategory</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddHotelController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddHotelCategory at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,26 +61,12 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-            String name = request.getParameter("name");
-            int  star = Integer.parseInt(request.getParameter("star"));
-            String decription = request.getParameter("decription");
-            String hoteladvance = request.getParameter("hoteladvance");
-            String policies = request.getParameter("policies");
-            String map = request.getParameter("map");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String status = request.getParameter("status");
-            String address = request.getParameter("address");
-            int city = Integer.parseInt(request.getParameter("city"));
-            int category = Integer.parseInt(request.getParameter("category"));
-            String image = request.getParameter("image");
-          
-            // HIEN THI TRANG MANAGER HOTEL XEM NAO
-            HotelDAO dao = new HotelDAO();
-           dao.addHotel(name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category, image );
-           
-           response.sendRedirect("ListsHotelController");
+        try {
+//            int hcateID = Integer.parseInt(request.getParameter("hcateID"));
+//            HotelCategory hcategory = new Bean().getHotelCategoryByID(hcateID);
+//            request.setAttribute("hcategory", hcategory);
+//            get list category 
+            request.getRequestDispatcher("AddHotelCategory.jsp").forward(request, response);
         } catch (Exception e) {
         }
     }
@@ -94,7 +82,14 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            String category = request.getParameter("category");
+//            String category = "Khách sạn nghỉ dướng";
+            String image = request.getParameter("image");
+            new HotelCategoryDAO().addHotelCategory(category, image);
+            response.sendRedirect("ManagerHomeCategory");
+        } catch (Exception e) {
+        }
     }
 
     /**

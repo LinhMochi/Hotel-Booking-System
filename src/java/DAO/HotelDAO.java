@@ -29,7 +29,12 @@ public class HotelDAO {
     private ResultSet rs;
     private String query;
 
-public ArrayList<Hotel> getAllHotel() {
+    public static void main(String[] args) {
+        new HotelDAO().editHotel(23, "beanvuaedit lai", 1, "abc", "abc", "abvc", "abc", "avc", "123", "active", "aaa", 1, 1, "abc");
+    }
+
+    public ArrayList<Hotel> getAllHotel() {
+
         ArrayList<Hotel> list = new ArrayList<>();
         query = "Select ht.id, ht.name,ht.noOfStar,ht.description,ht.hotelAdvance,ht.policies,ht.map,ht.email,ht.phoneNumber,ht.status,ht.address,ct.city,hc.category from Hotels ht Inner join Cities ct On ht.cityId = ct.id Inner join HotelCategories hc On ht.categoryId = hc.id";
         try {
@@ -89,7 +94,6 @@ public ArrayList<Hotel> getAllHotel() {
                         rs.getString("address"),
                         rs.getString("city"),
                         rs.getString("category")
-                        
                 ));
             }
         } catch (Exception e) {
@@ -98,8 +102,8 @@ public ArrayList<Hotel> getAllHotel() {
         return list;
     }
 
-    public void addHotel(String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
-        query = "INSERT INTO Hotels VALUES ( ? , ? ,  ? ,  ? , ? , ? , ? , ? , ? , ?,  ? , ?, ?,'a')";;
+    public void addHotel(String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId, String image) {
+        query = "INSERT INTO Hotels VALUES ( ? , ? ,  ? ,  ? , ? , ? , ? , ? , ? , ?,  ? , ?, ?)";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
@@ -115,6 +119,7 @@ public ArrayList<Hotel> getAllHotel() {
             ps.setString(10, address);
             ps.setInt(11, cityId);
             ps.setInt(12, categoryId);
+            ps.setString(13, image);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error");
@@ -134,8 +139,8 @@ public ArrayList<Hotel> getAllHotel() {
 
     }
 
-    public void editHotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId) {
-        query = "UPDATE Hotels SET name = ?  , noOfStar = ?  , [description] = ?  , [hotelAdvance]= ? , [policies]= ?  , [map] = ? , [email]= ? , [phoneNumber] = ? ,[status] = ? ,[address] = ? ,[cityId] = ? ,[categoryId] = ? \n"
+    public void editHotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, int cityId, int categoryId, String image) {
+        query = "UPDATE Hotels SET name = ?  , noOfStar = ?  , [description] = ?  , [hotelAdvance]= ? , [policies]= ?  , [map] = ? , [email]= ? , [phoneNumber] = ? ,[status] = ? ,[address] = ? ,[cityId] = ? ,[categoryId] = ?, image = ? \n"
                 + " WHERE Id = ? ";
 
         try {
@@ -153,7 +158,8 @@ public ArrayList<Hotel> getAllHotel() {
             ps.setString(10, address);
             ps.setInt(11, cityId);
             ps.setInt(12, categoryId);
-            ps.setInt(13, id);
+            ps.setString(13, image);
+            ps.setInt(14, id);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error");
@@ -279,7 +285,6 @@ public ArrayList<Hotel> getAllHotel() {
         }
         return sql;
     }
-
 
     public ArrayList<Hotel> getSuggestHotel() {
         ArrayList<Hotel> list = new ArrayList<>();

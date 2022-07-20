@@ -6,8 +6,10 @@
 package Controller;
 
 import DAO.HotelDAO;
+import Model.Hotel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nhat Anh
  */
-@WebServlet(name = "AddHotelController", urlPatterns = {"/AddHotelController"})
-public class AddHotelController extends HttpServlet {
+@WebServlet(name = "FilterHandle", urlPatterns = {"/FilterHandle"})
+public class FilterHandle extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +40,10 @@ public class AddHotelController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddHotelController</title>");            
+            out.println("<title>Servlet FilterHandle</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddHotelController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FilterHandle at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,26 +61,12 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-            String name = request.getParameter("name");
-            int  star = Integer.parseInt(request.getParameter("star"));
-            String decription = request.getParameter("decription");
-            String hoteladvance = request.getParameter("hoteladvance");
-            String policies = request.getParameter("policies");
-            String map = request.getParameter("map");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String status = request.getParameter("status");
-            String address = request.getParameter("address");
-            int city = Integer.parseInt(request.getParameter("city"));
-            int category = Integer.parseInt(request.getParameter("category"));
-            String image = request.getParameter("image");
-          
-            // HIEN THI TRANG MANAGER HOTEL XEM NAO
+        try {
             HotelDAO dao = new HotelDAO();
-           dao.addHotel(name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category, image );
-           
-           response.sendRedirect("ListsHotelController");
+            String filter = request.getParameter("filter");
+            ArrayList<Hotel> listHotel = dao.getHotelByFilter(filter);
+            request.setAttribute("listHotel", listHotel);
+            request.getRequestDispatcher("crud.jsp").forward(request, response);
         } catch (Exception e) {
         }
     }

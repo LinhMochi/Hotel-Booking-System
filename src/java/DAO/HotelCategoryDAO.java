@@ -7,6 +7,7 @@ package DAO;
 
 import DBcontext.DBcontext;
 import Model.HotelCategory;
+import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 /**
  *
  * @author Admin
+ * GIO CAN FIX O DAU
+ * TÔI CẦN FIX THANG ADD HOTEL VÀ UPDATE
  */
 public class HotelCategoryDAO {
     private Connection conn = new DBcontext().getConnection();;
@@ -27,6 +30,96 @@ public class HotelCategoryDAO {
     }
     
     // get list hotel category
+       public ArrayList<HotelCategory> getAllHotelCategories() {
+        ArrayList<HotelCategory> list = new ArrayList<>();
+        sql = "SELECT * FROM HotelCategories";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new HotelCategory(rs.getInt("id"), rs.getString("category"), rs.getString("image")
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println("Loi");
+        }
+        return list;
+    }
+
+    public ArrayList<HotelCategory> getHotelCategoriesByPage(String page) {
+        int start = Integer.parseInt(page) * 5 - 5;
+        ArrayList<HotelCategory> list = new ArrayList<>();
+        sql = "SELECT * FROM HotelCategories\n"
+                + "                ORDER BY ID ASC\n"
+                + "                OFFSET ? ROWS FETCH NEXT 5 ROW ONLY";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, start);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new HotelCategory(rs.getInt("id"), rs.getString("category"), rs.getString("image")
+                ));
+            }
+        } catch (Exception e) {
+            printStackTrace();
+        }
+        return list;
+    }
+
+    public void addHotelCategory(String cateogry, String image) {
+        sql = "insert into HotelCategories values (  ? , ? )  ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, cateogry);
+            ps.setString(2, image);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Loi");
+        }
+
+    }
+
+    public void editHotelCategory(String cateogry, String image, int id) {
+        sql = "update HotelCategories set category = ?  , image = ? where  id = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, cateogry);
+            ps.setString(2, image);
+            ps.setInt(3, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Loi");
+        }
+
+    }
+
+    public HotelCategory getHotelCategoryByID(int id) {
+        sql = "SELECT * FROM HotelCategories where id = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new HotelCategory(rs.getInt("id"), rs.getString("category"), rs.getString("image"));
+
+            }
+        } catch (Exception e) {
+            System.out.println("Loi");
+        }
+        return null;
+    }
+
+    
+    
+    
+    
     
     public ArrayList<HotelCategory> getListHotelCategory(){
         list = new ArrayList<>();
