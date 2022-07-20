@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="section <c:if test="${empty cart}">hidden</c:if>   <c:if test="${ not empty cart && cart.getBookedServices()==null}">hidden</c:if>">
-                        <c:if test="${not empty cart.getBookedServices()}"><h5>Dịch vụ kèm theo</h5></c:if>
+                        <h5>Dịch vụ kèm theo</h5>
                         <div class="content picked-service">
                         <c:forEach var="bookedS" items="${sessionScope.cart.getBookedServices()}">
                           <div class="item grid-3 g-c" id = "${bookedS.id}">

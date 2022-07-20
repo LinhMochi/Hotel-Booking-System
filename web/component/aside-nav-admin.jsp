@@ -1,6 +1,6 @@
 <%-- 
     Document   : aside-nav-admin
-    Created on : 20-Jul-2022, 17:19:17
+    Created on : 21-Jul-2022, 06:33:18
     Author     : Admin
 --%>
 
@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>aside-navigation</title>
         <link href="../css/layout-style.css" rel="stylesheet" type="text/css"/>
-        <link href="../css/aside-nav-manage.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/aside-nav.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>-->
         <!-- Tai khoan, hotel ,  promotion, city,  Service category, hotel category, convenient category, sugest place category  -->

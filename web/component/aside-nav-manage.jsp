@@ -1,6 +1,6 @@
 <%-- 
     Document   : aside-nav-manage
-    Created on : 20-Jul-2022, 17:07:33
+    Created on : 21-Jul-2022, 06:32:33
     Author     : Admin
 --%>
 
@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link href="../css/layout-style.css" rel="stylesheet" type="text/css"/>
-        <link href="../css/aside-nav-manage.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/aside-nav.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         

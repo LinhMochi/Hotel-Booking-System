@@ -6,15 +6,12 @@
 package Controller;
 
 import DAO.BookedRoomDAO;
-import DAO.RoomDAO;
 import Model.Hotel;
 import Model.ReservationDetail;
-import Model.Room;
 import Model.Search;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -95,9 +92,8 @@ public class UpdateCartController extends HttpServlet {
         if(update.equals("cancelre")){
             HttpSession session = request.getSession();
             session.removeAttribute("cart");
-//            currentPage = "home";
-        request.setAttribute("notify", "The reservation have cancel");
-        request.getRequestDispatcher("home").forward(request, response);
+            currentPage = "home";
+            
         }
         if((!update.equals("search"))||!update.equals("cancelre")){
             String i = request.getParameter("id");
@@ -118,9 +114,6 @@ public class UpdateCartController extends HttpServlet {
                     request.getSession().removeAttribute("cart");
                     cart.clearService();
                 }
-                
-                
-                
                 request.setAttribute("notify", "Update phòng trong giỏ hàng thành công");
             }
             else {
@@ -145,9 +138,6 @@ public class UpdateCartController extends HttpServlet {
                 request.setAttribute("message","Thay đổi ngày không thành công do có phòng đã hết");
             }
         }
-        
-        ArrayList<Room> ar = new RoomDAO().getAvailableRoom(h.getId(), s);
-        request.getSession().setAttribute("availableRoom",ar);
         
         request.getSession().setAttribute("cart", cart);
         
