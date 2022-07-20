@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nhat Anh
  */
-@WebServlet(name = "AddHotelController", urlPatterns = {"/AddHotelController"})
-public class AddHotelController extends HttpServlet {
+@WebServlet(name = "UpdateHotels", urlPatterns = {"/UpdateHotels"})
+public class UpdateHotels extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class AddHotelController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddHotelController</title>");            
+            out.println("<title>Servlet UpdateHotels</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddHotelController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateHotels at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,28 +59,7 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       try {
-            String name = request.getParameter("name");
-            int  star = Integer.parseInt(request.getParameter("star"));
-            String decription = request.getParameter("decription");
-            String hoteladvance = request.getParameter("hoteladvance");
-            String policies = request.getParameter("policies");
-            String map = request.getParameter("map");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String status = request.getParameter("status");
-            String address = request.getParameter("address");
-            int city = Integer.parseInt(request.getParameter("city"));
-            int category = Integer.parseInt(request.getParameter("category"));
-            String image = request.getParameter("image");
-          
-          
-            HotelDAO dao = new HotelDAO();
-           dao.addHotel(name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category, image );
-           
-           response.sendRedirect("ListsHotelController");
-        } catch (Exception e) {
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -94,7 +73,28 @@ public class AddHotelController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        try {
+            String name = request.getParameter("name");
+            int star = Integer.parseInt(request.getParameter("star"));
+            String decription = request.getParameter("decription");
+            String hoteladvance = request.getParameter("hoteladvance");
+            String policies = request.getParameter("policies");
+            String map = request.getParameter("map");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            String status = request.getParameter("status");
+            String address = request.getParameter("address");
+            int city = Integer.parseInt(request.getParameter("city"));
+            int category = Integer.parseInt(request.getParameter("category"));
+            String image = request.getParameter("image");
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            HotelDAO dao = new HotelDAO();
+            dao.editHotel(id, name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category, image);
+            response.sendRedirect("ListsHotelController");
+        } catch (Exception e) {
+        }
     }
 
     /**

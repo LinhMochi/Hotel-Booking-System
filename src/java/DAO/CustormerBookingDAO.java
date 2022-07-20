@@ -63,9 +63,7 @@ public class CustormerBookingDAO {
                 for (User copyUser : list) {
                     temp.add(copyUser);
                 }
-// ông chia cho tôi cái nào là sever cái nào là Dao cái chứ tôi nhịn loạn quá
-//ABC ông code cái j thế
-// Bean nữa
+
                 // Muc dich tao bang tam : vi trong qua trinh duyet cac phan tu cua mang se khong the thay doi mang do (Add them data vao mang )
                 // duyet cac phan tu trong bang tap 
                 for (int i = 0; i < temp.size(); i++) {
@@ -128,3 +126,12 @@ public class CustormerBookingDAO {
 }
 
 
+class demo {
+
+    public static void main(String[] args) {
+        for(User u : new CustormerBookingDAO().getCustomerOfHotelWithTimes()) {
+            
+            System.out.println(u.toString());
+        }
+    }
+}

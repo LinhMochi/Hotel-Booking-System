@@ -444,6 +444,10 @@ public class HotelDAO {
         return new Hotel();
     }
 
+    public void editHotel(String name, int star, String decription, String hoteladvance, String policies, String map, String email, String phone, String status, String address, int city, int category, String image, int id, int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
 
 //class demo {
