@@ -29,9 +29,9 @@ public class HotelDAO {
     private ResultSet rs;
     private String query;
 
-    public static void main(String[] args) {
-        new HotelDAO().editHotel(23, "beanvuaedit lai", 1, "abc", "abc", "abvc", "abc", "avc", "123", "active", "aaa", 1, 1, "abc");
-    }
+//    public static void main(String[] args) {
+//        new HotelDAO().editHotel(23, "beanvuaedit lai", 1, "abc", "abc", "abvc", "abc", "avc", "123", "active", "aaa", 1, 1, "abc");
+//    }
 
     public ArrayList<Hotel> getAllHotel() {
 

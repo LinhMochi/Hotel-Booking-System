@@ -65,14 +65,18 @@ public class ManagerCustom extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         response.setContentType("text/html;charset=UTF-8");
+         
+         ArrayList<User> list = null;
+         ArrayList<Hotel> listHotel = null;
         try {
-            ArrayList<User> list = new CustormerBookingDAO().getCustomerOfHotelWithTimes();
-            ArrayList<Hotel> listHotel = new HotelDAO().getAllHotel();
+            list = new CustormerBookingDAO().getCustomerOfHotelWithTimes();
+            listHotel = new HotelDAO().getAllHotel();
+        } catch (Exception e) {
+        }
             request.setAttribute("list", list);
             request.setAttribute("listHotel", listHotel);
             request.getRequestDispatcher("ManagerCustomer.jsp").forward(request, response);
-        } catch (Exception e) {
-        }
     }
 
     /**

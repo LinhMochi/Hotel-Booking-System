@@ -24,7 +24,10 @@ public class User {
         private String password;
         private String role;
         private String status;
-
+        
+        
+        private int hotelId;
+        private int times;
         public User() {
         }
 
@@ -152,60 +155,76 @@ public class User {
             this.email = email;
         }
 
-
-    public User(int id, String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password, String role, String status) {
-        this.id = id;
-        this.fullName = fullName;
-        this.gender = gender;
-        this.dob = dob;
-        this.email = email;
-        this.address = address;
-        this.avatar = avatar;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.role = role;
-        this.status = status;
+    public int getHotelId() {
+        return hotelId;
     }
 
-    public User(String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password) {
-        this.fullName = fullName;
-        this.gender = gender;
-        this.dob = dob;
-        this.email = email;
-        this.address = address;
-        this.avatar = avatar;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 
-    public User(String role, String status) {
-        this.role = role;
-        this.status = status;
+    public int getTimes() {
+        return times;
     }
 
-    public int getId() {
-        return id;
+    public void setTimes(int times) {
+        this.times = times;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public String getFullName() {
-        return fullName;
-    }
+//    public User(int id, String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password, String role, String status) {
+//        this.id = id;
+//        this.fullName = fullName;
+//        this.gender = gender;
+//        this.dob = dob;
+//        this.email = email;
+//        this.address = address;
+//        this.avatar = avatar;
+//        this.phoneNumber = phoneNumber;
+//        this.password = password;
+//        this.role = role;
+//        this.status = status;
+//    }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
+//    public User(String fullName, int gender, Date dob, String email, String address, String avatar, String phoneNumber, String password) {
+//        this.fullName = fullName;
+//        this.gender = gender;
+//        this.dob = dob;
+//        this.email = email;
+//        this.address = address;
+//        this.avatar = avatar;
+//        this.phoneNumber = phoneNumber;
+//        this.password = password;
+//    }
+//
+//    public User(String role, String status) {
+//        this.role = role;
+//        this.status = status;
+//    }
+//
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+//
+//    public String getFullName() {
+//        return fullName;
+//    }
+//
+//    public void setFullName(String fullName) {
+//        this.fullName = fullName;
+//    }
+//
+//    public int getGender() {
+//        return gender;
+//    }
+//
+//    public void setGender(int gender) {
+//        this.gender = gender;
+//    }
     
     public String getgen(){
         switch(gender){
@@ -217,27 +236,27 @@ public class User {
         }
     }
 
-    public Date getDob() {
-        return dob;
-    }
-    
+//    public Date getDob() {
+//        return dob;
+//    }
+//    
     public String getdob(){
         String[] s = new java.text.SimpleDateFormat("yyyy-M-dd").format(new java.util.Date(dob.getTime())).split("-");
         
         return "Ngày "+s[2]+",tháng "+s[1]+" năm "+s[0];
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public void setDob(Date dob) {
+//        this.dob = dob;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getAddress() {
         return address;
