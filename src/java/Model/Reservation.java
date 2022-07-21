@@ -45,6 +45,33 @@ public class Reservation {
         this.hotel = hotel;
     }
 
+    public Reservation(int id, int adult, int child, int noRoom, String bookDate, Date arrival, Date department, String status, User user) {
+        this.id = id;
+        this.adult = adult;
+        this.child = child;
+        this.noRoom = noRoom;
+        this.bookDate = bookDate;
+        this.arrival = arrival;
+        this.department = department;
+        this.status = status;
+        this.user = user;
+    }
+
+    public Reservation(int id, int adult, int child, int noRoom, String bookDate, Date arrival, Date department, String status, Hotel hotel) {
+        this.id = id;
+        this.adult = adult;
+        this.child = child;
+        this.noRoom = noRoom;
+        this.bookDate = bookDate;
+        this.arrival = arrival;
+        this.department = department;
+        this.status = status;
+        this.hotel = hotel;
+    }
+    
+    
+    
+
     public int getId() {
         return id;
     }
