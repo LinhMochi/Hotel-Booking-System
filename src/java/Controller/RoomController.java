@@ -81,7 +81,7 @@ public class RoomController extends HttpServlet {
                         endPage++;
                     }
                     
-                    
+                    //list and paging
                     ArrayList<Room> list = r.getRoom(hotelId,page, NUMBER_IMAGE);
                     Room spc = new Room();
                     request.setAttribute("list", list);
