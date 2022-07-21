@@ -149,6 +149,9 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+    
+    
+    
 
     public boolean checkEmail(String email) {
         ArrayList<User> array = getUsers();
