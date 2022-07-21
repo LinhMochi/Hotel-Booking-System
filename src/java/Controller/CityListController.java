@@ -7,6 +7,7 @@ package Controller;
 
 import DAO.CityDAO;
 import Model.City;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,6 +45,10 @@ public class CityListController extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
+            User a = (User) session.getAttribute("user");
+            if (a != null) {
+                if (a.getRole().equals("Manager")||a.getRole().equals("Admin")) {
             String page;
             try {
                 page = request.getParameter("page");
@@ -54,7 +60,7 @@ public class CityListController extends HttpServlet {
             }
             CityDAO c = new CityDAO();
 //            ArrayList<Room> list = hgd.GetAllRoom();
-            int count = c.getListCityComplete().size();
+            int count = c.getAllListCity().size();
             int endPage = count / NUMBER_IMAGE;
             if (count % NUMBER_IMAGE != 0) {
                 endPage++;
@@ -73,6 +79,12 @@ public class CityListController extends HttpServlet {
 
 //            RoomDAO hgd = new RoomDAO();
             request.getRequestDispatcher("CityList.jsp").forward(request, response);
+                   } else {
+                    request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
+                }
+            } else {
+                request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
+            }
         }
     }
 
