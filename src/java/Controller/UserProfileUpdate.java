@@ -5,8 +5,11 @@
  */
 package Controller;
 
+import DAO.UserDAO;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,8 +67,36 @@ public class UserProfileUpdate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+               response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        UserDAO hgd = new UserDAO();
+        User h = new User();
+
+        
+       
+        String fullName = request.getParameter("fullName");
+        int gender = Integer.parseInt(request.getParameter("gender"));
+        Date dob = Date.valueOf(request.getParameter("dob"));
+        String phoneNumber = request.getParameter("phoneNumber");
+     
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        
+//        response.getWriter().println(gender);
+//        response.getWriter().println(dob);
+//        response.getWriter().println(phoneNumber);
+//        response.getWriter().println(email);
+//        response.getWriter().println(address);
+        h.setFullName(fullName);
+        h.setGender(gender);
+        h.setDob(dob);
+        h.setPhoneNumber(phoneNumber);
+        h.setAddress(address);
+//                response.getWriter().println(h);
+        hgd.updateUserInfo(email, h);
+        response.sendRedirect("logout");
     }
+    
 
     /**
      * Returns a short description of the servlet.
