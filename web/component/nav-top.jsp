@@ -159,7 +159,7 @@
                         <img src="${sessionScope.user.avatar}" alt="user">
                     </div>
                     <div class="drop-box-items hidden">
-                        <div class="drop-item">Thông tin cá nhân</div>
+                        <div class="drop-item"><a href="userprofile">Thông tin cá nhân</a></div>
                         <div class="drop-item">Đơn đặt phòng của tôi</div>
                         <div class="drop-item">Khách sạn yêu thích</div>
                         <div class="drop-item"><a href="../Hotel-Booking-System/logout">Đăng xuất</a></div>
