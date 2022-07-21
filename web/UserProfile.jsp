@@ -524,7 +524,7 @@
                 <p>
                     <a href="http://localhost:8080/Hotel-Booking-System/home">
                         <img alt="logo" src="images/sitelogo.png"
-                             style="margin-left: 10px; height: 60px; width: 100%;border-radius:50px " >
+                             style="margin-left: 10px; height: 60px; width: 100%;border-radius:50px; margin-top: 20px" >
                     </a>
                 </p>
 
@@ -533,11 +533,12 @@
                     <button class="dropbtn">
 
                         <img src="${sessionScope.user.avatar}" alt="user"
-                             style="width:60px;height:60px; margin-bottom: 5%;margin-right: 10px;border-radius: 100px">
+                             style="width:60px;height:60px; margin-bottom: 5%;margin-right: 10px;border-radius: 100%">
                     </button>
 
                     <div class="dropdown-content">
-                        <a href="#">Thông tin</a>
+                        <a href="home">Trang chủ</a>
+                        <a href="userprofile">Thông tin</a>
                         <a href="#">Đơn đặt phòng</a>
                         <a href="#">Hóa đơn của tôi</a>
                         <div><a href="logout">Đăng xuất</a></div>
