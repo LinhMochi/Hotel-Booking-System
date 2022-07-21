@@ -144,7 +144,10 @@ public class ReservationDAO {
     }
     
     public Reservation getReservationInfoById(int id) throws SQLException, IOException {
-        String sql = "SELECT * FROM Reservations where id = ? ";
+        String sql = "SELECT ROW_NUMBER() OVER (ORDER BY r.id) AS [idu], r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name, r.userId, r.hotelId FROM Reservations r \n"
+                + "inner join Users u on r.userId = u.id \n"
+                + "inner join Hotels h on r.hotelId = h.id \n"
+                + "where id = ? ";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
@@ -155,7 +158,7 @@ public class ReservationDAO {
                 User u = new User();
                 Hotel h = new Hotel();
                 BookedRoom br = new BookedRoom();
-                r.setId(rs.getInt("id"));
+                r.setId(rs.getInt("idu"));
                 r.setAdult(rs.getInt("noOfAdults"));
                 r.setChild(rs.getInt("noOfChild"));
                 r.setNoRoom(rs.getInt("noOfRoom"));
@@ -163,9 +166,9 @@ public class ReservationDAO {
                 r.setArrival(rs.getDate("arrival"));
                 r.setDepartment(rs.getDate("department"));
                 r.setStatus(rs.getString("status"));
-                
+                u.setEmail(rs.getString("email"));
                 r.setUser(u);
-                
+                h.setName(rs.getString("name"));
                 r.setHotel(h);
                 return r;
             }
@@ -216,7 +219,7 @@ public class ReservationDAO {
     }
 
     public void deleteReservation(int id) {
-        String sql = "DELETE Reservations WHERE id = ? ";
+        String sql = "DELETE FROM ( Select *, ROW_NUMBER() OVER (ORDER BY id) AS [idu] FROM Reservations ) r WHERE idu = ? ";
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
