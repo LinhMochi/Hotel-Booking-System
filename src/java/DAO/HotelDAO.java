@@ -443,20 +443,6 @@ public class HotelDAO {
         }
         return new Hotel();
     }
-    
-    public boolean isManager(int manageId, int hotelId){
-        String sql = "SELECT * FROM Manages where userId = ? AND hotelId = ?";
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,manageId);
-            ps.setInt(2,hotelId);
-            rs = ps.executeQuery();
-            return rs.next();
-        } catch (SQLException ex) {
-            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
 
 }
 
