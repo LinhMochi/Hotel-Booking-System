@@ -46,32 +46,36 @@ public class SuggestPlaceCategoryManagerController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             User a = (User) session.getAttribute("user");
-            if (a.getRole().equals("Admin")) {
-                String page;
-                try {
-                    page = request.getParameter("page");
-                    if (page == null) {
+            if (a != null) {
+                if (a.getRole().equals("Admin")) {
+                    String page;
+                    try {
+                        page = request.getParameter("page");
+                        if (page == null) {
+                            page = "1";
+                        }
+                    } catch (Exception e) {
                         page = "1";
                     }
-                } catch (Exception e) {
-                    page = "1";
+                    SuggestPlaceCategoryDAO spcd = new SuggestPlaceCategoryDAO();
+                    int count = spcd.getAllSuggestPlaceCategories().size();
+                    int endPage = count / NUMBER_IMAGE;
+                    if (count % NUMBER_IMAGE != 0) {
+                        endPage++;
+                    }
+                    ArrayList<SuggestPlaceCategory> list = spcd.getSuggestPlaceCategories(page, NUMBER_IMAGE);
+                    SuggestPlaceCategory spc = new SuggestPlaceCategory();
+                    request.setAttribute("spclist", list);
+                    request.setAttribute("endPage", endPage);
+                    request.setAttribute("page", page);
+                    request.setAttribute("count", count);
+                    request.setAttribute("numberOfImage", NUMBER_IMAGE);
+                    request.getRequestDispatcher("suggestPlaceCategoryManager.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect("home");
                 }
-                SuggestPlaceCategoryDAO spcd = new SuggestPlaceCategoryDAO();
-                int count = spcd.getAllSuggestPlaceCategories().size();
-                int endPage = count / NUMBER_IMAGE;
-                if (count % NUMBER_IMAGE != 0) {
-                    endPage++;
-                }
-                ArrayList<SuggestPlaceCategory> list = spcd.getSuggestPlaceCategories(page, NUMBER_IMAGE);
-                SuggestPlaceCategory spc = new SuggestPlaceCategory();
-                request.setAttribute("spclist", list);
-                request.setAttribute("endPage", endPage);
-                request.setAttribute("page", page);
-                request.setAttribute("count", count);
-                request.setAttribute("numberOfImage", NUMBER_IMAGE);
-                request.getRequestDispatcher("suggestPlaceCategoryManager.jsp").forward(request, response);
             } else {
-                response.sendRedirect("home");
+                request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
             }
         }
     }
