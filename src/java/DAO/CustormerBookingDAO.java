@@ -28,21 +28,7 @@ public class CustormerBookingDAO {
     private ResultSet rs;
     private String query;
 
-//    public static void main(String[] args) throws Exception {
-////        Room room = new Room(7, "1", "jasl.png", 5, 5, 5, 5, "123", "nam dinh no 1", "vua edit", 2);
-////        new Bean().updateRoom(room);
-////        Room a = new Bean().getRoomByHotelId(7);
-////        Service service = new Bean().getServiceByID("1");
-////        service.setName("bean vua edit");
-//
-////        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
-////        Date from =  Date.valueOf("2022-06-13") ;
-////        Date to =  Date.valueOf("2022-06-13") ;
-////        
-////        Service service = new Service(3, "bvean vua edit",from, to, 1000, "VND", "2022-06-13 17:15:00", 2, 2);
-////        new Bean().updateServices(service);
-//
-//    }
+ 
     //------------------------USER--------------------------------
  
 
@@ -81,12 +67,12 @@ public class CustormerBookingDAO {
 
 }
 
-class demo {
-
-    public static void main(String[] args) {
-        for (User u : new CustormerBookingDAO().getAllCustomerByHotelId(2)) {
-
-            System.out.println(u.toString());
-        }
-    }
-}
+//class demo {
+//
+//    public static void main(String[] args) {
+//        for (User u : new CustormerBookingDAO().getAllCustomerByHotelId(2)) {
+//
+//            System.out.println(u.toString());
+//        }
+//    }
+//}
