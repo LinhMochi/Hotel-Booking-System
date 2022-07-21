@@ -522,7 +522,7 @@
                  display: flex;justify-content:space-between ">
 
                 <p>
-                    <a href="http://localhost:8080/Hotel-Booking-System-main/home">
+                    <a href="http://localhost:8080/Hotel-Booking-System/home">
                         <img alt="logo" src="images/sitelogo.png"
                              style="margin-left: 10px; height: 60px; width: 100%;border-radius:50px " >
                     </a>
@@ -540,7 +540,7 @@
                         <a href="#">Thông tin</a>
                         <a href="#">Đơn đặt phòng</a>
                         <a href="#">Hóa đơn của tôi</a>
-                        <div><a href="http://localhost:8080/Hotel-Booking-System-main/Home.jsp">Đăng xuất</a></div>
+                        <div><a href="http://localhost:8080/Hotel-Booking-System/home">Đăng xuất</a></div>
                     </div>
                 </div>
 
@@ -566,7 +566,7 @@
 
                         <!--                 user profile-->
 
-                        <a class="a_left_profile" href="http://localhost:8080/Hotel-Booking-System-main/UserProfile.jsp"
+<!--                        <a class="a_left_profile" href="http://localhost:8080/Hotel-Booking-System/userprofile"
                            style="text-align: center;padding-top: 5px">Thông tin</a>
 
                         <hr  width="70%" size="2px" align="center" color="black" />
@@ -581,13 +581,13 @@
 
                         <a class="a_left" href  style="text-align: center;padding-top: 5px">Đánh giá</a>
 
-                        <hr  width="70%" size="2px" align="center" color="black" style=" margin-bottom:20px;"  />
+                        <hr  width="70%" size="2px" align="center" color="black" style=" margin-bottom:20px;"  />-->
 
 
-                        <a href="#addEmployeeModal" class="edit" data-toggle="modal">
+<!--                        <a href="#addEmployeeModal" class="edit" data-toggle="modal">
                             <button class="change" id="changeInfo" style="margin-right:20% "  onclick="changeInfo()">Đổi mật khẩu</button></a>
 
-                        <!-- Edit Modal HTML -->
+                         Edit Modal HTML 
                         <div id="addEmployeeModal" class="modal fade">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -612,13 +612,14 @@
 
                                         </div>
                                         <div class="modal-footer">
+                                            
                                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
                                             <input type="submit" class="btn btn-success" value="Đổi mật khẩu">
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
 
 
 
@@ -664,7 +665,7 @@
                         <hr  width="70%" size="2px" align="center" color="black" />
 
                         <div class="RightTableHeadlineText" style="text-align: left">Email</div>
-                        <div class="txt">${sessionScope.user.email}</div>
+                        <div class="txt" name="email">${sessionScope.user.email} </div>
 
 
                         <hr  width="70%" size="2px" align="center" color="black" />
@@ -696,41 +697,43 @@
                     <div id="editEmployeeModal" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form>
+                                <form action="UserProfileUpdate" method="POST">
                                     <div class="modal-header">						
                                         <h4 class="modal-title">Chỉnh Sửa</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
-                                    <div class="modal-body">					
+                                    <div class="modal-body">	
+                                        
                                         <div class="form-group">
                                             <label>Tên đầy đủ</label>
-                                            <input type="text" class="form-control" required>
+                                            <input type="text" class="form-control" required name="fullName" value="${User.fullName}">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Giới tính  </label><br>
 
-                                            Nam &nbsp <input id="isMale" type="radio" name="gender" value="Nam">
-                                            &nbsp Nữ &nbsp<input id="isFemale" type="radio" name="gender" value="Nữ">
-                                            &nbsp Khác &nbsp <input id="isOther" type="radio" name="gender" value="Khác">
+                                            Nam &nbsp <input id="isMale" type="radio" name="gender" value="1">
+                                            &nbsp Nữ &nbsp<input id="isFemale" type="radio" name="gender" value="2">
+                                            &nbsp Khác &nbsp <input id="isOther" type="radio" name="gender" value="0">
                                         </div>
 
 
                                         <div class="form-group">
                                             <label>Ngày sinh</label>
-                                            <input type="date" class="form-control" required>
+                                            <input type="date" class="form-control" required name="dob" >
                                         </div>
                                         <div class="form-group">
                                             <label>Số điện thoại</label>
-                                            <input type="text" class="form-control" required>
+                                            <input type="number" class="form-control" required name="phoneNumber" >
                                         </div>
                                         <div class="form-group">
                                             <label>Địa chỉ</label>
-                                            <input type="number" class="form-control" required>
+                                            <textarea type="text" class="form-control" required name="address" ></textarea>
                                         </div>
 
                                     </div>
                                     <div class="modal-footer">
+                                        <input type="hidden" name="email" value="${user.email}">
                                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
                                         <input type="submit" class="btn btn-info" value="Lưu">
                                     </div>
