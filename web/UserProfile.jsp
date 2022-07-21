@@ -532,7 +532,7 @@
                 <div class="dropdown">
                     <button class="dropbtn">
 
-                        <img src="images/headflip.png" alt="no man"
+                        <img src="${sessionScope.user.avatar}" alt="user"
                              style="width:60px;height:60px; margin-bottom: 5%;margin-right: 10px;border-radius: 100px">
                     </button>
 
@@ -540,7 +540,7 @@
                         <a href="#">Thông tin</a>
                         <a href="#">Đơn đặt phòng</a>
                         <a href="#">Hóa đơn của tôi</a>
-                        <div><a href="http://localhost:8080/Hotel-Booking-System/home">Đăng xuất</a></div>
+                        <div><a href="logout">Đăng xuất</a></div>
                     </div>
                 </div>
 
