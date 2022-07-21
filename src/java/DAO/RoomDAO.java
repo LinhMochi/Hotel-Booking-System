@@ -244,17 +244,18 @@ public class RoomDAO {
 
 
 
-public ArrayList<Room> getRoom(String page, int numOfElement) throws SQLException, IOException {
+public ArrayList<Room> getRoom(int hotelId,String page, int numOfElement) throws SQLException, IOException {
         int currentPage = Integer.parseInt(page);
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<Room> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM RoomTypes ORDER BY id ASC \n" +
+            String sql = "SELECT * FROM RoomTypes WHERE hotelId = ? ORDER BY id ASC \n" +
 "                                     OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY    ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, start);
-            ps.setInt(2, numOfElement);
+            ps.setInt(1, hotelId);
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Room(rs.getInt(1),

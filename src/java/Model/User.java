@@ -84,6 +84,13 @@ public class User {
             this.status = status;
         }
 
+        public User(int id, String fullName, String email, String phoneNumber) {
+            this.id = id;
+            this.fullName = fullName;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+        }
+        
         public int getId() {
             return id;
         }
@@ -229,7 +236,8 @@ public class User {
     }
 
     public String getAvatar() {
-        return avatar;
+        
+        return avatar!=null?avatar:"https://images.pexels.com/photos/7631262/pexels-photo-7631262.jpeg";
     }
 
     public void setAvatar(String avatar) {

@@ -85,7 +85,11 @@
                                 <td>${o.email}</td>
                                 <td>${o.phoneNumber}</td>
                                 <td>${o.times}</td>
-                                <td><i class="fa-solid fa-eye text-primary me-2"></i> <i class="fa-solid fa-pen-to-square text-warning me-2"></i> <i class="fa-solid fa-trash-can text-danger"></i> </td>
+                                        <td>
+                                            <i class="fa-solid fa-eye text-primary me-2"></i> 
+                                            <i class="fa-solid fa-pen-to-square text-warning me-2"></i> 
+                                            <i class="fa-solid fa-trash-can text-danger"></i> 
+                                        </td>
                             </tr>
                         </c:forEach>
                     </tbody>

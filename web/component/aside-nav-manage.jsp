@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,7 +16,7 @@
     </head>
     <body>
         
-        <div class="aside-navigation">
+        <div class="aside-navigation">-->
 		<div class="avatar-box">
 			<div class="image-box">
                             <img src=<%----%>"${sessionScope.user.avatar}" alt="${sessionScope.user.fullName}">
@@ -58,8 +58,8 @@
 			</div>
 		</div>
 	</div>
-                <script src="../js/aside-nav.js">
+<!--                <script src="../js/aside-nav.js">
                     
                 </script>
     </body>
-</html>
+</html>-->
