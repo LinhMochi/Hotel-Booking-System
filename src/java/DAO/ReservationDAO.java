@@ -147,7 +147,7 @@ public class ReservationDAO {
         String sql = "SELECT ROW_NUMBER() OVER (ORDER BY r.id) AS [idu], r.noOfAdults, r.noOfChild, r.noOfRoom, r.bookDate, r.arrival, r.department, r.status, u.email, h.name, r.userId, r.hotelId FROM Reservations r \n"
                 + "inner join Users u on r.userId = u.id \n"
                 + "inner join Hotels h on r.hotelId = h.id \n"
-                + "where id = ? ";
+                + "where idu = ? ";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
