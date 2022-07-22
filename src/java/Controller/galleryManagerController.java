@@ -49,7 +49,7 @@ public class galleryManagerController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             User a = (User) session.getAttribute("user");
-            if(a != null){
+            if (a != null) {
                 if (a.getRole().equals("Manager")) {
                     String page;
                     try {
@@ -69,7 +69,7 @@ public class galleryManagerController extends HttpServlet {
                     int hotelId = hgd.getHotelIDByManager(a.getId());
                     ArrayList<HotelGallery> list = new HotelGalleryDAO().getGallery(new HotelGalleryDAO().getHotelIDByManager(a.getId()), page, NUMBER_IMAGE);
                     Hotel hotel = new HotelDAO().getHotelByID(new HotelGalleryDAO().getHotelIDByManager(a.getId()));
-    //                response.getWriter().print(list);
+                    //                response.getWriter().print(list);
                     request.setAttribute("list", list);
                     request.setAttribute("hotel", hotel);
                     request.setAttribute("endPage", endPage);
@@ -78,10 +78,11 @@ public class galleryManagerController extends HttpServlet {
                     request.setAttribute("numberOfImage", NUMBER_IMAGE);
                     request.getRequestDispatcher("galleryManager.jsp").forward(request, response);
                 } else {
-                    response.sendRedirect("home");
+                    request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
                 }
-            }else{
-                response.sendRedirect("home");
+            } else {
+//                response.sendRedirect("home");
+                request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
             }
         }
     }
