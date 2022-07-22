@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="css/aside-nav.css" rel="stylesheet" type="text/css"/>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -249,6 +250,10 @@
       background-repeat: no-repeat;
       background-size:100%;
       background-position: center;; font-weight: 100%">
+    <header id="top" class="header aside-navigation">
+        <jsp:include page="component/aside-nav-manage.jsp"/>
+    </header>
+    <script src="js/aside-nav.js" type="text/javascript"></script>
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -336,7 +341,7 @@
                     </tbody>
                 </table>
                 <div class="clearfix">
-                    <div class="hint-text">Showing <b>${sclist.size()}</b> out of <b>${count}</b> entries</div>
+                    <div class="hint-text">Showing <b>${page}</b> out of <b>${endPage}</b> entries</div>
                     <ul class="pagination">
                         <c:if test="${page > 1}">
                             <li class="page-item disabled"><a href="serviceCategoryManager?page=${page-1}">Previous</a></li> 
