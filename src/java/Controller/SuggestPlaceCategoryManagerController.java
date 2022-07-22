@@ -72,7 +72,7 @@ public class SuggestPlaceCategoryManagerController extends HttpServlet {
                     request.setAttribute("numberOfImage", NUMBER_IMAGE);
                     request.getRequestDispatcher("suggestPlaceCategoryManager.jsp").forward(request, response);
                 } else {
-                    response.sendRedirect("home");
+                    request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
                 }
             } else {
                 request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
