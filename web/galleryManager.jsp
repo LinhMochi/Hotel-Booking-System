@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/aside-nav.css">
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -244,161 +247,204 @@
             font-weight: normal;
         }	
     </style>
+    <!--    <script>
+            $(document).ready(function () {
+                // Activate tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+    
+                // Select/Deselect checkboxes
+                var checkbox = $('table tbody input[type="checkbox"]');
+                $("#selectAll").click(function () {
+                    if (this.checked) {
+                        checkbox.each(function () {
+                            this.checked = true;
+                        });
+                    } else {
+                        checkbox.each(function () {
+                            this.checked = false;
+                        });
+                    }
+                });
+                checkbox.click(function () {
+                    if (!this.checked) {
+                        $("#selectAll").prop("checked", false);
+                    }
+                });
+            });
+        </script>-->
 </head>
 <body style="background-image: url(images/hotelDetail-background.jpg);background-attachment: fixed;
       background-repeat: no-repeat;
       background-size:100%;
       background-position: center;; font-weight: 100%">
-    <div class="container-xl">
-        <div class="table-responsive">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h2>${hotel.name} <b>Gallery Manager</b></h2>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="#addGalleryModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Image</span></a>
+    <header id="top" class="header aside-navigation">
+        <jsp:include page="component/aside-nav-manage.jsp"/>
+    </header>
+    <script src="js/aside-nav.js" type="text/javascript"></script>
+    <div>
+        <div class="container-xl">
+            <div class="table-responsive">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2>${hotel.name} <b>Gallery Manager</b></h2>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="#addGalleryModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Image</span></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Image</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="photo" items="${list}">
+                    <table class="table table-striped table-hover">
+                        <thead>
                             <tr>
-                                <td>${(list.indexOf(photo) + 1) + (page-1) * numberOfImage}</td>
-                                <td>${photo.title}</td>
-                                <td><img src="${photo.image}" width="130" height="90" alt="hotel-img"></td>
-                                <td>
-                                    <a href="#editGalleryModal${photo.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="#deleteGalleryModal${photo.id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                </td>
+                                <!--                            <th>
+                                                                <span class="custom-checkbox">
+                                                                    <input type="checkbox" id="selectAll">
+                                                                    <label for="selectAll"></label>
+                                                                </span>
+                                                            </th>-->
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Image</th>
+                                <th>Actions</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="photo" items="${list}">
+                                <tr>
+                                    <!--                                <td>
+                                                                        <span class="custom-checkbox">
+                                                                            <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                                                            <label for="checkbox1"></label>
+                                                                        </span>
+                                                                    </td>-->
+                                    <td>${(list.indexOf(photo) + 1) + (page-1) * numberOfImage}</td>
+                                    <td>${photo.title}</td>
+                                    <td><img src="${photo.image}" width="130" height="90" alt="hotel-img"></td>
+                                    <td>
+                                        <a href="#editGalleryModal${photo.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                        <a href="#deleteGalleryModal${photo.id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                    </td>
+                                </tr>
 
 
-                            <!-- Delete Modal HTML -->
-                        <div id="deleteGalleryModal${photo.id}" class="modal fade">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form action="galleryRemove" method="POST">
-                                        <div class="modal-header">						
-                                            <h4 class="modal-title">Delete Gallery</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        </div>
-                                        <div class="modal-body">					
-                                            <p>Are you sure you want to delete these Records?</p>
-                                            <p class="text-warning"><small>This action cannot be undone.</small></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <input type="hidden" name="currentpage" value="${page}">
-                                            <input type="hidden" name="id" value="${photo.id}">
-                                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                            <input type="submit" class="btn btn-danger" value="Delete">
-                                        </div>
-                                    </form>
+                                <!-- Delete Modal HTML -->
+                            <div id="deleteGalleryModal${photo.id}" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="galleryRemove" method="POST">
+                                            <div class="modal-header">						
+                                                <h4 class="modal-title">Delete Gallery</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">					
+                                                <p>Are you sure you want to delete these Records?</p>
+                                                <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="hidden" name="currentpage" value="${page}">
+                                                <input type="hidden" name="id" value="${photo.id}">
+                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                <input type="submit" class="btn btn-danger" value="Delete">
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <!-- Edit Modal HTML -->
-                        <div id="editGalleryModal${photo.id}" class="modal fade">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form action="galleryUpdate" method="POST">
-                                        <div class="modal-header">						
-                                            <h4 class="modal-title">Update Image</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        </div>
-                                        <div class="modal-body">					
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <input type="text" class="form-control" required name="title" value="${photo.title}">
+                            <!-- Edit Modal HTML -->
+                            <div id="editGalleryModal${photo.id}" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="galleryUpdate" method="POST">
+                                            <div class="modal-header">						
+                                                <h4 class="modal-title">Update Image</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Image URL</label>
-                                                <textarea class="form-control" required name="image" >${photo.image}</textarea>
+                                            <div class="modal-body">					
+                                                <div class="form-group">
+                                                    <label>Name</label>
+                                                    <input type="text" class="form-control" required name="title" value="${photo.title}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Image URL</label>
+                                                    <textarea class="form-control" required name="image" >${photo.image}</textarea>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <input type="hidden" name="hotelID" value="${hotel.id}">
-                                            <input type="hidden" name="currentpage" value="${page}">
-                                            <input type="hidden" name="id" value="${photo.id}">
-                                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                            <input type="submit" class="btn btn-info" value="Save">
-                                        </div>
-                                    </form>
+                                            <div class="modal-footer">
+                                                <input type="hidden" name="hotelID" value="${hotel.id}">
+                                                <input type="hidden" name="currentpage" value="${page}">
+                                                <input type="hidden" name="id" value="${photo.id}">
+                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                <input type="submit" class="btn btn-info" value="Save">
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
-                    </tbody>
-                </table>
-                <div class="clearfix">
-                    <div class="hint-text">Showing <b>${list.size()}</b> out of <b>${count}</b> entries</div>
-                    <ul class="pagination">
-                        <c:if test="${page > 1}">
-                            <li class="page-item disabled"><a href="galleryManager?page=${page-1}">Previous</a></li> 
-                            </c:if>
-
-                        <c:forEach begin="1" end="${endPage}" var="i">
-<!--                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
-                                                      href="galleryManager?page=${i}" 
-                                                      role="button">${i}</a></li>-->
-                            <!--<li class="page-item"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>-->
-                            <c:choose>
-                                <c:when test="${i == page}">
-                                    <li class="page-item active"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <li class="page-item"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>
-                                    </c:otherwise>
-                                </c:choose>
-                            <input type="hidden" name="page" value="${i}">
                         </c:forEach>
+                        </tbody>
+                    </table>
+                    <div class="clearfix">
+                        <div class="hint-text">Showing <b>${page}</b> out of <b>${endPage}</b> entries</div>
+                        <ul class="pagination">
+                            <c:if test="${page > 1}">
+                                <li class="page-item disabled"><a href="galleryManager?page=${page-1}">Previous</a></li> 
+                                </c:if>
 
-                        <c:if test="${page < endPage}">
-                            <li class="page-item disabled"><a href="galleryManager?page=${page+1}">Next</a></li> 
-                            </c:if>
-                    </ul>
+                            <c:forEach begin="1" end="${endPage}" var="i">
+    <!--                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
+                                                          href="galleryManager?page=${i}" 
+                                                          role="button">${i}</a></li>-->
+                                <!--<li class="page-item"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>-->
+                                <c:choose>
+                                    <c:when test="${i == page}">
+                                        <li class="page-item active"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <li class="page-item"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                <input type="hidden" name="page" value="${i}">
+                            </c:forEach>
+
+                            <c:if test="${page < endPage}">
+                                <li class="page-item disabled"><a href="galleryManager?page=${page+1}">Next</a></li> 
+                                </c:if>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </div>        
-    </div>
-    <!-- Add Modal HTML -->
-    <div id="addGalleryModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="galleryAdd" method="POST">
-                    <div class="modal-header">						
-                        <h4 class="modal-title">Add New Image</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">					
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" required name="title">
+            </div>        
+        </div>
+        <!-- Add Modal HTML -->
+        <div id="addGalleryModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="galleryAdd" method="POST">
+                        <div class="modal-header">						
+                            <h4 class="modal-title">Add New Image</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="form-group">
-                            <label>Image URL</label>
-                            <textarea class="form-control" required name="img"></textarea>
+                        <div class="modal-body">					
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" required name="title">
+                            </div>
+                            <div class="form-group">
+                                <label>Image URL</label>
+                                <textarea class="form-control" required name="img"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="hidden" name="hotelID" value="${hotel.id}">
-                        <input type="hidden" name="currentpage" value="${page}">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-success" value="Add">
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <input type="hidden" name="hotelID" value="${hotel.id}">
+                            <input type="hidden" name="currentpage" value="${page}">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input type="submit" class="btn btn-success" value="Add">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
