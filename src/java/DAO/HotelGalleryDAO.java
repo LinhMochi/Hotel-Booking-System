@@ -46,12 +46,13 @@ public class HotelGalleryDAO {
         return list;
     }
 
-    public ArrayList<HotelGallery> getGalleryByID(int hotelID) {
+    public ArrayList<HotelGallery> getGalleryByID(int hotelID, String input) {
         ArrayList<HotelGallery> list = new ArrayList<>();
-        query = "SELECT id, title, image, hotelId FROM HotelGallery WHERE hotelId = ?";
+        query = "SELECT id, title, image, hotelId FROM HotelGallery WHERE hotelId = ? AND title like ?";
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, hotelID);
+            ps.setString(2, "%" + input + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new HotelGallery(rs.getInt("id"),
@@ -117,18 +118,21 @@ public class HotelGalleryDAO {
         }
     }
 
-    public ArrayList<HotelGallery> getGallery(int hotelId, String page, int numOfElement) throws SQLException, IOException {
+    public ArrayList<HotelGallery> getGallery(int hotelId, String input, String page, int numOfElement) throws SQLException, IOException {
         int currentPage = Integer.parseInt(page);
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<HotelGallery> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM HotelGallery WHERE hotelId = ? ORDER BY id ASC \n"
-                    + "                       OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY";
+            String sql = "SELECT * FROM HotelGallery hg \n"
+                    + "WHERE hg.hotelId = ? AND hg.title like ?\n"
+                    + "ORDER BY hg.id ASC \n"
+                    + "OFFSET ? ROWS FETCH NEXT ? ROW ONLY";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setInt(1, hotelId);
-            ps.setInt(2, start);
-            ps.setInt(3, numOfElement);
+            ps.setString(2, "%" + input + "%");
+            ps.setInt(3, start);
+            ps.setInt(4, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new HotelGallery(rs.getInt("id"),
@@ -147,9 +151,10 @@ public class HotelGalleryDAO {
         return list;
     }
 
+
     public int getHotelIDByManager(int userId) {
         int hotelId = 0;
-        
+
         try {
             query = "SELECT hotelId FROM Manages m INNER JOIN Users u ON u.id = m.userId WHERE userId = ?";
             ps = conn.prepareStatement(query);
@@ -163,7 +168,10 @@ public class HotelGalleryDAO {
             System.out.println("Error");
         }
         return 0;
-        
+
     }
 
+//    public static void main(String[] args) throws SQLException, IOException{
+//        System.out.print(new HotelGalleryDAO().getGalleryByID(2, "Phòng"));
+//    }
 }
