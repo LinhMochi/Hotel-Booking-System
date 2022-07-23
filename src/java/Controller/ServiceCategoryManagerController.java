@@ -42,6 +42,7 @@ public class ServiceCategoryManagerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
@@ -57,16 +58,24 @@ public class ServiceCategoryManagerController extends HttpServlet {
                     } catch (Exception e) {
                         page = "1";
                     }
+
+                    String search = request.getParameter("search");
+                    if (search == null) {
+                        search = "";
+                    }
+
                     ServiceCategoryDAO scd = new ServiceCategoryDAO();
-                    int count = scd.getAllServiceCategories().size();
+                    int count = scd.getAllServiceCategories(search).size();
                     int endPage = count / NUMBER_IMAGE;
                     if (count % NUMBER_IMAGE != 0) {
                         endPage++;
                     }
-                    ArrayList<ServiceCategory> list = scd.getServiceCategories(page, NUMBER_IMAGE);
+                    ArrayList<ServiceCategory> list = scd.getServiceCategories(search, page, NUMBER_IMAGE);
+                    response.getWriter().print(search);
                     request.setAttribute("sclist", list);
                     request.setAttribute("endPage", endPage);
                     request.setAttribute("page", page);
+                    request.setAttribute("search", search);
                     request.setAttribute("count", count);
                     request.setAttribute("numberOfImage", NUMBER_IMAGE);
                     request.getRequestDispatcher("serviceCategoryManager.jsp").forward(request, response);
