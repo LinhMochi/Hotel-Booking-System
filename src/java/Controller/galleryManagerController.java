@@ -60,20 +60,28 @@ public class galleryManagerController extends HttpServlet {
                     } catch (Exception e) {
                         page = "1";
                     }
+
+                    String search = request.getParameter("search");
+                    if (search == null) {
+                        search = "";
+                    }
+
                     HotelGalleryDAO hgd = new HotelGalleryDAO();
-                    int count = hgd.getGalleryByID(new HotelGalleryDAO().getHotelIDByManager(a.getId())).size();
+                    int count = hgd.getGalleryByID(new HotelGalleryDAO().getHotelIDByManager(a.getId()), search).size();
                     int endPage = count / NUMBER_IMAGE;
                     if (count % NUMBER_IMAGE != 0) {
                         endPage++;
                     }
                     int hotelId = hgd.getHotelIDByManager(a.getId());
-                    ArrayList<HotelGallery> list = new HotelGalleryDAO().getGallery(new HotelGalleryDAO().getHotelIDByManager(a.getId()), page, NUMBER_IMAGE);
+                    ArrayList<HotelGallery> list = new HotelGalleryDAO().getGallery(new HotelGalleryDAO().getHotelIDByManager(a.getId()), search, page, NUMBER_IMAGE);
+                    response.getWriter().print(search);
                     Hotel hotel = new HotelDAO().getHotelByID(new HotelGalleryDAO().getHotelIDByManager(a.getId()));
-                    //                response.getWriter().print(list);
+                                    response.getWriter().print(search);
                     request.setAttribute("list", list);
                     request.setAttribute("hotel", hotel);
                     request.setAttribute("endPage", endPage);
                     request.setAttribute("page", page);
+                    request.setAttribute("search", search);
                     request.setAttribute("count", count);
                     request.setAttribute("numberOfImage", NUMBER_IMAGE);
                     request.getRequestDispatcher("galleryManager.jsp").forward(request, response);
