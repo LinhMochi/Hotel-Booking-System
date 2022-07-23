@@ -42,6 +42,7 @@ public class SuggestPlaceCategoryManagerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
@@ -57,17 +58,24 @@ public class SuggestPlaceCategoryManagerController extends HttpServlet {
                     } catch (Exception e) {
                         page = "1";
                     }
+
+                    String search = request.getParameter("search");
+                    if (search == null) {
+                        search = "";
+                    }
+
                     SuggestPlaceCategoryDAO spcd = new SuggestPlaceCategoryDAO();
-                    int count = spcd.getAllSuggestPlaceCategories().size();
+                    int count = spcd.getAllSuggestPlaceCategories(search).size();
                     int endPage = count / NUMBER_IMAGE;
                     if (count % NUMBER_IMAGE != 0) {
                         endPage++;
                     }
-                    ArrayList<SuggestPlaceCategory> list = spcd.getSuggestPlaceCategories(page, NUMBER_IMAGE);
+                    ArrayList<SuggestPlaceCategory> list = spcd.getSuggestPlaceCategories(search ,page, NUMBER_IMAGE);
                     SuggestPlaceCategory spc = new SuggestPlaceCategory();
                     request.setAttribute("spclist", list);
                     request.setAttribute("endPage", endPage);
                     request.setAttribute("page", page);
+                    request.setAttribute("search", search);
                     request.setAttribute("count", count);
                     request.setAttribute("numberOfImage", NUMBER_IMAGE);
                     request.getRequestDispatcher("suggestPlaceCategoryManager.jsp").forward(request, response);
