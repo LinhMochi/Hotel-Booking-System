@@ -102,11 +102,12 @@ public class ServiceCategoryDAO {
         }
     }
 
-    public ArrayList<ServiceCategory> getAllServiceCategories() {
+    public ArrayList<ServiceCategory> getAllServiceCategories(String input) {
         ArrayList<ServiceCategory> list = new ArrayList<>();
-        query = "SELECT * FROM ServiceCategories";
+        query = "SELECT * FROM ServiceCategories WHERE ServiceCategory like ?";
         try {
             ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + input + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new ServiceCategory(rs.getInt("id"),
@@ -119,17 +120,52 @@ public class ServiceCategoryDAO {
         return list;
     }
 
-    public ArrayList<ServiceCategory> getServiceCategories(String page, int numOfElement) throws SQLException, IOException {
+//     public ArrayList<HotelGallery> getGallery(int hotelId, String input, String page, int numOfElement) throws SQLException, IOException {
+//        int currentPage = Integer.parseInt(page);
+//        int start = numOfElement * currentPage - numOfElement;
+//        ArrayList<HotelGallery> list = new ArrayList<>();
+//        try {
+//            String sql = "SELECT * FROM HotelGallery hg \n"
+//                    + "WHERE hg.hotelId = ? AND hg.title like ?\n"
+//                    + "ORDER BY hg.id ASC \n"
+//                    + "OFFSET ? ROWS FETCH NEXT ? ROW ONLY";
+//            conn = new DBcontext().getConnection();
+//            ps = conn.prepareStatement(sql);
+//            ps.setInt(1, hotelId);
+//            ps.setString(2, "%" + input + "%");
+//            ps.setInt(3, start);
+//            ps.setInt(4, numOfElement);
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                list.add(new HotelGallery(rs.getInt("id"),
+//                        rs.getString("title"),
+//                        rs.getString("image"),
+//                        rs.getInt("hotelID")
+//                ));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace(System.out);
+//        } finally {
+//            if (conn != null) {
+//                conn.close();
+//            }
+//        }
+//        return list;
+//    }
+    public ArrayList<ServiceCategory> getServiceCategories(String input, String page, int numOfElement) throws SQLException, IOException {
         int currentPage = Integer.parseInt(page);
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<ServiceCategory> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM ServiceCategories ORDER BY id ASC \n"
-                    + "             OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY  ";
+            String sql = "SELECT * FROM ServiceCategories \n"
+                    + "WHERE ServiceCategory like ?\n"
+                    + "ORDER BY id ASC \n"
+                    + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY  ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, start);
-            ps.setInt(2, numOfElement);
+            ps.setString(1, "%" + input + "%");
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new ServiceCategory(rs.getInt("id"),
@@ -146,9 +182,7 @@ public class ServiceCategoryDAO {
         return list;
     }
 
-    
-    
-        public Service getServiceByID(String id) throws Exception {
+    public Service getServiceByID(String id) throws Exception {
         String sql = "select * from HotelServices where  id = ?  ";
         try {
             conn = new DBcontext().getConnection();
@@ -191,8 +225,11 @@ public class ServiceCategoryDAO {
             ps.executeUpdate();
         } catch (SQLException ex) {
 //            System.out.println();
-                ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
-    
+
+//    public static void main(String[] args) throws SQLException, IOException {
+//        System.out.print(new ServiceCategoryDAO().getServiceCategories("đi", "1", 3));
+//    }
 }
