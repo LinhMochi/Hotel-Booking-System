@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="css/aside-nav.css">
 
 
@@ -282,6 +283,16 @@
     </header>
     <script src="js/aside-nav.js" type="text/javascript"></script>
     <div>
+        <div class="container" style="margin-top :30px" >
+            <form action="galleryManager">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                    <input minlength="1" type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1" name="search">
+                </div>
+            </form>
+        </div>
         <div class="container-xl">
             <div class="table-responsive">
                 <div class="table-wrapper">
@@ -391,7 +402,7 @@
                         <div class="hint-text">Showing <b>${page}</b> out of <b>${endPage}</b> entries</div>
                         <ul class="pagination">
                             <c:if test="${page > 1}">
-                                <li class="page-item disabled"><a href="galleryManager?page=${page-1}">Previous</a></li> 
+                                <li class="page-item disabled"><a href="galleryManager?page=${page-1}&search=${search}">Previous</a></li> 
                                 </c:if>
 
                             <c:forEach begin="1" end="${endPage}" var="i">
@@ -401,17 +412,17 @@
                                 <!--<li class="page-item"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>-->
                                 <c:choose>
                                     <c:when test="${i == page}">
-                                        <li class="page-item active"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>
+                                        <li class="page-item active"><a href="galleryManager?page=${i}&search=${search}" class="page-link">${i}</a></li>
                                         </c:when>
                                         <c:otherwise>
-                                        <li class="page-item"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>
+                                        <li class="page-item"><a href="galleryManager?page=${i}&search=${search}" class="page-link">${i}</a></li>
                                         </c:otherwise>
                                     </c:choose>
                                 <input type="hidden" name="page" value="${i}">
                             </c:forEach>
 
                             <c:if test="${page < endPage}">
-                                <li class="page-item disabled"><a href="galleryManager?page=${page+1}">Next</a></li> 
+                                <li class="page-item disabled"><a href="galleryManager?page=${page+1}&search=${search}">Next</a></li> 
                                 </c:if>
                         </ul>
                     </div>
