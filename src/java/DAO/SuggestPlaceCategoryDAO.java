@@ -64,11 +64,12 @@ public class SuggestPlaceCategoryDAO {
         }
     }
 
-    public ArrayList<SuggestPlaceCategory> getAllSuggestPlaceCategories() {
+    public ArrayList<SuggestPlaceCategory> getAllSuggestPlaceCategories(String input) {
         ArrayList<SuggestPlaceCategory> list = new ArrayList<>();
-        query = "SELECT * FROM SuggestPlaceCategories";
+        query = "SELECT * FROM SuggestPlaceCategories WHERE suggestPlaceCategory like ? ";
         try {
             ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + input + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new SuggestPlaceCategory(rs.getInt("id"),
@@ -81,17 +82,19 @@ public class SuggestPlaceCategoryDAO {
         return list;
     }
 
-    public ArrayList<SuggestPlaceCategory> getSuggestPlaceCategories(String page, int numOfElement) throws SQLException, IOException {
+    public ArrayList<SuggestPlaceCategory> getSuggestPlaceCategories(String input, String page, int numOfElement) throws SQLException, IOException {
         int currentPage = Integer.parseInt(page);
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<SuggestPlaceCategory> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM SuggestPlaceCategories ORDER BY id ASC\n"
-                    + "       OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY  ";
+            String sql = "SELECT * FROM SuggestPlaceCategories WHERE suggestPlaceCategory like ? \n"
+                    + "ORDER BY id ASC\n"
+                    + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY  ";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, start);
-            ps.setInt(2, numOfElement);
+            ps.setString(1, "%" + input + "%");
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new SuggestPlaceCategory(rs.getInt("id"),
