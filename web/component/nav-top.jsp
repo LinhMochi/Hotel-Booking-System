@@ -51,7 +51,8 @@
                     <div>Giỏ hàng trống</div>
                 </div>
                 <div class="section <c:if test="${empty cart}">hidden</c:if>">
-                    <h5>Phòng</h5>
+                    <c:if test="${cart.getBookedRooms().size()==0}"> <h5>Bạn chưa chọn phòng</h5></c:if>
+                    <c:if test="${cart.getBookedRooms().size()>0}"> <h5>Phòng</h5></c:if>
                     <div class="content picked-room">
                     <c:forEach var="bookedRoom" items="${cart.getBookedRooms()}">
                         <div class="item grid-3" id = ${bookedRoom.getId()}>
@@ -80,9 +81,9 @@
                                     </div>
                                 </c:if>
                                 <c:if test="${bookedRoom.getDiscount() > 0}">
-                                    <div class="unit-price"><fmt:formatNumber type="number" pattern="###,###" value="${bookedRoom.getPrice()}"/><</div>
+                                    <div class="unit-price"><fmt:formatNumber type="number" pattern="###,###" value="${bookedRoom.getPrice()}"/></div>
                                     <div class="curent-price">
-                                        <fmt:formatNumber type="number" pattern="###,###" value="${bookedRoom.getPrice()*(1-bookedRoom.getDiscount())}"/><<span class="unit">đ/đêm</span>
+                                        <fmt:formatNumber type="number" pattern="###,###" value="${bookedRoom.getPrice()*(1-bookedRoom.getDiscount())}"/><span class="unit">đ/đêm</span>
                                     </div>                                    
                                 </c:if>
                                 
@@ -143,8 +144,8 @@
             <c:when test="${user!=null}">
                 <c:choose>
                     <c:when test="${sessionScope.user.isManager()}">
-                        <div class="items building flex">
-                            <a href="#"><i class="fa fa-building" aria-hidden="true"></i></a>	
+                        <div class="items building flex-center">
+                            <a href="managerdashboard"><i class="fa fa-building" aria-hidden="true"></i></a>	
                         </div> 
                     </c:when>
                     <c:otherwise>

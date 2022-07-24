@@ -41,9 +41,10 @@ public class ManagerDashBoardController extends HttpServlet {
         
         User u = (User) request.getSession().getAttribute("user");
         
-        String hotel = (String) request.getSession().getAttribute("hotelId");
-        if(hotel==null) hotel = request.getParameter("hotelId");
-        int hotelId = hotel==null?0:Integer.parseInt(hotel);
+        int hotelId = (int) request.getSession().getAttribute("hotelId");
+//        String hotel = (String) request.getSession().getAttribute("hotelId");
+//        if(hotel==null) hotel = request.getParameter("hotelId");
+//        int hotelId = hotel==null?0:Integer.parseInt(hotel);
     
         if(new HotelDAO().isManager((u==null?0:u.getId()), hotelId)){
             

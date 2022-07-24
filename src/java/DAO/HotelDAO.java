@@ -296,7 +296,7 @@ public class HotelDAO {
                 + "),managerList AS(\n"
                 + "	SELECT Users.fullName, Manages.hotelId FROM Users inner join Manages on Users.id = Manages.userId\n"
                 + "),HotelList AS(\n"
-                + "	SELECT h.id as hotelId,h.[name],CONCAT(h.[address],', ',c.city) as [address], h.noOfStar , h.[description],\n"
+                + "	SELECT h.id as hotelId,h.[name],h.[address] , h.noOfStar , h.[description],\n"
                 + "	h.policies,h.map, h.hotelAdvance,h.email,h.phoneNumber,\n"
                 + "	hc.category,ml.fullName as manageBy,nolike ,noRate, av.avgScore,h.[image]\n"
                 + "	FROM Hotels h inner join Cities c ON h.cityId = c.id \n"
@@ -460,6 +460,20 @@ public class HotelDAO {
 
     public void editHotel(String name, int star, String decription, String hoteladvance, String policies, String map, String email, String phone, String status, String address, int city, int category, String image, int id, int i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public int getHotelManaged(int manageId){
+        String sql = "SELECT * FROM Manages where userId = ?";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,manageId);
+            rs = ps.executeQuery();
+            if(rs.next()) return rs.getInt(3);
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }

@@ -429,7 +429,7 @@
                 room_list.querySelectorAll('.card-ex').forEach((r) => {
                     let addbtn = r.querySelector('.add-cart');
                     let bookbtn = r.querySelector('.book-now');
-                    console.log(r.id);
+//                    console.log(r.id);      
                     addbtn.addEventListener('click', () => {
                         let newForm = document.createElement("form");
                         newForm.classList.toggle("temp_form");
