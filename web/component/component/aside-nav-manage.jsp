@@ -25,10 +25,7 @@
 				${sessionScope.user.fullName}
 			</div>
 			<div class="link">
-                            <a href="home">Về home</a>
-			</div>
-                        <div class="link">
-				<a href="userprofile">Thông tin cá nhân</a>
+                            <a href="#">Về home</a>
 			</div>
 			<div class="link">
 				<a href="../Hotel-Booking-System/logout">Đăng xuất</a>
@@ -40,7 +37,7 @@
 			<div class="sub-nav">
                             <div><a href="#">Hotel profile</a></div>
                             <div><a href="#">Tiện ích khách sạn</a></div>
-                            
+                            <div><a href="#">Đề cử địa điểm</a></div>
                             <div><a href="galleryManager">Bộ sưu tập</a></div>
 			</div>
 		</div>
@@ -55,7 +52,7 @@
 		<div class="slide-nav">
 			<div>Phòng và dịch vụ</div>
 			<div class="sub-nav">
-			<div><a href="RoomManager">Phòng</a></div>
+			<div><a href="#">Phòng</a></div>
 			<div><a href="#">Dịch vụ</a></div>
 			<div><a href="#">Khuyến mãi</a></div>
 			</div>
