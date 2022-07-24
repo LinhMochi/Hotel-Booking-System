@@ -64,13 +64,6 @@ public class EditServices extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            //Bên page crud cua roomTypes để parameter gì thì điền lại 
-            // điền xong thì dòng 66 xóa cái số 7 điền id vào  ;
-//            int id = request.getParameter("hotelID");
-//             Room room = dao.get.getRoomByHotelId(id);
-
-//          Lấy dữ liệu từ room types up lên editroomtypes.jsp
-//            Service service = new Bean().getServiceByID("3");
             Service service = new ServiceCategoryDAO().getServiceByID("3");
             request.setAttribute("service", service);
             request.getRequestDispatcher("EditServices.jsp").forward(request, response);

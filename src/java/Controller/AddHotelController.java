@@ -74,7 +74,7 @@ public class AddHotelController extends HttpServlet {
             int category = Integer.parseInt(request.getParameter("category"));
             String image = request.getParameter("image");
           
-            // HIEN THI TRANG MANAGER HOTEL XEM NAO
+          
             HotelDAO dao = new HotelDAO();
            dao.addHotel(name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category, image );
            

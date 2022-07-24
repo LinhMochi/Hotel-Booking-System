@@ -7,11 +7,16 @@ package DAO;
 
 import DBcontext.DBcontext;
 import Model.Service;
+import Model.ServiceCategory;
+import Model.SubTime;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,6 +50,98 @@ public class ServiceDAO {
         return list;
     }
 
+    public ArrayList<Service> getServiceByID(String id) {
+//        String sql = "select * from HotelServices where  hotelId = ?  ";
+
+        ArrayList<Service> list = new ArrayList<>();
+        String sql = " Select hs.*, sc.ServiceCategory from HotelServices hs inner join ServiceCategories sc on hs.serviceCategoryId = sc.id where [hotelId] =?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                //int id, String name, double price, String unit, String createAt, Date from, Date to, int category, int hotelId, String servicrCategory
+                list.add(new Service(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDouble(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6),
+                        rs.getDate(7),
+                        rs.getInt(8),
+                        rs.getInt(9),
+                        rs.getString(10)
+                ));
+//                int id, String name, double price, String unit, String createAt, Date from, Date to, int hotelId, int category
+            }
+        } catch (SQLException ex) {
+        }
+        return list;
+    }
+
+    public ArrayList<ServiceCategory> getAllServiceCategory() {
+        ArrayList<ServiceCategory> list = new ArrayList<ServiceCategory>();
+        sql = "Select *from ServiceCategories";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new ServiceCategory(rs.getInt(1),
+                        rs.getString(2)
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println("Loi");
+        }
+        return list;
+    }
+
+    public void AddHotelService(Service service, int HotelId) {
+        try {
+            sql = "INSERT INTO HotelServices VALUES(?,?,?,?,?,?,?,?)";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, service.getName());
+            ps.setDouble(2, service.getPrice() / 1000000);
+            ps.setString(3, service.getUnit());
+            //from model Subtime 
+            ps.setString(4, new SubTime().getCurrent());
+            ps.setDate(5, service.getFrom());
+            ps.setDate(6, service.getTo());
+            ps.setInt(7, HotelId);
+            ps.setInt(8, service.getCategory());
+
+            //String name, double price, String unit, String createAt, Date from, Date to, int category, int hotelId, String servicrCategory
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void updateServices(Service s, int HotelId) {
+        String sql = "update HotelServices set service = ? , price = ?   , unit = ? , \n"
+                + "[from] = ? , [to] = ? ,serviceCategoryId = ? \n"
+                + "where id  = ? ";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, s.getName());
+            ps.setDouble(2, s.getPrice());
+            ps.setString(3, s.getUnit());
+            ps.setDate(4, s.getFrom());
+            ps.setDate(5, s.getTo());
+            ps.setInt(6, HotelId);
+            ps.setInt(7, s.getCategory());
+            ps.setInt(8, s.getId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+//            System.out.println();
+            ex.printStackTrace();
+        }
+    }
+  
     public Service getService(int id, Date arrival, Date department) {
 
         sql = "SELECT  id, [service], [from],[to], price, unit, [create],serviceCategoryId,hotelId "

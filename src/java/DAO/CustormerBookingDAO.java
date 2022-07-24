@@ -34,7 +34,46 @@ public class CustormerBookingDAO {
 
     public ArrayList<User> getAllCustomerByHotelId(int hotelId) {
         ArrayList<User> list = new ArrayList<>();
-        query = "with temps as (select userId, count(id) as noBook   from Reservations Where hotelId = ? group by userId )\n"
+        // list temp  (bang tam )
+        ArrayList<User> temp = new ArrayList<>();
+        int count = 0;
+
+        for (User user : listAllCustomer) {
+            // rong thi
+            if (list.isEmpty()) {
+                //add luon user va times = 1 
+                list.add(new User(user, 1));
+            } else {
+                // copy data tu list ket qua sang list tam
+                for (User copyUser : list) {
+                    temp.add(copyUser);
+                }
+
+                // Muc dich tao bang tam : vi trong qua trinh duyet cac phan tu cua mang se khong the thay doi mang do (Add them data vao mang )
+                // duyet cac phan tu trong bang tap 
+                for (int i = 0; i < temp.size(); i++) {
+                    // check ton tai 
+                    if (user.getId() == temp.get(i).getId() && user.getHotelId() == temp.get(i).getHotelId()) {
+                        // vi bang ket qua va bang tam co cung thong tin va index nen chinh sua thang vao bang ket qua 
+                        list.get(i).setTimes(temp.get(i).getTimes() + 1);
+                    } else {
+                        count++;
+                        // dem nham muc dich duyet qua tat cac phan tu va no khong ton tai trong list
+                        if (count == temp.size()) {
+                            list.add(new User(user, 1));
+                            count = 0;
+                        }
+                    }
+
+                }
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<User> getAllCustomer() {
+        ArrayList<User> list = new ArrayList<>();
+        query = "with temps as (select userId, hotelId from Reservations )\n"
                 + "\n"
                 + "select s.id , fullName, gender , dob ,email ,address ,avatar ,phoneNumber ,password , role , status , t.noBook  from users s inner join temps t on s.id = t.userId";
         try {
@@ -81,12 +120,13 @@ public class CustormerBookingDAO {
 
 }
 
-//class demo {
-//
-//    public static void main(String[] args) {
-//        for (User u : new CustormerBookingDAO().getAllCustomerByHotelId(2)) {
-//
-//            System.out.println(new CustormerBookingDAO().countCustByHotelId(2));
-//        }
-//    }
-//}
+
+// class demo {
+
+//     public static void main(String[] args) {
+//         for(User u : new CustormerBookingDAO().getCustomerOfHotelWithTimes()) {
+            
+//             System.out.println(u.toString());
+//         }
+//     }
+// }

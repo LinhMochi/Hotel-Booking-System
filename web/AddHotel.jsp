@@ -63,7 +63,7 @@
                             <td><input style="width: 700px; height: 50px" type="tel" id="phone" name="phone" placeholder="12345678"></td>
                         </tr>
                         <tr>
-                            <th>Image</th>
+                            <th>Image Hotel</th>
                             <td><input  style="width: 700px; height: 50px" type="text" name="image"></td>
 
                         </tr>

@@ -59,7 +59,7 @@
 <body>
     <div class="container mt-5 p-4 mx-auto card border-none shadow-lg overflow-hidden">
         <div class="mt-4 mx-4 d-flex justify-content-between">
-            <h3>Add Customer</h3>
+            <h3>Add Hotel Category</h3>
         </div>
         <div class="mt-4 mx-4">
             <form action="AddHotelCategory" method="post">

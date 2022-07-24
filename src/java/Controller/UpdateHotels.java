@@ -1,14 +1,12 @@
-package Controller;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Controller;
 
-import DAO.HotelCategoryDAO;
 import DAO.HotelDAO;
-import Model.HotelCategory;
+import Model.Hotel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,17 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * 
- * @author Dell
+ * @author Nhat Anh
  */
-@WebServlet(urlPatterns = {"/EditHotelCategory"})
-public class EditHotelCategory extends HttpServlet {
-    
-    // loi o dau chi luon toi fix cho
+@WebServlet(name = "UpdateHotels", urlPatterns = {"/UpdateHotels"})
+public class UpdateHotels extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +39,10 @@ public class EditHotelCategory extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditHotelCategory</title>");
+            out.println("<title>Servlet UpdateHotels</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditHotelCategory at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateHotels at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,13 +60,12 @@ public class EditHotelCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         HotelDAO dao = new HotelDAO();
         try {
-            int hcateID = Integer.parseInt(request.getParameter("hcateID"));
-            HttpSession session = request.getSession();
-            HotelCategory hcategory = new HotelCategoryDAO().getHotelCategoryByID(hcateID);
-            request.setAttribute("hcategory", hcategory);
-            session.setAttribute("hcateID", hcateID);
-            request.getRequestDispatcher("EditHotelCategory.jsp").forward(request, response);
+            int id = Integer.parseInt(request.getParameter("id"));
+            Hotel hotel = dao.getHotelByID(id);
+            request.setAttribute("hotel",hotel );
+            request.getRequestDispatcher("EditHotel.jsp").forward(request, response);
         } catch (Exception e) {
         }
     }
@@ -88,13 +81,26 @@ public class EditHotelCategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         try {
-            HttpSession session = request.getSession();
-            String category = request.getParameter("category");
+            String name = request.getParameter("name");
+            int star = Integer.parseInt(request.getParameter("star"));
+            String decription = request.getParameter("decription");
+            String hoteladvance = request.getParameter("hoteladvance");
+            String policies = request.getParameter("policies");
+            String map = request.getParameter("map");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            String status = request.getParameter("status");
+            String address = request.getParameter("address");
+            int city = Integer.parseInt(request.getParameter("city"));
+            int category = Integer.parseInt(request.getParameter("category"));
             String image = request.getParameter("image");
-            int id = (int) session.getAttribute("hcateID");
-            new HotelCategoryDAO().editHotelCategory(category, image, id);
-            response.sendRedirect("ManagerHomeCategory");
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            HotelDAO dao = new HotelDAO();
+            dao.editHotel(id, name, star, decription, hoteladvance, policies, map, email, phone, status, address, city, category, image);
+            response.sendRedirect("ListsHotelController");
         } catch (Exception e) {
         }
     }

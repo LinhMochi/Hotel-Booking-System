@@ -26,9 +26,11 @@ public class HotelCategoryDAO {
     private ResultSet rs = null;
     String sql = null;
     ArrayList<HotelCategory> list;
-    public HotelCategoryDAO() {
-    }
+   
     
+    public static void main(String[] args) {
+        new HotelCategoryDAO().deleteHotelCategory(1);
+    }
     // get list hotel category
        public ArrayList<HotelCategory> getAllHotelCategories() {
         ArrayList<HotelCategory> list = new ArrayList<>();
@@ -91,6 +93,19 @@ public class HotelCategoryDAO {
             ps.setString(1, cateogry);
             ps.setString(2, image);
             ps.setInt(3, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Loi");
+        }
+
+    }
+    
+     public void deleteHotelCategory( int id) {
+        sql = "delete from HotelCategories  where  id = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Loi");

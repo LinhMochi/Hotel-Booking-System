@@ -1,10 +1,11 @@
 <%-- 
-    Document   : EditHotelCategory
-    Created on : 15-Jul-2022, 06:48:47
+    Document   : AddHotelCategory
+    Created on : 15-Jul-2022, 06:29:53
     Author     : Dell
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -58,51 +59,18 @@
 <body>
     <div class="container mt-5 p-4 mx-auto card border-none shadow-lg overflow-hidden">
         <div class="mt-4 mx-4 d-flex justify-content-between">
-            <h3>Edit RoomTypes</h3>
+            <h3>Edit Hotel Category</h3>
         </div>
         <div class="mt-4 mx-4">
-            <form action="EditHotelCategory" method="post">
-                <label for="id" class="form-label fw-bold mt-2">ID : </label>
-                <input type="text" class="form-control" name="id" readonly id="id" value="${room.id}" />
-
+            <form action="" method="post">
+                <label for="category" class="form-label fw-bold">Category : </label>
+                <input type="text" class="form-control" name="category" id="category" value="${hcategory.category}"/>
                 <label for="imageUrl" class="form-label fw-bold mt-2">Image : </label>
-                <input type="text" class="form-control" name="image" id="imageUrl" value="${room.image}" />
-                <img src="${room.image}" alt="" class="image mt-2 rounded" style="width: 300px; height: auto; object-fit: cover" />
-                <br />
-                <label for="roomType" class="form-label fw-bold mt-2">RoomType :
-          </label>
-                <input type="text" class="form-control" name="roomType" id="roomType" value="${room.roomType}" />
-
-                <label for="quantity" class="form-label fw-bold mt-2">quantity :
-          </label>
-                <input type="text" class="form-control" name="quantity" id="id" value="${room.quantity}" />
-
-                <label for="price" class="form-label fw-bold mt-2">price : </label>
-                <input type="text" class="form-control" name="price" id="price" value="${room.price}" />
-
-                <label for="maxAdult" class="form-label fw-bold mt-2">maxAdult :
-          </label>
-                <input type="text" class="form-control" name="maxAdult" id="maxAdult" value="${room.maxAdult}" />
-
-                <label for="maxChild" class="form-label fw-bold mt-2">maxChild :
-          </label>
-                <input type="text" class="form-control" name="maxChild" id="maxChild" value="${room.maxChild}" />
-
-                <label for="area" class="form-label fw-bold mt-2">area : </label>
-                <input type="text" class="form-control" name="area" id="area" value="${room.area}" />
-
-                <label for="description" class="form-label fw-bold mt-2">description :
-          </label>
-                <input type="text" class="form-control" name="description" id="description" value="${room.price}" />
-
-                <label for="hotelId" class="form-label fw-bold mt-2">hotelId :
-          </label>
-                <input type="text" class="form-control" name="hotelId" id="hotelId" value="${room.hotelId}" />
+                <input type="text" class="form-control" name="image" id="imageUrl" value="${hcategory.image}" />
+                <img src="${hcategory.image}" alt="" class="image mt-2 rounded" style="width : 300px ; height: auto; object-fit: cover;" />
 
                 <div class="mt-3 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary btn-md px-4 py-2">
-              Edit
-            </button>
+                    <button type="submit" class="btn btn-primary btn-md  px-4 py-2">Add</button>
                 </div>
             </form>
         </div>
