@@ -76,17 +76,18 @@ if (room_cart !== null) {
     });
 }
 
-let service_cart = document.querySelector('.drop_cart .picked-service');
+let service_cart = document.querySelector('.drop-cart .picked-service');
+console.log(service_cart);
 if (service_cart !== null) {
     service_cart.querySelectorAll('.item').forEach((service_item) => {
         const des = service_item.querySelector('.btn.des');
         const inc = service_item.querySelector('.btn.inc');
         const quan = service_item.querySelector('.quan input');
         const del = service_item.querySelector('.close-btn');
-        // console.log(des);
-        // console.log(quan.value);
-        // console.log(inc);
-        // console.log(del);
+//         console.log(des);
+//         console.log(quan.value);
+//         console.log(inc);
+//         console.log(del);
         let newForm = document.createElement("form");
         newForm.method = "POST";
 

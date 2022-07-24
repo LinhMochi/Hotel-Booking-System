@@ -459,7 +459,24 @@ public ArrayList<Room> getAllRoomAllHotel(String page, int numOfElement) throws 
         }
         return list;
     }
-      
+    
+    
+        
+    public int countRoomByHotelId(int hotelId) {
+        sql = "WITH Hotel as (SELECT * FROM Hotels where id = ?) \n"
+                + "SELECT h.id, sum(rt.quantity) as countQuan FROM Hotel h left join RoomTypes rt on h.id = rt.hotelId group by h.id";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            rs = ps.executeQuery();
+            if(rs.next()) return rs.getInt(2);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
     
 
     

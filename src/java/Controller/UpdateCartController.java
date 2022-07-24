@@ -121,6 +121,7 @@ public class UpdateCartController extends HttpServlet {
             }
         } else if(update.equals("service")) {
             cart.updateServiceQuantity(id, quantity);
+             request.setAttribute("notify", "Update phòng trong giỏ hàng thành công");
             request.setAttribute(update, s);
         } else if (update.equals("search")){
             String arri = request.getParameter("arrival");

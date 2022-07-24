@@ -179,6 +179,24 @@ public class HotelSuggestPlaceDAO {
     }
      
      
+        
+     public ArrayList<HotelSuggestPlace> getHotelSuggestPlaceList(int hotelId){
+        list = new ArrayList<>();
+        sql = "SELECT hsp.*,spc.suggestPlaceCategory FROM HotelSuggestPlaces hsp \n" +
+"inner join SuggestPlaceCategories spc ON hsp.categoryId = spc.id WHERE hsp.hotelId = ? ORDER BY categoryId";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                list.add(new HotelSuggestPlace(rs.getInt(1),rs.getString(2),rs.getDouble(3),rs.getInt(4),rs.getInt(5),rs.getString(6)));
+            }
+        } catch (Exception ex) {
+            System.out.println("Eror get hotel suggest place list");
+        }
+        return list;
+    }   
+        
      
 //    public static void main(String[] args) throws SQLException, IOException {
 //

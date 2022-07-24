@@ -97,7 +97,7 @@ public class EditServices extends HttpServlet {
             String unit = request.getParameter("unit");
             String createAt = request.getParameter("createAt");
 
-            Service service = new Service(id, name, from, to, price, unit, createAt, category, hotelId);
+            Service service = new Service(id, name,  price, unit, createAt,from, to, category, hotelId);
 
             new ServiceCategoryDAO().updateServices(service);
 
