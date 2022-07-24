@@ -25,11 +25,11 @@ public class ReservationDetail {
         bookedServices = new ArrayList<>();
     }
 
-    public ReservationDetail(int id, ArrayList<BookedRoom> bookedRooms, ArrayList<Service> bookedServices, double total) {
+    public ReservationDetail(int id, ArrayList<BookedRoom> bookedRooms, ArrayList<Service> bookedServices ) {
         this.id = id;
         this.bookedRooms = bookedRooms;
         this.bookedServices = bookedServices;
-        this.total = total;
+        this.total = setTotal();
     }
     
     public int getBookedRoomQuantity(){

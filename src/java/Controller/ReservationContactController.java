@@ -61,8 +61,8 @@ public class ReservationContactController extends HttpServlet {
         cust.setEmail(custmail);
         cust.setAvatar("https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg");
         
-        request.setAttribute("message", "Méo có thông báo");
-        if(custId!=null&&flag==null){// add cho 1 customer
+
+        if(custId.matches("[0-9]+")&&flag==null){// add cho 1 customer
             if(new ReservationDAO().insertReservation(Integer.parseInt(custId), search, hotel.getId(), cart,status)) request.setAttribute("notify", "Đặt phòng thành công");
             else request.setAttribute("message", "Có tk đặt phòng thất bại");
         } else {// add cho 1 guest or customer

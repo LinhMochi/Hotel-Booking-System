@@ -30,7 +30,7 @@
         <header class="header nav-top">
             <jsp:include page="component/nav-top.jsp"/>
         </header>
-        <header class="buffer">
+       <header class="buffer hidden">
         </header>
         <jsp:include page="component/message.jsp"/>
         <script src="js/message.js" type="text/javascript"></script>
@@ -39,7 +39,7 @@
             let previous = 0;
             window.addEventListener('scroll', function () {
                 let header = document.querySelector('.nav-top');
-                header.classList.toggle('fixed', previous > window.scrollY);
+                header.classList.toggle('sticky', previous > window.scrollY);
                 // console.log(previous>window.scrollY);
                 previous = window.scrollY;
             });
@@ -62,10 +62,10 @@
                     </div>	
                     <div class="date-select-box flex-center">
                         <div class="input-date-box">
-                            <input type="date" class="arrival-date" name="arrival" value="2022-07-24">
+                            <input type="date" class="arrival-date" name="arrival" >
                         </div>
                         <div class="input-date-box">
-                            <input type="date" class="department-date" name="department" value ="2022-07-26">
+                            <input type="date" class="department-date" name="department" >
                         </div>
                         <div class="pick-box">
                             <span class="arrival"></span>

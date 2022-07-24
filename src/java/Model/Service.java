@@ -50,8 +50,16 @@ public class Service {
         this.category = category;
         this.hotelId = hotelId;
     }
-    
 
+    public Service(int id, String name, int quantity, double price, String unit) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.unit = unit;
+    }
+    
+    
    
 
     public int getId() {

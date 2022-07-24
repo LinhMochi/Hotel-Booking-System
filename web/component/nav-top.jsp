@@ -34,7 +34,7 @@
             </div>
         </div>
         <c:set scope="page" var="cart" value="${sessionScope.cart}"/> 
-        <div class="drop-box">
+        <div class="drop-box <c:if test="${requestScope.p != \"hoteldetail\"}">hidden</c:if>">
             <div class="items cart flex-center drop-box-title">
                 <i class="fa fa-book" aria-hidden="true"></i>
                 <div class="title">Đặt trước</div>
@@ -92,7 +92,7 @@
                     </c:forEach>
                     </div>
                 </div>
-                <div class="section <c:if test="${empty cart}">hidden</c:if>   <c:if test="${ not empty cart && cart.getBookedServices()==null}">hidden</c:if>">
+                <div class="section <c:if test="${empty cart.getBookedServices()}">hidden</c:if> ">
                         <h5>Dịch vụ kèm theo</h5>
                         <div class="content picked-service">
                         <c:forEach var="bookedS" items="${sessionScope.cart.getBookedServices()}">

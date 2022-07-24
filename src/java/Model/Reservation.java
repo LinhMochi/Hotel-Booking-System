@@ -111,6 +111,10 @@ public class Reservation {
     public void setBookDate(String bookDate) {
         this.bookDate = bookDate;
     }
+    
+     public String parseTime(){
+        return (new Model.SubTime().subTime(bookDate));
+    }
 
     public Date getArrival() {
         return arrival;
@@ -153,7 +157,9 @@ public class Reservation {
     }
 
     
-    
+    public boolean isPending(){
+        return status.equals("Pending");
+    }
     
     
 }

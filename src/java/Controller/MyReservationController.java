@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "MyReservationController", urlPatterns = {"/myreservation"})
+@WebServlet(name = "MyReservationController", urlPatterns = {"/myreservation","/myaccount/myreservation"})
 public class MyReservationController extends HttpServlet {
 
     /**

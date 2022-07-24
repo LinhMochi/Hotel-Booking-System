@@ -7,10 +7,10 @@
 
 let header = document.querySelector('.main-right .header');
 
-let filter = header.querySelector('select');
+let filter = header.querySelector('select');// filter reservation option
 
 filter.addEventListener('change',()=>{
-    let newForm = document.createElement('form');
+    const newForm = document.createElement('form');
     newForm.method = "POST";
     newForm.action = 'reservation?filter='+filter.value;
     table.appendChild(newForm);
@@ -23,7 +23,7 @@ table.querySelectorAll("tbody tr").forEach((tr) => {
     tr.addEventListener('click', () => {
         console.log(tr);
     });
-    let select = tr.querySelector('select');
+    const select = tr.querySelector('select'); //change status reservation;
 
     select.classList.toggle(select.value);
     select.addEventListener('change', () => {
@@ -52,14 +52,14 @@ table.querySelectorAll("tbody tr").forEach((tr) => {
 //    newForm.submit();
     });
 
-    update_btn.addEventListener('click', () => {
+    if(update_btn!==null ) update_btn.addEventListener('click', () => {
         newForm.action = 'viewreservation?id=' + tr.id;
         table.appendChild(newForm);
 
 //    newForm.submit();
     });
 
-    del_btn.addEventListener('click', () => {
+    if(del_btn!==null ) del_btn.addEventListener('click', () => {
 
         if (confirm('Are u sure about that ?')) {
             newForm.action = 'viewreservation?id=' + tr.id;
@@ -70,7 +70,7 @@ table.querySelectorAll("tbody tr").forEach((tr) => {
 //    newForm.submit();
     });
 
-    hidden_btn.addEventListener('click', () => {
+    if(hidden_btn!==null ) hidden_btn.addEventListener('click', () => {
         tr.classList.toggle("hidden");
         table.appendChild(newForm);
         
