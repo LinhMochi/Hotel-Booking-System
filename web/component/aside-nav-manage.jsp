@@ -28,7 +28,7 @@
                             <a href="#">Về home</a>
 			</div>
 			<div class="link">
-				<a href="#">Đăng xuất</a>
+				<a href="../Hotel-Booking-System/logout">Đăng xuất</a>
 			</div>
 		</div>
 		<a href="#"><div>Dashboard</a></div>
@@ -57,7 +57,7 @@
 			<div><a href="#">Khuyến mãi</a></div>
 			</div>
 		</div>
-	</div>
+	<!--</div>-->
 <!--                <script src="../js/aside-nav.js">
                     
                 </script>

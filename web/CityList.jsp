@@ -259,15 +259,15 @@
 <body style="background-image: url(images/hotelDetail-background.jpg);background-attachment: fixed;
       background-repeat: no-repeat;
       background-size:100%;
-      background-position: center;; font-weight: 100%">
+      background-position: center; font-weight: 100;">
     
     <header  id="top" class="header aside-navigation">
-        <jsp:include page="component/aside-nav-manage.jsp"/>
+        <jsp:include page="component/aside-nav-admin.jsp"/>
     </header>
    
     <script src="js/aside-nav.js" type="text/javascript"></script>
      <div>
-    <div class="container-xl">
+    <div class="container-xl main-right">
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">

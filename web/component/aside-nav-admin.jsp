@@ -18,7 +18,7 @@
         <!-- Tai khoan, hotel ,  promotion, city,  Service category, hotel category, convenient category, sugest place category  -->
   
         
-        <div class="aside-navigation">
+        <!--<div class="aside-navigation">-->
             <div class="avatar-box">
                 <div class="image-box">
                     <img src="${sessionScope.user.avatar}" alt="${sessionScope.user.name}">
@@ -52,7 +52,7 @@
                     <div><a href="#">Loại dịch vụ</a></div>
                 </div>
             </div>
-        </div>
+        <!--</div>-->
 <!--                <script src="../js/aside-nav.js">
                     
                 </script>
