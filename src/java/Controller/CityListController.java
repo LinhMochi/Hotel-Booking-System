@@ -42,13 +42,13 @@ public class CityListController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-
+         request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             User a = (User) session.getAttribute("user");
             if (a != null) {
-                if (a.getRole().equals("Manager")||a.getRole().equals("Admin")) {
+                if (/*a.getRole().equals("Manager")||*/a.getRole().equals("Admin")) {
             String page;
             try {
                 page = request.getParameter("page");
@@ -58,6 +58,11 @@ public class CityListController extends HttpServlet {
             } catch (Exception e) {
                 page = "1";
             }
+            
+              String searchName = request.getParameter("searchName");
+                    if (searchName == null) {
+                        searchName = "";
+                    }
             CityDAO c = new CityDAO();
 //            ArrayList<Room> list = hgd.GetAllRoom();
             int count = c.getAllListCity().size();
@@ -67,11 +72,12 @@ public class CityListController extends HttpServlet {
             }
             ArrayList<City> hlist = new CityDAO().getListCity();
 
-            ArrayList<City> list = c.getCity(page, NUMBER_IMAGE);
+            ArrayList<City> list = c.SearchCity(searchName,page, NUMBER_IMAGE);
 //            response.getWriter().print(list);
             City spc = new City();
             request.setAttribute("list", list);
             request.setAttribute("endPage", endPage);
+            request.setAttribute("searchName", searchName);
             request.setAttribute("page", page);
             request.setAttribute("count", count);
             request.setAttribute("numberOfImage", NUMBER_IMAGE);

@@ -5,13 +5,10 @@
  */
 package Controller;
 
-import DAO.CityDAO;
 import DAO.HotelDAO;
 import DAO.HotelGalleryDAO;
 import DAO.RoomDAO;
-import Model.City;
 import Model.Hotel;
-
 import Model.Room;
 import Model.User;
 import java.io.IOException;
@@ -31,8 +28,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebServlet(name = "RoomController", urlPatterns = {"/RoomManager"})
-public class RoomController extends HttpServlet {
+@WebServlet(name = "AdminRoomController", urlPatterns = {"/AdminRoom"})
+public class AdminRoomController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,8 +40,8 @@ public class RoomController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final int NUMBER_IMAGE = 5;
-
+    
+    private static final int NUMBER_IMAGE = 8;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
@@ -53,7 +50,7 @@ public class RoomController extends HttpServlet {
             HttpSession session = request.getSession();
             User a = (User) session.getAttribute("user");
             if (a != null) {
-                if (a.getRole().equals("Manager")) {
+                if (a.getRole().equals("Admin")) {
                     response.setContentType("text/html;charset=UTF-8");
                     request.setCharacterEncoding("utf-8");
 
@@ -67,10 +64,16 @@ public class RoomController extends HttpServlet {
                         page = "1";
                     }
                     
-                     String searchName = request.getParameter("searchName");
+                    String searchName = request.getParameter("searchName");
                     if (searchName == null) {
                         searchName = "";
                     }
+                    
+                    String sid = request.getParameter("searchId");
+                    if (sid == null) {
+                        sid = "1";
+                    }
+                    int searchId = Integer.parseInt(sid);
                     
                     RoomDAO r = new RoomDAO();
 //            ArrayList<Room> list = hgd.GetAllRoom();
@@ -78,29 +81,34 @@ public class RoomController extends HttpServlet {
                     ArrayList<Hotel> hlist = new HotelDAO().getAllHotel();
                     
                     int userId= a.getId();
-                    int hotelId = new HotelGalleryDAO().getHotelIDByManager(userId);
+//                    int hotelId = new RoomDAO().getHotelIDByManager(userId);
                     
  
-                      int count = new RoomDAO().getRoomByHotelId(hotelId).size();
+                      int count = new RoomDAO().GetAllSearchRoom(searchName).size();
                     int endPage = count / NUMBER_IMAGE;
                     if (count % NUMBER_IMAGE != 0) {
                         endPage++;
                     }
                     
                     //list and paging
-                    ArrayList<Room> list = r.getRoom(hotelId,searchName,page, NUMBER_IMAGE);
+                    ArrayList<Room> list = r.searchAllRoomByName(searchName,page, NUMBER_IMAGE);
+                    ArrayList<Room> ilist = r.searchAllRoomByHotelId(searchId,page, NUMBER_IMAGE);
+                    
+//                     response.getWriter().print(list);
                     Room spc = new Room();
                     request.setAttribute("list", list);
                     request.setAttribute("endPage", endPage);
                     request.setAttribute("page", page);
-                    request.setAttribute("searchName", searchName);
                     request.setAttribute("count", count);
-                    request.setAttribute("hId", hotelId);
+                    request.setAttribute("searchName", searchName);
+                    request.setAttribute("searchId", searchId);
+//                    request.setAttribute("hId", hotelId);
                     request.setAttribute("numberOfImage", NUMBER_IMAGE);
                     request.setAttribute("hlist", hlist);
+                    request.setAttribute("ilist", ilist);
 
 //            RoomDAO hgd = new RoomDAO();
-                    request.getRequestDispatcher("RoomController.jsp").forward(request, response);
+                    request.getRequestDispatcher("AdminRoomController.jsp").forward(request, response);
 
                 } else {
                     request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
@@ -110,6 +118,7 @@ public class RoomController extends HttpServlet {
             }
         }
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -126,7 +135,7 @@ public class RoomController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminRoomController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -144,7 +153,7 @@ public class RoomController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminRoomController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
