@@ -63,7 +63,12 @@ public class ServiceCategoryManagerController extends HttpServlet {
                     if (search == null) {
                         search = "";
                     }
-
+                    
+                    String num = request.getParameter("numberOfImage");
+                    if (num == null) {
+                        num = "5";
+                    }
+                    int NUMBER_IMAGE = Integer.parseInt(num);
                     ServiceCategoryDAO scd = new ServiceCategoryDAO();
                     int count = scd.getAllServiceCategories(search).size();
                     int endPage = count / NUMBER_IMAGE;
