@@ -450,20 +450,7 @@ public class HotelDAO {
 
 }
 
-//class demo {
-//
-//    public static void main(String[] args) {
-//        ArrayList<Hotel> list
-//                = //new HotelDAO().getAvailableHotel(new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-04"), 1, 0, 1), "2");
-//                new HotelDAO().getSuggestHotel();
-//        if (list.isEmpty()) {
-//            System.out.println("Null ne");
-//        } else {
-//            for (Hotel h : list) {
-//                System.out.println(h.toString());
-//            }
-////            System.out.println(new HotelDAO().countAvailableHotel(new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-04"), 1, 0, 1)));
-//        }
-//        System.out.println(new HotelDAO().getHotelDetail(2).toString());
-//    }
-//}
+class demo {
+
+    
+}

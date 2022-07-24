@@ -117,8 +117,8 @@
                     </label>
                     <select name="city" id="" class="w-50 px-2 me-4" style=" height: 50px">
                         <option value="0"style="width: 700px">Choose City</option>
-                        <c:forEach var="h" items="${sv}">
-                            <option value="${h.id}" >${h.category}</option>
+                        <c:forEach var="h" items="${listc}">
+                            <option value="${h.id}" >${h.name}</option>
                         </c:forEach>
                     </select>
                     <br>
@@ -126,7 +126,7 @@
                     </label>
                     <select name="category" id="" class="w-50 px-2 me-4" style=" height: 50px">
                         <option value="0"style="width: 700px">Choose Category</option>
-                        <c:forEach var="h" items="${sv}">
+                        <c:forEach var="h" items="${listHC}">
                             <option value="${h.id}" >${h.category}</option>
                         </c:forEach>
                     </select>
