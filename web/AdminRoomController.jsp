@@ -1,6 +1,6 @@
 <%-- 
-    Document   : RoomController
-    Created on : Jul 13, 2022, 5:54:31 PM
+    Document   : AdminRoomController
+    Created on : Jul 20, 2022, 2:40:11 PM
     Author     : DELL
 --%>
 
@@ -17,10 +17,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-        
+
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -305,18 +304,18 @@
 
     </head>
     <body style="padding:0px">
-            <header  id="top" class="header aside-navigation">
-        <jsp:include page="component/aside-nav-manage.jsp"/>
-    </header>
-   
-    <script src="js/aside-nav.js" type="text/javascript"></script>
+        <header  id="top" class="header aside-navigation">
+            <jsp:include page="component/aside-nav-admin.jsp"/>
+        </header>
+
+        <script src="js/aside-nav.js" type="text/javascript"></script>
         <div class="main-right">
-            
+
 
             <div>
-                
+
                 <div class="container" style="margin-top :30px;margin-left: 180px" >
-                    <form action="RoomManager">
+                    <form action="AdminRoom">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
@@ -325,7 +324,7 @@
                         </div>
                     </form>
                 </div>
-                
+
                 <div class="container-xl" style="margin-top:-10px">
                     <div class="table-responsive">
                         <div class="table-wrapper">
@@ -335,7 +334,20 @@
                                         <h2>Manage <b>Rooms</b></h2>
                                     </div>
                                     <div class="col-sm-6">
-                                        <a href="#addRoomModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Room</span></a>
+
+                                        <div class="container" style="margin-top :30px;padding-right:20px;padding-left: 250px" >
+                                            <form action="AdminRoom">
+<!--                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                                    </div>
+                                                    <input minlength="1" type="text" class="form-control" placeholder="Search By Hotel Id" aria-label="" aria-describedby="basic-addon1" name="searchId">
+                                                </div>-->
+                                                <a href="#addRoomModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Room</span></a>
+                                            </form>
+                                        </div>
+
+
                                         <!--                                <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete Room</span></a>						-->
                                     </div>
                                 </div>
@@ -393,7 +405,7 @@
                                     <div id="editRoomModal${room.id}" class="modal fade">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="RoomUpdate" method="POST">
+                                                <form action="AdminRoomUpdate" method="POST">
                                                     <div class="modal-header">						
                                                         <h4 class="modal-title">Update Room</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -441,8 +453,8 @@
                                                             <input type="text" class="form-control" required name="description" value="${room.description}">
                                                         </div>
                                                         <div class="form-group">
-
-                                                            <input  class="form-control" name="hotelId" type="hidden" value="${hId}">
+                                                            <label>Hotel Id</label>
+                                                            <input type="number"  class="form-control" name="hotelId"  value="${room.hotelId}">
                                                         </div>
 
 
@@ -461,7 +473,7 @@
                                     <div id="deleteRoomModal${room.id}" class="modal fade">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="RoomDelete" method="POST">
+                                                <form action="AdminRoomDelete" method="POST">
                                                     <div class="modal-header">						
                                                         <h4 class="modal-title">Delete Room</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -517,12 +529,18 @@
 
 
                                 </tbody>
+                                
+                                   
+                                
+                                
+                                
+                                
                             </table>
                             <div class="clearfix">
                                 <div class="hint-text">Showing <b>${list.size()}</b> out of <b>${count}</b> entries</div>
                                 <ul class="pagination">
                                     <c:if test="${page > 1}">
-                                        <li class="page-item disabled"><a href="RoomManager?page=${page-1}">Previous</a></li> 
+                                        <li class="page-item disabled"><a href="AdminRoom?page=${page-1}">Previous</a></li> 
                                         </c:if>
 
                                     <c:forEach begin="1" end="${endPage}" var="i">
@@ -531,17 +549,17 @@
                                                                   role="button">${i}</a></li>-->
                                         <c:choose>
                                             <c:when test="${i == page}">
-                                                <li class="page-item active"><a href="RoomManager?page=${i}&searchName=${searchName}" class="page-link">${i}</a></li>
+                                                <li class="page-item active"><a href="AdminRoom?page=${i}&searchName=${searchName}" class="page-link">${i}</a></li>
                                                 </c:when>
                                                 <c:otherwise>
-                                                <li class="page-item"><a href="RoomManager?page=${i}&searchName=${searchName}" class="page-link">${i}</a></li>
+                                                <li class="page-item"><a href="AdminRoom?page=${i}&searchName=${searchName}" class="page-link">${i}</a></li>
                                                 </c:otherwise>
                                             </c:choose>
                                         <input type="hidden" name="page" value="${i}&searchName=${searchName}">
                                     </c:forEach>
 
                                     <c:if test="${page < endPage}">
-                                        <li class="page-item disabled"><a href="RoomManager?page=${page+1}&searchName=${searchName}">Next</a></li> 
+                                        <li class="page-item disabled"><a href="AdminRoom?page=${page+1}&searchName=${searchName}">Next</a></li> 
 
                                     </c:if>
                                 </ul>
@@ -549,11 +567,17 @@
                         </div>
                     </div>        
                 </div>
+                                
+                                
+                                
+                                
+                                
+                                
                 <!-- add Modal HTML -->
                 <div id="addRoomModal${room.id}" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form action="RoomAdd" method="POST">
+                            <form action="AdminRoomAdd" method="POST">
                                 <div class="modal-header">						
                                     <h4 class="modal-title">Add Room</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -600,8 +624,8 @@
                                         <input type="text" class="form-control" required name="description">
                                     </div>
                                     <div class="form-group">
-
-                                        <input  class="form-control" name="hotelId" type="hidden" value="${hId}">
+                                        <label>Hotel Id</label>
+                                        <input type="number"  class="form-control" required name="hotelId"  >
                                     </div>
 
 

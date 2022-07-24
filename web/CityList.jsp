@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
    
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -262,11 +264,27 @@
       background-position: center;; font-weight: 100%">
     
     <header  id="top" class="header aside-navigation">
-        <jsp:include page="component/aside-nav-manage.jsp"/>
+        <jsp:include page="component/aside-nav-admin.jsp"/>
     </header>
    
     <script src="js/aside-nav.js" type="text/javascript"></script>
     <div class="main-right">
+        
+        
+        
+        <div>
+            
+            <div class="container" style="margin-top :30px;margin-left: 140px" >
+                    <form action="CityListController">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                            </div>
+                            <input minlength="1" type="text" class="form-control" placeholder="Search By Room Type" aria-label="" aria-describedby="basic-addon1" name="searchName">
+                        </div>
+                    </form>
+                </div>
+            
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -373,33 +391,33 @@
                     </tbody>
                 </table>
                 <div class="clearfix">
-                    <div class="hint-text">Showing <b>${list.size()}</b> out of <b>${count}</b> entries</div>
-                    <ul class="pagination">
-                        <c:if test="${page > 1}">
-                            <li class="page-item disabled"><a href="CityListController?page=${page-1}">Previous</a></li> 
-                            </c:if>
+                                <div class="hint-text">Showing <b>${list.size()}</b> out of <b>${count}</b> entries</div>
+                                <ul class="pagination">
+                                    <c:if test="${page > 1}">
+                                        <li class="page-item disabled"><a href="CityListController?page=${page-1}">Previous</a></li> 
+                                        </c:if>
 
-                        <c:forEach begin="1" end="${endPage}" var="i">
-<!--                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
-                                                      href="galleryManager?page=${i}" 
-                                                      role="button">${i}</a></li>-->
-                            <!--<li class="page-item"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>-->
-                            <c:choose>
-                                <c:when test="${i == page}">
-                                    <li class="page-item active"><a href="CityListController?page=${i}" class="page-link">${i}</a></li>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <li class="page-item"><a href="CityListController?page=${i}" class="page-link">${i}</a></li>
-                                    </c:otherwise>
-                                </c:choose>
-                            <input type="hidden" name="page" value="${i}">
-                        </c:forEach>
+                                    <c:forEach begin="1" end="${endPage}" var="i">
+            <!--                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
+                                                                  href="serviceCategoryManager?page=${i}" 
+                                                                  role="button">${i}</a></li>-->
+                                        <c:choose>
+                                            <c:when test="${i == page}">
+                                                <li class="page-item active"><a href="CityListController?page=${i}&searchName=${searchName}" class="page-link">${i}</a></li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                <li class="page-item"><a href="CityListController?page=${i}&searchName=${searchName}" class="page-link">${i}</a></li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        <input type="hidden" name="page" value="${i}&searchName=${searchName}">
+                                    </c:forEach>
 
-                        <c:if test="${page < endPage}">
-                            <li class="page-item disabled"><a href="CityListController?page=${page+1}">Next</a></li> 
-                            </c:if>
-                    </ul>
-                </div>
+                                    <c:if test="${page < endPage}">
+                                        <li class="page-item disabled"><a href="CityListController?page=${page+1}&searchName=${searchName}">Next</a></li> 
+
+                                    </c:if>
+                                </ul>
+                            </div>
             </div>
         </div>        
     </div>
@@ -434,5 +452,7 @@
         </div>
     </div>
                         </div>
+        </div>
+    
 </body>
 </html>
