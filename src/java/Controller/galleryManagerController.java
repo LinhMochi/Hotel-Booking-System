@@ -39,7 +39,7 @@ public class galleryManagerController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final int NUMBER_IMAGE = 3;
+   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
@@ -65,7 +65,15 @@ public class galleryManagerController extends HttpServlet {
                     if (search == null) {
                         search = "";
                     }
-
+                    
+                    String num = request.getParameter("numberOfImage");
+                    
+                    if (num == null) {
+                        num = "5";
+                    }
+                    int NUMBER_IMAGE = Integer.parseInt(num);
+                    
+//                    response.getWriter().print(NUMBER_IMAGE);
                     HotelGalleryDAO hgd = new HotelGalleryDAO();
                     int count = hgd.getGalleryByID(new HotelGalleryDAO().getHotelIDByManager(a.getId()), search).size();
                     int endPage = count / NUMBER_IMAGE;
@@ -76,7 +84,7 @@ public class galleryManagerController extends HttpServlet {
                     ArrayList<HotelGallery> list = new HotelGalleryDAO().getGallery(new HotelGalleryDAO().getHotelIDByManager(a.getId()), search, page, NUMBER_IMAGE);
                     response.getWriter().print(search);
                     Hotel hotel = new HotelDAO().getHotelByID(new HotelGalleryDAO().getHotelIDByManager(a.getId()));
-                                    response.getWriter().print(search);
+//                                    response.getWriter().print(search);
                     request.setAttribute("list", list);
                     request.setAttribute("hotel", hotel);
                     request.setAttribute("endPage", endPage);
