@@ -297,7 +297,7 @@ public class ReservationDAO {
 
     public boolean insertReservation(User user, Search search, int hotelId, ReservationDetail cart, String status) {
         String current = new SubTime().getCurrent();
-        String sql = "";
+        String sql;
         int userId = 0;
         int newReserId = getIden("Reservations") + 1;
         try {
@@ -362,7 +362,7 @@ public class ReservationDAO {
                 ps.executeUpdate();
             }
 
-            sql = "INSERT INTO ReservationService() VALUES"
+            sql = "INSERT INTO ReservationService (unitPrice,quantity,reservationId,serviceId) VALUES"
                     + "(?,?,?,?)";
 
             for (Service sv : cart.getBookedServices()) {
@@ -604,4 +604,37 @@ public class ReservationDAO {
 
         return list;
     }
+    
+    
+    public Reservation getReservationInfoByReId(int reId){
+        String sql = "SELECT  r.*,u.fullName,u.email,u.phoneNumber,u.avatar,h.image,h.name,h.address,h.email "
+                + "FROM Reservations r inner join Users u on r.userId = u.id inner join Hotels h on  r.hotelId = h.id WHERE r.id = ?";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,reId);
+            
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return new Reservation(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getDate(6), rs.getDate(7), rs.getString(8), new User(rs.getInt(9), rs.getString(11), rs.getString(12), rs.getString(13)), new Hotel(rs.getInt(10), rs.getString(16), rs.getString(17)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+        return null;
+    }
+
+    
 }
+
+
+    //class demo {
+    //
+    //    public static void main(String[] args) {
+    //        Reservation r  = new ReservationDAO().getReservationInfoByReId(1);
+    //
+    //        
+    //        System.out.println(r.toString());
+    //    }
+    //}

@@ -94,6 +94,6 @@
                 <c:if test="${page<endpage}"><a href="http://localhost:8080/Hotel-Booking-System/managerreservationlist?page=${page+1}" class="btn">Next</a></c:if></div>
         </div>
     </div>
-
+    <script src="js/reservationlist.js" type="text/javascript" defer></script>
 </body>
 </html>

@@ -20,6 +20,7 @@
         <link rel="stylesheet" type="text/css" href="css/reservationdetail-style.css">
     </head>
     <body>
+        <c:set scope="request" value="rd" var="p"/>
         <header id="top" class="header nav-top">
             <jsp:include page="component/nav-top.jsp"/>
         </header>
@@ -35,22 +36,28 @@
                         <h3>Đặt phòng</h3>
                     </div>
                     <%-- --%>
-                    <c:set scope="request" value="rd" var="p"/>
+ 
                     <jsp:include page="component/search-box.jsp"></jsp:include>
                     </div>
                     <script src="js/pick-date.js"></script>
                     <script src="js/search-box.js"></script>
                     <div class="cart-wrapper">
-                        <h2>Bạn đã chọn</h2>
+                        <c:choose>                            
+                            <c:when test="${empty cart}"> <h2>Giở hàng chưa tạo <h2></c:when> 
+                            <c:when test="${not empty cart && cart.getBookedRooms().size()>0 }"><h2>Bạn đã chọn</h2> </c:when> 
+                            <c:when test="${cart.getBookedRooms().size()==0}"> <h2>Chưa có phòng trong giỏ hàng</h2></c:when> 
+                            <c:otherwise></c:otherwise>
+                        </c:choose>
 
-                        <div class="empty-cart flex-center <c:if test="${not empty cart}">hidden</c:if>">
-                            <div>
-                                <i class="fa fa-archive" aria-hidden="true"></i>
-                            </div>
-                            <div>Giỏ hàng trống</div>
-                        </div>
+                         
 
-                        <div class="room-wrapper <c:if test="${empty cart}">hidden</c:if>">
+                        <div class="room-wrapper 
+                         <c:choose>
+                             <c:when test="${empty cart}">hidden</c:when>  
+                             <c:when test="${cart.getBookedRooms().size()==0}">hidden</c:when>  
+                             <c:otherwise></c:otherwise>
+                         </c:choose>
+                         ">
                         <c:forEach var="br" items="${sessionScope.cart.getBookedRooms()}">
                             <div class="picked-room grid-3" id="${br.getId()}">
                                 <div class="card-image">
@@ -92,7 +99,7 @@
                     </div>
 
                     <div id="service" class="service-wrapper <c:if test="${empty cart}">hidden</c:if>">
-                            <h3>Dịch vụ kèm theo</h3>
+                            <c:if test="${cart.getBookedServices().size()>0}"><h3>Dịch vụ kèm theo</h3></c:if>
                             <div class="service-container">
                             <c:forEach var="bservice" items="${sessionScope.cart.getBookedServices()}">
                                 <div class="service-item" id="${bservice.id}">

@@ -21,6 +21,10 @@ and open the template in the editor.
     font-size: 14px;
 }
 
+date-select-box.disable{
+    pointer-events: none;
+}
+
 .search-box .input-box{
     grid-column: 2/4;
     grid-row-start: 1;
@@ -138,10 +142,10 @@ search-box-x .footer{
     color: #000;
     cursor: default;
     border-radius: 10px;
-    transition: transform 1s ease-in;
-    transform: translateY(-150px);
+    transition: transform 0.2s ease-in;
+    transform: translateY(-10px);
     opacity: 0;
-    z-index: -1;
+    z-index: -1000;
 }
 
 

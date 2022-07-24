@@ -18,10 +18,10 @@ let room_cart = drop_cart.querySelector('.picked-room');
 
 if (room_cart !== null) {
     room_cart.querySelectorAll('.item').forEach((picked_room) => {
-        let des = picked_room.querySelector('.setbox .btn.des');
-        let quan = picked_room.querySelector('.setbox .quan input');
-        let inc = picked_room.querySelector('.setbox .btn.inc');
-        let del = picked_room.querySelector('.close-btn');
+        const des = picked_room.querySelector('.setbox .btn.des');
+        const quan = picked_room.querySelector('.setbox .quan input');
+        const inc = picked_room.querySelector('.setbox .btn.inc');
+        const del = picked_room.querySelector('.close-btn');
         // console.log(des);
         // console.log(quan.value);
         // console.log(inc);
@@ -33,12 +33,17 @@ if (room_cart !== null) {
         // newForm.submit();
 
         des.addEventListener('click', () => {
-            if (quan.value > 0)
+            if(quan.value == 1 && !confirm('Xoá phòng khỏi giỏ hàng.Bạn có muốn tiép tục?')){
+                console.log(quan.value);
+                
+                return;
+            } else if (quan.value > 0) {
                 quan.value--;
-            newForm.action = "UpdateCart?update=room&id=" + picked_room.id + "&quantity=" + quan.value + "&p=hoteldetail";
-            room_cart.appendChild(newForm);
-//                                console.log(newForm);
-            newForm.submit();
+                newForm.action = "UpdateCart?update=room&id=" + picked_room.id + "&quantity=" + quan.value + "&p=hoteldetail";
+                room_cart.appendChild(newForm);
+                                    console.log(newForm);
+                newForm.submit();
+            }
         });
 
         inc.addEventListener('click', () => {
@@ -51,6 +56,7 @@ if (room_cart !== null) {
         });
 
         del.addEventListener('click', () => {
+            if(!confirm('Thao tác không thể khôi phục. Bạn muốn xoá phòng khỏi giỏ hàng?')) return;
             quan.value = 0;
             newForm.action = "UpdateCart?update=room&id=" + picked_room.id + "&quantity=" + quan.value+ "&p=hoteldetail";
             room_cart.appendChild(newForm);
@@ -73,10 +79,10 @@ if (room_cart !== null) {
 let service_cart = document.querySelector('.drop_cart .picked-service');
 if (service_cart !== null) {
     service_cart.querySelectorAll('.item').forEach((service_item) => {
-        let des = service_item.querySelector('.btn.des');
-        let inc = service_item.querySelector('.btn.inc');
-        let quan = service_item.querySelector('.quan input');
-        let del = service_item.querySelector('.close-btn');
+        const des = service_item.querySelector('.btn.des');
+        const inc = service_item.querySelector('.btn.inc');
+        const quan = service_item.querySelector('.quan input');
+        const del = service_item.querySelector('.close-btn');
         // console.log(des);
         // console.log(quan.value);
         // console.log(inc);
@@ -88,12 +94,15 @@ if (service_cart !== null) {
         // newForm.submit();
 
         des.addEventListener('click', () => {
-            if (quan.value > 0)
-                quan.value--;
-            newForm.action = "UpdateCart?update=service&id=" + service_item.id + "&quantity=" + quan.value+ "&p=hoteldetail";
-            service_cart.appendChild(newForm);
-//                                console.log(newForm);
-            newForm.submit();
+            if(quan.value == 1 && !confirm('Thao tác không thể khôi phục. Bạn muốn tiếp tục xoá dịch vụ khỏi giỏ hàng ?')){
+                 return;
+            } else if (quan.value > 0){
+                    quan.value--;
+                newForm.action = "UpdateCart?update=service&id=" + service_item.id + "&quantity=" + quan.value+ "&p=hoteldetail";
+                service_cart.appendChild(newForm);
+//                                    console.log(newForm);
+                newForm.submit();                
+            }
         });
 
         inc.addEventListener('click', () => {
@@ -101,15 +110,18 @@ if (service_cart !== null) {
                 quan.value++;
             newForm.action = "UpdateCart?update=service&id=" + service_item.id + "&quantity=" + quan.value+ "&p=hoteldetail";
             service_cart.appendChild(newForm);
-            console.log(newForm);
+//            console.log(newForm);
+            newForm.submit();
         });
 
         del.addEventListener('click', () => {
-            quan.value = 0;
-            newForm.action = "UpdateCart?update=service&id=" + service_item.id + "&quantity=" + quan.value+ "&p=hoteldetail";
-            service_cart.appendChild(newForm);
-//                                console.log(newForm);
-            newForm.submit();
+            if(confirm('Thao tác không thể khôi phục. Bạn muốn tiếp tục xoá dịch vụ này ?')){// check confirm del service
+                quan.value = 0;
+                newForm.action = "UpdateCart?update=service&id=" + service_item.id + "&quantity=" + quan.value+ "&p=hoteldetail";
+                service_cart.appendChild(newForm);
+//                                    console.log(newForm);
+                newForm.submit();
+            }
         });
 
         quan.addEventListener('change', () => {

@@ -15,6 +15,26 @@ and open the template in the editor.
 	box-sizing: border-box;
 }
 
+body{
+    overflow: overlay;
+}
+
+*::-webkit-scrollbar{
+    width: 5px;
+    background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb{
+    width: 5px;
+    border-radius: 8px;
+    background-color: #0085ed;
+}
+
+.sticky{
+    position: sticky;
+    top:0;
+    z-index: 1010;
+}
 /*
     some layout property
 */ 
@@ -371,6 +391,7 @@ ul>li:first-child{
     right: 150px;
     top: 25px;
     z-index: 102;
+    
 }
 
 @keyframes error-display{
@@ -481,6 +502,27 @@ ul>li:first-child{
 }
 .absolutely{
     position: absolute;
+}
+
+
+ select option[value="Pending"]{
+    background-color: skyblue;
+}
+
+ select option[value="Accept"]{
+    background-color: limegreen;
+}
+
+ select option[value="Complete"]{
+    background-color: #fe2;
+}
+
+ select option[value="Cancel"]{
+    background-color: red;
+}
+
+.disable{
+    pointer-events: none;
 }
 
 .hidden{

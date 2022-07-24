@@ -102,6 +102,13 @@ and open the template in the editor.
     position: absolute;
 }
 /* h5*/
+.drop-cart .section h5{
+    font-size:18px;
+    text-align: center;
+    margin: 5px;
+    letter-spacing: 2px;
+}
+
 .drop-cart .section .content {
     width: 100%;
     padding: 10px 5px;

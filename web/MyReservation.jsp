@@ -17,15 +17,15 @@
         <link href="css/reservationlist-style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-               <div class="aside-navigation">
-                   <jsp:include page="component/aside-nav-customer.jsp"/>
+        <div class="aside-navigation">
+            <jsp:include page="component/aside-nav-customer.jsp"/>
         </div>
         <script src ="js/aside-nav.js"></script>
         <jsp:include page="component/message.jsp"/>
         <script src="js/message.js">
-            
+
         </script>    
-            
+
         <div class="main-right">
 
             <div class="header">
@@ -60,21 +60,28 @@
                             <td>${re.id}</td>
                             <td>${re.hotel.name}</td>
                             <td>${re.noRoom}</td>
-                            <td>${re.bookDate}</td>
+                            <td><span class="datetime-format f2 hidden">${re.bookDate}</span><span class="time ">${re.parseTime()}</span></td>
                             <td>${re.arrival}</td>
                             <%--<td>${re.department}</td>--%>
                             <td>
-                                <select class="" <c:if test="${re.status != \"Pending\"}">disabled</c:if>>
-                                    <option value="${re.status}" >${re.status}</option>
-                                    <option value="Pending" class="pending">Pending</option>
-                                    <option value="Cancel" >Cancel</option>
-<!--                                    <option value="Rated">Rated</option>-->
-                                </select>
+                                <c:choose >
+                                    <c:when test="${re.isPending()}">
+                                        <select>
+                                            <option value="${re.status}" class = "m${re.isPending()}">${re.status}</option>
+                                            <option value="Cancel" >Cancel</option>
+                                        </select>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <select disabled>
+                                            <option value="${re.status}" class = "m${re.isPending()}">${re.status}</option>
+                                        </select>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                             <td>
                                 <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 <i class="fa fa-external-link-square" aria-hidden="true"></i>
-<!--                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
+                                <!--                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
                                 <!--<i class="fa fa-times" aria-hidden="true"></i>-->
                             </td>
                         </tr>
@@ -90,7 +97,7 @@
                 <c:if test="${page<endpage}"><a href="http://localhost:8080/Hotel-Booking-System/managerreservationlist?page=${page+1}" class="btn">Next</a></c:if></div>
         </div>
     </div>
-    
-
-    </body>
+    <script src="js/date-time-formater.js" type="text/javascript" defer></script>
+    <script src="js/reservationlist.js" type="text/javascript" defer></script>
+</body>
 </html>
