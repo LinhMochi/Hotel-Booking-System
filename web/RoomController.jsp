@@ -400,8 +400,8 @@
                                                     </div>
                                                     <div class="modal-body">	
                                                         <div class="form-group">
-                                                            <label>Id</label>
-                                                            <input type="number" class="form-control" required name="Id" value="${room.id}">
+                                                          
+                                                            <input type="hidden" class="form-control" required name="Id" value="${room.id}">
                                                         </div>
 
                                                         <div class="form-group">
