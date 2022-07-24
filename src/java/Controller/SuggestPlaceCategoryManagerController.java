@@ -63,14 +63,19 @@ public class SuggestPlaceCategoryManagerController extends HttpServlet {
                     if (search == null) {
                         search = "";
                     }
-
+                    
+                    String num = request.getParameter("numberOfImage");
+                    if (num == null) {
+                        num = "5";
+                    }
+                    int NUMBER_IMAGE = Integer.parseInt(num);
                     SuggestPlaceCategoryDAO spcd = new SuggestPlaceCategoryDAO();
                     int count = spcd.getAllSuggestPlaceCategories(search).size();
                     int endPage = count / NUMBER_IMAGE;
                     if (count % NUMBER_IMAGE != 0) {
                         endPage++;
                     }
-                    ArrayList<SuggestPlaceCategory> list = spcd.getSuggestPlaceCategories(search ,page, NUMBER_IMAGE);
+                    ArrayList<SuggestPlaceCategory> list = spcd.getSuggestPlaceCategories(search, page, NUMBER_IMAGE);
                     SuggestPlaceCategory spc = new SuggestPlaceCategory();
                     request.setAttribute("spclist", list);
                     request.setAttribute("endPage", endPage);
