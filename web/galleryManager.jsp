@@ -289,6 +289,7 @@
                     <div class="input-group-prepend">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                     </div>
+                    <input type="hidden" name="numberOfImage" value="${numberOfImage}">
                     <input minlength="1" type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1" name="search">
                 </div>
             </form>
@@ -302,6 +303,22 @@
                                 <h2>${hotel.name} <b>Gallery Manager</b></h2>
                             </div>
                             <div class="col-sm-6">
+                                <form action="galleryManager" class="btn">
+                                    <input type="hidden" name="search" value="${search}">
+                                    Records per page:<select name="numberOfImage" onchange="this.form.submit()">
+                                        <c:forEach var = "i" begin = "1" end = "6">
+                                            <c:choose>
+                                                <c:when test="${i == numberOfImage}">
+                                                    <option value="${i}" selected>${i}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${i}">${i}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                    <!--<input type="submit" value="Submit">-->
+                                </form>
                                 <a href="#addGalleryModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Image</span></a>
                             </div>
                         </div>
@@ -402,7 +419,7 @@
                         <div class="hint-text">Showing <b>${page}</b> out of <b>${endPage}</b> entries</div>
                         <ul class="pagination">
                             <c:if test="${page > 1}">
-                                <li class="page-item disabled"><a href="galleryManager?page=${page-1}&search=${search}">Previous</a></li> 
+                                <li class="page-item disabled"><a href="galleryManager?page=${page-1}&search=${search}&numberOfImage=${numberOfImage}">Previous</a></li> 
                                 </c:if>
 
                             <c:forEach begin="1" end="${endPage}" var="i">
@@ -412,17 +429,17 @@
                                 <!--<li class="page-item"><a href="galleryManager?page=${i}" class="page-link">${i}</a></li>-->
                                 <c:choose>
                                     <c:when test="${i == page}">
-                                        <li class="page-item active"><a href="galleryManager?page=${i}&search=${search}" class="page-link">${i}</a></li>
+                                        <li class="page-item active"><a href="galleryManager?page=${i}&search=${search}&numberOfImage=${numberOfImage}" class="page-link">${i}</a></li>
                                         </c:when>
                                         <c:otherwise>
-                                        <li class="page-item"><a href="galleryManager?page=${i}&search=${search}" class="page-link">${i}</a></li>
+                                        <li class="page-item"><a href="galleryManager?page=${i}&search=${search}&numberOfImage=${numberOfImage}" class="page-link">${i}</a></li>
                                         </c:otherwise>
                                     </c:choose>
                                 <input type="hidden" name="page" value="${i}">
                             </c:forEach>
 
                             <c:if test="${page < endPage}">
-                                <li class="page-item disabled"><a href="galleryManager?page=${page+1}&search=${search}">Next</a></li> 
+                                <li class="page-item disabled"><a href="galleryManager?page=${page+1}&search=${search}&numberOfImage=${numberOfImage}">Next</a></li> 
                                 </c:if>
                         </ul>
                     </div>
