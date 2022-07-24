@@ -48,6 +48,10 @@ public class CityDAO {
         return list;
     }
 
+    
+    
+    
+    
     public ArrayList<City> getListCityComplete() {// get list city to rend into home page and list city of admin feature
         ArrayList<City> list = new ArrayList<City>();
 
@@ -196,28 +200,29 @@ public class CityDAO {
     }
 
     // detelte city is lack
-    public ArrayList<City> getCity(String page, int numOfElement) throws SQLException, IOException {
+    public ArrayList<City> getCity(String input,String page, int numOfElement) throws SQLException, IOException {
         int currentPage = Integer.parseInt(page);
         int start = numOfElement * currentPage - numOfElement;
         ArrayList<City> list = new ArrayList<>();
         try {
             String sql = "WITH noHotel\n"
-                    + "				 AS(\n"
-                    + "                SELECT c.id as cityId, COUNT(h.id) as noHotel \n"
-                    + "                FROM Cities c LEFT JOIN (SELECT * FROM Hotels WHERE Hotels.[status]='Active') as h\n"
-                    + "                ON c.id = h.cityId Group by c.id)\n"
-                    + "                \n"
-                    + "		SELECT	Cities.id, Cities.city,Cities.[image], ISNULL(CityRate.cityrate,999) AS rate,noHotel FROM Cities \n"
-                    + "                LEFT JOIN CityRate on Cities.id = CityRate.cityid \n"
-                    + "                INNER JOIN noHotel ON Cities.id = noHotel.cityId\n"
-                    + "               \n"
-                    + "                  \n"
-                    + "                    ORDER BY Cities.id ASC \n"
-                    + "                    OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY";
+                    + "	 AS(\n"
+                    + "  SELECT c.id as cityId, COUNT(h.id) as noHotel \n"
+                    + "   FROM Cities c LEFT JOIN (SELECT * FROM Hotels WHERE Hotels.[status]='Active') as h\n"
+                    + "   ON c.id = h.cityId Group by c.id)\n"
+                    + "   \n"
+                    + "	SELECT	Cities.id, Cities.city,Cities.[image], ISNULL(CityRate.cityrate,999) AS rate,noHotel FROM Cities \n"
+                    + "  LEFT JOIN CityRate on Cities.id = CityRate.cityid \n"
+                    + "  INNER JOIN noHotel ON Cities.id = noHotel.cityId\n"
+                    + "   \n"
+                    + "   \n"
+                    + "             where city like '%H%'       ORDER BY Cities.id ASC \n"
+                    + "  OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY";
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, start);
-            ps.setInt(2, numOfElement);
+            ps.setString(1, "%" + input + "%");
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new City(rs.getInt(1),
@@ -237,13 +242,48 @@ public class CityDAO {
         }
         return list;
     }
+
+
+
+
+public ArrayList<City> SearchCity(String input,String page, int numOfElement) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int start = numOfElement * currentPage - numOfElement;
+        ArrayList<City> list = new ArrayList<>();
+        try {
+            String sql = "select * from Cities\n" +
+"					where city like ?\n" +
+"                             ORDER BY Cities.id ASC \n" +
+"                  OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+           
+            ps.setString(1, "%" + input + "%");
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                City c = new City();
+                c.setId(rs.getInt(1));
+                c.setName(rs.getString(2));
+                c.setImage(rs.getString(3));
+                list.add(c);
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
 }
 
 //class demo {
-//    public static void main(String[] args) {
-//        ArrayList<City> list = new CityDAO().getListCityComplete();
-//        for(City c: list){
-//            System.out.println(c.toString());
-//        }
+//    public static void main(String[] args) throws SQLException, IOException {
+//        ArrayList<City> list = new CityDAO().SearchCity("H","1", 5);
+//            System.out.println(list);
 //    }
 //}
