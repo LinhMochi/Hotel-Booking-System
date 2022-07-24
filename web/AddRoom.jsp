@@ -17,7 +17,10 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+        
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -297,299 +300,474 @@
                 });
             });
         </script>
+        <link href="css/aside-nav.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="css/layout-style.css">
+
     </head>
-    <body>
-        <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h2>Manage <b>Rooms</b></h2>
+    <body style="padding:0px">
+            <header  id="top" class="header aside-navigation">
+        <jsp:include page="component/aside-nav-manage.jsp"/>
+    </header>
+   
+    <script src="js/aside-nav.js" type="text/javascript"></script>
+        <div class="main-right">
+            
+
+            <div>
+                
+                <div class="container" style="margin-top :30px;margin-left: 180px" >
+                    <form action="RoomManager">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                             </div>
-                            <div class="col-sm-6">
-                                <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Room</span></a>
-                                <!--                                <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete Room</span></a>						-->
-                            </div>
+                            <input minlength="1" type="text" class="form-control" placeholder="Search By Room Type" aria-label="" aria-describedby="basic-addon1" name="searchName">
                         </div>
-                    </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <!--                                <th>
+                    </form>
+                </div>
+                
+                <div class="container-xl" style="margin-top:-10px">
+                    <div class="table-responsive">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h2>Manage <b>Rooms</b></h2>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a href="#addRoomModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Room</span></a>
+                                        <!--                                <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete Room</span></a>						-->
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <!--                                <th>
+                                                                            <span class="custom-checkbox">
+                                                                                <input type="checkbox" id="selectAll">
+                                                                                <label for="selectAll"></label>
+                                                                            </span>
+                                                                        </th>-->
+                                        <th>Room Id</th>
+                                        <th>Room Type</th>
+                                        <th>Image</th>
+                                        <th>Quantity</th>
+                                        <th>Price (VNĐ)</th>
+                                        <th>Max Adults</th>
+                                        <th>Max Child</th>
+                                        <th>Bed</th>
+                                        <th>Area</th>
+                                        <th>Description</th>
+                                        <th>Hotel Id</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="room" items="${list}">
+                                        <tr>
+                                            <!--                                <td>
+                                                                                <span class="custom-checkbox">
+                                                                                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                                                                    <label for="checkbox1"></label>
+                                                                                </span>
+                                                                            </td>-->
+                                            <td>${(list.indexOf(room) + 1) + (page-1) * numberOfImage}</td>
+                                            <td>${room.name}</td>
+                                            <td><img src="${room.image}" width="130" height="90" alt="hotel-img"></td>
+                                            <td>${room.quantity}</td>
+                                            <td><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></td>
+                                            <td>${room.maxAdult}</td>
+                                            <td>${room.maxChild}</td>
+                                            <td>${room.bed}</td>
+                                            <td>${room.area}</td>
+                                            <td>${room.description}</td>
+                                            <td>${room.hotelId}</td>
+                                            <td>
+                                                <a href="#editRoomModal${room.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                <a href="#deleteRoomModal${room.id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                            </td>
+                                        </tr>
+                                        <!-- Edit Modal HTML -->
+                                    <div id="editRoomModal${room.id}" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="RoomUpdate" method="POST">
+                                                    <div class="modal-header">						
+                                                        <h4 class="modal-title">Update Room</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">	
+                                                        <div class="form-group">
+                                                            <label>Id</label>
+                                                            <input type="number" class="form-control" required name="Id" value="${room.id}">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Room Type</label>
+                                                            <input type="text" class="form-control" required name="name" value="${room.name}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Image URL</label>
+                                                            <textarea type="text" class="form-control" required name="image" >${room.image}</textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Quantity</label>
+                                                            <input type="number" class="form-control" required name="quantity" value="${room.quantity}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Price</label>
+                                                            <input type="number" class="form-control" required name="price" value="${room.price}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Max Adults</label>
+                                                            <input type="number" class="form-control" required name="maxadult" value="${room.maxAdult}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Max Child</label>
+                                                            <input type="number" class="form-control" required name="maxchild" value="${room.maxChild}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Bed</label>
+                                                            <input type="text" class="form-control" required name="bed" value="${room.bed}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Area</label>
+                                                            <input type="text" class="form-control" required name="area" value="${room.area}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Description</label>
+                                                            <input type="text" class="form-control" required name="description" value="${room.description}">
+                                                        </div>
+                                                        <div class="form-group">
+
+                                                            <input  class="form-control" name="hotelId" type="hidden" value="${hId}">
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" name="currentpage" value="${page}">
+                                                        <input type="hidden" name="id" value="${room.id}">
+                                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                        <input type="submit" class="btn btn-info" value="Save">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Delete Modal HTML -->
+                                    <div id="deleteRoomModal${room.id}" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="RoomDelete" method="POST">
+                                                    <div class="modal-header">						
+                                                        <h4 class="modal-title">Delete Room</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">					
+                                                        <p>Are you sure you want to delete these Records?</p>
+                                                        <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" name="currentpage" value="${page}">
+                                                        <input type="hidden" name="id" value="${room.id}">
+                                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </c:forEach>
+
+
+
+                                <!--                            <tr>
+                                                                <td>
                                                                     <span class="custom-checkbox">
-                                                                        <input type="checkbox" id="selectAll">
-                                                                        <label for="selectAll"></label>
+                                                                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                                                        <label for="checkbox1"></label>
                                                                     </span>
-                                                                </th>-->
-                                <th>Room Id</th>
-                                <th>Room Type</th>
-                                <th>Image</th>
-                                <th>Quantity</th>
-                                <th>Price (VNĐ)</th>
-                                <th>Max Adults</th>
-                                <th>Max Child</th>
-                                <th>Bed</th>
-                                <th>Area</th>
-                                <th>Description</th>
-                                <th>Hotel Id</th>
-                                <th>Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="room" items="${list}">
-                                <tr>
-                                    <!--                                <td>
-                                                                        <span class="custom-checkbox">
-                                                                            <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                                                            <label for="checkbox1"></label>
-                                                                        </span>
-                                                                    </td>-->
-                                    <td>${room.id}</td>
-                                    <td>${room.name}</td>
-                                    <td><img src="${room.image}" width="130" height="90" alt="hotel-img"></td>
-                                    <td>${room.quantity}</td>
-                                    <td><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></td>
-                                    <td>${room.maxAdult}</td>
-                                    <td>${room.maxChild}</td>
-                                    <td>${room.bed}</td>
-                                    <td>${room.area}</td>
-                                    <td>${room.description}</td>
-                                    <td>${room.hotelId}</td>
-                                    <td>
-                                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                    </td>
-                                </tr>
-
-
-                            </c:forEach>
-
-
-
-                            <!--                            <tr>
-                                                            <td>
-                                                                <span class="custom-checkbox">
-                                                                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                                                    <label for="checkbox1"></label>
-                                                                </span>
-                                                            </td>
-                                                            <td>Thomas Hardy</td>
-                                                            <td>thomashardy@mail.com</td>
-                                                            <td>89 Chiaroscuro Rd, Portland, USA</td>
-                                                            <td>(171) 555-2222</td>
-                                                            <td>(171) 555-2222</td>
-                                                            <td>(171) 555-2222</td>
-                                                            <td>(171) 555-2222</td>
-                                                            <td>(171) 555-2222</td>
-                                                            <td>(171) 555-2222</td>
-                                                            <td>(171) 555-2222</td>
-                                                            <td>(171) 555-2222</td>
-                                                            <td>
-                                                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                                            </td>
-                                                        </tr>-->
+                                                                </td>
+                                                                <td>Thomas Hardy</td>
+                                                                <td>thomashardy@mail.com</td>
+                                                                <td>89 Chiaroscuro Rd, Portland, USA</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>
+                                                                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                                </td>
+                                                            </tr>-->
 
 
 
 
 
 
-                        </tbody>
-                    </table>
-                    <div class="clearfix">
-                        <div class="hint-text">Showing <b>${list.size()}</b> out of <b>${count}</b> entries</div>
-                        <ul class="pagination">
-                            <c:if test="${page > 1}">
-                                <li class="page-item disabled"><a href="RoomManager?page=${page-1}">Previous</a></li> 
-                                </c:if>
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                                <div class="hint-text">Showing <b>${list.size()}</b> out of <b>${count}</b> entries</div>
+                                <ul class="pagination">
+                                    <c:if test="${page > 1}">
+                                        <li class="page-item disabled"><a href="RoomManager?page=${page-1}">Previous</a></li> 
+                                        </c:if>
 
-                            <c:forEach begin="1" end="${endPage}" var="i">
-    <!--                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
-                                                          href="serviceCategoryManager?page=${i}" 
-                                                          role="button">${i}</a></li>-->
-                                <c:choose>
-                                    <c:when test="${i == page}">
-                                        <li class="page-item active"><a href="RoomManager?page=${i}" class="page-link">${i}</a></li>
-                                        </c:when>
-                                        <c:otherwise>
-                                        <li class="page-item"><a href="RoomManager?page=${i}" class="page-link">${i}</a></li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                <input type="hidden" name="page" value="${i}">
-                            </c:forEach>
+                                    <c:forEach begin="1" end="${endPage}" var="i">
+            <!--                            <li class="page-item"><a  class="${i==page?"btn-active":""}" 
+                                                                  href="serviceCategoryManager?page=${i}" 
+                                                                  role="button">${i}</a></li>-->
+                                        <c:choose>
+                                            <c:when test="${i == page}">
+                                                <li class="page-item active"><a href="RoomManager?page=${i}&searchName=${searchName}" class="page-link">${i}</a></li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                <li class="page-item"><a href="RoomManager?page=${i}&searchName=${searchName}" class="page-link">${i}</a></li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        <input type="hidden" name="page" value="${i}&searchName=${searchName}">
+                                    </c:forEach>
 
-                            <c:if test="${page < endPage}">
-                                <li class="page-item disabled"><a href="RoomManager?page=${page+1}">Next</a></li> 
-                                
-                                </c:if>
-                        </ul>
+                                    <c:if test="${page < endPage}">
+                                        <li class="page-item disabled"><a href="RoomManager?page=${page+1}&searchName=${searchName}">Next</a></li> 
+
+                                    </c:if>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>        
+                </div>
+                                 <tbody>
+                                    <c:forEach var="room" items="${list}">
+                                        <tr>
+                                            <!--                                <td>
+                                                                                <span class="custom-checkbox">
+                                                                                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                                                                    <label for="checkbox1"></label>
+                                                                                </span>
+                                                                            </td>-->
+                                            <td>${(list.indexOf(room) + 1) + (page-1) * numberOfImage}</td>
+                                            <td>${room.name}</td>
+                                            <td><img src="${room.image}" width="130" height="90" alt="hotel-img"></td>
+                                            <td>${room.quantity}</td>
+                                            <td><fmt:formatNumber type="number" pattern="###,###" value="${room.price}"/></td>
+                                            <td>${room.maxAdult}</td>
+                                            <td>${room.maxChild}</td>
+                                            <td>${room.bed}</td>
+                                            <td>${room.area}</td>
+                                            <td>${room.description}</td>
+                                            <td>${room.hotelId}</td>
+                                            <td>
+                                                <a href="#editRoomModal${room.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                <a href="#deleteRoomModal${room.id}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                            </td>
+                                        </tr>
+                                        <!-- Edit Modal HTML -->
+                                    <div id="editRoomModal${room.id}" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="RoomUpdate" method="POST">
+                                                    <div class="modal-header">						
+                                                        <h4 class="modal-title">Update Room</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">	
+                                                        <div class="form-group">
+                                                            <label>Id</label>
+                                                            <input type="number" class="form-control" required name="Id" value="${room.id}">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Room Type</label>
+                                                            <input type="text" class="form-control" required name="name" value="${room.name}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Image URL</label>
+                                                            <textarea type="text" class="form-control" required name="image" >${room.image}</textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Quantity</label>
+                                                            <input type="number" class="form-control" required name="quantity" value="${room.quantity}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Price</label>
+                                                            <input type="number" class="form-control" required name="price" value="${room.price}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Max Adults</label>
+                                                            <input type="number" class="form-control" required name="maxadult" value="${room.maxAdult}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Max Child</label>
+                                                            <input type="number" class="form-control" required name="maxchild" value="${room.maxChild}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Bed</label>
+                                                            <input type="text" class="form-control" required name="bed" value="${room.bed}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Area</label>
+                                                            <input type="text" class="form-control" required name="area" value="${room.area}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Description</label>
+                                                            <input type="text" class="form-control" required name="description" value="${room.description}">
+                                                        </div>
+                                                        <div class="form-group">
+
+                                                            <input  class="form-control" name="hotelId" type="hidden" value="${hId}">
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" name="currentpage" value="${page}">
+                                                        <input type="hidden" name="id" value="${room.id}">
+                                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                        <input type="submit" class="btn btn-info" value="Save">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Delete Modal HTML -->
+                                    <div id="deleteRoomModal${room.id}" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="RoomDelete" method="POST">
+                                                    <div class="modal-header">						
+                                                        <h4 class="modal-title">Delete Room</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">					
+                                                        <p>Are you sure you want to delete these Records?</p>
+                                                        <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" name="currentpage" value="${page}">
+                                                        <input type="hidden" name="id" value="${room.id}">
+                                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </c:forEach>
+
+
+
+                                <!--                            <tr>
+                                                                <td>
+                                                                    <span class="custom-checkbox">
+                                                                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                                                        <label for="checkbox1"></label>
+                                                                    </span>
+                                                                </td>
+                                                                <td>Thomas Hardy</td>
+                                                                <td>thomashardy@mail.com</td>
+                                                                <td>89 Chiaroscuro Rd, Portland, USA</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>(171) 555-2222</td>
+                                                                <td>
+                                                                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                                </td>
+                                                            </tr>-->
+
+
+
+
+
+
+                                </tbody>
+                <!-- add Modal HTML -->
+                <div id="addRoomModal${room.id}" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="RoomAdd" method="POST">
+                                <div class="modal-header">						
+                                    <h4 class="modal-title">Add Room</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">					
+                                    <!--                            <div class="form-group">
+                                                                    <label>Room Id</label>
+                                                                    <input type="number" class="form-control" required name="id">
+                                                                </div>-->
+                                    <div class="form-group">
+                                        <label>Room Type</label>
+                                        <input type="text" class="form-control" required name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Image URL</label>
+                                        <textarea type="text" class="form-control" required name="image" ></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quantity</label>
+                                        <input type="number" class="form-control" required name="quantity">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                        <input type="number" class="form-control" required name="price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Max Adults</label>
+                                        <input type="number" class="form-control" required name="maxadult">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Max Child</label>
+                                        <input type="number" class="form-control" required name="maxchild">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bed</label>
+                                        <input type="text" class="form-control" required name="bed">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Area</label>
+                                        <input type="text" class="form-control" required name="area">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <input type="text" class="form-control" required name="description">
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input  class="form-control" name="hotelId" type="hidden" value="${hId}">
+                                    </div>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="currentpage" value="${page}">
+                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                    <input type="submit" class="btn btn-success" value="Add">
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </div>        
-        </div>
-        <!-- Edit Modal HTML -->
-        <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="RoomAdd" method="POST">
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add Room</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <!--                            <div class="form-group">
-                                                            <label>Room Id</label>
-                                                            <input type="number" class="form-control" required name="id">
-                                                        </div>-->
-                            <div class="form-group">
-                                <label>Room Type</label>
-                                <input type="text" class="form-control" required name="name">
-                            </div>
-                            <div class="form-group">
-                                <label>Image URL</label>
-                                <textarea type="text" class="form-control" required name="image" ></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Quantity</label>
-                                <input type="number" class="form-control" required name="quantity">
-                            </div>
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input type="number" class="form-control" required name="price">
-                            </div>
-                            <div class="form-group">
-                                <label>Max Adults</label>
-                                <input type="number" class="form-control" required name="maxadult">
-                            </div>
-                            <div class="form-group">
-                                <label>Max Child</label>
-                                <input type="number" class="form-control" required name="maxchild">
-                            </div>
-                            <div class="form-group">
-                                <label>Bed</label>
-                                <input type="text" class="form-control" required name="bed">
-                            </div>
-                            <div class="form-group">
-                                <label>Area</label>
-                                <input type="text" class="form-control" required name="area">
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <input type="text" class="form-control" required name="description">
-                            </div>
-                            <div class="form-group">
-                                <label>Hotel Id</label>
-                            <select  class="form-control" name="hotelId">
-                                <c:forEach var="hotel" items="${hlist}">
-                                    <option value="${hotel.id}">${hotel.name} ( ID: ${hotel.id} )</option>
-                                </c:forEach>
-                            </select>
-                            </div>
-
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" name="currentpage" value="${page}">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Edit Modal HTML -->
-        <div id="editEmployeeModal" class="modal fade">
-             <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="RoomAdd" method="POST">
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add Room</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <!--                            <div class="form-group">
-                                                            <label>Room Id</label>
-                                                            <input type="number" class="form-control" required name="id">
-                                                        </div>-->
-                            <div class="form-group">
-                                <label>Room Type</label>
-                                <input type="text" class="form-control" required name="name">
-                            </div>
-                            <div class="form-group">
-                                <label>Image URL</label>
-                                <textarea type="text" class="form-control" required name="image" ></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Quantity</label>
-                                <input type="number" class="form-control" required name="quantity">
-                            </div>
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input type="number" class="form-control" required name="price">
-                            </div>
-                            <div class="form-group">
-                                <label>Max Adults</label>
-                                <input type="number" class="form-control" required name="maxadult">
-                            </div>
-                            <div class="form-group">
-                                <label>Max Child</label>
-                                <input type="number" class="form-control" required name="maxchild">
-                            </div>
-                            <div class="form-group">
-                                <label>Bed</label>
-                                <input type="text" class="form-control" required name="bed">
-                            </div>
-                            <div class="form-group">
-                                <label>Area</label>
-                                <input type="text" class="form-control" required name="area">
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <input type="text" class="form-control" required name="description">
-                            </div>
-                            <div class="form-group">
-                                <label>Hotel Id</label>
-                            <select  class="form-control" name="hotelId">
-                                <c:forEach var="hotel" items="${hlist}">
-                                    <option value="${hotel.id}">${hotel.name} ( ID: ${hotel.id} )</option>
-                                </c:forEach>
-                            </select>
-                            </div>
-
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" name="currentpage" value="${page}">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Delete Modal HTML -->
-        <div id="deleteEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Delete Employee</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <p>Are you sure you want to delete these Records?</p>
-                            <p class="text-warning"><small>This action cannot be undone.</small></p>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-danger" value="Delete">
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
