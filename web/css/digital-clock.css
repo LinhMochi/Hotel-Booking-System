@@ -1,0 +1,85 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24-Jul-2022, 20:12:48
+    Author     : Admin
+*/
+
+
+
+@keyframes dotdot {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.digital-clock{
+    position: relative;
+    padding: 10px 30px;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, .10);
+    width: 230px;
+    border-radius: 10px;
+    color: #cc8c18;
+
+}
+
+.time{
+    position: relative;
+
+}
+
+.hour, .dot,.minutes{
+    font-weight: 600;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 10px;
+    line-height: 75px;
+}
+
+
+.hour, .minutes{
+    font-size: 2.5em;
+    width: 55px;
+}
+.dot{
+    font-size: 2em;
+    color: #929292;
+    animation: dotdot 1s infinite ease-in-out;
+}
+
+.right-side{
+    margin-left: 10px;
+}
+
+.period,.second{
+    font-weight: 600;
+    font-size: 1.2em;
+}
+.period{
+    transform: translateY(-10px);
+}
+.second{
+    transform: translateY(10px);
+}
+
+.calendar{
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.month-name{
+
+}
+.day-name,.date-number{
+    margin-left: 5px;
+}
