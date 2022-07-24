@@ -281,13 +281,13 @@ public class ReservationDAO {
     }
 
     public void updateStatus(String email, int id , String status) {
-        String sql = "UPDATE r SET r.status = ? from Reservations AS r \n"
-                + "INNER JOIN Users AS u on r.userId = u.id where u.email LIKE '" + email + "%' ";
+        String sql = "UPDATE r SET r.status = ? from ( Select *, ROW_NUMBER() OVER (ORDER BY id) AS [idu] FROM Reservations ) AS r \n"
+                + "INNER JOIN Users AS u on r.userId = u.id where r.idu = ? and u.email LIKE '" + email + "%' ";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, status);
-            ps.setString(2, email);
+            ps.setInt(2, id);
             ps.executeUpdate();
 
         } catch (SQLException e) {
