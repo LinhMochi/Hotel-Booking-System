@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import DAO.HotelSuggestPlaceDAO;
+import Model.HotelSuggestPlace;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,15 +36,7 @@ public class SuggestPlaceDelete extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SuggestPlaceDelete</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SuggestPlaceDelete at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+         
         }
     }
 
@@ -72,7 +66,12 @@ public class SuggestPlaceDelete extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            String currentpage = request.getParameter("currentpage");
+        int id = Integer.parseInt(request.getParameter("id"));
+        response.getWriter().println(id);
+        HotelSuggestPlaceDAO hgd = new HotelSuggestPlaceDAO();
+        hgd.removeSuggestPlace(id);
+        response.sendRedirect("SuggestPlace?page=" + currentpage);
     }
 
     /**

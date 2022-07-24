@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import DAO.HotelSuggestPlaceDAO;
+import Model.HotelSuggestPlace;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,15 +36,7 @@ public class SuggestPlaceUpdate extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SuggestPlaceUpdate</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SuggestPlaceUpdate at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+       
         }
     }
 
@@ -72,7 +66,32 @@ public class SuggestPlaceUpdate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                 response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        
+        String place = request.getParameter("place");
+        String currentpage = request.getParameter("currentpage");
+      
+        int category = Integer.parseInt(request.getParameter("category"));
+        double distance = Double.parseDouble(request.getParameter("distance"));
+     
+  
+        int hotelId = Integer.parseInt(request.getParameter("hotelId"));
+        int id = Integer.parseInt(request.getParameter("id"));
+       
+        HotelSuggestPlaceDAO hgd = new HotelSuggestPlaceDAO();
+        HotelSuggestPlace h = new HotelSuggestPlace();
+        
+        h.setPlace(place);
+    
+        h.setCategory(category);
+        h.setDistance(distance);
+    
+        h.setHotelId(hotelId);
+        h.setId(id);
+        hgd.upDateSuggestPlace(h);
+        
+        response.sendRedirect("SuggestPlace?page=" + currentpage);
     }
 
     /**
