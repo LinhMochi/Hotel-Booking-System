@@ -45,14 +45,34 @@ public class HotelGalleryDAO {
         }
         return list;
     }
-
-    public ArrayList<HotelGallery> getGalleryByID(int hotelID, String input) {
+    
+        public ArrayList<HotelGallery> getGalleryByID(int hotelID, String input) {
         ArrayList<HotelGallery> list = new ArrayList<>();
         query = "SELECT id, title, image, hotelId FROM HotelGallery WHERE hotelId = ? AND title like ?";
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, hotelID);
             ps.setString(2, "%" + input + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new HotelGallery(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("image"),
+                        rs.getInt("hotelID")
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return list;
+    }
+
+    public ArrayList<HotelGallery> getGalleryByID(int hotelID) {
+        ArrayList<HotelGallery> list = new ArrayList<>();
+        query = "SELECT id, title, image, hotelId FROM HotelGallery WHERE hotelId = ?";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, hotelID);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new HotelGallery(rs.getInt("id"),
