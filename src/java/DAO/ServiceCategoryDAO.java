@@ -104,12 +104,14 @@ public class ServiceCategoryDAO {
         }
     }
 
-    public ArrayList<ServiceCategory> getAllServiceCategories() {
+    // 
+    
+    public ArrayList<ServiceCategory> getAllServiceCategories(String search) {
         ArrayList<ServiceCategory> list = new ArrayList<>();
-        query = "SELECT * FROM ServiceCategories";
+        query = "SELECT * FROM ServiceCategories where ServiceCategory like '%'+?+'%'";
         try {
             ps = conn.prepareStatement(query);
-            ps.setString(1, "%" + input + "%");
+            ps.setString(1, "%" + search + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new ServiceCategory(rs.getInt("id"),
@@ -163,12 +165,12 @@ public class ServiceCategoryDAO {
             while (rs.next()) {
                 return new Service(
                         rs.getInt("id"),
-                        rs.getString("service"),
-                        rs.getDate("from"),
-                        rs.getDate("to"),
+                        rs.getString("service"),                        
                         rs.getDouble("price"),
                         rs.getString("unit"),
                         rs.getString("create"),
+                        rs.getDate("from"),
+                        rs.getDate("to"),
                         rs.getInt("hotelId"),
                         rs.getInt("serviceCategoryId"));
             }

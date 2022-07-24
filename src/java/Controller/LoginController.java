@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.HotelDAO;
 import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
@@ -58,6 +59,7 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("user", user);
                     response.sendRedirect("admindashboard");
                 } else if (user.getRole().equals("Manager")||user.getRole().equals("Customer")) {
+                    if(user.getRole().equals("Manager")) session.setAttribute("hotelId",new HotelDAO().getHotelManaged(user.getId()));
                     session.setAttribute("user", user);
                     session.setAttribute("password", password);
                     response.sendRedirect("home");

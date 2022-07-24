@@ -84,7 +84,7 @@ document.querySelectorAll(".datetime-format").forEach(datetimeformat => {
 
 
 let pick_field = document.querySelector('.pick-box');
-console.log(document.querySelector('.pick-box'));
+//console.log(document.querySelector('.pick-box'));
 let pick_box = document.querySelector('.date-picker-container');
 if (pick_field !== null)
     pick_field.addEventListener('click', () => {

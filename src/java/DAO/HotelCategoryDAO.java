@@ -28,9 +28,9 @@ public class HotelCategoryDAO {
     ArrayList<HotelCategory> list;
    
     
-    public static void main(String[] args) {
-        new HotelCategoryDAO().deleteHotelCategory(1);
-    }
+//    public static void main(String[] args) {
+//        new HotelCategoryDAO().deleteHotelCategory(1);
+//    }
     // get list hotel category
        public ArrayList<HotelCategory> getAllHotelCategories() {
         ArrayList<HotelCategory> list = new ArrayList<>();
