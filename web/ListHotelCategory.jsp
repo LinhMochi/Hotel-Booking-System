@@ -19,7 +19,7 @@
     </head>
 
     <body class="">
-        <div class="container-fuild mt-3 bg-light p-5 rounded">
+        <div class="container mt-3 bg-light p-5 rounded">
             <div class="d-flex mt-2 w-100 justify-content-end">
                 <a href=""> <button class="btn btn-primary px-4 py-2 me-2">ADD</button></a>
             </div>
@@ -37,8 +37,8 @@
                    
                         <tr>
                             <th scope="row">${o.id}</th>
-                            <td>${o.name}</td>
-                            <td>${o.email}</td>
+                            <td></td>
+                            <td></td>
                             <td>
                                 <a href="UpdateHotels?id=${o.id}" class="edit mx-2" data-toggle="tooltip"><i class="fa-solid fa-pen-to-square" style="color: blue"></i
                                     ></a>

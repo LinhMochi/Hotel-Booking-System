@@ -1,32 +1,31 @@
-package Controller;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Controller;
 
-import DAO.HotelCategoryDAO;
-import DAO.HotelDAO;
-import Model.HotelCategory;
+import DAO.ServiceCategoryDAO;
+import DAO.ServiceDAO;
+import Model.Service;
+import Model.ServiceCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * 
- * @author Dell
+ * @author Nhat Anh
  */
-@WebServlet(urlPatterns = {"/EditHotelCategory"})
-public class EditHotelCategory extends HttpServlet {
-    
-    // loi o dau chi luon toi fix cho
+@WebServlet(name = "HotelServiceManager", urlPatterns = {"/HotelServiceManager"})
+public class HotelServiceManager extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +44,10 @@ public class EditHotelCategory extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditHotelCategory</title>");
+            out.println("<title>Servlet MangerHomeService</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditHotelCategory at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MangerHomeService at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,15 +65,20 @@ public class EditHotelCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int hcateID = Integer.parseInt(request.getParameter("hcateID"));
-            HttpSession session = request.getSession();
-            HotelCategory hcategory = new HotelCategoryDAO().getHotelCategoryByID(hcateID);
-            request.setAttribute("hcategory", hcategory);
-            session.setAttribute("hcateID", hcateID);
-            request.getRequestDispatcher("EditHotelCategory.jsp").forward(request, response);
-        } catch (Exception e) {
-        }
+//        try {
+//        Service sv = new ServiceCategoryDAO().getServiceByID("id");
+//        request.setAttribute("sv", sv);
+//        request.getRequestDispatcher("HomeServiec.jsp").forward(request, response);
+//        } catch (Exception ex) {
+//            Logger.getLogger(MangerHomeService.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+            request.setCharacterEncoding("UTF-8");
+            ServiceDAO sd = new ServiceDAO();
+            ArrayList<Service> list = sd.getServiceByID("2");
+
+            request.setAttribute("slist", list);
+            
+            request.getRequestDispatcher("ServiceList.jsp").forward(request, response);
     }
 
     /**
@@ -88,15 +92,7 @@ public class EditHotelCategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            HttpSession session = request.getSession();
-            String category = request.getParameter("category");
-            String image = request.getParameter("image");
-            int id = (int) session.getAttribute("hcateID");
-            new HotelCategoryDAO().editHotelCategory(category, image, id);
-            response.sendRedirect("ManagerHomeCategory");
-        } catch (Exception e) {
-        }
+        processRequest(request, response);
     }
 
     /**

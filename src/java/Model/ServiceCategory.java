@@ -13,6 +13,11 @@ public class ServiceCategory {
     private int id;
     private String category;
 
+    @Override
+    public String toString() {
+        return "ServiceCategory{" + "id=" + id + ", category=" + category + '}';
+    }
+
     public ServiceCategory() {
     }
 

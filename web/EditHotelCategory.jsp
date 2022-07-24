@@ -64,10 +64,10 @@
         <div class="mt-4 mx-4">
             <form action="" method="post">
                 <label for="category" class="form-label fw-bold">Category : </label>
-                <input type="text" class="form-control" name="category" id="category" />
+                <input type="text" class="form-control" name="category" id="category" value="${hcategory.category}"/>
                 <label for="imageUrl" class="form-label fw-bold mt-2">Image : </label>
-                <input type="text" class="form-control" name="image" id="imageUrl" />
-                <img src="" alt="" class="image mt-2 rounded" style="width : 300px ; height: auto; object-fit: cover;" />
+                <input type="text" class="form-control" name="image" id="imageUrl" value="${hcategory.image}" />
+                <img src="${hcategory.image}" alt="" class="image mt-2 rounded" style="width : 300px ; height: auto; object-fit: cover;" />
 
                 <div class="mt-3 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary btn-md  px-4 py-2">Add</button>

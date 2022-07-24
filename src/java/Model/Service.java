@@ -12,6 +12,7 @@ import java.sql.Date;
  * @author Admin
  */
 public class Service {
+
     private int id;
     private String name;
     private Date from;
@@ -22,11 +23,33 @@ public class Service {
     private String createAt;
     private int category;
     private int hotelId;
+    private String servicrCategory;
+    
+    public String getServicrCategory() {
+        return servicrCategory;
+    }
+
+    public void setServicrCategory(String servicrCategory) {
+        this.servicrCategory = servicrCategory;
+    }
 
     public Service() {
     }
 
-        public Service(int id, String name, Date from, Date to, int quantity, double price, String unit, String createAt, int category, int hotelId) {
+    public Service(int id, String name, double price, String unit, String createAt, Date from, Date to, int category, int hotelId, String servicrCategory) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.unit = unit;
+        this.createAt = createAt;
+        this.from = from;
+        this.to = to;
+        this.category = category;
+        this.hotelId = hotelId;
+        this.servicrCategory = servicrCategory;
+    }
+
+    public Service(int id, String name, Date from, Date to, int quantity, double price, String unit, String createAt, int category, int hotelId) {
         this.id = id;
         this.name = name;
         this.from = from;
@@ -39,20 +62,18 @@ public class Service {
         this.hotelId = hotelId;
     }
 
-    public Service(int id, String name, Date from, Date to , double price, String unit, String createAt, int category, int hotelId) {
+    public Service(int id, String name, double price, String unit, String createAt, Date from, Date to, int hotelId, int category) {
         this.id = id;
         this.name = name;
-        this.from = from;
-        this.to = to;
         this.price = price;
         this.unit = unit;
         this.createAt = createAt;
-        this.category = category;
+        this.from = from;
+        this.to = to;
         this.hotelId = hotelId;
-    }
-    
+        this.category = category;
 
-   
+    }
 
     public int getId() {
         return id;
@@ -89,8 +110,8 @@ public class Service {
     public String getCreateAt() {
         return createAt;
     }
-    
-    public String parseTime(){
+
+    public String parseTime() {
         return (new Model.SubTime().subTime(createAt));
     }
 
@@ -105,12 +126,12 @@ public class Service {
     public void setCategory(int category) {
         this.category = category;
     }
-    
-    public void setCreateTime(String createAt){
-        this.createAt  = createAt;
+
+    public void setCreateTime(String createAt) {
+        this.createAt = createAt;
     }
-    
-    public void setCreateTime(){
+
+    public void setCreateTime() {
         java.util.Date current = new java.util.Date(System.currentTimeMillis());
         java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         createAt = formater.format(current);
@@ -146,16 +167,13 @@ public class Service {
 
     public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
-    }    
+    }
 
     @Override
     public String toString() {
-        return "Service{" + "id=" + id + ", name=" + name + ", from=" + from + ", to=" + to 
-                + ", quantity=" + quantity + ", price=" + price + ", unit=" + unit + ", createAt=" 
-                + createAt + ", category=" + category + ", hotelId=" + hotelId + '}';
+        return "Service{" + "id=" + id + ", name=" + name + ", from=" + from + ", to=" + to + ", quantity=" + quantity + ", price=" + price + ", unit=" + unit + ", createAt=" + createAt + ", category=" + category + ", hotelId=" + hotelId + ", servicrCategory=" + servicrCategory + '}';
     }
-    
-    
+
     
     
 }

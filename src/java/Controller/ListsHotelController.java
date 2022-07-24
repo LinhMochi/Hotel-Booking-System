@@ -64,6 +64,7 @@ public class ListsHotelController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String page = "";
         try {
             CityDAO cdao = new CityDAO();

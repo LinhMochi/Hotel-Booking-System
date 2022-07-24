@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.HotelDAO;
+import Model.Hotel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -59,7 +60,14 @@ public class UpdateHotels extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         HotelDAO dao = new HotelDAO();
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Hotel hotel = dao.getHotelByID(id);
+            request.setAttribute("hotel",hotel );
+            request.getRequestDispatcher("EditHotel.jsp").forward(request, response);
+        } catch (Exception e) {
+        }
     }
 
     /**

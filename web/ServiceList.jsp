@@ -1,7 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
-    Document   : ManagerHomeCategory
-    Created on : 14-Jul-2022, 21:26:18
+    Document   : ManagerCustomer
+    Created on : 14-Jul-2022, 20:53:10
     Author     : Dell
 --%>
 
@@ -58,67 +58,55 @@
     </head>
 
     <body>
-        <div class="container mt-5 p-4 mx-auto card border-none shadow-lg overflow-hidden">
-            <div class="mt-4 mx-4 d-flex justify-content-between">
-                <h3>Admin HotelCategory</h3>
-                <a class="btn btn-primary btn-md px-4 py-2" href="AddHotelCategory">Add</a>
+        <div class="container mt-5 mx-auto card border-none shadow-lg overflow-hidden">
+            <div class="mt-2 mx-4">
+                <h3>Service Hotel</h3>
             </div>
-            <div class="mt-4">
+            <div class="d-flex mt-2 w-100 justify-content-end">
+                <a href="AddServiceHotel"> <button class="btn btn-primary px-4 py-2 me-2">ADD</button></a>
+            </div>
+            <div class="mt-2">
                 <table class="table table-borderless table-hover my-2">
                     <thead class="bg-info ">
-                        <tr class="border-none text-center">
+                        <tr class="border-none">
                             <th scope="col">ID</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Image</th>
+                            <th scope="col">NameService</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Unit</th>
+                            <th scope="col">Create</th>
+                            <th scope="col">From</th>
+                            <th scope="col">To</th>
+                            <th scope="col">ServiceCateGory</th>
                             <th scope="col">Action</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="o" items="${list}">
-                            <tr class="text-center">
-                                <td>${o.id}</td>
-                                <td>${o.category}</td>
-                                <td><img src="${o.image}" style="height: 150px ; object-fit : cover ;"></td>
-                                <td> <a href="EditHotelCategory?hcateID=${o.id}"><i class="fa-solid fa-pen-to-square text-warning me-2"></i></a>
-                                    <a href="DeleteHotelCategory?hcateID=${o.id}"><i class="fa-solid fa-trash-can text-danger"></i> </a>
+                        <c:forEach var="s" items="${slist}">
+                            <tr>
+                                <th scope="row">${s.id}</th>
+                                <td>${s.name}</td>
+                                <td>${s.price}</td>
+                                <td>${s.unit}</td>
+                                <td>${s.parseTime()}</td>
+                                <td>${s.from}</td>
+                                <td>${s.to}</td> 
+                                <td>${s.servicrCategory}</td>
+                                <td>
+                                    <a href="ViewHotel?id=${o.id}" class="view" title="ViewHotel?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-eye" style="color: cadetblue"> </i
+                                        ></a>
+                                    <a href="UpdateHotels?id=${o.id}" class="edit mx-2" data-toggle="tooltip"><i class="fa-solid fa-pen-to-square" style="color: blue"></i
+                                        ></a>
+                                    <a href="DeleteHotelController?id=${o.id}" class="delete" title="DeleteHotelController?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-circle-minus" style="color: red"></i
+                                        ></a>
                                 </td>
                             </tr>
+
                         </c:forEach>
                     </tbody>
+
                 </table>
             </div>
-
-            <c:if test="${numOfPage > 1}">
-                <!--Page Pagination Start--> 
-                <div class="paging d-flex justify-content-center w-100 mt-4">
-                    <nav aria-label="pagination pagination-md">
-                        <ul class="pagination">
-                            <c:forEach var = "i" begin = "1" end = "${numOfPage}">
-                                <c:choose>
-                                    <c:when test="${i==page}">
-
-                                        <li class="page-item active" aria-current="page">
-                                            <span class="page-item">  <a  class='active page-link' href="ManagerHomeCategory?page=${i}">${i}</a></span>
-                                        </li>
-
-                                    </c:when>    
-                                    <c:otherwise>
-
-                                        <li class="page-item" aria-current="page">
-                                            <span class="page-item">  <a  class='active page-link' href="ManagerHomeCategory?page=${i}">${i}</a></span>
-                                        </li>
-
-
-                                    </c:otherwise>
-                                </c:choose>
-
-                            </c:forEach>
-                        </ul>
-                    </nav>
-                </div>
-                <!--Page Pagination End--> 
-            </c:if>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>

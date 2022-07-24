@@ -9,6 +9,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
@@ -58,43 +59,44 @@
 <body>
     <div class="container mt-5 p-4 mx-auto card border-none shadow-lg overflow-hidden">
         <div class="mt-4 mx-4 d-flex justify-content-between">
-            <h3>Edit RoomTypes</h3>
+            <h3>Edit Service</h3>
         </div>
         <div class="mt-4 mx-4">
             <form action="EditServices" method="post">
                 <label for="id" class="form-label fw-bold mt-2">ID : </label>
-                <input type="text" class="form-control" name="id" readonly id="id" value="${service.id}" />
+                <input type="text" class="form-control" name="id" readonly id="id" value="${slist.id}" />
 
 
                 <label for="name" class="form-label fw-bold mt-2">Service Name :
           </label>
-                <input type="text" class="form-control" name="name" id="name" value="${service.name}" />
+                <input type="text" class="form-control" name="name" id="name" value="${slist.name}" />
 
                 <label for="from" class="form-label fw-bold mt-2">from :
           </label>
-                <input type="date" class="form-control" name="from" id="id" value="${service.from}" />
+                <input type="date" class="form-control" name="from" id="id" value="${slist.from}" />
 
                 <label for="to" class="form-label fw-bold mt-2">to : </label>
-                <input type="text" class="form-control" name="to" id="to" value="${service.to}" />
+                <input type="date" class="form-control" name="to" id="to" value="${slist.to}" />
 
                 <label for="price" class="form-label fw-bold mt-2">price :
           </label>
-                <input type="text" class="form-control" name="price" id="price" value="${service.price}" />
+                <input type="text" class="form-control" name="price" id="price" value="${slist.price}" />
 
                 <label for="unit" class="form-label fw-bold mt-2">unit :
           </label>
-                <input type="text" class="form-control" name="unit" id="unit" value="${service.unit}" />
+                <input type="text" class="form-control" name="unit" id="unit" value="${slist.unit}" />
 
-                <label for="createAt" class="form-label fw-bold mt-2">createAt : </label>
-                <input type="text" class="form-control" name="createAt" id="createAt" value="${service.createAt}" />
 
                 <label for="category" class="form-label fw-bold mt-2">category :
           </label>
-                <input type="text" class="form-control" name="category" id="category" value="${service.category}" />
+                <select name="category" id="" class="w-50 px-2 me-4" style=" height: 50px">
+                        <option value="0"style="width: 700px">Choose Service</option>
+                       <c:forEach var="h" items="${sv}">
+                            <option value="${h.id}" >${h.category}</option>
+                        </c:forEach>
+                    </select>
+<!--                <input type="text" class="form-control" name="category" id="category" value="{service.category}" />-->
 
-                <label for="hotelId" class="form-label fw-bold mt-2">hotelId :
-          </label>
-                <input type="text" class="form-control" name="hotelId" id="hotelId" value="${service.hotelId}" />
 
                 <div class="mt-3 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary btn-md px-4 py-2">
