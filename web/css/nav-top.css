@@ -102,6 +102,13 @@ and open the template in the editor.
     position: absolute;
 }
 /* h5*/
+.drop-cart .section h5{
+    font-size:18px;
+    text-align: center;
+    margin: 5px;
+    letter-spacing: 2px;
+}
+
 .drop-cart .section .content {
     width: 100%;
     padding: 10px 5px;
@@ -111,18 +118,18 @@ and open the template in the editor.
     position: relative;
 }
 .drop-cart .section .content.picked-room{
-    height: 300px
+    max-height: 300px
 }
 .drop-cart .section .content.picked-service{
-    height: 70px
+    max-height: 70px
 }
 
 .content::-webkit-scrollbar{
     width: 5px;
-    background: #ff4;
+    background: #fff;
 }
 .drop-cart .content::-webkit-scrollbar-thumb{
-    background: #4ff;
+    background: #ff4;
     border-radius: 8px;
 }
 .drop-cart .content h5{
@@ -203,8 +210,8 @@ input[type="number"]::-webkit-inner-spin-button
 
 .drop-cart .footer .toggle{
     margin-left: 30px;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     color: gray;
     border: 1px solid #9ba39a;
     border-bottom-color: transparent; 
@@ -213,7 +220,7 @@ input[type="number"]::-webkit-inner-spin-button
 .drop-cart .footer .toggle i{
     transform: rotate(180deg);
     transition: rotate ease-in-out 0.5s;
-    box-shadow: -1px 1px 1px #9ba39a;
+    box-shadow: 1px 1px 3px 1px #9ba39a;
 }
 .drop-cart .footer .toggle.active i{
     transform: rotate(0deg);

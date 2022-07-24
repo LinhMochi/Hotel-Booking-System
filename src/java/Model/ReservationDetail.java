@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -15,17 +16,29 @@ public class ReservationDetail {
     private int id; // reservationId;
     private ArrayList<BookedRoom> bookedRooms;
     private ArrayList<Service> bookedServices;
+    private int noDay;
     private double total;
     
 
     public ReservationDetail() {
+        bookedRooms = new ArrayList<BookedRoom>();
+        bookedServices = new ArrayList<>();
     }
 
-    public ReservationDetail(int id, ArrayList<BookedRoom> bookedRooms, ArrayList<Service> bookedServices, double total) {
+    public ReservationDetail(int id, ArrayList<BookedRoom> bookedRooms, ArrayList<Service> bookedServices ) {
         this.id = id;
         this.bookedRooms = bookedRooms;
         this.bookedServices = bookedServices;
-        this.total = total;
+        this.total = setTotal();
+    }
+    
+    public int getBookedRoomQuantity(){
+        if(bookedRooms.isEmpty()) return 0;
+        int count = 0;
+        for(BookedRoom br: bookedRooms){
+            count+=br.getQuantity();
+        }
+        return count;
     }
 
     public int getId() {
@@ -35,6 +48,20 @@ public class ReservationDetail {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getNoDay() {
+        return noDay;
+    }
+
+    public void setNoDay(int noDay) {
+        this.noDay = noDay;
+    }
+    
+    public void setNoDate(Date arrival, Date department){
+            long diff = department.getTime() - arrival.getTime();
+            noDay = Integer.parseInt((diff / (1000 * 60 * 60 * 24)+""));
+    }
+    
 
     public ArrayList<BookedRoom> getBookedRooms() {
         return bookedRooms;
@@ -53,10 +80,11 @@ public class ReservationDetail {
     }
 
     public double getTotal() {
+        total = setTotal();
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(double total){
         this.total = total;
     }
     
@@ -67,6 +95,28 @@ public class ReservationDetail {
                 t+=br.getPrice()*br.getQuantity()*(1-br.getDiscount());
             }
         }
+        t=t*noDay;
+        if(!isEmptyService()){
+            for(Service s:bookedServices){
+                t+=s.getQuantity()*s.getPrice();
+            }
+        }
+        return t;
+    }
+    
+    public double getFeeRoom(){
+        double t = 0;
+        if(!isEmptyRoom()){
+            for(BookedRoom br:bookedRooms){
+                t+=br.getPrice()*br.getQuantity()*(1-br.getDiscount());
+            }
+        }
+        return t*noDay;
+    }
+    
+    
+    public double getFeeService(){
+        double t = 0;
         if(!isEmptyService()){
             for(Service s:bookedServices){
                 t+=s.getQuantity()*s.getPrice();
@@ -82,7 +132,7 @@ public class ReservationDetail {
                 t+=br.getPrice()*br.getQuantity()*(br.getDiscount());
             }
         }
-        return t;
+        return t*noDay;
     }
 
     // book service

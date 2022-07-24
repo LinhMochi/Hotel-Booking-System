@@ -36,12 +36,12 @@ public class listUserServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final int NUMBER_USERLIST = 3;
+    private static final int NUMBER_USERLIST = 8;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        request.setCharacterEncoding("UTF-8");
         try {
             int index;
             try {
@@ -55,15 +55,14 @@ public class listUserServlet extends HttpServlet {
             int endPage = count / NUMBER_USERLIST;
             if (count % NUMBER_USERLIST != 0) {
                 endPage++;
-                
+
             }
 
-
             UserDAO ud = new UserDAO();
-            List<User> list = ud.getUserFromTo(index, NUMBER_USERLIST);
+            List<User> list = ud.getUserFromTo(1, NUMBER_USERLIST);
             request.setAttribute("list", list);
             request.setAttribute("endPage", endPage);
-            request.setAttribute("index", index);
+            request.setAttribute("index", 1);
             request.getRequestDispatcher("UserList.jsp").forward(request, response);
         } catch (Exception e) {
             request.getRequestDispatcher("ERR.jsp").forward(request, response);
@@ -98,8 +97,7 @@ public class listUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-       
+
     }
 
     /**

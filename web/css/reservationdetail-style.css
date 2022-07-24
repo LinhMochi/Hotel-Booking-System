@@ -1,0 +1,256 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18-Jul-2022, 07:30:46
+    Author     : Admin
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=My+Soul&family=Smooch&family=Tapestry&display=swap');
+
+/*font-family: 'Dancing Script', cursive;*/
+*{
+    font-family: 'Dancing Script', cursive;
+}
+
+header.nav-top{
+
+    width: 100%;
+    /*height: 70px;*/
+}
+
+div{
+    font-size: 18px;
+}
+
+body>footer{
+    background-color: rgba(255,198,51,0.46);
+    width: 100%;
+    height: 80px;
+    position: relative;
+    bottom: 0;
+}
+
+body>section.main{
+    display: grid;
+    grid-template-columns: 1.2fr 2fr 1fr;
+}
+.search-sticky{
+    /*background-color: #3ff;*/
+    width: 90%;
+    height: 400px;
+    margin: 2rem 5%;
+    position: sticky;
+    top: 0;
+}
+.search-sticky .header{
+    font-size: 24px;
+    padding: 15px 5% 0 5%;
+}
+.search-sticky .header a{
+    position: relative;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%
+}
+.search-sticky .header a:after{
+    content: 'Quay lại';
+    background-color: #0397d6;
+    border-radius: 5px;
+    position: absolute;
+    left: 45px;
+    width: 75px;
+    padding: 5px 10px;
+    color: #fff;
+    display: none;       
+}
+.search-sticky .header a:hover{
+    background-color: #0397d6;
+    color: #fff;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+.search-sticky .header a:hover:after{
+    display: inline-block;
+}
+
+.search-sticky .search-box-x{
+    grid-template-rows: repeat(4,0.5fr);
+    grid-template-columns:auto;
+    grid-column-gap:5px;
+    box-shadow: 1px 1px 5px #cc8c18;
+    margin: 1rem 5%;
+    padding: 5%5% 0 2.5%;
+    width: 90%;
+    border-radius: 10px;
+}
+
+.search-sticky .search-box-x .input-box {
+    grid-column-start:3;
+}
+
+.search-sticky .search-box-x .date-select-box{
+    width: 100%;
+    grid-column-start:3;
+    grid-row-start:2;
+}
+.search-sticky .search-box-x .select-box{
+    grid-column-start:3;
+    grid-row-start:3;
+}
+.search-sticky .search-box-x .footer{
+    grid-column-start:3;
+    grid-row-start:4;
+}
+
+.cart-wrapper{
+    /*width: 80%;*/
+    margin: 2rem 8% 0 0;
+    padding: 1rem;
+}
+
+.main h2,h3{
+
+    text-align: center;
+    color: #cc8c18;
+    letter-spacing: 2px;
+    margin: 10px 0;
+}
+.main h2{
+    font-size: 24px;
+}
+.main h3{
+    font-size: 18px;
+}
+
+.main .cart-wrapper .picked-room{
+    position: relative;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, .3);
+}
+
+
+.main .cart-wrapper .close-btn,.main .service-item .close-btn{
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 0;
+    box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, .2);
+    opacity: 0.3;
+    transition: 0.5s;
+}
+
+.main .cart-wrapper .picked-room .quantity{
+    margin-top: 20px;
+}
+
+.main .cart-wrapper .picked-room .card-price{
+    margin-bottom: 10px;
+}
+
+
+.main .cart-wrapper .close-btn:hover,
+.cart-wrapper .picked-room:hover .close-btn,
+.service-wrapper .service-item:hover .close-btn
+{
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+
+.service-wrapper .service-item{
+    position: relative;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin-top: 10px;
+    place-items: center;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.service-item .setbox{
+    max-width: 120px;
+}
+
+.service-item>div{
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+    padding-right: 10px;
+}
+.service-item>div:first-child{
+    border: none;
+}
+
+.service-item>div:nth-child(2){
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    padding-left: 10px;
+}
+
+.service-item .setbox .btn,.main .cart-wrapper .btn{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 24px;
+    padding: 0;
+    box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, .5);
+}
+
+.main .cart-wrapper input{
+    width: 55px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.service-wrapper .service-item .label{
+    text-align: center;
+}
+
+.card-price .unit{
+    margin-left: 5px;
+}
+
+
+
+
+
+.main .cart-wrapper .close-btn:hover{
+    color: red;
+}
+
+.main>.footer,.main .aside>.footer{
+    position: sticky;
+    top: 10px;
+    margin-right: 10%;
+    font-size: 28px !important;
+    margin-top: 5rem;
+    font-weight: 600;
+    border-top: 2px solid rgba(0, 0, 0, 1.0);
+    height: 200px;
+    padding: 10px 5%;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, .3);
+}
+.main .aside>.footer{
+    margin-top: 0px;
+}
+
+.main>.footer div:nth-child(4),.main .aside>.footer :nth-child(4){
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid rgba(0, 0, 0, .8);
+}
+
+.main>.footer div:nth-child(5),.main .aside>.footer :nth-child(5){
+    width: 80px;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 70%;
+}

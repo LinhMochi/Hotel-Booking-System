@@ -22,32 +22,17 @@ import Model.User;
  * @author Nhat Anh
  */
 public class CustormerBookingDAO {
-    private Connection conn;
+
+    private Connection conn = new DBcontext().getConnection();
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
 
-    public static void main(String[] args) throws Exception {
-//        Room room = new Room(7, "1", "jasl.png", 5, 5, 5, 5, "123", "nam dinh no 1", "vua edit", 2);
-//        new Bean().updateRoom(room);
-//        Room a = new Bean().getRoomByHotelId(7);
-//        Service service = new Bean().getServiceByID("1");
-//        service.setName("bean vua edit");
-
-//        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
-//        Date from =  Date.valueOf("2022-06-13") ;
-//        Date to =  Date.valueOf("2022-06-13") ;
-//        
-//        Service service = new Service(3, "bvean vua edit",from, to, 1000, "VND", "2022-06-13 17:15:00", 2, 2);
-//        new Bean().updateServices(service);
-
-    }
-
+ 
     //------------------------USER--------------------------------
-    public ArrayList<User> getCustomerOfHotelWithTimes() {
-        // lay all customer
-        ArrayList<User> listAllCustomer = new CustormerBookingDAO().getAllCustomer();
-        // list ket qua 
+ 
+
+    public ArrayList<User> getAllCustomerByHotelId(int hotelId) {
         ArrayList<User> list = new ArrayList<>();
         // list temp  (bang tam )
         ArrayList<User> temp = new ArrayList<>();
@@ -90,28 +75,26 @@ public class CustormerBookingDAO {
         ArrayList<User> list = new ArrayList<>();
         query = "with temps as (select userId, hotelId from Reservations )\n"
                 + "\n"
-                + "select s.id , fullName, gender , dob ,\n"
-                + "email ,address ,avatar ,phoneNumber ,password ,\n"
-                + "role , status , t.hotelId  from users s join temps t on s.id = t.userId\n"
-                + "where s.role = 'customer'";
+                + "select s.id , fullName, gender , dob ,email ,address ,avatar ,phoneNumber ,password , role , status , t.noBook  from users s inner join temps t on s.id = t.userId";
         try {
             conn = new DBcontext().getConnection();
             ps = conn.prepareStatement(query);
+            ps.setInt(1, hotelId);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(new User(rs.getInt("id"),
-                        rs.getString("fullName"),
-                        rs.getInt("gender"),
-                        rs.getDate("dob"),
-                        rs.getString("email"),
-                        rs.getString("address"),
-                        rs.getString("avatar"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("password"),
-                        rs.getString("role"),
-                        rs.getString("status"),
-                        rs.getInt("hotelId")
+                list.add(new User(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getDate(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11),
+                        rs.getInt(12)
                 ));
             }
         } catch (Exception e) {
@@ -120,18 +103,30 @@ public class CustormerBookingDAO {
 
         return list;
     }
-
-
-
-}
-
-
-class demo {
-
-    public static void main(String[] args) {
-        for(User u : new CustormerBookingDAO().getCustomerOfHotelWithTimes()) {
-            
-            System.out.println(u.toString());
+    
+    
+    public int countCustByHotelId(int hotelId){
+        String sql = "select distinct Count(userId) as countCust  FROM Reservations where hotelId = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,hotelId);
+            rs = ps.executeQuery();
+            if(rs.next()) return rs.getInt(1);
+        } catch (SQLException ex) {
+             
         }
+    return 0;
     }
+
 }
+
+
+// class demo {
+
+//     public static void main(String[] args) {
+//         for(User u : new CustormerBookingDAO().getCustomerOfHotelWithTimes()) {
+            
+//             System.out.println(u.toString());
+//         }
+//     }
+// }

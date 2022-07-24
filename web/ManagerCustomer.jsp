@@ -60,7 +60,7 @@
     <body>
         <div class="container mt-5 mx-auto card border-none shadow-lg overflow-hidden">
             <div class="mt-2 mx-4">
-                <h3>Manager Customer</h3>
+                <h3>Manager Customer ${list.get(0).getFullName()}</h3>
             </div>
             <div class="mt-2">
                 <table class="table table-borderless table-hover my-2">
@@ -69,29 +69,27 @@
                             <th scope="col">ID</th>
                             <th scope="col">Avatar</th>
                             <th scope="col">Full Name</th>
-                            <th scope="col">Dob</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Hotel</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone number</th>
                             <th scope="col">Times</th>
                             <th scope="col">Action</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="o" items="${list}">
+                       <c:forEach var="o" items="${list}">
                             <tr>
                                 <th scope="row">${o.id}</th>
                                 <td><img src="${o.avatar}" class="w-100 rounded" style="height: 50px ; object-fit: cover;"></td>
                                 <td>${o.fullName}</td>
-                                <td>${o.dob}</td>
-                                <td>${o.address}</td>
-                                <c:forEach var="h" items="${listHotel}">
-                                    <c:if test="${o.hotelId == h.id}">
-                                        <td>${h.name}</td>
-                                    </c:if>
-                                </c:forEach>
+                                <td>${o.email}</td>
+                                <td>${o.phoneNumber}</td>
                                 <td>${o.times}</td>
-                                <td><i class="fa-solid fa-eye text-primary me-2"></i> <i class="fa-solid fa-pen-to-square text-warning me-2"></i> <i class="fa-solid fa-trash-can text-danger"></i> </td>
+                                        <td>
+                                            <i class="fa-solid fa-eye text-primary me-2"></i> 
+                                            <i class="fa-solid fa-pen-to-square text-warning me-2"></i> 
+                                            <i class="fa-solid fa-trash-can text-danger"></i> 
+                                        </td>
                             </tr>
                         </c:forEach>
                     </tbody>

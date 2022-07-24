@@ -21,6 +21,7 @@
         <link rel="stylesheet" type="text/css" href="css/hoteldetail-style.css">
     </head>
     <body>
+        <c:set scope="request" value="hoteldetail" var="p"/>
         <header id="top" class="header nav-top">
             <jsp:include page="component/nav-top.jsp"/>
         </header>
@@ -36,7 +37,7 @@
             });
         </script>
         <div class="search-wrapper flex-center">
-            <c:set scope="request" value="hoteldetail" var="p"/>
+
             <jsp:include page="component/search-box.jsp">
                 <jsp:param name="p" value="hoteldetail"/>
             </jsp:include>
@@ -67,10 +68,10 @@
         <jsp:include page="component/message.jsp"></jsp:include>
             <div id="gallery" class="gallery">
             <c:if test="${not empty sessionScope.homegallery}">
-                <c:forEach var="pic" begin="0" end="6">
-                    <div class="gallery-item gallery-${pic+1}">
-                        <img src="${sessionScope.homegallery.get(pic).image}" alt="${sessionScope.homegallery.get(pic).title}">
-                        <c:if test = "${sessionScope.homegallery.size()>7&&pic==6}">
+                <c:forEach var="pic" items="${sessionScope.homegallery}" varStatus="vs" end = "6">
+                    <div class="gallery-item gallery-${vs.index+1}">
+                        <img src="${pic.image}" alt="${pic.title}">
+                        <c:if test = "${sessionScope.homegallery.size()>7&&vs.index==6}">
                             <div class="number-gallery flex-center">+${sessionScope.homegallery.size() - 7} ảnh</div>
                         </c:if>
                     </div>
@@ -84,7 +85,7 @@
                         <h2>Bộ sưu tập</h2>
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </header>
-                    <div class="empty-cart flex-center <c:if test="${empty sessionScope.homegallery}">hidden</c:if>  ">
+                    <div class="empty-cart flex-center <c:if test="${not empty sessionScope.homegallery}">hidden</c:if>  ">
                         <div>
                             <i class="fa fa-archive" aria-hidden="true"></i>
                         </div>
@@ -285,7 +286,7 @@
                     <c:set var="homepromotion" value="${sessionScope.promotion}"/>
 
                     <c:forEach var="room" varStatus="status" items="${sessionScope.availableRoom}">
-                        <div class="card-ex grid-3">
+                        <div class="card-ex grid-3" id = "${room.id}">
                             <div class="card-image"><img src="${room.image}" alt="${room.name}"></div>
                             <div class="card-contain">
                                 <div class="card-header">
@@ -330,8 +331,8 @@
                                         </c:if>
                                 </div>
                                 <div>
-                                    <div class="btn pick-room">Thêm vào giỏ</div>
-                                    <div class="btn pick-room">Đặt ngay</div>  
+                                    <div class="btn add-cart pick-room">Thêm vào giỏ</div>
+                                    <div class="btn book-now pick-room">Đặt ngay</div>  
                                 </div>
 
 
@@ -388,11 +389,11 @@
             </div>
         </div>
 
-        <div id="service" class="service-wrapper">
-            <h3>Dịch vụ kèm theo</h3>
-            <div class="service-container">
+        <div id="service" class="service-wrapper <c:if test="${empty sessionScope.availableService}">hidden</c:if>">
+                <h3>Dịch vụ kèm theo</h3>
+                <div class="service-container">
                 <c:forEach items="${sessionScope.availableService}" var="service">
-                    <div class="service-item">
+                    <div class="service-item" id="${service.id}">
                         <div class="service-name">${service.name}</div>
                         <div class="quantity">
                             <div class="label">Số lượng</div>
@@ -401,7 +402,7 @@
                                     -
                                 </div>
                                 <div class="quan">
-                                    <input type="number" name="quantity" value="0">
+                                    <input type="number" name="quantity" value="1">
                                 </div>
                                 <div class="btn inc flex-center">
                                     +
@@ -422,6 +423,33 @@
 
         </script>
         <script type="text/javascript">
+            let room_list = document.querySelector("#room .room-wrapper-container");
+
+            if (room_list != null)
+                room_list.querySelectorAll('.card-ex').forEach((r) => {
+                    let addbtn = r.querySelector('.add-cart');
+                    let bookbtn = r.querySelector('.book-now');
+                    console.log(r.id);
+                    addbtn.addEventListener('click', () => {
+                        let newForm = document.createElement("form");
+                        newForm.classList.toggle("temp_form");
+                        newForm.method = "POST";
+                        newForm.action = "AddCart?add=room&id=" + r.id + "&quan=" + 1 + "&p=hoteldetail";
+                        room_list.appendChild(newForm);
+                        newForm.submit();
+                    });
+
+                    bookbtn.addEventListener('click', () => {
+                        let newForm = document.createElement("form");
+                        newForm.classList.toggle("temp_form");
+                        newForm.method = "POST";
+                        newForm.action = "AddCart?add=room&id=" + r.id + "&quan=" + 1;
+                        room_list.appendChild(newForm);
+                        newForm.submit();
+                    });
+                });
+
+
             let service_list = document.querySelector('.service-wrapper .service-container');
             if (service_list !== null) {
                 service_list.querySelectorAll('.service-item').forEach((service_item) => {
@@ -447,7 +475,7 @@
                         let newForm = document.createElement("form");
                         newForm.classList.toggle("temp_form");
                         newForm.method = "POST";
-                        newForm.action = "#?id=" + 1 + "&quantity=" + 1;
+                        newForm.action = "AddCart?add=service&id=" + service_item.id + "&quan=" + quan.value + "&p=hoteldetail";
                         service_item.appendChild(newForm);
 
                         // console.log(document.querySelector('form.temp_form'));
@@ -458,9 +486,9 @@
         </script>
 
         <c:set var="ic" value="-1"/>
-        <div id="convenient" class="convenient-wrapper">
-            <h2>Tiện ích của chúng tôi</h2>
-            <div class="convenient-contain">
+        <div id="convenient" class="convenient-wrapper <c:if test="${empty sessionScope.convenience}">hidden</c:if>">
+                <h2>Tiện ích của chúng tôi</h2>
+                <div class="convenient-contain">
                 <c:forEach items="${sessionScope.convenience}" var="con" varStatus="i">
                     <c:if test="${con.categoryId!=ic}">
                         <c:set var="ic" value="${con.categoryId}"/>
@@ -480,9 +508,9 @@
             </div>
         </div>
         <c:set var="isp" value="-1"/>
-        <div id="suggest-place" class="suggest-places-wrapper">
-            <h2>Xung quanh khách sạn</h2>
-            <div class="suggest-place-contain">
+        <div id="suggest-place" class="suggest-places-wrapper <c:if test="${empty sessionScope.hotelsp}">hidden</c:if>">
+                <h2>Xung quanh khách sạn</h2>
+                <div class="suggest-place-contain">
                 <c:forEach items="${sessionScope.hotelsp}" var="sgp" varStatus="i">
                     <c:if test="${sgp.category!=isp}">
                         <c:set var="isp" value="${sgp.category}"/>

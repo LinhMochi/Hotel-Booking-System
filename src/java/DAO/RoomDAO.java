@@ -8,6 +8,7 @@ package DAO;
 import DBcontext.DBcontext;
 import Model.Room;
 import Model.Search;
+import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -82,7 +83,7 @@ public class RoomDAO {
         return list;
     }
     
-    
+
     
     
     public ArrayList<Room> getRoomByHotelId(int hotelId){
@@ -136,7 +137,17 @@ public class RoomDAO {
     }
     
     
-    
+    public void removeRoom(int id) {
+        query = "DELETE FROM RoomTypes WHERE id = ?";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+    }
     
     
     
@@ -156,7 +167,8 @@ public class RoomDAO {
     }
     
     public boolean updateRoom(Room r){
-        sql = "UPDATE Roomtypes SET roomType = ?, image = ?, quantity = ?, price = ?, maxAdults = ?, maxChild=?, bed = ?, area = ?, desciption=?,hotelId=?";
+        sql = "UPDATE Roomtypes SET roomType = ?, image = ?, quantity = ?, price = ?, maxAdults = ?, maxChild=?, bed = ?, area = ?, description = ?,hotelId = ?\n"
+         +"WHERE id = ?";       
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, r.getName());
@@ -169,6 +181,7 @@ public class RoomDAO {
             ps.setString(8, r.getArea());
             ps.setString(9, r.getDescription());
             ps.setInt(10, r.getHotelId());
+            ps.setInt(11, r.getId());
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -228,4 +241,231 @@ public class RoomDAO {
 
         return list;
     }
+
+
+
+public ArrayList<Room> getRoom(int hotelId,String input,String page, int numOfElement) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int start = numOfElement * currentPage - numOfElement;
+        ArrayList<Room> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM RoomTypes WHERE hotelId = ? and roomType like ? ORDER BY id ASC \n" +
+"                                     OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY    ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            ps.setString(2, "%" + input + "%");
+            ps.setInt(3, start);
+            ps.setInt(4, numOfElement);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Room(rs.getInt(1),
+                       rs.getString(2),
+                       rs.getString(3),
+                       rs.getInt(4),
+                       rs.getDouble(5)*1000000,
+                       rs.getInt(6),
+                       rs.getInt(7),
+                       rs.getString(8),
+                       rs.getString(9),
+                       rs.getString(10),
+                       rs.getInt(11)));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+public ArrayList<Room> searchAllRoomByName(String input,String page, int numOfElement) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int start = numOfElement * currentPage - numOfElement;
+        ArrayList<Room> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM RoomTypes WHERE \n"
+                    + "roomType like ? ORDER BY id ASC \n" +
+"                                     OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY    ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            
+            ps.setString(1, "%" + input + "%");
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Room(rs.getInt(1),
+                       rs.getString(2),
+                       rs.getString(3),
+                       rs.getInt(4),
+                       rs.getDouble(5)*1000000,
+                       rs.getInt(6),
+                       rs.getInt(7),
+                       rs.getString(8),
+                       rs.getString(9),
+                       rs.getString(10),
+                       rs.getInt(11)));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+public ArrayList<Room> searchAllRoomByHotelId(int htID,String page, int numOfElement) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int start = numOfElement * currentPage - numOfElement;
+        ArrayList<Room> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM RoomTypes WHERE \n"
+                    + "hotelId = ? ORDER BY id ASC \n" +
+"                                     OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY    ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            
+            ps.setInt(1, htID);
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Room(rs.getInt(1),
+                       rs.getString(2),
+                       rs.getString(3),
+                       rs.getInt(4),
+                       rs.getDouble(5)*1000000,
+                       rs.getInt(6),
+                       rs.getInt(7),
+                       rs.getString(8),
+                       rs.getString(9),
+                       rs.getString(10),
+                       rs.getInt(11)));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+
+
+
+
+
+public ArrayList<Room> getAllRoomAllHotel(String page, int numOfElement) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int start = numOfElement * currentPage - numOfElement;
+        ArrayList<Room> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM RoomTypes  ORDER BY id ASC \n" +
+"                                     OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY    ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+//            ps.setInt(1, hotelId);
+            ps.setInt(1, start);
+            ps.setInt(2, numOfElement);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Room(rs.getInt(1),
+                       rs.getString(2),
+                       rs.getString(3),
+                       rs.getInt(4),
+                       rs.getDouble(5)*1000000,
+                       rs.getInt(6),
+                       rs.getInt(7),
+                       rs.getString(8),
+                       rs.getString(9),
+                       rs.getString(10),
+                       rs.getInt(11)));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+      public ArrayList<Room> GetAllSearchRoom(String input){
+        sql = "SELECT * FROM RoomTypes WHERE roomType like ?";
+        list = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement(sql);
+             ps.setString(1, "%" + input + "%");
+            rs = ps.executeQuery();
+           
+            while(rs.next()){
+               Room r = new Room(rs.getInt(1),
+                       rs.getString(2),
+                       rs.getString(3),
+                       rs.getInt(4),
+                       rs.getDouble(5)*1000000,
+                       rs.getInt(6),
+                       rs.getInt(7),
+                       rs.getString(8),
+                       rs.getString(9),
+                       rs.getString(10),
+                       rs.getInt(11));
+               list.add(r);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+      
+      
+      
+        public ArrayList<Room> GetAllSearchRoomByHotelId(String input){
+        sql = "SELECT * FROM RoomTypes WHERE hotelId like ?";
+        list = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement(sql);
+             ps.setString(1, "%" + input + "%");
+            rs = ps.executeQuery();
+           
+            while(rs.next()){
+               Room r = new Room(rs.getInt(1),
+                       rs.getString(2),
+                       rs.getString(3),
+                       rs.getInt(4),
+                       rs.getDouble(5)*1000000,
+                       rs.getInt(6),
+                       rs.getInt(7),
+                       rs.getString(8),
+                       rs.getString(9),
+                       rs.getString(10),
+                       rs.getInt(11));
+               list.add(r);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+      
+    
+
+    
+//    public static void main(String [] args) throws SQLException, IOException{
+//     new RoomDAO().searchAllRoomByName("","1", 8).size()
+//    }
+
+
 }

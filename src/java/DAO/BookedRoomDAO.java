@@ -8,6 +8,7 @@ package DAO;
 import DBcontext.DBcontext;
 import Model.BookedRoom;
 import Model.Room;
+import Model.Search;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -124,13 +125,125 @@ public class BookedRoomDAO {
 
         return list;
     }
+
+    public BookedRoom getBookedRoom(int roomId, int quantity, int hotelId, Date arrival, Date department) {// get picked room 
+        sql = "WITH BookedRoomOfHotel AS(SELECT * FROM Reservations WHERE hotelId = ?), \n"
+                + "BookedRooms AS(SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, BookedRoomOfHotel r\n"
+                + "WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival > ? AND arrival < ?)\n"
+                + "OR(department>? AND department<?)OR (arrival<= ? AND department>= ?))\n"
+                + "GROUP BY roomId\n"
+                + "),AvailableRooms AS(SELECT id,roomType,[image],(quantity-isnull(booked,0)) as available\n"
+                + ",price,maxAdults,maxChild,bed,area,[description],hotelId \n"
+                + "FROM RoomTypes rt left join BookedRooms br on rt.id = br.roomId WHERE rt.hotelId = ?),\n"
+                + "CurrentPromotion AS (SELECT rp.*,hp.discount FROM HotelPromotions hp \n"
+                + "inner join RoomPromotion rp on hp.id = rp.promotionid WHERE hp.hotelId = ? AND hp.[from]<= ? AND hp.[to]>=?)\n"
+                + "SELECT ar.* , isnull(cp.promotionid, 0) as promotionId,isnull(discount,0) as discount FROM AvailableRooms ar left join CurrentPromotion cp \n"
+                + "on ar.id = cp.roomid WHERE available>=? AND ar.id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            ps.setDate(2, arrival);
+            ps.setDate(3, department);
+            ps.setDate(4, arrival);
+            ps.setDate(5, department);
+            ps.setDate(6, arrival);
+            ps.setDate(7, department);
+            ps.setInt(8, hotelId);
+            ps.setInt(9, hotelId);
+            ps.setDate(10, arrival);
+            ps.setDate(11, department);
+
+            ps.setInt(12, quantity);
+            ps.setInt(13, roomId);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new BookedRoom(new Room(rs.getInt(1), rs.getString(2), rs.getString(3), quantity, rs.getDouble(5) * 1000000, rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getInt(12)), rs.getDouble(13));
+            }
+        } catch (SQLException ex) {
+            return null;
+        }
+        return null;
+    }
+
+    public boolean checkQuanRoom(int roomId, int quantity, int hotelId, Date arrival, Date department) {
+        sql = "WITH BookedRoomOfHotel AS(SELECT * FROM Reservations WHERE hotelId = ?), \n"
+                + "BookedRooms AS(SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, BookedRoomOfHotel r\n"
+                + "WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival > ? AND arrival < ?)\n"
+                + "OR(department>? AND department<?)OR (arrival<= ? AND department>= ?))\n"
+                + "GROUP BY roomId\n"
+                + "),AvailableRooms AS(SELECT id,roomType,[image],(quantity-isnull(booked,0)) as available\n"
+                + ",price,maxAdults,maxChild,bed,area,[description],hotelId \n"
+                + "FROM RoomTypes rt left join BookedRooms br on rt.id = br.roomId WHERE rt.hotelId = ?),\n"
+                + "CurrentPromotion AS (SELECT rp.*,hp.discount FROM HotelPromotions hp \n"
+                + "inner join RoomPromotion rp on hp.id = rp.promotionid WHERE hp.hotelId = ? AND hp.[from]<= ? AND hp.[to]>=?)\n"
+                + "SELECT ar.* , isnull(cp.promotionid, 0) as promotionId,isnull(discount,0) as discount FROM AvailableRooms ar left join CurrentPromotion cp \n"
+                + "on ar.id = cp.roomid WHERE available>=? AND ar.id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hotelId);
+            ps.setDate(2, arrival);
+            ps.setDate(3, department);
+            ps.setDate(4, arrival);
+            ps.setDate(5, department);
+            ps.setDate(6, arrival);
+            ps.setDate(7, department);
+            ps.setInt(8, hotelId);
+            ps.setInt(9, hotelId);
+            ps.setDate(10, arrival);
+            ps.setDate(11, department);
+
+            ps.setInt(12, quantity);
+            ps.setInt(13, roomId);
+
+            rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+
+    public boolean checkSearchChange(ArrayList<BookedRoom> roomcart, int hotelId, Search search) {
+        for (BookedRoom br : roomcart) {
+            if (!checkQuanRoom(br.getId(), br.getQuantity(), hotelId, search.getArrival(), search.getDepartment())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public ArrayList<BookedRoom> getBookedRoomByReId(int reId) {
+        list = new ArrayList<BookedRoom>();
+
+        sql = "WITH bookedRoom as (SELECT * FROM ReservationRoom WHERE reservationId = ?)\n"
+                + "SELECT br.*,rt.* FROM bookedRoom br inner join RoomTypes rt on br.roomId =rt.id";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reId);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                    list.add(new BookedRoom(new Room(rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(2), rs.getDouble(3)*1000000, rs.getInt(12), rs.getInt(13), rs.getString(14), rs.getString(15), rs.getString(16), rs.getInt(17)), rs.getDouble(6), reId));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
 }
+
 //class demo {
 //    public static void main(String[] args) {
 //        String current = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date(System.currentTimeMillis()));
-//        ArrayList<BookedRoom> list = new BookedRoomDAO().getMaxPromotion("2,3,4",Date.valueOf(current),Date.valueOf(current));
-//        
-//        for(BookedRoom br: list){
+////        ArrayList<BookedRoom> list = new BookedRoomDAO().getMaxPromotion("2,3,4",Date.valueOf(current),Date.valueOf(current));
+////        
+////        for(BookedRoom br: list){
+////            System.out.println(br.getId()+" "+ br.getHotelId()+" "+br.getPrice()+" "+br.getDiscount());
+////        }
+////        System.out.println(new BookedRoomDAO().checkQuanRoom(1, 4, 2, Date.valueOf(current),Date.valueOf(current)));
+//     ArrayList<BookedRoom> lis = new BookedRoomDAO().getBookedRoomByReId(1);
+//     for(BookedRoom br: lis){
 //            System.out.println(br.getId()+" "+ br.getHotelId()+" "+br.getPrice()+" "+br.getDiscount());
 //        }
 //    }

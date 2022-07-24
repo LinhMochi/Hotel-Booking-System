@@ -5,8 +5,10 @@
  */
 package Controller;
 
+import DAO.HotelDAO;
 import DAO.ReservationDAO;
 import Model.Reservation;
+import Model.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Linh
  */
-@WebServlet(name = "ManagerReservationListController", urlPatterns = {"/managerreservationlist"})
+@WebServlet(name = "ManagerReservationListController", urlPatterns = {"/managerreservationlist","/manage/reservation"})
 public class ManagerReservationListController extends HttpServlet {
 
     /**
@@ -37,6 +39,8 @@ public class ManagerReservationListController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+/*       
         try {
             String email = request.getParameter("email");
             String textSearchHotel = request.getParameter("textSearchHotel");
@@ -51,7 +55,7 @@ public class ManagerReservationListController extends HttpServlet {
             }
             ReservationDAO rd = new ReservationDAO();
             ArrayList<Reservation> listReservation = rd.getReservations(page, textSearchHotel, email);
-            int numberOfPage = rd.countReservation() % 5 == 0 ? rd.countReservation() / 5 : rd.countReservation() / 5 + 1;
+            int numberOfPage = rd.countReservationWithEmail(email) % 5 == 0 ? rd.countReservationWithEmail(email) / 5 : rd.countReservationWithEmail(email) / 5 + 1;
             request.setAttribute("listReservation", listReservation);
             request.setAttribute("numberOfPage", numberOfPage);
             request.setAttribute("page", Integer.parseInt(page));
@@ -59,6 +63,35 @@ public class ManagerReservationListController extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ManagerReservationListController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+*/      
+        
+            
+            User user = new User(4, "Phi Thiên Lý", "sanji123@gmail.com", "0312789456");
+//                    (User) request.getSession().getAttribute(("user"));
+            int hotelId = 2;
+//                    (int) request.getAttribute("hotelId");
+            
+            ReservationDAO rDAO = new ReservationDAO();
+            
+            boolean isManage = new HotelDAO().isManager(user.getId(),hotelId);
+            
+            
+            if(!isManage) {
+                request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
+            }else{
+                int page = 0;
+                String p = request.getParameter("page");
+                page = (p!=null)?Integer.parseInt(p):1;
+                int endpage = rDAO.countReservationByHotelId(hotelId) / 5;
+                
+                request.setAttribute("relist", rDAO.getListReservationByHotelId(page, hotelId));
+                request.setAttribute("endpage", endpage);
+                request.setAttribute("page", page);
+                request.getSession().setAttribute("user",user);
+                request.getRequestDispatcher("ListReservation.jsp").forward(request, response);
+            }
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,6 +107,7 @@ public class ManagerReservationListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+//        request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
     }
 
     /**

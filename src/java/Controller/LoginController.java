@@ -56,7 +56,7 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 } else if (user.getRole().equals("Admin")) {
                     session.setAttribute("user", user);
-                    response.sendRedirect("HomeAdmin.jsp");
+                    response.sendRedirect("admindashboard");
                 } else if (user.getRole().equals("Manager")||user.getRole().equals("Customer")) {
                     session.setAttribute("user", user);
                     session.setAttribute("password", password);
@@ -81,7 +81,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
             response.setContentType("text/html;charset=UTF-8");
-            request.setAttribute("message", "na");
+//            request.setAttribute("message", "na");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 

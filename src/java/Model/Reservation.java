@@ -45,6 +45,33 @@ public class Reservation {
         this.hotel = hotel;
     }
 
+    public Reservation(int id, int adult, int child, int noRoom, String bookDate, Date arrival, Date department, String status, User user) {
+        this.id = id;
+        this.adult = adult;
+        this.child = child;
+        this.noRoom = noRoom;
+        this.bookDate = bookDate;
+        this.arrival = arrival;
+        this.department = department;
+        this.status = status;
+        this.user = user;
+    }
+
+    public Reservation(int id, int adult, int child, int noRoom, String bookDate, Date arrival, Date department, String status, Hotel hotel) {
+        this.id = id;
+        this.adult = adult;
+        this.child = child;
+        this.noRoom = noRoom;
+        this.bookDate = bookDate;
+        this.arrival = arrival;
+        this.department = department;
+        this.status = status;
+        this.hotel = hotel;
+    }
+    
+    
+    
+
     public int getId() {
         return id;
     }
@@ -83,6 +110,10 @@ public class Reservation {
 
     public void setBookDate(String bookDate) {
         this.bookDate = bookDate;
+    }
+    
+     public String parseTime(){
+        return (new Model.SubTime().subTime(bookDate));
     }
 
     public Date getArrival() {
@@ -126,7 +157,9 @@ public class Reservation {
     }
 
     
-    
+    public boolean isPending(){
+        return status.equals("Pending");
+    }
     
     
 }

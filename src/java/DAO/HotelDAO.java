@@ -29,9 +29,9 @@ public class HotelDAO {
     private ResultSet rs;
     private String query;
 
-    public static void main(String[] args) {
-        new HotelDAO().editHotel(23, "beanvuaedit lai", 1, "abc", "abc", "abvc", "abc", "avc", "123", "active", "aaa", 1, 1, "abc");
-    }
+//    public static void main(String[] args) {
+//        new HotelDAO().editHotel(23, "beanvuaedit lai", 1, "abc", "abc", "abvc", "abc", "avc", "123", "active", "aaa", 1, 1, "abc");
+//    }
 
     public ArrayList<Hotel> getAllHotel() {
 
@@ -289,8 +289,8 @@ public class HotelDAO {
     public ArrayList<Hotel> getSuggestHotel() {
         ArrayList<Hotel> list = new ArrayList<>();
         String sql = "WITH AvenrageScore AS(\n"
-                + "	SELECT h.id as hotelId, AVG(ISNULL(hr.score,0)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id\n"
-                + "	left join HotelRating hr on r.id = hr.reservationId GROUP BY h.id\n"
+                + "SELECT h.id as hotelId, (SUM(ISNULL(hr.score,0))/ (CASE COUNT(hr.score) WHEN 0 THEN 1 ELSE COUNT(hr.score) END) ) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id\n"
+                + "left join HotelRating hr on r.id = hr.reservationId GROUP BY h.id\n"
                 + "),CountLike AS(\n"
                 + "	SELECT h.id as hotelId , COUNT(hl.id) as nolike FROM Hotels h LEFT JOIN HotelLikeLog hl ON h.id = hl.hotelId GROUP BY h.id\n"
                 + "),managerList AS(\n"
@@ -325,7 +325,7 @@ public class HotelDAO {
         String sql = "WITH BookedRooms AS(\n"
                 + "	SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, Reservations r\n"
                 + "	WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival >= ? AND arrival <= ?)\n"
-                + "	OR(department>=? AND department<=?) OR (arrival>= ? AND department<= ?))\n"
+                + "	OR(department>=? AND department<=?) OR (arrival<= ? AND department>= ?))\n"
                 + "	GROUP BY roomId\n"
                 + "), ListHotel AS(\n"
                 + "	SELECT h.id AS hotelId,CONCAT(h.[name],', ',h.[address]) AS [search] FROM Hotels h, Cities c WHERE h.cityId = c.id\n"
@@ -372,7 +372,7 @@ public class HotelDAO {
         String sql = "WITH BookedRooms AS(\n"
                 + "SELECT rr.roomId,SUM(rr.quantity) as booked FROM ReservationRoom rr, Reservations r\n"
                 + "WHERE r.id = rr.reservationId AND r.[status] <> 'Cancel' AND ((arrival >= ? AND arrival <= ?)\n"
-                + "OR(department>=? AND department<=?) OR (arrival>= ? AND department<= ?))\n"
+                + "OR(department>=? AND department<=?) OR (arrival<= ? AND department>= ?))\n"
                 + "GROUP BY roomId\n"
                 + "), ListHotel AS(\n"
                 + "SELECT h.id AS hotelId,CONCAT(h.[name],', ',h.[address]) AS [search] FROM Hotels h, Cities c WHERE h.cityId = c.id\n"
@@ -389,7 +389,7 @@ public class HotelDAO {
                 + "), \n"
                 + "countLike as (SELECT h.id as hotelId , COUNT(hl.id) as nolike FROM AvailableHotels h LEFT JOIN HotelLikeLog hl ON h.id = hl.hotelId GROUP BY h.id)\n"
                 + ",AvenrageScore AS(\n"
-                + "SELECT h.id as hotelId, AVG(ISNULL(hr.score,0)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join AvailableHotels h on r.hotelId = h.id\n"
+                + "SELECT h.id as hotelId, (SUM(ISNULL(hr.score,0))/ (CASE COUNT(hr.score) WHEN 0 THEN 1 ELSE COUNT(hr.score) END) ) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id\n"
                 + "left join HotelRating hr on r.id = hr.reservationId GROUP BY h.id\n"
                 + ")\n"
                 + "SELECT ah.*,cl.nolike,avs.noRate,avs.avgScore FROM AvailableHotels ah inner join countLike cl on ah.id = cl.hotelId inner join AvenrageScore avs ON ah.id = avs.hotelId;";
@@ -422,7 +422,7 @@ public class HotelDAO {
     public Hotel getHotelDetail(int hotelId) {
         String sql = "WITH countLike as (SELECT hotelId , COUNT(hl.id) as nolike FROM  HotelLikeLog hl WHERE hl.hotelId = ? GROUP BY hl.hotelId)\n"
                 + ",AvenrageScore AS(\n"
-                + "	SELECT h.id, AVG(ISNULL(hr.score,0)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id \n"
+                + "	SELECT h.id, (SUM(ISNULL(hr.score,0))/ (CASE COUNT(hr.score) WHEN 0 THEN 1 ELSE COUNT(hr.score) END)) AS avgScore, COUNT(hr.score) as noRate FROM Reservations r right join Hotels h on r.hotelId = h.id \n"
                 + "	left join HotelRating hr on r.id = hr.reservationId where h.id = ? GROUP BY h.id\n"
                 + ") \n"
                 + "SELECT h.*, cl.nolike, avs.noRate ,avs.avgScore FROM Hotels h inner join countLike cl on h.id = cl.hotelId inner join AvenrageScore avs on h.id = avs.id";
@@ -442,6 +442,20 @@ public class HotelDAO {
             Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new Hotel();
+    }
+    
+       public boolean isManager(int manageId, int hotelId){
+        String sql = "SELECT * FROM Manages where userId = ? AND hotelId = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,manageId);
+            ps.setInt(2,hotelId);
+            rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     public void editHotel(String name, int star, String decription, String hoteladvance, String policies, String map, String email, String phone, String status, String address, int city, int category, String image, int id, int i) {
@@ -464,6 +478,6 @@ public class HotelDAO {
 //            }
 ////            System.out.println(new HotelDAO().countAvailableHotel(new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-04"), 1, 0, 1)));
 //        }
-//        System.out.println(new HotelDAO().getHotelDetail(2).toString());
+//        System.out.println(new HotelDAO().getHotelByID(2).toString());
 //    }
 //}

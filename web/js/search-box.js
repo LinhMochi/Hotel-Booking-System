@@ -6,46 +6,66 @@
 
 
 // add envent to open drop box
-		 document.querySelectorAll('.drop-box').forEach(dropbox=>{
-		 	let droptitle = dropbox.querySelector('.drop-title');
-		 	let dropitems = dropbox.querySelector('.drop-items');
-		 	if(droptitle!==null) droptitle.addEventListener('click',()=>{
-		 		dropitems.classList.toggle('drop');
-		 	})
-		 })
+document.querySelectorAll('.drop-box:not(.disable)').forEach(dropbox => {
+    let droptitle = dropbox.querySelector('.drop-title');
+    let dropitems = dropbox.querySelector('.drop-items');
+    if (droptitle !== null)
+        droptitle.addEventListener('click', () => {
+//		 		dropitems.classList.toggle('drop');
+//                                if(!dropitems.classList.contains('drop')) 
+            dropitems.classList.toggle('hidden');
+        });
+});
+
+
+
+function dropboxenable(dropbox){
+    let droptitle = dropbox.querySelector('.drop-title');
+    let dropitems = dropbox.querySelector('.drop-items');
+    if (droptitle !== null)
+        droptitle.addEventListener('click', () => {
+//		 		dropitems.classList.toggle('drop');
+//                                if(!dropitems.classList.contains('drop')) 
+            dropitems.classList.toggle('hidden');
+        });    
+}
 // fill to input field and drop - title
 let selectbox = document.querySelector('.select-box');
 // set initial value
-selectbox.querySelectorAll('input').forEach(inputfield=>{
-	document.querySelector('.'+inputfield.classList[0]+'-show').querySelector('.number').innerHTML=inputfield.value;
-	document.querySelector('.'+inputfield.classList[0]+'-change').querySelector('.number').innerHTML=inputfield.value;
+selectbox.querySelectorAll('input').forEach(input_field => {
+    document.querySelector('.' + input_field.classList[0] + '-show').querySelector('.number').innerHTML = input_field.value;
+    document.querySelector('.' + input_field.classList[0] + '-change').querySelector('.number').innerHTML = input_field.value;
 });
 
-selectbox.querySelectorAll('input').forEach(inputfield=>{
-	let show = document.querySelector('.'+inputfield.classList[0]+'-show');
-	let change = document.querySelector('.'+inputfield.classList[0]+'-change');
-			
-	change.querySelector('.des').addEventListener('click',()=>{
-        if(!isEqualZero(inputfield)) {
+selectbox.querySelectorAll('input').forEach(input_field => {
+    let show = document.querySelector('.' + input_field.classList[0] + '-show');
+    let change = document.querySelector('.' + input_field.classList[0] + '-change');
 
-        } else{
-		--change.querySelector('.number').innerHTML;
-        	--show.querySelector('.number').innerHTML;
-		inputfield.value=change.querySelector('.number').innerHTML;
-		}
-        	});
+    change.querySelector('.des').addEventListener('click', () => {
+        console.log(input_field);
+        if (!isEqualZero(input_field)) {
+            console.log('=0');
+        } else {
+            --change.querySelector('.number').innerHTML;
+            --show.querySelector('.number').innerHTML;
+             input_field.value = change.querySelector('.number').innerHTML;
+//            console.log('des roi ,ma '+change.querySelector('.number').innerHTML);
+//            console.log(input_field.value);
+        }
+    });
 
-	change.querySelector('.inc').addEventListener('click',()=>{
-		++change.querySelector('.number').innerHTML;
-		++show.querySelector('.number').innerHTML;
-		inputfield.value=change.querySelector('.number').innerHTML;
-	});
-});	
-function isEqualZero(input){
-    if (input.value===0) {
-	console.log('can\' decrease!');
-	return false;
+    change.querySelector('.inc').addEventListener('click', () => {
+        ++change.querySelector('.number').innerHTML;
+        ++show.querySelector('.number').innerHTML;
+        input_field.value = change.querySelector('.number').innerHTML;
+    });
+});
+function isEqualZero(input) {
+    console.log("isEqualZero"+input.value);
+    if (input.value == 0) {
+        console.log('can\' decrease!');
+        return false;
     } else {
-	return true;
+        return true;
     }
 }

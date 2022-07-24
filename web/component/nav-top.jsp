@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="navbar flex-between">
     <div class="logo">
         <a href="../Hotel-Booking-System/home">
@@ -32,7 +33,8 @@
                 </div>
             </div>
         </div>
-        <div class="drop-box">
+        <c:set scope="page" var="cart" value="${sessionScope.cart}"/> 
+        <div class="drop-box <c:if test="${requestScope.p != \"hoteldetail\"}">hidden</c:if>">
             <div class="items cart flex-center drop-box-title">
                 <i class="fa fa-book" aria-hidden="true"></i>
                 <div class="title">Đặt trước</div>
@@ -42,177 +44,99 @@
                     <h2>Bạn đã chọn</h4>
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
-                <div class="empty-cart flex-center hidden ">
+                <div class="empty-cart flex-center <c:if test="${not empty cart}">hidden</c:if>">
                     <div>
                         <i class="fa fa-archive" aria-hidden="true"></i>
                     </div>
                     <div>Giỏ hàng trống</div>
                 </div>
-                <div class="section">
+                <div class="section <c:if test="${empty cart}">hidden</c:if>">
                     <h5>Phòng</h5>
                     <div class="content picked-room">
-                        <div class="item grid-3">
+                    <c:forEach var="bookedRoom" items="${cart.getBookedRooms()}">
+                        <div class="item grid-3" id = ${bookedRoom.getId()}>
                             <div class="card-image">
-                                <img src="https://img.freepik.com/free-photo/modern-luxury-bedroom-suite-bathroom-with-working-table_105762-1788.jpg?w=740&t=st=1656600751~exp=1656601351~hmac=390e78eea5672fe3ed62aa7cfc866770d2b27beadf489a7d1c1b2dc087620d46" alt="room">
+                                <img src="${bookedRoom.getImage()}" alt="${bookedRoom.getName()}">
                             </div>
                             <div class="card-contain">
                                 <div class="room-type">
-                                    Phòng đơn tiêu chuẩn
+                                    ${bookedRoom.getName()}
                                 </div>
-                                <div class="room-bed">1 giường kép - 1 giường đơn</div> 
+                                <div class="room-bed">${bookedRoom.getBed()}</div> 
                                 <div class="quantity flex-between flex-column">
                                     <div class="lable">Số lượng</div>
                                     <div class="setbox g-3-center">
                                         <div class="btn des flex-center">-</div>
-                                        <div class="quan"><input type="number" name = quantity /></div>
+                                        <div class="quan"><input type="number" name = quantity value="${bookedRoom.getQuantity()}" /></div>
                                         <div class="btn inc flex-center">+</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-price flex-ja-end flex-column">
                                 <div class="lable">Giá phòng</div>
-                                <div class="unit-price">100.000</div>
-                                <div class="curent-price">
-                                    100.000<span class="unit">đ/đêm</span>
-                                </div>
-                            </div>
-                            <div class="close-btn flex-center"><i class="fa fa-times" aria-hidden="true"></i></div>
-                        </div>
-                        <div class="item grid-3">
-                            <div class="card-image">
-                                <img src="https://img.freepik.com/free-photo/modern-luxury-bedroom-suite-bathroom-with-working-table_105762-1788.jpg?w=740&t=st=1656600751~exp=1656601351~hmac=390e78eea5672fe3ed62aa7cfc866770d2b27beadf489a7d1c1b2dc087620d46" alt="room">
-                            </div>
-                            <div class="card-contain">
-                                <div class="room-type">
-                                    Phòng đơn tiêu chuẩn
-                                </div>
-                                <div class="room-bed">1 giường kép - 1 giường đơn</div> 
-                                <div class="quantity flex-between flex-column">
-                                    <div class="lable">Số lượng</div>
-                                    <div class="setbox g-3-center">
-                                        <div class="btn des flex-center">-</div>
-                                        <div class="quan"><input type="number" name = quantity /></div>
-                                        <div class="btn inc flex-center">+</div>
+                                <c:if test="${bookedRoom.getDiscount() == 0}">    
+                                    <div class="curent-price">
+                                        <fmt:formatNumber type="number" pattern="###,###" value="${bookedRoom.getPrice()}"/><span class="unit">đ/đêm</span>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-price flex-ja-end flex-column">
-                                <div class="lable">Giá phòng</div>
-                                <div class="unit-price">100.000</div>
-                                <div class="curent-price">
-                                    100.000<span class="unit">đ/đêm</span>
-                                </div>
-                            </div>
-                            <div class="close-btn flex-center"><i class="fa fa-times" aria-hidden="true"></i></div>
-                        </div>
-                        <div class="item grid-3">
-                            <div class="card-image">
-                                <img src="https://img.freepik.com/free-photo/modern-luxury-bedroom-suite-bathroom-with-working-table_105762-1788.jpg?w=740&t=st=1656600751~exp=1656601351~hmac=390e78eea5672fe3ed62aa7cfc866770d2b27beadf489a7d1c1b2dc087620d46" alt="room">
-                            </div>
-                            <div class="card-contain">
-                                <div class="room-type">
-                                    Phòng đơn tiêu chuẩn
-                                </div>
-                                <div class="room-bed">1 giường kép - 1 giường đơn</div> 
-                                <div class="quantity flex-between flex-column">
-                                    <div class="lable">Số lượng</div>
-                                    <div class="setbox g-3-center">
-                                        <div class="btn des flex-center">-</div>
-                                        <div class="quan"><input type="number" name = quantity /></div>
-                                        <div class="btn inc flex-center">+</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-price flex-ja-end flex-column">
-                                <div class="lable">Giá phòng</div>
-                                <div class="unit-price">100.000</div>
-                                <div class="curent-price">
-                                    100.000<span class="unit">đ/đêm</span>
-                                </div>
+                                </c:if>
+                                <c:if test="${bookedRoom.getDiscount() > 0}">
+                                    <div class="unit-price"><fmt:formatNumber type="number" pattern="###,###" value="${bookedRoom.getPrice()}"/><</div>
+                                    <div class="curent-price">
+                                        <fmt:formatNumber type="number" pattern="###,###" value="${bookedRoom.getPrice()*(1-bookedRoom.getDiscount())}"/><<span class="unit">đ/đêm</span>
+                                    </div>                                    
+                                </c:if>
+                                
                             </div>
                             <div class="close-btn flex-center"><i class="fa fa-times" aria-hidden="true"></i></div>
-                        </div>
+                        </div> 
+                    </c:forEach>
                     </div>
                 </div>
-                <div class="section">
+                <div class="section <c:if test="${empty cart.getBookedServices()}">hidden</c:if> ">
                         <h5>Dịch vụ kèm theo</h5>
                         <div class="content picked-service">
-                        <div class="item grid-3 g-c">
+                        <c:forEach var="bookedS" items="${sessionScope.cart.getBookedServices()}">
+                          <div class="item grid-3 g-c" id = "${bookedS.id}">
                                 <div class="service">
-                                    Phục vụ bữa phụ
+                                    ${bookedS.name}
                                 </div>
                             <div class="quantity flex-between flex-column">
                                 <div class="lable">Số lượng</div>
                                 <div class="setbox g-3-center">
                                     <div class="btn des flex-center">-</div>
-                                    <div class="quan"><input type="number" name = quantity /></div>
+                                    <div class="quan"><input type="number" name = quantity value="${bookedS.quantity}" /></div>
                                     <div class="btn inc flex-center">+</div>
                                 </div>
                             </div>
                             <div class="card-price flex-ja-end flex-column">
                                 <div class="lable">Giá</div>
                                 <div class="curent-price">
-                                    100.000<span class="unit">đ/bữa</span>
+                                    <span class="unit"><fmt:formatNumber type="number" pattern="###,###" value="${bookedS.price}"/>${bookedS.unit}</span>
                                 </div>
                             </div>
                             <div class="close-btn flex-center"><i class="fa fa-times" aria-hidden="true"></i></div>
-                        </div>
-                        <div class="item grid-3 g-c">
-                                <div class="service">
-                                    Phục vụ bữa phụ
-                                </div>
-                            <div class="quantity flex-between flex-column">
-                                <div class="lable">Số lượng</div>
-                                <div class="setbox g-3-center">
-                                    <div class="btn des flex-center">-</div>
-                                    <div class="quan"><input type="number" name = quantity /></div>
-                                    <div class="btn inc flex-center">+</div>
-                                </div>
-                            </div>
-                            <div class="card-price flex-ja-end flex-column">
-                                <div class="lable">Giá</div>
-                                <div class="curent-price">
-                                    100.000<span class="unit">đ/bữa</span>
-                                </div>
-                            </div>
-                            <div class="close-btn flex-center"><i class="fa fa-times" aria-hidden="true"></i></div>
-                        </div>
-                        <div class="item grid-3 g-c">
-                                <div class="service">
-                                    Phục vụ bữa phụ
-                                </div>
-                            <div class="quantity flex-between flex-column">
-                                <div class="lable">Số lượng</div>
-                                <div class="setbox g-3-center">
-                                    <div class="btn des flex-center">-</div>
-                                    <div class="quan"><input type="number" name = quantity /></div>
-                                    <div class="btn inc flex-center">+</div>
-                                </div>
-                            </div>
-                            <div class="card-price flex-ja-end flex-column">
-                                <div class="lable">Giá</div>
-                                <div class="curent-price">
-                                    100.000<span class="unit">đ/bữa</span>
-                                </div>
-                            </div>
-                            <div class="close-btn flex-center"><i class="fa fa-times" aria-hidden="true"></i></div>
-                        </div>
+                        </div>  
+                        </c:forEach>
+                        
                     </div>
                 </div>
-                <div class="footer">
+                <div class="footer <c:if test="${empty cart}">hidden</c:if>">
                     <div class="toggle flex-center"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
                     <div class="contain flex-between">
                      <div class="card-price flex-ja-end flex-column">
-                                <div class="lable">Tổng tiền</div>
-                                <div class="unit-price">100.000</div>
-                                <div class="curent-price">100.000
-                                    <span class="unit">đ</span>
-                                </div>
+                     <c:if test="${not empty cart}">
+                        <div class="lable">Tổng tiền</div>
+                        <c:if test="${cart.getDiscountMoney()>0}">
+                            <div class="unit-price"><fmt:formatNumber type="number" pattern="###,###" value="${cart.getDiscountMoney()+cart.getTotal()}"/></div>
+                        </c:if>
+                        <div class="curent-price"><fmt:formatNumber type="number" pattern="###,###" value="${cart.getTotal()}"/>
+                               <span class="unit">đ</span>
+                        </div>
+                     </c:if>           
                     </div>
-                    <button type="button" class="btn">Đặt phòng</button>
+                        <button type="button" class="btn"><a href="../Hotel-Booking-System/reservationdetail">Đặt phòng</a></button>
                     </div>
                 </div>
-
             </div>
         </div>
         <c:choose>
@@ -235,7 +159,7 @@
                         <img src="${sessionScope.user.avatar}" alt="user">
                     </div>
                     <div class="drop-box-items hidden">
-                        <div class="drop-item">Thông tin cá nhân</div>
+                        <div class="drop-item"><a href="userprofile">Thông tin cá nhân</a></div>
                         <div class="drop-item">Đơn đặt phòng của tôi</div>
                         <div class="drop-item">Khách sạn yêu thích</div>
                         <div class="drop-item"><a href="../Hotel-Booking-System/logout">Đăng xuất</a></div>

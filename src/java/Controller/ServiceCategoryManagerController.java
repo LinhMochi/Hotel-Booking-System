@@ -7,14 +7,19 @@ package Controller;
 
 import DAO.ServiceCategoryDAO;
 import Model.ServiceCategory;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,15 +37,59 @@ public class ServiceCategoryManagerController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final int NUMBER_IMAGE = 10;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ServiceCategoryDAO scd = new ServiceCategoryDAO();
-            ArrayList<ServiceCategory> list = scd.getAllServiceCategories();
-            request.setAttribute("sclist", list);
-            request.getRequestDispatcher("serviceCategoryManager.jsp").forward(request, response);
+            HttpSession session = request.getSession();
+            User a = (User) session.getAttribute("user");
+            if (a != null) {
+                if (a.getRole().equals("Admin")) {
+                    String page;
+                    try {
+                        page = request.getParameter("page");
+                        if (page == null) {
+                            page = "1";
+                        }
+                    } catch (Exception e) {
+                        page = "1";
+                    }
+
+                    String search = request.getParameter("search");
+                    if (search == null) {
+                        search = "";
+                    }
+                    
+                    String num = request.getParameter("numberOfImage");
+                    if (num == null) {
+                        num = "5";
+                    }
+                    int NUMBER_IMAGE = Integer.parseInt(num);
+                    ServiceCategoryDAO scd = new ServiceCategoryDAO();
+                    int count = scd.getAllServiceCategories(search).size();
+                    int endPage = count / NUMBER_IMAGE;
+                    if (count % NUMBER_IMAGE != 0) {
+                        endPage++;
+                    }
+                    ArrayList<ServiceCategory> list = scd.getServiceCategories(search, page, NUMBER_IMAGE);
+                    response.getWriter().print(search);
+                    request.setAttribute("sclist", list);
+                    request.setAttribute("endPage", endPage);
+                    request.setAttribute("page", page);
+                    request.setAttribute("search", search);
+                    request.setAttribute("count", count);
+                    request.setAttribute("numberOfImage", NUMBER_IMAGE);
+                    request.getRequestDispatcher("serviceCategoryManager.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
+                }
+            } else {
+                request.getRequestDispatcher("AccessDenied.jsp").forward(request, response);
+            }
         }
     }
 
@@ -56,7 +105,11 @@ public class ServiceCategoryManagerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCategoryManagerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +123,11 @@ public class ServiceCategoryManagerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCategoryManagerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

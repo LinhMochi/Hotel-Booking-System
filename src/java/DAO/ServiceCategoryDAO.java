@@ -8,6 +8,7 @@ package DAO;
 import DBcontext.DBcontext;
 import Model.Service;
 import Model.ServiceCategory;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -108,6 +109,7 @@ public class ServiceCategoryDAO {
         query = "SELECT * FROM ServiceCategories";
         try {
             ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + input + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new ServiceCategory(rs.getInt("id"),
@@ -120,8 +122,87 @@ public class ServiceCategoryDAO {
         return list;
     }
 
+ 
+    public ArrayList<ServiceCategory> getServiceCategories(String input, String page, int numOfElement) throws SQLException, IOException {
+        int currentPage = Integer.parseInt(page);
+        int start = numOfElement * currentPage - numOfElement;
+        ArrayList<ServiceCategory> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM ServiceCategories \n"
+                    + "WHERE ServiceCategory like ?\n"
+                    + "ORDER BY id ASC \n"
+                    + "OFFSET ? ROWS FETCH  NEXT ?  ROW ONLY  ";
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + input + "%");
+            ps.setInt(2, start);
+            ps.setInt(3, numOfElement);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new ServiceCategory(rs.getInt("id"),
+                        rs.getString("ServiceCategory")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
 
-  
+    public Service getServiceByID(String id) throws Exception {
+        String sql = "select * from HotelServices where  id = ?  ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Service(
+                        rs.getInt("id"),
+                        rs.getString("service"),
+                        rs.getDate("from"),
+                        rs.getDate("to"),
+                        rs.getDouble("price"),
+                        rs.getString("unit"),
+                        rs.getString("create"),
+                        rs.getInt("hotelId"),
+                        rs.getInt("serviceCategoryId"));
+            }
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
+
+    public void updateServices(Service s) throws Exception {
+        String sql = "update HotelServices set service = ? , price = ?   , unit = ?   , \n"
+                + "[create] = ? , [from] = ? , [to] = ? , hotelId = ? , serviceCategoryId = ? \n"
+                + "where id  = ? ";
+        try {
+            conn = new DBcontext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, s.getName());
+            ps.setDouble(2, s.getPrice());
+            ps.setString(3, s.getUnit());
+            ps.setString(4, s.getCreateAt());
+            ps.setDate(5, s.getFrom());
+            ps.setDate(6, s.getTo());
+            ps.setInt(7, s.getHotelId());
+            ps.setInt(8, s.getCategory());
+            ps.setInt(9, s.getId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+//            System.out.println();
+            ex.printStackTrace();
+        }
+    }
+
+//    public static void main(String[] args) throws SQLException, IOException {
+//        System.out.print(new ServiceCategoryDAO().getServiceCategories("đi", "1", 3));
+//    }
 }
 //    public static void main(String[] args) {
 //        ServiceCategoryDAO sv = new ServiceCategoryDAO();

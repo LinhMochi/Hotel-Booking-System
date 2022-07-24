@@ -40,6 +40,23 @@ public class HotelSuggestPlaceDAO {
         }
         return list;
     }
+    
+    
+    public int countSuggestPlaceByCategoryId(int id) {
+        int count = 0;
+        sql = "SELECT * FROM HotelSuggestPlaces WHERE categoryId = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return count;
+    }
             
 }
 //class demo{

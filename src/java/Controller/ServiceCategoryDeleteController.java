@@ -38,7 +38,7 @@ public class ServiceCategoryDeleteController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServiceCategoryDeleteController</title>");            
+            out.println("<title>Servlet ServiceCategoryDeleteController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ServiceCategoryDeleteController at " + request.getContextPath() + "</h1>");
@@ -73,10 +73,12 @@ public class ServiceCategoryDeleteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String currentpage = request.getParameter("currentpage");
         int id = Integer.parseInt(request.getParameter("id"));
+//        response.getWriter().print(id);
         ServiceCategoryDAO scd = new ServiceCategoryDAO();
         scd.removeServiceCategory(id);
-        response.sendRedirect("serviceCategoryManager");
+        response.sendRedirect("serviceCategoryManager?page=" + currentpage);
     }
 
     /**

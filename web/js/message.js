@@ -9,8 +9,17 @@ let error_box = document.querySelector('.error-box');
 let message = error_box.querySelector('.error-message');
 let close_error = message.querySelector('.close-error-message');
 close_error.addEventListener('click', () => {
+    console.log('click');
     message.classList.toggle('hidden');
 });
+
+let ntf = error_box.querySelector('.notify');
+
+console.log(ntf+"console log notify");
+ntf.querySelector('.close-error-message').addEventListener('click',()=>{ 
+    ntf.classList.toggle('hidden');
+}); 
+
 function createErrorMessage(s) {
     let message_clone = message.cloneNode(true);
     message_clone.querySelector('p').innerHTML = s;

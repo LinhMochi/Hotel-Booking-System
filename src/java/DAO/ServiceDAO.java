@@ -141,48 +141,71 @@ public class ServiceDAO {
             ex.printStackTrace();
         }
     }
-}
+  
+    public Service getService(int id, Date arrival, Date department) {
 
-class AAA {
+        sql = "SELECT  id, [service], [from],[to], price, unit, [create],serviceCategoryId,hotelId "
+                + "FROM HotelServices WHERE [from] <= ? AND [to] >= ? AND id = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setDate(1, arrival);
+            ps.setDate(2, department);
+            ps.setInt(3, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Service(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), 0, rs.getDouble(5) * 100000, rs.getString(6), rs.getString(7), rs.getInt(8), rs.getInt(9));
+            }
+        } catch (Exception ex) {
+            return null;
+        }
+        return null;
+    }
 
-    public static void main(String[] args) {
-//        ServiceDAO sv = new ServiceDAO();
-//           Service sc = new Service();
-//
-//        sc.setName("theu xe o to");
-//        sc.setPrice(1000);
-//        sc.setUnit("VND");
-//        sc.setFrom(Date.valueOf("2022-01-10"));
-//        sc.setTo(Date.valueOf("2022-01-20"));
-//        sc.setCategory(3);
-//       sv.AddHotelService(sc, 2);
-//        System.out.println(sv.toString());
-        ServiceDAO sv = new ServiceDAO();
-        Service sc = new Service();
-        sc.setName("Thue Du Thuyền");
-        sc.setPrice(10000000);
-        sc.setUnit("VND");
-        sc.setFrom(Date.valueOf("2022-01-10"));
-        sc.setTo(Date.valueOf("2022-01-20"));
-        sc.setCategory(1);
-        sc.setId(1);
+    public int countServiceByCategoryId(int id) {
+        int count = 0;
+        sql = "SELECT  id, [service], [from],[to], price, unit, [create],serviceCategoryId,hotelId\n"
+                + "FROM HotelServices WHERE serviceCategoryId = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return count;
+    }
 
-        sv.updateServices(sc, 2);
-        System.out.println(sv.toString());
+    public ArrayList<Service> getBookedService(int reId) {
+        ArrayList<Service> blist = new ArrayList<Service>();
 
-        //        RoomDAO hgd = new RoomDAO();
-//        Room h = new Room();
-//        h.setName(name);
-//        h.setImage(image);
-//        h.setQuantity(quantity);
-//        h.setPrice(price);
-//        h.setMaxAdult(maxadult);
-//        h.setMaxChild(maxchild);
-//        h.setBed(bed);
-//        h.setArea(area);
-//        h.setDescription(description);
-//        h.setHotelId(hotelId);
-//        h.setId(Id);
-//        hgd.updateRoom(h);
+        sql = "WITH bookedService as (SELECT * FROM ReservationService WHERE reservationId = ?)\n"
+                + "SELECT rs.*,hs.service,hs.unit FROM bookedService rs inner join [HotelServices] hs on rs.serviceId = hs.id ";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reId);
+
+            rs = ps.executeQuery();
+            while(rs.next()){
+                 blist.add(new Service(rs.getInt(5),rs.getString(6),rs.getInt(3),rs.getDouble(2)*1000000, rs.getString(7)));
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return blist;
     }
 }
+
+//class demo {
+//    public static void main(String[] args) {
+//        ArrayList<Service> list = new ServiceDAO().getBookedService(20);
+//        for(Service s : list){
+//            System.out.println(s.toString());
+//        }
+////            System.out.println(new ServiceDAO().getService(6, Date.valueOf("2022-07-28"), Date.valueOf("2022-08-04")).toString());
+//    }
+//}

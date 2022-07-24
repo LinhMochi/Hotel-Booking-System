@@ -30,14 +30,16 @@
         <header class="header nav-top">
             <jsp:include page="component/nav-top.jsp"/>
         </header>
-        <header class="buffer">
+       <header class="buffer hidden">
         </header>
+        <jsp:include page="component/message.jsp"/>
+        <script src="js/message.js" type="text/javascript"></script>
         <script src="js/nav-top.js" type="text/javascript"></script>
         <script type="text/javascript">
             let previous = 0;
             window.addEventListener('scroll', function () {
                 let header = document.querySelector('.nav-top');
-                header.classList.toggle('fixed', previous > window.scrollY);
+                header.classList.toggle('sticky', previous > window.scrollY);
                 // console.log(previous>window.scrollY);
                 previous = window.scrollY;
             });
@@ -60,10 +62,10 @@
                     </div>	
                     <div class="date-select-box flex-center">
                         <div class="input-date-box">
-                            <input type="date" class="arrival-date" name="arrival" value="2022-07-24">
+                            <input type="date" class="arrival-date" name="arrival" >
                         </div>
                         <div class="input-date-box">
-                            <input type="date" class="department-date" name="department" value ="2022-07-26">
+                            <input type="date" class="department-date" name="department" >
                         </div>
                         <div class="pick-box">
                             <span class="arrival"></span>
@@ -88,7 +90,7 @@
                         <input class="adult" name="adult" value="1">
                         <input class="child" name="child" value="0">
                         <input class="room" name="room" value="1">
-                        <div class="drop-items flex-between flex-column">
+                        <div class="drop-items flex-between flex-column drop hidden">
                             <div class="drop-item flex-between ">
                                 <div class="adult-change grid-3">
                                     <span class="btn flex-center des">-</span>
@@ -124,9 +126,9 @@
             </form>
         </div>
         <script src="js/pick-date.js"></script>
-         <!--console.log(document.querySelector('.arrival-date').value);-->
-         <script type="text/javascript">
-         </script>
+        <!--console.log(document.querySelector('.arrival-date').value);-->
+        <script type="text/javascript">
+        </script>
         <script src="js/search-box.js" type="text/javascript"></script>
         <div class="explore-wrapper border-wrapper border1">
             <h5>Khám phá</h5>

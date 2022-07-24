@@ -10,8 +10,8 @@ package Model;
  * @author Dell
  */
 public class Hotel {
-
-    private int id ; 
+ 
+   private int id ; 
     private String name; 
     private int noOfStar ; 
     private String description; 
@@ -40,6 +40,7 @@ public class Hotel {
     public Hotel(String name) {
         this.name = name;
     }
+ 
     public Hotel(int id, String name, int noOfStar, String description, String hotelAdvance, String policies, String map, String email, String phoneNumber, String status, String address, String city, String category) {
         this.id = id;
         this.name = name;
@@ -97,6 +98,14 @@ public class Hotel {
         this.noRate = noRate;
         this.avgScore = avgScore;
     }
+
+    public Hotel(int id, String name, String address) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+    }
+    
+    
 
     public int getId() {
         return id;
