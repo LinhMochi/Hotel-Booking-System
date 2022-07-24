@@ -246,7 +246,7 @@
       background-size:100%;
       background-position: center;; font-weight: 100%">
     <header id="top" class="header aside-navigation">
-        <jsp:include page="component/aside-nav-manage.jsp"/>
+        <jsp:include page="component/aside-nav-admin.jsp"/>
     </header>
     <script src="js/aside-nav.js" type="text/javascript"></script>
     <div>
@@ -256,6 +256,7 @@
                     <div class="input-group-prepend">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                     </div>
+                    <input type="hidden" name="numberOfImage" value="${numberOfImage}">
                     <input minlength="1" type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1" name="search">
                 </div>
             </form>
@@ -269,6 +270,22 @@
                                 <h2>Suggest Place Category <b>Manager</b></h2>
                             </div>
                             <div class="col-sm-6">
+                                <form action="suggestPlaceCategoryManager" class="btn">
+                                    <input type="hidden" name="search" value="${search}">
+                                    Records per page:<select name="numberOfImage" onchange="this.form.submit()">
+                                        <c:forEach var = "i" begin = "1" end = "6">
+                                            <c:choose>
+                                                <c:when test="${i == numberOfImage}">
+                                                    <option value="${i}" selected>${i}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${i}">${i}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                    <!--<input type="submit" value="Submit">-->
+                                </form>
                                 <a href="#addSuggestPlaceCategoryModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New SuggestPlaceCategory</span></a>
                             </div>
                         </div>
@@ -350,7 +367,7 @@
                         <div class="hint-text">Showing <b>${page}</b> out of <b>${endPage}</b> entries</div>
                         <ul class="pagination">
                             <c:if test="${page > 1}">
-                                <li class="page-item disabled"><a href="suggestPlaceCategoryManager?page=${page-1}&search=${search}">Previous</a></li> 
+                                <li class="page-item disabled"><a href="suggestPlaceCategoryManager?page=${page-1}&search=${search}&numberOfImage=${numberOfImage}">Previous</a></li> 
                                 </c:if>
 
                             <c:forEach begin="1" end="${endPage}" var="i">
@@ -359,17 +376,17 @@
                                                           role="button">${i}</a></li>-->
                                 <c:choose>
                                     <c:when test="${i == page}">
-                                        <li class="page-item active"><a href="suggestPlaceCategoryManager?page=${i}&search=${search}" class="page-link">${i}</a></li>
+                                        <li class="page-item active"><a href="suggestPlaceCategoryManager?page=${i}&search=${search}&numberOfImage=${numberOfImage}" class="page-link">${i}</a></li>
                                         </c:when>
                                         <c:otherwise>
-                                        <li class="page-item"><a href="suggestPlaceCategoryManager?page=${i}&search=${search}" class="page-link">${i}</a></li>
+                                        <li class="page-item"><a href="suggestPlaceCategoryManager?page=${i}&search=${search}&numberOfImage=${numberOfImage}" class="page-link">${i}</a></li>
                                         </c:otherwise>
                                     </c:choose>
                                 <input type="hidden" name="page" value="${i}">
                             </c:forEach>
 
                             <c:if test="${page < endPage}">
-                                <li class="page-item disabled"><a href="suggestPlaceCategoryManager?page=${page+1}&search=${search}">Next</a></li> 
+                                <li class="page-item disabled"><a href="suggestPlaceCategoryManager?page=${page+1}&search=${search}&numberOfImage=${numberOfImage}">Next</a></li> 
                                 </c:if>
                         </ul>
                     </div>
