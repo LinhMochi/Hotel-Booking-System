@@ -1,7 +1,7 @@
 <%-- 
     Document   : ReserveDetailManager
     Created on : 21-Jul-2022, 15:03:52
-    Author     : Admin
+    Author     : Linh
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

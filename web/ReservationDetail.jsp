@@ -1,7 +1,7 @@
 <%-- 
     Document   : ReservationDetail
     Created on : 18-Jul-2022, 07:24:23
-    Author     : Admin
+    Author     : Linh
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
