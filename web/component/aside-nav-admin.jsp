@@ -1,8 +1,9 @@
 <%-- 
-    Document   : aside-nav-admin1
-    Created on : Jul 24, 2022, 2:50:53 PM
-    Author     : pham quoc an
+    Document   : aside-nav-admin
+    Created on : 21-Jul-2022, 06:33:18
+    Author     : Admin
 --%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -38,6 +39,10 @@
         <div><a href="#">Danh sách khách sạn</a></div>
         <div><a href="#">Danh sách người dùng</a></div>
         <div><a href="#">Chương trình khuyến mãi</a></div>
+        <div><a href="AdminRoom">Danh sách các phòng</a></div>
+        <div><a href="CityListController">Danh sách Thành Phố</a></div>
+        <div><a href="SuggestPlace">Danh sách Địa điểm đề cử</a></div>
+        
     </div>
 </div>
 <div class="slide-nav">
