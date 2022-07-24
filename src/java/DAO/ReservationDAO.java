@@ -280,7 +280,7 @@ public class ReservationDAO {
         return count;
     }
 
-    public void updateStatus(String email, String status) {
+    public void updateStatus(String email, int id , String status) {
         String sql = "UPDATE r SET r.status = ? from Reservations AS r \n"
                 + "INNER JOIN Users AS u on r.userId = u.id where u.email LIKE '" + email + "%' ";
         try {
