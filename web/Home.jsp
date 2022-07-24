@@ -90,7 +90,7 @@
                         <input class="adult" name="adult" value="1">
                         <input class="child" name="child" value="0">
                         <input class="room" name="room" value="1">
-                        <div class="drop-items flex-between flex-column">
+                        <div class="drop-items flex-between flex-column drop hidden">
                             <div class="drop-item flex-between ">
                                 <div class="adult-change grid-3">
                                     <span class="btn flex-center des">-</span>

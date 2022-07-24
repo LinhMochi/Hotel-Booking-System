@@ -31,7 +31,7 @@
 				<a href="../Hotel-Booking-System/logout">Đăng xuất</a>
 			</div>
 		</div>
-		<a href="#"><div>Dashboard</a></div>
+		<a href="managerdashboard"><div>Dashboard</a></div>
 		<div class="slide-nav">
 			<div>Thông tin chung</div>
 			<div class="sub-nav">

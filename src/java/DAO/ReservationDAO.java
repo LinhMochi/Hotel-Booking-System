@@ -624,17 +624,31 @@ public class ReservationDAO {
       
         return null;
     }
+    
+    public int countPendingReservationByHotelId(int hotelId){
+        String sql = "SELECT hotelId, count(id) as newRe FROM Reservations "
+                + "WHERE hotelId = ? AND status = 'Pending' GROUP BY hotelId";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,hotelId);
+            rs = ps.executeQuery();
+            if(rs.next()) return rs.getInt(2);
+        } catch (SQLException ex) {
+            Logger.getLogger(CityDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 
     
 }
 
 
-    //class demo {
-    //
-    //    public static void main(String[] args) {
-    //        Reservation r  = new ReservationDAO().getReservationInfoByReId(1);
-    //
-    //        
-    //        System.out.println(r.toString());
-    //    }
-    //}
+//    class demo {
+//    
+//        public static void main(String[] args) {
+//            Reservation r  = new ReservationDAO().getReservationInfoByReId(1);
+//    
+//            
+//            System.out.println( new ReservationDAO().countReservationByHotelId(2));
+//        }
+//    }

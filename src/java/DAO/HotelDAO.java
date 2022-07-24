@@ -474,6 +474,6 @@ public class HotelDAO {
 //            }
 ////            System.out.println(new HotelDAO().countAvailableHotel(new Search("Hà Nội", Date.valueOf("2022-07-30"), Date.valueOf("2022-08-04"), 1, 0, 1)));
 //        }
-//        System.out.println(new HotelDAO().getHotelDetail(2).toString());
+//        System.out.println(new HotelDAO().getHotelByID(2).toString());
 //    }
 //}

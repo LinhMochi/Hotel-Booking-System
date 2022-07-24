@@ -5,7 +5,11 @@
  */
 package Controller;
 
-import DAO.UserDAO;
+import DAO.CustormerBookingDAO;
+import DAO.HotelDAO;
+import DAO.HotelRateDAO;
+import DAO.ReservationDAO;
+import DAO.RoomDAO;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,14 +18,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Linh
+ * @author Admin
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "ManagerDashBoardController", urlPatterns = {"/managerdashboard","/manager/dashboard"})
+public class ManagerDashBoardController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,34 +38,25 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession(true);
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String login = request.getParameter("login");
-            User user = new UserDAO().getUserByMail(email);
-            if(user==null){
-                request.setAttribute("message", "Email không tồn tại");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            }
-            User u = new UserDAO().checkLogin(email, password);
-            if (!user.getPassword().equals(password)) {
-                request.setAttribute("message", "Email hoặc mật khẩu sai");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            } else {
-                if (user.getStatus().equals("Banned")) {
-                    request.setAttribute("message", "You have Banned");
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
-                } else if (user.getRole().equals("Admin")) {
-                    session.setAttribute("user", user);
-                    response.sendRedirect("admindashboard");
-                } else if (user.getRole().equals("Manager")||user.getRole().equals("Customer")) {
-                    session.setAttribute("user", user);
-                    session.setAttribute("password", password);
-                    response.sendRedirect("home");
-                }
-            }
+        
+        User u = (User) request.getSession().getAttribute("user");
+        
+        String hotel = (String) request.getSession().getAttribute("hotelId");
+        if(hotel==null) hotel = request.getParameter("hotelId");
+        int hotelId = hotel==null?0:Integer.parseInt(hotel);
+    
+        if(new HotelDAO().isManager((u==null?0:u.getId()), hotelId)){
+            
+            request.setAttribute("hotelDash", new HotelDAO().getHotelByID(hotelId));
+            request.setAttribute("noPending", new ReservationDAO().countPendingReservationByHotelId(hotelId));
+            request.setAttribute("noCust", new CustormerBookingDAO().countCustByHotelId(hotelId));
+            request.setAttribute("noRate", new HotelRateDAO().countHotelRateByHotelId(hotelId));
+            request.setAttribute("noRoom", new RoomDAO().countRoomByHotelId(hotelId));
+            
+            request.getSession().setAttribute("hotelId", hotelId);
+            request.getRequestDispatcher("ManagerDashBoard.jsp").forward(request, response);
+        }else {
+         response.sendRedirect("AccessDenied.jsp");
         }
     }
 
@@ -75,14 +69,10 @@ public class LoginController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-            response.setContentType("text/html;charset=UTF-8");
-//            request.setAttribute("message", "na");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

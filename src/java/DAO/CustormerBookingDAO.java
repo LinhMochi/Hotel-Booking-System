@@ -23,7 +23,7 @@ import Model.User;
  */
 public class CustormerBookingDAO {
 
-    private Connection conn;
+    private Connection conn = new DBcontext().getConnection();
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
@@ -64,6 +64,20 @@ public class CustormerBookingDAO {
 
         return list;
     }
+    
+    
+    public int countCustByHotelId(int hotelId){
+        String sql = "select distinct Count(userId) as countCust  FROM Reservations where hotelId = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,hotelId);
+            rs = ps.executeQuery();
+            if(rs.next()) return rs.getInt(1);
+        } catch (SQLException ex) {
+             
+        }
+    return 0;
+    }
 
 }
 
@@ -72,7 +86,7 @@ public class CustormerBookingDAO {
 //    public static void main(String[] args) {
 //        for (User u : new CustormerBookingDAO().getAllCustomerByHotelId(2)) {
 //
-//            System.out.println(u.toString());
+//            System.out.println(new CustormerBookingDAO().countCustByHotelId(2));
 //        }
 //    }
 //}

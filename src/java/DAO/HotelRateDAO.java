@@ -47,6 +47,22 @@ public class HotelRateDAO {
         }
         return list;
     }
+
+    public int countHotelRateByHotelId(int hotelId) {
+        sql = "WITH Hotel as (SELECT * FROM Hotels where id = ?),\n"
+                + "reHotel as (SELECT h.id,isNull(r.id,0) as reId FROM Hotel h \n"
+                + "left join Reservations r on h.id = r.hotelId)\n"
+                + "SELECT re.id as hotelId, COUNT (ra.id) AS countRATE FROM reHotel re left join HotelRating ra on re.reId = ra.reservationId GROUP BY re.id;";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,hotelId);
+            rs = ps.executeQuery();
+            if(rs.next()) return rs.getInt(2);
+        } catch (Exception ex) {
+            
+        }
+        return 0;
+    }
 }
 
 //class demo {
