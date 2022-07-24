@@ -307,7 +307,7 @@
     </header>
    
     <script src="js/aside-nav.js" type="text/javascript"></script>
-        <div>
+        <div class="main-right">
             
 
             <div>
