@@ -20,10 +20,10 @@
         ${sessionScope.user.fullName}
     </div>
     <div class="link">
-        <a href="#">Về home</a>
+        <a href="../Hotel-Booking-System/home">Về home</a>
     </div>
     <div class="link">
-        <a href="#">Đăng xuất</a>
+        <a href="../Hotel-Booking-System/logout">Đăng xuất</a>
     </div>
 </div>
 <a href="#"><div>Dashboard</a></div>
@@ -31,7 +31,7 @@
     <div>Thông tin chung</div>
     <div class="sub-nav">
         <div><a href="#">User profile</a></div>
-        <div><a href="#">Đổi mật khẩu</a></div>
+        <div><a href="changepassword">Đổi mật khẩu</a></div>
         <div><a href="#">My faverist hotel</a></div>
     </div>
 </div>

@@ -21,13 +21,13 @@ and open the template in the editor.
 
 .digital-clock{
     position: relative;
-    padding: 10px 30px;
+    padding: 10px 5px;
     background-color: #fff;
-    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, .10);
-    width: 230px;
+    box-shadow: 1px 1px 10px 1px #cc8c18;
+    width: 200px;
     border-radius: 10px;
     color: #cc8c18;
-
+ 
 }
 
 .time{
@@ -42,23 +42,23 @@ and open the template in the editor.
     justify-content: center;
     align-items: center;
 
-    padding: 0 10px;
-    line-height: 75px;
+    padding: 0 5px;
+    line-height: 50px;
 }
 
 
 .hour, .minutes{
-    font-size: 2.5em;
-    width: 55px;
+    font-size: 2em;
+    width: 40px;
 }
 .dot{
-    font-size: 2em;
+    font-size: 1.5em;
     color: #929292;
     animation: dotdot 1s infinite ease-in-out;
 }
 
 .right-side{
-    margin-left: 10px;
+    margin-left: 14px;
 }
 
 .period,.second{
@@ -66,10 +66,10 @@ and open the template in the editor.
     font-size: 1.2em;
 }
 .period{
-    transform: translateY(-10px);
+    transform: translateY(-8px);
 }
 .second{
-    transform: translateY(10px);
+    transform: translateY(8px);
 }
 
 .calendar{
@@ -80,6 +80,6 @@ and open the template in the editor.
 .month-name{
 
 }
-.day-name,.date-number{
+.date-number,.month-name{
     margin-left: 5px;
 }

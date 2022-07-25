@@ -29,6 +29,7 @@ and open the template in the editor.
  	color: rgba(255, 255, 255, .9);
  	height: 100vh;
  	overflow: overlay;
+        font-size: 20px;
  }
  
  
@@ -121,7 +122,7 @@ and open the template in the editor.
  
  
  .aside-navigation .slide-nav.active .sub-nav{
- 	max-height: 25vh;
+ 	max-height: 35vh;
  }
  
  .aside-navigation .slide-nav .sub-nav{

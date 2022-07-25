@@ -36,7 +36,7 @@
 <div class="slide-nav">
     <div>Quản lý thông tin</div>
     <div class="sub-nav">
-        <div><a href="#">Danh sách khách sạn</a></div>
+        <div><a href="ListCityHotelController">Danh sách khách sạn</a></div>
         <div><a href="#">Danh sách người dùng</a></div>
         <div><a href="#">Chương trình khuyến mãi</a></div>
         <div><a href="AdminRoom">Danh sách các phòng</a></div>
@@ -48,7 +48,7 @@
 <div class="slide-nav">
     <div>Quản lý thể loại</div>
     <div class="sub-nav">
-        <div><a href="#">Loại khách sạn</a></div>
+        <div><a href="ManagerHomeCategory">Loại khách sạn</a></div>
         <div><a href="suggestPlaceCategoryManager">Loại địa điểm đề cử</a></div>
         <div><a href="#">Loại tiện ích</a></div>
         <div><a href="serviceCategoryManager">Loại dịch vụ</a></div>

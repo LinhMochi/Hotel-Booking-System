@@ -35,8 +35,9 @@ public class MyReservationController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            User user = new User(5, "Hoàng Trung", "nanhtrang013@gmail.com", "0324123456");
-//                    (User) request.getSession().getAttribute(("user"));
+            User user = 
+//                    new User(5, "Hoàng Trung", "nanhtrang013@gmail.com", "0324123456");
+                    (User) request.getSession().getAttribute(("user"));
 
             
             ReservationDAO rDAO = new ReservationDAO();

@@ -58,7 +58,7 @@ if (clock !== null) {
 
     const M = document.querySelector('.digital-clock .month-name');// month
     const D = document.querySelector('.digital-clock .day-name');// day in week
-    const d = document.querySelector('.digital-clock .date-name');// date
+    const d = document.querySelector('.digital-clock .date-number');// date
     
     setInterval(() => {
         const today = new Date();
