@@ -38,21 +38,21 @@
                             <div><a href="#">Hotel profile</a></div>
                             <div><a href="#">Tiện ích khách sạn</a></div>
                             <div><a href="#">Đề cử địa điểm</a></div>
-                            <div><a href="#">Bộ sưu tập</a></div>
+                            <div><a href="galleryManager">Bộ sưu tập</a></div>
 			</div>
 		</div>
 		<div class="slide-nav">
 			<div>Quản lý đơn hàng</div>
 			<div class="sub-nav">
 			<div><a href="#">Khách hàng</a></div>
-			<div><a href="#">Đơn đặt phòng</a></div>
+			<div><a href="managerreservationlist">Đơn đặt phòng</a></div>
 			<div><a href="#">Đánh giá của khách</a></div>
 			</div>
 		</div>
 		<div class="slide-nav">
 			<div>Phòng và dịch vụ</div>
 			<div class="sub-nav">
-			<div><a href="#">Phòng</a></div>
+			<div><a href="RoomManager">Phòng</a></div>
 			<div><a href="#">Dịch vụ</a></div>
 			<div><a href="#">Khuyến mãi</a></div>
 			</div>

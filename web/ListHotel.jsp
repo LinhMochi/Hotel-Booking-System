@@ -16,101 +16,118 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"
               />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+        <link href="css/aside-nav.css" rel="stylesheet" type="text/css"/>
+        <link href="css/layout-style.css" rel="stylesheet" type="text/css"/>
+        <style>
+              @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=My+Soul&family=Smooch&family=Tapestry&display=swap');
+
+            /*font-family: 'Dancing Script', cursive;*/
+            *{
+                font-family: 'Dancing Script', cursive;
+            }
+
+        </style>
     </head>
 
     <body class="">
-        <div class="container-fuild mt-3 bg-light p-5 rounded">
-            <div class="d-flex">
-                <div class="col-6">
-                    <form class="d-flex" method="get" action="SearchHandle">
-                        <input class="form-control me-4 w-50" type="search" placeholder="Search" aria-label="Search" name="q" />
-                        <button class="btn btn-outline-success" type="submit">
-                            Search
-                        </button>
-                    </form>
+        <div class="aside-navigation">
+            <jsp:include page="component/aside-nav-admin.jsp" />
+        </div>
+        <script src="js/aside-nav.js" type="text/javascript"></script>
+        <div class="main-right">            
+            <div class="container-fuild mt-3 bg-light p-5 rounded">
+                <div class="d-flex">
+                    <div class="col-6">
+                        <form class="d-flex" method="get" action="SearchHandle">
+                            <input class="form-control me-4 w-50" type="search" placeholder="Search" aria-label="Search" name="q" />
+                            <button class="btn btn-outline-success" type="submit">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-6">
+                        <form class="d-flex" method="get" action="FilterHandle">
+                            <select name="filter" id="filter" class="w-50 px-2 me-4">
+                                <option value="name">Search By Name</option>
+                                <option value="address">Search By Address</option>
+                                <option value="star">Search By Star</option>
+                                <option value="policies">Search By Policies</option>
+                                <option value="hotelAdvance">Search By Hotel Advance</option>
+                            </select>
+                            <button class="btn btn-outline-success" type="submit">
+                                Filter
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <form class="d-flex" method="get" action="FilterHandle">
-                        <select name="filter" id="filter" class="w-50 px-2 me-4">
-                            <option value="name">Search By Name</option>
-                            <option value="address">Search By Address</option>
-                            <option value="star">Search By Star</option>
-                            <option value="policies">Search By Policies</option>
-                            <option value="hotelAdvance">Search By Hotel Advance</option>
-                        </select>
-                        <button class="btn btn-outline-success" type="submit">
-                            Filter
-                        </button>
-                    </form>
+                <div class="d-flex mt-2 w-100 justify-content-end">
+                    <a href="ListCityHotelController"> <button class="btn btn-primary px-4 py-2 me-2">ADD</button></a>
                 </div>
-            </div>
-            <div class="d-flex mt-2 w-100 justify-content-end">
-                <a href="ListCityHotelController"> <button class="btn btn-primary px-4 py-2 me-2">ADD</button></a>
-            </div>
-            <table class="table table-hover border mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">PhoneNumber</th>
-                        <th scope="col">Star</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">City</th>
-                        <!--                        <th scope="col">Map</th>-->
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="o" items="${listHotel}">
-                   
+                <table class="table table-hover border mt-3">
+                    <thead>
                         <tr>
-                            <th scope="row">${o.id}</th>
-                            <td>${o.name}</td>
-                            <td>${o.email}</td>
-                            <td>${o.phoneNumber}</td>
-                            <td>${o.noOfStar}</td>
-                            <td>${o.category}</td>
-                            <td>${o.address}</td>
-                            <td>${o.city}</td>
-
-<!--                            <td style="width: 50px">${o.map}</td>-->
-
-                            <td>${o.status}</td>
-                            <td>
-                                <a href="ViewHotel?id=${o.id}" class="view" title="ViewHotel?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-eye" style="color: cadetblue"> </i
-                                    ></a>
-                                <a href="UpdateHotels?id=${o.id}" class="edit mx-2" data-toggle="tooltip"><i class="fa-solid fa-pen-to-square" style="color: blue"></i
-                                    ></a>
-// cut here
-                                <a href="DeleteHotelController?id=${o.id}" class="delete" title="DeleteHotelController?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-circle-minus" style="color: red"></i></a>
-                            </td>
-                            
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">PhoneNumber</th>
+                            <th scope="col">Star</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">City</th>
+                            <!--                        <th scope="col">Map</th>-->
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                         </tr>
-                   
-                </c:forEach>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="o" items="${listHotel}">
 
-                </tbody>
-            </table>
+                            <tr>
+                                <th scope="row">${o.id}</th>
+                                <td>${o.name}</td>
+                                <td>${o.email}</td>
+                                <td>${o.phoneNumber}</td>
+                                <td>${o.noOfStar}</td>
+                                <td>${o.category}</td>
+                                <td>${o.address}</td>
+                                <td>${o.city}</td>
 
-            <div class="d-flex w-100 justify-content-center">
-                <nav>
-                    <ul class="pagination pagination-md">
-                        <c:forEach var = "i" begin = "1" end = "${numberOfPage}">
-                            <c:choose>
-                                <c:when test="${i == page}">
-                                    <li class="page-item active" aria-current="page">
-                                        <a class="page-link" href="ListsHotelController?page=${i}">${i}</a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>     <li class="page-item"><a class="page-link" href="ListsHotelController?page=${i}">${i}</a></li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                    </ul>
-                </nav>
+    <!--                            <td style="width: 50px">${o.map}</td>-->
+
+                                <td>${o.status}</td>
+                                <td>
+                                    <a href="ViewHotel?id=${o.id}" class="view" title="ViewHotel?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-eye" style="color: cadetblue"> </i
+                                        ></a>
+                                    <a href="UpdateHotels?id=${o.id}" class="edit mx-2" data-toggle="tooltip"><i class="fa-solid fa-pen-to-square" style="color: blue"></i
+                                        ></a>
+    // cut here
+                                    <a href="DeleteHotelController?id=${o.id}" class="delete" title="DeleteHotelController?id=${o.id}" data-toggle="tooltip"><i class="fa-solid fa-circle-minus" style="color: red"></i></a>
+                                </td>
+
+                            </tr>
+
+                    </c:forEach>
+
+                    </tbody>
+                </table>
+
+                <div class="d-flex w-100 justify-content-center">
+                    <nav>
+                        <ul class="pagination pagination-md">
+                            <c:forEach var = "i" begin = "1" end = "${numberOfPage}">
+                                <c:choose>
+                                    <c:when test="${i == page}">
+                                        <li class="page-item active" aria-current="page">
+                                            <a class="page-link" href="ListsHotelController?page=${i}">${i}</a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>     <li class="page-item"><a class="page-link" href="ListsHotelController?page=${i}">${i}</a></li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
