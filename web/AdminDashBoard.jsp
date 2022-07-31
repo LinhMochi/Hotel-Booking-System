@@ -158,7 +158,7 @@
         <script src="js/aside-nav.js" type="text/javascript"></script>
         <div class="main-right">
             <header class="flex-between">
-                <h2>Xin chào,${user.name}</h2>
+                <h2>Xin chào,${user.fullName}</h2>
                 <div>
                     <div class="digital-clock flex-center flex-column">
                         <div class="time flex-center">
